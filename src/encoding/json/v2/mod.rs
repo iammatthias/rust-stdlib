@@ -26,9 +26,9 @@
 //! `reflect.Type` in a [`SemanticError`] is a [`TypeInfo`] naming the Go
 //! type; `any` is [`Any`]; the result of [`marshal`] is only the error when
 //! it fails; the experimental `format` tag option is rejected unless
-//! [`experimental_support_format_tag`] is set, as in Go; and
-//! `time.Time`/`time.Duration` formats and the v1 compatibility flags are
-//! not supported.
+//! [`experimental_support_format_tag`] is set, as in Go; and the v1
+//! compatibility flags are not supported. `time::Time` and `time::Duration`
+//! use Go's time arshalers, including the `format` layouts and units.
 mod any;
 mod arshal;
 mod containers;
@@ -39,6 +39,7 @@ mod methods;
 mod options;
 mod scalars;
 mod structs;
+mod time;
 mod typeinfo;
 
 pub use super::jsontext;

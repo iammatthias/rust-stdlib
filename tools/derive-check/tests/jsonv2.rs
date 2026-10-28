@@ -1,6 +1,7 @@
 //! `encoding/json/v2` with the `MarshalTo` and `UnmarshalFrom` derives: the
 //! examples of Go's `example_test.go` and `example_marshaljson_test.go`
-//! (without the `time` and `net/netip` types), option and error behaviour,
+//! (without the `net/netip` types), option and error behaviour, the
+//! `time.Time` and `time.Duration` arshalers,
 //! and golden vectors recorded from Go 1.27.1 by `tools/jsonv2_golden.py`
 //! (`tools/jsonv2_check.py` compares a much larger generated menu with Go).
 #![allow(non_snake_case, dead_code)]
@@ -8,6 +9,7 @@ use rust_stdlib::encoding::json::jsontext::{self, Decoder, Encoder, Error};
 use rust_stdlib::encoding::json::v2::{
     self, Any, MarshalTo, MarshalerTo, TypeInfo, TypeKind, UnmarshalFrom, UnmarshalerFrom,
 };
+use rust_stdlib::time::{self, Duration, Location, Time};
 use rust_stdlib_derive::{MarshalTo, UnmarshalFrom};
 use std::collections::{BTreeMap, BTreeSet};
 use std::io::Cursor;
@@ -124,6 +126,8 @@ struct OmitZero {
     #[json(",omitzero")]
     String: String,
     #[json(",omitzero")]
+    Time: Time,
+    #[json(",omitzero")]
     Struct: MyStruct,
     #[json(",omitzero")]
     PointerNil: Option<String>,
@@ -142,6 +146,8 @@ struct OmitEmpty {
     #[json(",omitempty")]
     String: String,
     #[json(",omitempty")]
+    Time: Time,
+    #[json(",omitempty")]
     Struct: MyStruct,
     #[json(",omitempty")]
     PointerNil: Option<String>,
@@ -158,10 +164,13 @@ fn example_omit_fields() {
         Bar: Vec::new(),
         Baz: Some(Box::new(MyStruct::default())),
     };
+    let year1 = || time::date(1, time::JANUARY, 1, 0, 0, 0, 0, &Location::utc());
     let zero = OmitZero {
         Bool: false,
         Int: 0,
         String: String::new(),
+        // Omitted since time.Time.IsZero reports true.
+        Time: year1(),
         Struct: my(),
         PointerNil: None,
         Pointer: Some(String::new()),
@@ -173,13 +182,18 @@ fn example_omit_fields() {
         Bool: false,
         Int: 0,
         String: String::new(),
+        // Not omitted since it encodes as a non-empty JSON string.
+        Time: year1(),
         Struct: my(),
         PointerNil: None,
         Pointer: Some(String::new()),
         InterfaceNil: Any::Null,
     };
-    // Only Bool and Int do not encode as empty JSON values.
-    assert_eq!(marshal_text(&empty, &[]), r#"{"Bool":false,"Int":0}"#);
+    // Only Bool, Int and Time do not encode as empty JSON values.
+    assert_eq!(
+        marshal_text(&empty, &[]),
+        r#"{"Bool":false,"Int":0,"Time":"0001-01-01T00:00:00Z"}"#
+    );
 }
 
 // ---- Example_embeddedFields
@@ -188,7 +202,7 @@ fn example_omit_fields() {
 struct EmbBase {
     ID: String,
     Type: String,
-    Time: String,
+    Time: Time,
 }
 
 #[derive(Default, MarshalTo, UnmarshalFrom)]
@@ -232,7 +246,7 @@ fn example_embedded_fields() {
     assert_eq!(got.Base.ID, "i");
     assert_eq!(got.Embed.User, "u");
     assert_eq!((got.Type, got.ID.as_str(), got.Other.Cost), (3, "x", 1.5));
-    assert_eq!(got.Base.Time, "", "Time cancels out");
+    assert!(got.Base.Time.is_zero(), "Time cancels out");
 }
 
 // ---- ExampleMarshalerTo / ExampleUnmarshalerFrom
@@ -536,4 +550,224 @@ fn skipped_string_field_counts_towards_zero() {
     };
     assert!(!MarshalTo::is_zero_value(&bound));
     assert_eq!(v2::marshal(&bound, &[]).unwrap(), br#"{"name":""}"#);
+}
+
+// ---- time.Time and time.Duration (expected values from Go 1.27.1)
+
+fn utc_date(y: i64, mo: i64, d: i64, h: i64, mi: i64, s: i64, ns: i64) -> Time {
+    time::date(y, time::Month(mo), d, h, mi, s, ns, &Location::utc())
+}
+
+fn error_text<T: MarshalTo>(v: &T, opts: &[v2::Options]) -> String {
+    v2::marshal(v, opts).expect_err("marshal fails").to_string()
+}
+
+fn unmarshal_error<T: UnmarshalFrom>(input: &[u8], v: &mut T, opts: &[v2::Options]) -> String {
+    v2::unmarshal(input, v, opts)
+        .expect_err("unmarshal fails")
+        .to_string()
+}
+
+#[derive(Default, MarshalTo, UnmarshalFrom)]
+struct Until {
+    #[json("until,omitzero")]
+    until: Time,
+}
+
+#[test]
+fn time_is_rfc3339_with_nanoseconds() {
+    let t = utc_date(2026, 10, 27, 1, 2, 3, 4);
+    let out = v2::marshal(&t, &[]).expect("marshal");
+    assert_eq!(out, br#""2026-10-27T01:02:03.000000004Z""#);
+    let mut back = Time::default();
+    v2::unmarshal(&out, &mut back, &[]).expect("unmarshal");
+    assert!(back.equal(&t));
+    assert_eq!(
+        marshal_text(&Time::default(), &[]),
+        r#""0001-01-01T00:00:00Z""#
+    );
+    let offset = t.in_location(&Location::fixed("", 19800));
+    assert_eq!(
+        marshal_text(&offset, &[]),
+        r#""2026-10-27T06:32:03.000000004+05:30""#
+    );
+}
+
+#[test]
+fn time_field_omitzero_uses_is_zero() {
+    assert_eq!(marshal_text(&Until::default(), &[]), "{}");
+    let set = Until {
+        until: utc_date(2026, 10, 27, 1, 2, 3, 4),
+    };
+    assert_eq!(
+        marshal_text(&set, &[]),
+        r#"{"until":"2026-10-27T01:02:03.000000004Z"}"#
+    );
+    // A non-nil pointer to the zero time is omitted too: Go calls IsZero
+    // through the pointer.
+    #[derive(MarshalTo)]
+    struct P {
+        #[json("p,omitzero")]
+        p: Option<Time>,
+        #[json("q,omitzero")]
+        q: Option<i64>,
+    }
+    let v = P {
+        p: Some(Time::default()),
+        q: Some(0),
+    };
+    assert_eq!(marshal_text(&v, &[]), r#"{"q":0}"#);
+    // A struct holding the zero instant in another zone is not Go's zero
+    // struct, though the field itself is omitted by IsZero.
+    #[derive(MarshalTo)]
+    struct Inner {
+        T: Time,
+    }
+    #[derive(MarshalTo)]
+    struct Outer {
+        #[json("i,omitzero")]
+        i: Inner,
+        #[json("t,omitzero")]
+        t: Time,
+    }
+    let zone = Time::default().in_location(&Location::fixed("", 3600));
+    let v = Outer {
+        i: Inner { T: zone.clone() },
+        t: zone,
+    };
+    assert_eq!(
+        marshal_text(&v, &[]),
+        r#"{"i":{"T":"0001-01-01T01:00:00+01:00"}}"#
+    );
+}
+
+#[test]
+fn time_unmarshal_null_and_errors() {
+    let mut t = utc_date(2026, 10, 27, 1, 2, 3, 4);
+    v2::unmarshal(b"null", &mut t, &[]).expect("null");
+    assert!(t.is_zero(), "null sets the zero time");
+    v2::unmarshal(br#""2026-10-27T01:02:03+05:30""#, &mut t, &[]).expect("offset");
+    assert_eq!(t.unix(), utc_date(2026, 10, 26, 19, 32, 3, 0).unix());
+    assert_eq!(
+        unmarshal_error(b"5", &mut t, &[]),
+        "json: cannot unmarshal JSON number into Go time.Time"
+    );
+    assert_eq!(
+        unmarshal_error(br#""2026-10-27T1:02:03Z""#, &mut t, &[]),
+        r#"json: cannot unmarshal JSON string into Go time.Time: parsing time "2026-10-27T1:02:03Z" as "2006-01-02T15:04:05Z07:00": cannot parse "1" as "15""#
+    );
+    assert_eq!(
+        error_text(&utc_date(10000, 1, 1, 0, 0, 0, 0), &[]),
+        "json: cannot marshal from Go time.Time: year outside of range [0,9999]"
+    );
+}
+
+#[test]
+fn duration_has_no_default_representation() {
+    assert_eq!(
+        error_text(&time::SECOND, &[]),
+        "json: cannot marshal from Go time.Duration: no default representation"
+    );
+    let mut d = Duration::default();
+    assert_eq!(
+        unmarshal_error(b"1", &mut d, &[]),
+        "json: cannot unmarshal into Go time.Duration: no default representation"
+    );
+    #[derive(MarshalTo)]
+    struct D {
+        #[json("d")]
+        d: Duration,
+    }
+    assert_eq!(
+        error_text(
+            &D { d: time::SECOND },
+            &[v2::experimental_support_format_tag(true)]
+        ),
+        r#"json: cannot marshal from Go time.Duration within "/d": no default representation; specify an explicit format"#
+    );
+}
+
+#[derive(Default, MarshalTo, UnmarshalFrom)]
+struct DurationFormats {
+    #[json("u,format:units")]
+    u: Duration,
+    #[json("s,format:sec")]
+    s: Duration,
+    #[json("ss,string,format:sec")]
+    ss: Duration,
+    #[json("m,format:milli")]
+    m: Duration,
+    #[json("n,format:nano")]
+    n: Duration,
+    #[json("i,format:iso8601")]
+    i: Duration,
+}
+
+#[test]
+fn duration_formats() {
+    let opts = [v2::experimental_support_format_tag(true)];
+    let d = 3 * time::HOUR + 25 * time::MINUTE + time::SECOND / 2;
+    let v = DurationFormats {
+        u: d,
+        s: d,
+        ss: -d,
+        m: time::NANOSECOND,
+        n: d,
+        i: -d,
+    };
+    let out = marshal_text(&v, &opts);
+    assert_eq!(
+        out,
+        r#"{"u":"3h25m0.5s","s":12300.5,"ss":"-12300.5","m":0.000001,"n":12300500000000,"i":"-PT3H25M0.5S"}"#
+    );
+    let mut back = DurationFormats::default();
+    v2::unmarshal(out.as_bytes(), &mut back, &opts).expect("round trip");
+    assert_eq!(
+        (back.u, back.s, back.ss, back.m, back.n, back.i),
+        (d, d, -d, time::NANOSECOND, d, -d)
+    );
+    assert_eq!(
+        unmarshal_error(br#"{"i":"P1D"}"#, &mut back, &opts),
+        r#"json: cannot unmarshal JSON string into Go time.Duration within "/i": invalid ISO 8601 duration "P1D": inaccurate year, month, week, or day units"#
+    );
+    assert_eq!(
+        unmarshal_error(br#"{"s":9223372036.854775808}"#, &mut back, &opts),
+        r#"json: cannot unmarshal JSON number into Go time.Duration within "/s": invalid duration "9223372036.854775808": value out of range"#
+    );
+}
+
+#[derive(Default, MarshalTo, UnmarshalFrom)]
+struct TimeFormats {
+    #[json("u,format:unix")]
+    u: Time,
+    #[json("um,format:unixmilli")]
+    um: Time,
+    #[json("r,format:RFC3339")]
+    r: Time,
+    #[json("do,format:DateOnly")]
+    date: Time,
+    #[json("cu,format:'2006/01/02 15h04'")]
+    custom: Time,
+}
+
+#[test]
+fn time_formats() {
+    let opts = [v2::experimental_support_format_tag(true)];
+    let t = utc_date(2026, 10, 27, 1, 2, 3, 500_000_000);
+    let v = TimeFormats {
+        u: t.clone(),
+        um: t.clone(),
+        r: t.clone(),
+        date: t.clone(),
+        custom: t,
+    };
+    assert_eq!(
+        marshal_text(&v, &opts),
+        r#"{"u":1793062923.5,"um":1793062923500,"r":"2026-10-27T01:02:03Z","do":"2026-10-27","cu":"2026/10/27 01h02"}"#
+    );
+    let mut back = TimeFormats::default();
+    v2::unmarshal(br#"{"u":-1.5,"um":"1"}"#, &mut back, &opts).expect_err("um is a number");
+    v2::unmarshal(br#"{"u":-1.5,"do":"2026-10-27"}"#, &mut back, &opts).expect("unmarshal");
+    assert_eq!((back.u.unix(), back.u.nanosecond()), (-2, 500_000_000));
+    assert_eq!(back.date.unix(), utc_date(2026, 10, 27, 0, 0, 0, 0).unix());
 }

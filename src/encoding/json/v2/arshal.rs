@@ -40,9 +40,29 @@ pub trait MarshalTo: Any {
     /// the type before any methods are considered.
     fn marshal_default(&self, enc: &mut Encoder<'_>) -> Result<(), Error>;
 
-    /// Go's `reflect.Value.IsZero` (or the type's `IsZero` method), which
-    /// the `omitzero` tag option uses.
+    /// Go's `reflect.Value.IsZero`. The `omitzero` tag option uses it
+    /// through [`is_zero_field`](Self::is_zero_field), unless the type has
+    /// an `IsZero` method.
     fn is_zero_value(&self) -> bool;
+
+    /// Whether the type has an `IsZero() bool` method (Go's `isZeroer`),
+    /// which `omitzero` also calls through a pointer to the type.
+    fn has_is_zero_method() -> bool
+    where
+        Self: Sized,
+    {
+        false
+    }
+
+    /// Whether `omitzero` omits a struct field holding this value: the
+    /// type's `IsZero` method if it has one (also through a pointer, which
+    /// is then zero when nil or when the method reports zero), otherwise
+    /// [`is_zero_value`](Self::is_zero_value). A type with an `IsZero`
+    /// method overrides this and keeps `is_zero_value` as Go's
+    /// `reflect.Value.IsZero`, which a struct containing the type uses.
+    fn is_zero_field(&self) -> bool {
+        self.is_zero_value()
+    }
 
     /// For strings, maps, arrays, slices and pointers, whether the value is
     /// empty or nil: the `omitempty` shortcut. `None` for other kinds.

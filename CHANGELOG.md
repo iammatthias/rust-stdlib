@@ -248,3 +248,11 @@ Initial release: parity with Go 1.27's standard library.
   `UnmarshalTypeError` it returns (`FlagHolder.flag`), as Go 1.27's
   `encoding/json` does; it used to glue the outer field onto it with no
   separator.
+- `encoding::json::v2` marshals and unmarshals `time::Time` and
+  `time::Duration` (Go's `arshal_time.go`). A `Time` is an RFC 3339 string with
+  nanoseconds, `null` sets the zero time and `omitzero` uses `Time::is_zero`,
+  also through an `Option<Time>`. A `Duration` has no default representation,
+  as in Go 1.27. With `experimental_support_format_tag`, the `format` tag
+  option selects Go's layouts and `unix`/`unixmilli`/`unixmicro`/`unixnano`
+  for `Time`, and `units`, `sec`, `milli`, `micro`, `nano` and `iso8601` for
+  `Duration`. `MarshalTo` gains `has_is_zero_method` and `is_zero_field`.

@@ -22,6 +22,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func dec(s string) []byte {
@@ -444,6 +445,60 @@ type Customs struct {
 	Z *Txt            `json:"z,omitempty"`
 }
 
+type Times struct {
+	A time.Time            `json:"a"`
+	B time.Time            `json:"b,omitzero"`
+	C *time.Time           `json:"c,omitempty"`
+	D []time.Time          `json:"d"`
+	E map[string]time.Time `json:"e"`
+	F time.Time            `json:"f,omitempty"`
+}
+type TimeFmts struct {
+	U  time.Time `json:"u,format:unix"`
+	UM time.Time `json:"um,format:unixmilli"`
+	UU time.Time `json:"uu,format:unixmicro"`
+	UN time.Time `json:"un,format:unixnano"`
+	US time.Time `json:"us,string,format:unixmilli"`
+	R  time.Time `json:"r,format:RFC3339"`
+	RN time.Time `json:"rn,format:RFC3339Nano"`
+	AN time.Time `json:"an,format:ANSIC"`
+	UD time.Time `json:"ud,format:UnixDate"`
+	RB time.Time `json:"rb,format:RubyDate"`
+	R8 time.Time `json:"r8,format:RFC822"`
+	RZ time.Time `json:"rz,format:RFC822Z"`
+	R5 time.Time `json:"r5,format:RFC850"`
+	R1 time.Time `json:"r1,format:RFC1123"`
+	RY time.Time `json:"ry,format:RFC1123Z"`
+	K  time.Time `json:"k,format:Kitchen"`
+	SN time.Time `json:"sn,format:StampNano"`
+	DT time.Time `json:"dt,format:DateTime"`
+	DO time.Time `json:"do,format:DateOnly"`
+	TO time.Time `json:"to,format:TimeOnly"`
+	CU time.Time `json:"cu,format:'2006/01/02 15h04.000 -0700'"`
+}
+type TimeBad struct {
+	A time.Time `json:"a,string"`
+	B time.Time `json:"b,format:Bogus"`
+}
+type Durs struct {
+	D time.Duration  `json:"d"`
+	P *time.Duration `json:"p"`
+}
+type DurFmts struct {
+	U  time.Duration `json:"u,format:units"`
+	S  time.Duration `json:"s,format:sec"`
+	SS time.Duration `json:"ss,string,format:sec"`
+	M  time.Duration `json:"m,format:milli"`
+	MI time.Duration `json:"mi,format:micro"`
+	N  time.Duration `json:"n,format:nano"`
+	I  time.Duration `json:"i,format:iso8601"`
+	IZ time.Duration `json:"iz,omitzero,format:iso8601"`
+}
+type DurBad struct {
+	A time.Duration `json:"a,string,format:units"`
+	B time.Duration `json:"b,format:hours"`
+}
+
 var registry = map[string]reflect.Type{}
 
 func register(vs ...any) {
@@ -457,7 +512,8 @@ func init() {
 	register(Inner{}, Scalars{}, Tags{}, Omit{}, Containers{}, BoolKeys{}, Floats{}, StrTags{}, StrErr{}, BoolErr{}, MapErr{},
 		Names{}, Embed1{}, Embed2{}, Embed3{}, Embed4{}, Embed5{}, Embed6{}, Embed7{}, Embed8{}, Embed9{}, Embed10{},
 		Conflict{}, BadTag1{}, BadTag2{}, BadTag3{}, BadTag4{}, BadTag5{}, BadTag6{}, BadTag7{}, Fmt{}, Empty{}, NoFields{},
-		Fall1{}, Fall2{}, Fall3{}, Fall4{}, FallBad{}, Customs{})
+		Fall1{}, Fall2{}, Fall3{}, Fall4{}, FallBad{}, Customs{}, Times{}, TimeFmts{}, TimeBad{}, Durs{}, DurFmts{},
+		DurBad{})
 }
 
 var (
@@ -465,7 +521,14 @@ var (
 	toType   = reflect.TypeOf(To{})
 	txtType  = reflect.TypeOf(Txt{})
 	valType  = reflect.TypeOf(jsontext.Value(nil))
+	timeType = reflect.TypeOf(time.Time{})
 )
+
+// formatTagSupport turns on the experimental `format` tag option, as
+// github.com/go-json-experiment/json.ExperimentalSupportFormatTag does.
+type formatTagSupport struct{ json.Options }
+
+func (formatTagSupport) ExperimentalSupportFormatTag() bool { return true }
 
 // ---------------------------------------------------------------- options
 
@@ -506,6 +569,8 @@ func parseOptions(letters string) []json.Options {
 			opts = append(opts, json.FormatNilMapAsNull(true))
 		case 'D':
 			opts = append(opts, json.Deterministic(false))
+		case 't':
+			opts = append(opts, formatTagSupport{json.Deterministic(true)})
 		case 'F':
 			opts = append(opts, json.WithMarshalers(json.JoinMarshalers(
 				json.MarshalFunc(func(v int64) ([]byte, error) {
@@ -595,6 +660,16 @@ var rawPool = []string{`null`, `true`, `1`, `"x"`, `[1,2]`, ` { "a" : [ 1 , 2 ] 
 
 var custPool = []string{`null`, `true`, `1`, `"x"`, `[1, 2]`, ` { "a" : 1 } `, `"<>&\u2028"`, `ERR`, `UNSUP`, ``, `nope`, `1 2`, `{`, `"é"`, `[]`}
 
+// timePool holds Unix seconds at the edges of what RFC 3339 and the unix
+// formats can represent; timeZones are fixed offsets in seconds, "u" being
+// UTC.
+var timePool = []int64{0, 1, -1, 1e9, 1767225600, -62135596800, -62135596801, 253402300799, 253402300800,
+	-62167219200, -62198755200, math.MaxInt64 / 1000000000, math.MinInt64 / 1000000000, 1 << 40, -(1 << 40)}
+
+var nanoPool = []int64{0, 1, 999999999, 500000000, 123456789, 1000, 1000000}
+
+var timeZones = []string{"u", "u", "0", "19800", "-86340", "-3600", "3600", "-18000", "86400", "90000"}
+
 var toPool = []string{"a", "", "unsupported", "err", "two", "none", "obj", "dup", "bad", "x y", "<&>"}
 
 type gen struct {
@@ -617,6 +692,24 @@ func (g *gen) value(t reflect.Type) {
 		return
 	case txtType:
 		g.emit("s" + enc([]byte(stringPool[g.pick(len(stringPool))])))
+		return
+	case timeType:
+		if !g.special && g.pick(4) == 0 {
+			g.emit("t-")
+			return
+		}
+		// Mostly years 1 to 9999 and offsets under 24 hours, which RFC 3339
+		// can represent; the special values add the edges.
+		sec := g.r.Int63n(253402300800+62135596800) - 62135596800
+		zones := timeZones[:len(timeZones)-2]
+		if g.special {
+			sec, zones = timePool[g.pick(len(timePool))], timeZones
+		}
+		nsec := nanoPool[g.pick(len(nanoPool))]
+		if g.pick(3) == 0 {
+			nsec = g.r.Int63n(1e9)
+		}
+		g.emit(fmt.Sprintf("t%d.%d.%s", sec, nsec, zones[g.pick(len(zones))]))
 		return
 	case valType:
 		x := rawPool[g.pick(len(rawPool))]
@@ -768,6 +861,22 @@ func (a *atoms) next() string {
 	return a.toks[a.i-1]
 }
 
+// timeAtom decodes "t-" (the zero time) or "t<sec>.<nsec>.<zone>".
+func timeAtom(tok string) time.Time {
+	if tok == "t-" {
+		return time.Time{}
+	}
+	f := strings.Split(tok[1:], ".")
+	sec, _ := strconv.ParseInt(f[0], 10, 64)
+	nsec, _ := strconv.ParseInt(f[1], 10, 64)
+	t := time.Unix(sec, nsec).UTC()
+	if f[2] != "u" {
+		off, _ := strconv.Atoi(f[2])
+		t = t.In(time.FixedZone("", off))
+	}
+	return t
+}
+
 func fill(v reflect.Value, a *atoms) {
 	t := v.Type()
 	switch t {
@@ -776,6 +885,9 @@ func fill(v reflect.Value, a *atoms) {
 		return
 	case toType, txtType:
 		v.Field(0).SetString(string(dec(a.next()[1:])))
+		return
+	case timeType:
+		v.Set(reflect.ValueOf(timeAtom(a.next())))
 		return
 	case valType:
 		tok := a.next()
@@ -968,7 +1080,7 @@ func unmarshalTyped(name, opts string, data []byte, toks []string) string {
 	}
 	uerr := json.Unmarshal(data, v.Interface(), parseOptions(opts)...)
 	nilify(v.Elem())
-	b, err := json.Marshal(v.Interface(), json.Deterministic(true))
+	b, err := json.Marshal(v.Interface(), json.Deterministic(true), formatTagSupport{json.Deterministic(true)})
 	res := "ok"
 	if uerr != nil {
 		res = fail(uerr)
