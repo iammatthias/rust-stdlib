@@ -484,6 +484,9 @@ impl<T: MarshalTo> MarshalTo for Box<T> {
     fn is_zero_value(&self) -> bool {
         false
     }
+    fn is_zero_field(&self) -> bool {
+        T::has_is_zero_method() && (**self).is_zero_field()
+    }
     fn is_empty_value(&self) -> Option<bool> {
         Some(false)
     }

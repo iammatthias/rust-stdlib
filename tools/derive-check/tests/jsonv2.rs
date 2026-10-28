@@ -611,12 +611,21 @@ fn time_field_omitzero_uses_is_zero() {
         p: Option<Time>,
         #[json("q,omitzero")]
         q: Option<i64>,
+        #[json("b,omitzero")]
+        b: Box<Time>,
+        #[json("bb,omitzero")]
+        bb: Option<Box<Time>>,
     }
     let v = P {
         p: Some(Time::default()),
         q: Some(0),
+        b: Box::default(),
+        bb: Some(Box::default()),
     };
-    assert_eq!(marshal_text(&v, &[]), r#"{"q":0}"#);
+    assert_eq!(
+        marshal_text(&v, &[]),
+        r#"{"q":0,"bb":"0001-01-01T00:00:00Z"}"#
+    );
     // A struct holding the zero instant in another zone is not Go's zero
     // struct, though the field itself is omitted by IsZero.
     #[derive(MarshalTo)]
