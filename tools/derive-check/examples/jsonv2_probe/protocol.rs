@@ -13,6 +13,7 @@ use rust_stdlib::encoding::json::v2::{
     TextUnmarshaler, TypeInfo, TypeKind, UnmarshalFrom, Unmarshaler, UnmarshalerFrom,
 };
 use rust_stdlib::encoding::json::Bytes;
+use rust_stdlib::time::{self, Duration, Location, Time};
 use rust_stdlib_derive::{MarshalTo, UnmarshalFrom};
 use std::{
     collections::BTreeMap,
@@ -161,6 +162,27 @@ impl Fill for Any {
 impl Fill for Value {
     fn fill(a: &mut Atoms<'_>) -> Self {
         Value(dec(&a.next()[1..]))
+    }
+}
+impl Fill for Duration {
+    fn fill(a: &mut Atoms<'_>) -> Self {
+        Duration::from_nanos(i64::fill(a))
+    }
+}
+/// `t-` is the zero time, `t<sec>.<nsec>.<zone>` a Unix time in UTC (`u`)
+/// or a fixed offset of `zone` seconds.
+impl Fill for Time {
+    fn fill(a: &mut Atoms<'_>) -> Self {
+        let tok = a.next();
+        if tok == "t-" {
+            return Time::default();
+        }
+        let f: Vec<&str> = tok[1..].split('.').collect();
+        let t = time::unix(f[0].parse().expect("sec"), f[1].parse().expect("nsec")).utc();
+        match f[2] {
+            "u" => t,
+            off => t.in_location(&Location::fixed("", off.parse().expect("offset"))),
+        }
     }
 }
 impl Fill for Bytes {
@@ -485,6 +507,7 @@ fn options(letters: &str) -> Vec<v2::Options> {
             'p' => v2::format_nil_slice_as_null(true),
             'q' => v2::format_nil_map_as_null(true),
             'D' => v2::deterministic(false),
+            't' => v2::experimental_support_format_tag(true),
             'F' => v2::with_marshalers(v2::join_marshalers(&[
                 v2::marshal_func::<i64, _>(|v| match *v {
                     13 => Err(Error::msg("unlucky")),
@@ -575,7 +598,8 @@ macro_rules! types {
                         Ok(()) => "ok".to_string(),
                         Err(e) => fail(&e),
                     };
-                    match v2::marshal(&v, &[v2::deterministic(true)]) {
+                    let remarshal = [v2::deterministic(true), v2::experimental_support_format_tag(true)];
+                    match v2::marshal(&v, &remarshal) {
                         Ok(b) => format!("{res} | {}", enc(&b)),
                         Err(_) => format!("{res} remarshal-error"),
                     }
@@ -798,6 +822,59 @@ types! {
         #[json("x")] X: Txt,
         #[json("y")] Y: BTreeMap<String, Txt>,
         #[json("z,omitempty")] Z: Option<Txt>,
+    }
+    struct Times {
+        #[json("a")] A: Time,
+        #[json("b,omitzero")] B: Time,
+        #[json("c,omitempty")] C: Option<Time>,
+        #[json("d")] D: Vec<Time>,
+        #[json("e")] E: BTreeMap<String, Time>,
+        #[json("f,omitempty")] F: Time,
+    }
+    struct TimeFmts {
+        #[json("u,format:unix")] U: Time,
+        #[json("um,format:unixmilli")] UM: Time,
+        #[json("uu,format:unixmicro")] UU: Time,
+        #[json("un,format:unixnano")] UN: Time,
+        #[json("us,string,format:unixmilli")] US: Time,
+        #[json("r,format:RFC3339")] R: Time,
+        #[json("rn,format:RFC3339Nano")] RN: Time,
+        #[json("an,format:ANSIC")] AN: Time,
+        #[json("ud,format:UnixDate")] UD: Time,
+        #[json("rb,format:RubyDate")] RB: Time,
+        #[json("r8,format:RFC822")] R8: Time,
+        #[json("rz,format:RFC822Z")] RZ: Time,
+        #[json("r5,format:RFC850")] R5: Time,
+        #[json("r1,format:RFC1123")] R1: Time,
+        #[json("ry,format:RFC1123Z")] RY: Time,
+        #[json("k,format:Kitchen")] K: Time,
+        #[json("sn,format:StampNano")] SN: Time,
+        #[json("dt,format:DateTime")] DT: Time,
+        #[json("do,format:DateOnly")] DO: Time,
+        #[json("to,format:TimeOnly")] TO: Time,
+        #[json("cu,format:'2006/01/02 15h04.000 -0700'")] CU: Time,
+    }
+    struct TimeBad {
+        #[json("a,string")] A: Time,
+        #[json("b,format:Bogus")] B: Time,
+    }
+    struct Durs {
+        #[json("d")] D: Duration,
+        #[json("p")] P: Option<Duration>,
+    }
+    struct DurFmts {
+        #[json("u,format:units")] U: Duration,
+        #[json("s,format:sec")] S: Duration,
+        #[json("ss,string,format:sec")] SS: Duration,
+        #[json("m,format:milli")] M: Duration,
+        #[json("mi,format:micro")] MI: Duration,
+        #[json("n,format:nano")] N: Duration,
+        #[json("i,format:iso8601")] I: Duration,
+        #[json("iz,omitzero,format:iso8601")] IZ: Duration,
+    }
+    struct DurBad {
+        #[json("a,string,format:units")] A: Duration,
+        #[json("b,format:hours")] B: Duration,
     }
 }
 

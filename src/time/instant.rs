@@ -507,6 +507,12 @@ impl Time {
         self.wall == 0 && self.ext == 0
     }
 
+    /// Whether this is Go's `Time{}` (what `reflect.Value.IsZero` sees):
+    /// unlike [`is_zero`](Self::is_zero), the location must be UTC too.
+    pub(crate) fn is_zero_struct(&self) -> bool {
+        self.is_zero() && self.loc.is_none()
+    }
+
     /// Go's `After`.
     pub fn after(&self, u: &Time) -> bool {
         if self.wall & u.wall & HAS_MONOTONIC != 0 {

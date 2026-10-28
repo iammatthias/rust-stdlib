@@ -100,7 +100,7 @@ impl<T: MarshalTo> FieldValue for T {
         marshal_value(enc, self)
     }
     fn is_zero(&self) -> bool {
-        self.is_zero_value()
+        self.is_zero_field()
     }
     fn is_empty(&self) -> Option<bool> {
         self.is_empty_value()
@@ -266,7 +266,7 @@ struct FieldOptions {
     format: String,
 }
 
-fn is_letter_or_digit(r: i32) -> bool {
+pub(super) fn is_letter_or_digit(r: i32) -> bool {
     r == '_' as i32 || crate::unicode::is_letter(r) || crate::unicode::is_number(r)
 }
 
