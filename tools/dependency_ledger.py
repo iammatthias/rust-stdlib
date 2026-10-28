@@ -15,6 +15,30 @@ import tomllib
 from dependency_policy import EXCEPTIONS, ROOT, _lock_record, resolved_contract
 
 
+def merge_packages(reviewed, lock, licenses):
+    """Reviewed packages keep their hand-written keys; only the checked ones
+    move. An entry matches on name and version, or on name alone when the
+    ledger and the lock each hold one version of it (a reviewed bump)."""
+    exact = {(package["name"], package["version"]): package for package in reviewed}
+    by_name = {}
+    for package in reviewed:
+        by_name.setdefault(package["name"], []).append(package)
+    in_lock = {}
+    for package in lock:
+        in_lock[package["name"]] = in_lock.get(package["name"], 0) + 1
+    packages = []
+    for package in sorted(lock, key=lambda p: (p["name"], p["version"])):
+        record = _lock_record(package)
+        previous = exact.get((record["name"], record["version"]))
+        candidates = by_name.get(record["name"], [])
+        if previous is None and len(candidates) == 1 and in_lock[record["name"]] == 1:
+            previous = candidates[0]
+        previous = previous or {"name": None, "version": None, "license": None}
+        license = licenses[(record["name"], record["version"])] if record["source"] else previous.get("license")
+        packages.append({**previous, **record, "license": license})
+    return packages
+
+
 def regenerate(manifest):
     run = subprocess.run(["cargo", "metadata", "--manifest-path", manifest, "--offline", "--locked", "--all-features", "--format-version", "1"],
                          cwd=ROOT, text=True, capture_output=True, timeout=60, check=True)
@@ -23,15 +47,7 @@ def regenerate(manifest):
     lock = tomllib.loads((ROOT / manifest).with_name("Cargo.lock").read_text())["package"]
     path = ROOT / EXCEPTIONS[manifest]
     ledger = json.loads(path.read_text())
-    # Reviewed packages keep their hand-written keys; only the checked ones move.
-    reviewed = {package["name"]: package for package in ledger["packages"]}
-    packages = []
-    for package in sorted(lock, key=lambda p: (p["name"], p["version"])):
-        record = _lock_record(package)
-        previous = reviewed.get(record["name"], {"name": None, "version": None, "license": None})
-        license = licenses[(record["name"], record["version"])] if record["source"] else previous.get("license")
-        packages.append({**previous, **record, "license": license})
-    ledger["packages"] = packages
+    ledger["packages"] = merge_packages(ledger["packages"], lock, licenses)
     ledger["resolved_contract"] = resolved_contract(data)
     path.write_text(json.dumps(ledger, indent=2) + "\n")
 

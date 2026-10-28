@@ -524,5 +524,41 @@ class PolicyTests(unittest.TestCase):
         with self.mock_metadata(mutate), self.assertRaisesRegex(RuntimeError, "intrusion into core/derive"):
             metadata(self.root)
 
+
+class LedgerTests(unittest.TestCase):
+    def lock(self, name, version, source=None):
+        return {"name": name, "version": version, "source": source}
+
+    def test_two_versions_keep_their_own_keys(self):
+        from dependency_ledger import merge_packages
+        reviewed = [
+            {"name": "getrandom", "version": "0.2.16", "license": "MIT", "note": "old"},
+            {"name": "getrandom", "version": "0.4.1", "license": "MIT", "note": "new"},
+        ]
+        lock = [self.lock("getrandom", "0.4.1"), self.lock("getrandom", "0.2.16")]
+        merged = merge_packages(reviewed, lock, {})
+        self.assertEqual([(p["version"], p["note"]) for p in merged], [("0.2.16", "old"), ("0.4.1", "new")])
+
+    def test_new_second_version_starts_unreviewed(self):
+        from dependency_ledger import merge_packages
+        reviewed = [{"name": "getrandom", "version": "0.2.16", "license": "MIT", "note": "old"}]
+        lock = [self.lock("getrandom", "0.2.16"), self.lock("getrandom", "0.4.1")]
+        merged = merge_packages(reviewed, lock, {})
+        self.assertEqual([(p["version"], p.get("note"), p["license"]) for p in merged],
+                         [("0.2.16", "old", "MIT"), ("0.4.1", None, None)])
+
+    def test_single_version_bump_keeps_keys(self):
+        from dependency_ledger import merge_packages
+        reviewed = [{"name": "rustls", "version": "0.23.45", "license": "MIT", "note": "kept"}]
+        lock = [self.lock("rustls", "0.23.46", "registry+https://github.com/rust-lang/crates.io-index")]
+        merged = merge_packages(reviewed, lock, {("rustls", "0.23.46"): "Apache-2.0"})
+        self.assertEqual((merged[0]["version"], merged[0]["note"], merged[0]["license"]), ("0.23.46", "kept", "Apache-2.0"))
+
+    def test_path_package_bump_keeps_its_license(self):
+        from dependency_ledger import merge_packages
+        reviewed = [{"name": "rust-stdlib", "version": "0.1.0", "license": "BSD-3-Clause"}]
+        merged = merge_packages(reviewed, [self.lock("rust-stdlib", "0.2.0")], {})
+        self.assertEqual((merged[0]["version"], merged[0]["license"]), ("0.2.0", "BSD-3-Clause"))
+
 if __name__ == "__main__":
     unittest.main()
