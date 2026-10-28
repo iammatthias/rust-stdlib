@@ -73,7 +73,7 @@
     {
       "name": "rust-stdlib",
       "version": "0.1.0",
-      "license": null,
+      "license": "MIT",
       "source": null,
       "checksum": null,
       "lock_dependencies": []

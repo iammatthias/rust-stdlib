@@ -154,6 +154,12 @@ def _lock_record(package):
     }
 
 
+# A ledger holds only what the gate checks, plus the hand-written scope and
+# advisories notes; anything else would go stale unseen.
+LEDGER_KEYS = {"scope", "advisories", "packages", "resolved_contract"}
+LEDGER_PACKAGE_KEYS = {"name", "version", "source", "checksum", "license", "lock_dependencies"}
+
+
 def _records(packages, label, violations):
     result = {}
     if not isinstance(packages, list):
@@ -175,6 +181,9 @@ def _records(packages, label, violations):
 
 def _exception_inventory(root, manifest, violations):
     ledger = _load(root / EXCEPTIONS[manifest], json.loads)
+    if not isinstance(ledger, dict):
+        violations.append(f"{manifest}: inventory must be an object")
+        return {}
     records = _records(ledger.get("packages"), manifest + " inventory", violations)
     lock = _load(root / Path(manifest).parent / "Cargo.lock", tomllib.loads)
     actual = _records(lock.get("package"), manifest + " lock", violations)
@@ -183,6 +192,8 @@ def _exception_inventory(root, manifest, violations):
         violations.append(f"{manifest}: duplicate package names are outside the reviewed contract")
     if not isinstance(ledger.get("resolved_contract"), dict):
         violations.append(f"{manifest}: missing reviewed feature/kind graph")
+    if set(ledger) - LEDGER_KEYS:
+        violations.append(f"{manifest}: unverified ledger keys {sorted(set(ledger) - LEDGER_KEYS)}")
     if set(records) != set(actual):
         violations.append(f"{manifest}: lock package set differs from reviewed inventory")
     for identity, reviewed in records.items():
@@ -191,8 +202,15 @@ def _exception_inventory(root, manifest, violations):
         if source is None:
             if identity[0] not in {"rust-stdlib", expected_name, *EXCEPTION_FIRST_PARTY.get(manifest, ())} or checksum is not None:
                 violations.append(f"{manifest}: unapproved first-party/path package {identity}")
+            else:
+                own = next((m for m, spec in MANIFESTS.items() if spec[0] == identity[0]), None)
+                declared = _load(root / own, tomllib.loads)["package"].get("license") if own else None
+                if reviewed.get("license") != declared:
+                    violations.append(f"{manifest}: path package license differs from its manifest for {identity}")
         elif source != REGISTRY or not isinstance(checksum, str) or not re.fullmatch(r"[0-9a-f]{64}", checksum):
             violations.append(f"{manifest}: invalid reviewed registry source/checksum for {identity}")
+        if set(reviewed) - LEDGER_PACKAGE_KEYS:
+            violations.append(f"{manifest}: unverified ledger keys {sorted(set(reviewed) - LEDGER_PACKAGE_KEYS)} for {identity}")
         edges = reviewed.get("lock_dependencies")
         if not isinstance(edges, list) or not all(isinstance(edge, str) for edge in edges):
             violations.append(f"{manifest}: missing reviewed resolved lock edges for {identity}")

@@ -83,6 +83,10 @@ class PolicyTests(unittest.TestCase):
             target = self.root / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / relative, target)
+        if kind == "sysnet":
+            # Its graph resolves sys and tls by path; the ledger check reads their manifests.
+            self.copy_optional("sys")
+            self.copy_optional("tls")
         return base
 
     def edit(self, relative, old, new):
@@ -106,8 +110,8 @@ class PolicyTests(unittest.TestCase):
     def test_sysnet_tls_feature_graph_is_reviewed(self):
         self.copy_optional("sysnet")
         report = verify(self.root)
-        self.assertEqual(report["exception_packages"], {"backends/sysnet/Cargo.toml": 25})
-        self.assertEqual(report["manifests"], 2)
+        self.assertEqual(report["exception_packages"], {"backends/sysnet/Cargo.toml": 25, "backends/tls/Cargo.toml": 25})
+        self.assertEqual(report["manifests"], 4)
 
     def test_sysnet_rejects_third_party_dependency(self):
         self.copy_optional("sysnet")
@@ -368,6 +372,28 @@ class PolicyTests(unittest.TestCase):
         path.write_text(json.dumps(data))
         self.reject_matching("duplicate package identity")
 
+    def test_ledger_rejects_unverified_keys(self):
+        self.copy_optional("fuzz")
+        path = self.root / "docs/fuzz-dependencies.json"
+        original = path.read_text()
+        for edit, key in [(lambda d: d["packages"][0].update(dependencies=[]), "'dependencies'"),
+                          (lambda d: d.update(resolved_graph={}), "'resolved_graph'")]:
+            with self.subTest(key=key):
+                data = json.loads(original)
+                edit(data)
+                path.write_text(json.dumps(data))
+                self.reject_matching(f"unverified ledger keys \\[{key}\\]")
+
+    def test_inventory_must_be_an_object(self):
+        self.copy_optional("fuzz")
+        (self.root / "docs/fuzz-dependencies.json").write_text("[]")
+        self.reject_matching("inventory must be an object")
+
+    def test_path_package_license_must_match_its_manifest(self):
+        self.copy_optional("tls")
+        self.edit("docs/tls-dependencies.json", '"license": "MIT",\n      "source": null', '"license": null,\n      "source": null')
+        self.reject_matching("path package license differs from its manifest for \\('rust-stdlib'")
+
     def test_exception_inventory_cannot_approve_arbitrary_path_package(self):
         self.copy_optional("tls")
         path = self.root / "docs/tls-dependencies.json"
@@ -536,16 +562,16 @@ class LedgerTests(unittest.TestCase):
             {"name": "getrandom", "version": "0.4.1", "license": "MIT", "note": "new"},
         ]
         lock = [self.lock("getrandom", "0.4.1"), self.lock("getrandom", "0.2.16")]
-        merged = merge_packages(reviewed, lock, {})
+        merged = merge_packages(reviewed, lock, {("getrandom", "0.2.16"): "MIT", ("getrandom", "0.4.1"): "MIT"})
         self.assertEqual([(p["version"], p["note"]) for p in merged], [("0.2.16", "old"), ("0.4.1", "new")])
 
     def test_new_second_version_starts_unreviewed(self):
         from dependency_ledger import merge_packages
         reviewed = [{"name": "getrandom", "version": "0.2.16", "license": "MIT", "note": "old"}]
         lock = [self.lock("getrandom", "0.2.16"), self.lock("getrandom", "0.4.1")]
-        merged = merge_packages(reviewed, lock, {})
+        merged = merge_packages(reviewed, lock, {("getrandom", "0.2.16"): "MIT", ("getrandom", "0.4.1"): "MIT OR Apache-2.0"})
         self.assertEqual([(p["version"], p.get("note"), p["license"]) for p in merged],
-                         [("0.2.16", "old", "MIT"), ("0.4.1", None, None)])
+                         [("0.2.16", "old", "MIT"), ("0.4.1", None, "MIT OR Apache-2.0")])
 
     def test_single_version_bump_keeps_keys(self):
         from dependency_ledger import merge_packages
@@ -554,11 +580,11 @@ class LedgerTests(unittest.TestCase):
         merged = merge_packages(reviewed, lock, {("rustls", "0.23.46"): "Apache-2.0"})
         self.assertEqual((merged[0]["version"], merged[0]["note"], merged[0]["license"]), ("0.23.46", "kept", "Apache-2.0"))
 
-    def test_path_package_bump_keeps_its_license(self):
+    def test_path_package_license_comes_from_cargo(self):
         from dependency_ledger import merge_packages
-        reviewed = [{"name": "rust-stdlib", "version": "0.1.0", "license": "BSD-3-Clause"}]
-        merged = merge_packages(reviewed, [self.lock("rust-stdlib", "0.2.0")], {})
-        self.assertEqual((merged[0]["version"], merged[0]["license"]), ("0.2.0", "BSD-3-Clause"))
+        reviewed = [{"name": "rust-stdlib", "version": "0.1.0", "license": None}]
+        merged = merge_packages(reviewed, [self.lock("rust-stdlib", "0.2.0")], {("rust-stdlib", "0.2.0"): "MIT"})
+        self.assertEqual((merged[0]["version"], merged[0]["license"]), ("0.2.0", "MIT"))
 
 if __name__ == "__main__":
     unittest.main()

@@ -56,6 +56,12 @@ Initial release: parity with Go 1.27's standard library.
   iterator; `filepath::WalkDir` is an iterator.
 - asn1 follows Go's explicit-tag rule by default (`strict_explicit` opts out);
   `big::Float` has operator traits; `sql::Rows::next_row`.
+- An exception ledger holds only fields the gate checks, plus its `scope` and
+  `advisories` notes. The fuzz ledger's unchecked `dependencies`,
+  `resolved_graph` and `direct_external` copies are gone, and a path
+  package's license must match its manifest (the TLS ledger had `null` for
+  `rust-stdlib`). `tools/dependency_ledger.py` takes every license from Cargo
+  and matches entries on name and version.
 - The gate denies rustdoc and clippy warnings in every crate, the fuzz targets
   and the derive consumer tests included, and two timing-sensitive
   differentials no longer race under load. The MSRV check builds and tests
