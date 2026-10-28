@@ -79,7 +79,8 @@ cannot select it). Run it when bumping a dependency. After a reviewed
 `cargo update` in an exception graph, `python3 tools/dependency_ledger.py
 <manifest>` rewrites that ledger's packages and resolved graph from the lock.
 
-Requirements: Rust 1.87+, Go 1.27, Python 3.11+, a C compiler (for ring).
+Requirements: stable Rust with rustfmt and clippy (MSRV 1.87, docs/CI.md),
+Go 1.27, Python 3.11+, a C compiler (for ring).
 On a busy machine, `export CARGO_BUILD_JOBS=4`. The gate fails if source changes
 while it runs, so don't edit files during it. It writes its report to
 `target/check-report.json`; never commit logs, reports or build output.

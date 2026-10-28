@@ -12,14 +12,17 @@ cargo fetch --locked --manifest-path crates/crypto/Cargo.toml
 cargo fetch --locked --manifest-path fuzz/Cargo.toml
 ```
 
-To check the MSRV as well as stable:
+The gate runs on stable. To check the MSRV as well, build and test every
+crate on 1.87. Clippy and rustfmt run on stable only, because older clippy
+releases flag lints that later releases dropped and warn on lint names they
+don't know.
 
 ```sh
-rustup toolchain install 1.87.0 --profile minimal --component rustfmt --component clippy
-rustup override set 1.87.0
-python3 tools/check.py
-rustup override unset
-python3 tools/check.py
+rustup toolchain install 1.87.0 --profile minimal
+for m in Cargo.toml crates/sys/Cargo.toml crates/crypto/Cargo.toml \
+    crates/derive/Cargo.toml backends/tls/Cargo.toml backends/sysnet/Cargo.toml; do
+  cargo +1.87.0 test --offline --locked --all-targets --manifest-path "$m"
+done
 ```
 
 On Windows, use `python` if that is the installed Python command. A pass on

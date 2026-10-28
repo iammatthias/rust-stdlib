@@ -65,9 +65,10 @@ def rust_source():
         out.append("}")
         out.append("")
     out.append("fn gen_types() -> (Vec<(&'static str, Type)>, Vec<&'static str>) {")
-    out.append("    let mut table: Vec<(&'static str, Type)> = Vec::new();")
+    out.append("    let table: Vec<(&'static str, Type)> = vec![")
     for k, t in table.items():
-        out.append('    table.push(("%s", reflect::type_for::<%s>()));' % (k, spec.rust(t)))
+        out.append('        ("%s", reflect::type_for::<%s>()),' % (k, spec.rust(t)))
+    out.append("    ];")
     out.append("    (table, vec![%s])" % ", ".join('"%s"' % k for k in ifaces))
     out.append("}")
     return "\n".join(out) + "\n"

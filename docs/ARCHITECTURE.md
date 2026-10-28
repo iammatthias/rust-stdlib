@@ -30,6 +30,6 @@ HTTP/1.1 parsing and framing consume `bufio` readers and write to `std::io::Writ
 ## Compatibility policy
 
 Versions are pre-1.0. Public changes require changelog and example/test updates.
-The minimum Rust version is 1.87, the first with `std::io::pipe`, which `os::pipe` uses. The full local gate last ran on Rust 1.85 before that bump; VERIFICATION.md describes it. The public semver/MSRV promise requires passing release gates.
+The minimum Rust version is 1.87, the first with `std::io::pipe`, which `os::pipe` uses. The gate runs on stable, and every crate builds and passes its tests on 1.87; VERIFICATION.md and docs/CI.md describe both. The public semver/MSRV promise requires passing release gates.
 
 The Go coverage inventory is capability-oriented. Compiler/runtime packages, Go AST tooling, and exact Go naming/signatures are tracked separately. Functionality supplied by Rust `std` does not need first-party wrappers for branding.

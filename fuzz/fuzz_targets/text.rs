@@ -52,13 +52,14 @@ fuzz_target!(|data: &[u8]| {
         }
         let mut values = template::Values::new();
         values.insert("x".into(), text.to_owned());
-        for parsed in [
+        for t in [
             template::Template::html(text),
             template::Template::text(text),
-        ] {
-            if let Ok(t) = parsed {
-                let _ = t.render(&values);
-            }
+        ]
+        .into_iter()
+        .flatten()
+        {
+            let _ = t.render(&values);
         }
         let model = json::Value::object([
             ("x", json::Value::String(text.to_owned())),

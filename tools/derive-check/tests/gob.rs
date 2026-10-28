@@ -104,6 +104,7 @@ struct EndToEnd {
 }
 
 #[test]
+#[allow(clippy::approx_constant)] // Go's TestEndToEnd values
 fn end_to_end() {
     let (pi, e) = (3.14159, 2.71828);
     let (meaning, fingers) = (42isize, 5isize);
@@ -210,12 +211,9 @@ fn overflow() {
     fn check<T: Reflect>(it: InputT, want: &str, label: &str) {
         let (_b, enc, dec) = pair();
         enc.encode(&it).unwrap();
-        let mut out = reflect::zero(&T::reflect_type());
         let p = reflect::new(&T::reflect_type());
         let err = dec.decode_value(&p).expect_err(label);
         assert_eq!(err.to_string(), want, "{label}");
-        out = p.elem();
-        let _ = out;
     }
     let i = |f: fn(&mut InputT)| {
         let mut it = InputT::default();
