@@ -29,7 +29,8 @@ of ours by path resolves without that lock and cannot select a yanked `=` pin.
 index. It needs the network, so it runs on demand rather than in the offline
 gate. `python3 tools/dependency_ledger.py <manifest>` rewrites an exception
 ledger's packages and resolved graph from its lock after a reviewed update,
-keeping the hand-written keys.
+keeping the hand-written `scope` and `advisories` notes. A ledger holds nothing
+else the gate does not check.
 
 ## Exception process
 
