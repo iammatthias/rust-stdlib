@@ -19,15 +19,16 @@ fuzz_target!(|data: &[u8]| {
     let _ = compress::decode_deflate(data, &mut Vec::new(), limits);
     let _ = compress::decode_gzip(data, &mut Vec::new(), limits);
     let _ = compress::decode_zlib(data, &mut Vec::new(), limits);
-    for result in [
+    for mut decoder in [
         compress::Decoder::deflate(data, limits),
         compress::Decoder::gzip(data, limits),
         compress::Decoder::zlib(data, limits),
-    ] {
-        if let Ok(mut decoder) = result {
-            let _ = decoder.read_to_end(&mut Vec::new());
-            let _ = decoder.finish();
-        }
+    ]
+    .into_iter()
+    .flatten()
+    {
+        let _ = decoder.read_to_end(&mut Vec::new());
+        let _ = decoder.finish();
     }
     let _ = compress::bzip2::decode(
         data,
@@ -175,7 +176,7 @@ fuzz_target!(|data: &[u8]| {
     }
     assert_eq!(
         base64::STANDARD
-            .decode(&base64::STANDARD.encode(data))
+            .decode(base64::STANDARD.encode(data))
             .unwrap(),
         data
     );

@@ -56,8 +56,10 @@ Initial release: parity with Go 1.27's standard library.
   iterator; `filepath::WalkDir` is an iterator.
 - asn1 follows Go's explicit-tag rule by default (`strict_explicit` opts out);
   `big::Float` has operator traits; `sql::Rows::next_row`.
-- The gate denies rustdoc warnings in every crate, and two timing-sensitive
-  differentials no longer race under load.
+- The gate denies rustdoc and clippy warnings in every crate, the fuzz targets
+  and the derive consumer tests included, and two timing-sensitive
+  differentials no longer race under load. The MSRV check builds and tests
+  every crate on 1.87; lints run on stable only (docs/CI.md).
 - `netip::Addr` wraps `std::net::IpAddr` plus a zone and delegates its
   predicates to std where std's stable behaviour matches Go.
 - One positional-read trait (`io::ReadAt`) and one rune-reader trait
@@ -251,8 +253,8 @@ Initial release: parity with Go 1.27's standard library.
 - `encoding::json::v2` marshals and unmarshals `time::Time` and
   `time::Duration` (Go's `arshal_time.go`). A `Time` is an RFC 3339 string with
   nanoseconds, `null` sets the zero time and `omitzero` uses `Time::is_zero`,
-  also through an `Option<Time>`. A `Duration` has no default representation,
-  as in Go 1.27. With `experimental_support_format_tag`, the `format` tag
-  option selects Go's layouts and `unix`/`unixmilli`/`unixmicro`/`unixnano`
-  for `Time`, and `units`, `sec`, `milli`, `micro`, `nano` and `iso8601` for
-  `Duration`. `MarshalTo` gains `has_is_zero_method` and `is_zero_field`.
+  also through an `Option<Time>` or `Box<Time>`. A `Duration` has no default
+  representation, as in Go 1.27. With `experimental_support_format_tag`, the
+  `format` tag option selects Go's layouts and
+  `unix`/`unixmilli`/`unixmicro`/`unixnano` for `Time`, and `units`, `sec`,
+  `milli`, `micro`, `nano` and `iso8601` for `Duration`. `MarshalTo` gains `has_is_zero_method` and `is_zero_field`.

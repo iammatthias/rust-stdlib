@@ -334,108 +334,109 @@ pub struct S13v {
 }
 
 fn gen_types() -> (Vec<(&'static str, Type)>, Vec<&'static str>) {
-    let mut table: Vec<(&'static str, Type)> = Vec::new();
-    table.push(("bool", reflect::type_for::<bool>()));
-    table.push(("int", reflect::type_for::<isize>()));
-    table.push(("int8", reflect::type_for::<i8>()));
-    table.push(("int16", reflect::type_for::<i16>()));
-    table.push(("int32", reflect::type_for::<i32>()));
-    table.push(("int64", reflect::type_for::<i64>()));
-    table.push(("uint", reflect::type_for::<usize>()));
-    table.push(("uint8", reflect::type_for::<u8>()));
-    table.push(("uint16", reflect::type_for::<u16>()));
-    table.push(("uint32", reflect::type_for::<u32>()));
-    table.push(("uint64", reflect::type_for::<u64>()));
-    table.push(("float32", reflect::type_for::<f32>()));
-    table.push(("float64", reflect::type_for::<f64>()));
-    table.push(("complex128", reflect::type_for::<rust_stdlib::strconv::Complex>()));
-    table.push(("string", reflect::type_for::<String>()));
-    table.push(("[]string", reflect::type_for::<Vec<String>>()));
-    table.push(("[]int", reflect::type_for::<Vec<isize>>()));
-    table.push(("[]float64", reflect::type_for::<Vec<f64>>()));
-    table.push(("[]uint8", reflect::type_for::<Vec<u8>>()));
-    table.push(("[]bool", reflect::type_for::<Vec<bool>>()));
-    table.push(("*S0", reflect::type_for::<Option<Box<S0>>>()));
-    table.push(("*S1", reflect::type_for::<Option<Box<S1>>>()));
-    table.push(("S2", reflect::type_for::<S2>()));
-    table.push(("*S3", reflect::type_for::<Option<Box<S3>>>()));
-    table.push(("S4", reflect::type_for::<S4>()));
-    table.push(("*S5", reflect::type_for::<Option<Box<S5>>>()));
-    table.push(("*S6", reflect::type_for::<Option<Box<S6>>>()));
-    table.push(("S7", reflect::type_for::<S7>()));
-    table.push(("*S8", reflect::type_for::<Option<Box<S8>>>()));
-    table.push(("S9", reflect::type_for::<S9>()));
-    table.push(("*S10", reflect::type_for::<Option<Box<S10>>>()));
-    table.push(("*S11", reflect::type_for::<Option<Box<S11>>>()));
-    table.push(("S12", reflect::type_for::<S12>()));
-    table.push(("S13", reflect::type_for::<S13>()));
-    table.push(("*R", reflect::type_for::<Option<Box<R>>>()));
-    table.push(("*MA", reflect::type_for::<Option<Box<MA>>>()));
-    table.push(("MB", reflect::type_for::<MB>()));
-    table.push(("Empty", reflect::type_for::<Empty>()));
-    table.push(("NoExp", reflect::type_for::<NoExp>()));
-    table.push(("*Wrap", reflect::type_for::<Option<Box<Wrap>>>()));
-    table.push(("GE", reflect::type_for::<GE>()));
-    table.push(("BM", reflect::type_for::<BM>()));
-    table.push(("*GP", reflect::type_for::<Option<Box<GP>>>()));
-    table.push(("[]byte", reflect::type_for::<Vec<u8>>()));
-    table.push(("any", reflect::type_for::<Value>()));
-    table.push(("S0", reflect::type_for::<S0>()));
-    table.push(("S1", reflect::type_for::<S1>()));
-    table.push(("S3", reflect::type_for::<S3>()));
-    table.push(("S5", reflect::type_for::<S5>()));
-    table.push(("S6", reflect::type_for::<S6>()));
-    table.push(("S8", reflect::type_for::<S8>()));
-    table.push(("S10", reflect::type_for::<S10>()));
-    table.push(("S11", reflect::type_for::<S11>()));
-    table.push(("R", reflect::type_for::<R>()));
-    table.push(("MA", reflect::type_for::<MA>()));
-    table.push(("Unreg", reflect::type_for::<Unreg>()));
-    table.push(("Wrap", reflect::type_for::<Wrap>()));
-    table.push(("GP", reflect::type_for::<GP>()));
-    table.push(("[3]int", reflect::type_for::<[isize; 3]>()));
-    table.push(("[2]S0", reflect::type_for::<[S0; 2]>()));
-    table.push(("[0]int", reflect::type_for::<[isize; 0]>()));
-    table.push(("map[string]int", reflect::type_for::<BTreeMap<String, isize>>()));
-    table.push(("map[int]S1", reflect::type_for::<BTreeMap<isize, S1>>()));
-    table.push(("map[string][]int8", reflect::type_for::<BTreeMap<String, Vec<i8>>>()));
-    table.push(("*S2", reflect::type_for::<Option<Box<S2>>>()));
-    table.push(("*int", reflect::type_for::<Option<Box<isize>>>()));
-    table.push(("**S3", reflect::type_for::<Option<Option<Box<S3>>>>()));
-    table.push(("[]*S4", reflect::type_for::<Vec<Option<Box<S4>>>>()));
-    table.push(("[]any", reflect::type_for::<Vec<Value>>()));
-    table.push(("map[string]any", reflect::type_for::<BTreeMap<String, Value>>()));
-    table.push(("[2]any", reflect::type_for::<[Value; 2]>()));
-    table.push(("[]GE", reflect::type_for::<Vec<GE>>()));
-    table.push(("[]BM", reflect::type_for::<Vec<BM>>()));
-    table.push(("map[string]GE", reflect::type_for::<BTreeMap<String, GE>>()));
-    table.push(("[][]bool", reflect::type_for::<Vec<Vec<bool>>>()));
-    table.push(("[]map[string]int", reflect::type_for::<Vec<BTreeMap<String, isize>>>()));
-    table.push(("*GE", reflect::type_for::<Option<Box<GE>>>()));
-    table.push(("[]GP", reflect::type_for::<Vec<GP>>()));
-    table.push(("[][]byte", reflect::type_for::<Vec<Vec<u8>>>()));
-    table.push(("[2][]byte", reflect::type_for::<[Vec<u8>; 2]>()));
-    table.push(("map[string][]byte", reflect::type_for::<BTreeMap<String, Vec<u8>>>()));
-    table.push(("[]complex128", reflect::type_for::<Vec<rust_stdlib::strconv::Complex>>()));
-    table.push(("[]int8", reflect::type_for::<Vec<i8>>()));
-    table.push(("[]uint16", reflect::type_for::<Vec<u16>>()));
-    table.push(("[]int16", reflect::type_for::<Vec<i16>>()));
-    table.push(("[]int32", reflect::type_for::<Vec<i32>>()));
-    table.push(("[]uint32", reflect::type_for::<Vec<u32>>()));
-    table.push(("[]float32", reflect::type_for::<Vec<f32>>()));
-    table.push(("S0v", reflect::type_for::<S0v>()));
-    table.push(("S1v", reflect::type_for::<S1v>()));
-    table.push(("S2v", reflect::type_for::<S2v>()));
-    table.push(("S3v", reflect::type_for::<S3v>()));
-    table.push(("S4v", reflect::type_for::<S4v>()));
-    table.push(("S5v", reflect::type_for::<S5v>()));
-    table.push(("S6v", reflect::type_for::<S6v>()));
-    table.push(("S7v", reflect::type_for::<S7v>()));
-    table.push(("S8v", reflect::type_for::<S8v>()));
-    table.push(("S9v", reflect::type_for::<S9v>()));
-    table.push(("S10v", reflect::type_for::<S10v>()));
-    table.push(("S11v", reflect::type_for::<S11v>()));
-    table.push(("S12v", reflect::type_for::<S12v>()));
-    table.push(("S13v", reflect::type_for::<S13v>()));
+    let table: Vec<(&'static str, Type)> = vec![
+        ("bool", reflect::type_for::<bool>()),
+        ("int", reflect::type_for::<isize>()),
+        ("int8", reflect::type_for::<i8>()),
+        ("int16", reflect::type_for::<i16>()),
+        ("int32", reflect::type_for::<i32>()),
+        ("int64", reflect::type_for::<i64>()),
+        ("uint", reflect::type_for::<usize>()),
+        ("uint8", reflect::type_for::<u8>()),
+        ("uint16", reflect::type_for::<u16>()),
+        ("uint32", reflect::type_for::<u32>()),
+        ("uint64", reflect::type_for::<u64>()),
+        ("float32", reflect::type_for::<f32>()),
+        ("float64", reflect::type_for::<f64>()),
+        ("complex128", reflect::type_for::<rust_stdlib::strconv::Complex>()),
+        ("string", reflect::type_for::<String>()),
+        ("[]string", reflect::type_for::<Vec<String>>()),
+        ("[]int", reflect::type_for::<Vec<isize>>()),
+        ("[]float64", reflect::type_for::<Vec<f64>>()),
+        ("[]uint8", reflect::type_for::<Vec<u8>>()),
+        ("[]bool", reflect::type_for::<Vec<bool>>()),
+        ("*S0", reflect::type_for::<Option<Box<S0>>>()),
+        ("*S1", reflect::type_for::<Option<Box<S1>>>()),
+        ("S2", reflect::type_for::<S2>()),
+        ("*S3", reflect::type_for::<Option<Box<S3>>>()),
+        ("S4", reflect::type_for::<S4>()),
+        ("*S5", reflect::type_for::<Option<Box<S5>>>()),
+        ("*S6", reflect::type_for::<Option<Box<S6>>>()),
+        ("S7", reflect::type_for::<S7>()),
+        ("*S8", reflect::type_for::<Option<Box<S8>>>()),
+        ("S9", reflect::type_for::<S9>()),
+        ("*S10", reflect::type_for::<Option<Box<S10>>>()),
+        ("*S11", reflect::type_for::<Option<Box<S11>>>()),
+        ("S12", reflect::type_for::<S12>()),
+        ("S13", reflect::type_for::<S13>()),
+        ("*R", reflect::type_for::<Option<Box<R>>>()),
+        ("*MA", reflect::type_for::<Option<Box<MA>>>()),
+        ("MB", reflect::type_for::<MB>()),
+        ("Empty", reflect::type_for::<Empty>()),
+        ("NoExp", reflect::type_for::<NoExp>()),
+        ("*Wrap", reflect::type_for::<Option<Box<Wrap>>>()),
+        ("GE", reflect::type_for::<GE>()),
+        ("BM", reflect::type_for::<BM>()),
+        ("*GP", reflect::type_for::<Option<Box<GP>>>()),
+        ("[]byte", reflect::type_for::<Vec<u8>>()),
+        ("any", reflect::type_for::<Value>()),
+        ("S0", reflect::type_for::<S0>()),
+        ("S1", reflect::type_for::<S1>()),
+        ("S3", reflect::type_for::<S3>()),
+        ("S5", reflect::type_for::<S5>()),
+        ("S6", reflect::type_for::<S6>()),
+        ("S8", reflect::type_for::<S8>()),
+        ("S10", reflect::type_for::<S10>()),
+        ("S11", reflect::type_for::<S11>()),
+        ("R", reflect::type_for::<R>()),
+        ("MA", reflect::type_for::<MA>()),
+        ("Unreg", reflect::type_for::<Unreg>()),
+        ("Wrap", reflect::type_for::<Wrap>()),
+        ("GP", reflect::type_for::<GP>()),
+        ("[3]int", reflect::type_for::<[isize; 3]>()),
+        ("[2]S0", reflect::type_for::<[S0; 2]>()),
+        ("[0]int", reflect::type_for::<[isize; 0]>()),
+        ("map[string]int", reflect::type_for::<BTreeMap<String, isize>>()),
+        ("map[int]S1", reflect::type_for::<BTreeMap<isize, S1>>()),
+        ("map[string][]int8", reflect::type_for::<BTreeMap<String, Vec<i8>>>()),
+        ("*S2", reflect::type_for::<Option<Box<S2>>>()),
+        ("*int", reflect::type_for::<Option<Box<isize>>>()),
+        ("**S3", reflect::type_for::<Option<Option<Box<S3>>>>()),
+        ("[]*S4", reflect::type_for::<Vec<Option<Box<S4>>>>()),
+        ("[]any", reflect::type_for::<Vec<Value>>()),
+        ("map[string]any", reflect::type_for::<BTreeMap<String, Value>>()),
+        ("[2]any", reflect::type_for::<[Value; 2]>()),
+        ("[]GE", reflect::type_for::<Vec<GE>>()),
+        ("[]BM", reflect::type_for::<Vec<BM>>()),
+        ("map[string]GE", reflect::type_for::<BTreeMap<String, GE>>()),
+        ("[][]bool", reflect::type_for::<Vec<Vec<bool>>>()),
+        ("[]map[string]int", reflect::type_for::<Vec<BTreeMap<String, isize>>>()),
+        ("*GE", reflect::type_for::<Option<Box<GE>>>()),
+        ("[]GP", reflect::type_for::<Vec<GP>>()),
+        ("[][]byte", reflect::type_for::<Vec<Vec<u8>>>()),
+        ("[2][]byte", reflect::type_for::<[Vec<u8>; 2]>()),
+        ("map[string][]byte", reflect::type_for::<BTreeMap<String, Vec<u8>>>()),
+        ("[]complex128", reflect::type_for::<Vec<rust_stdlib::strconv::Complex>>()),
+        ("[]int8", reflect::type_for::<Vec<i8>>()),
+        ("[]uint16", reflect::type_for::<Vec<u16>>()),
+        ("[]int16", reflect::type_for::<Vec<i16>>()),
+        ("[]int32", reflect::type_for::<Vec<i32>>()),
+        ("[]uint32", reflect::type_for::<Vec<u32>>()),
+        ("[]float32", reflect::type_for::<Vec<f32>>()),
+        ("S0v", reflect::type_for::<S0v>()),
+        ("S1v", reflect::type_for::<S1v>()),
+        ("S2v", reflect::type_for::<S2v>()),
+        ("S3v", reflect::type_for::<S3v>()),
+        ("S4v", reflect::type_for::<S4v>()),
+        ("S5v", reflect::type_for::<S5v>()),
+        ("S6v", reflect::type_for::<S6v>()),
+        ("S7v", reflect::type_for::<S7v>()),
+        ("S8v", reflect::type_for::<S8v>()),
+        ("S9v", reflect::type_for::<S9v>()),
+        ("S10v", reflect::type_for::<S10v>()),
+        ("S11v", reflect::type_for::<S11v>()),
+        ("S12v", reflect::type_for::<S12v>()),
+        ("S13v", reflect::type_for::<S13v>()),
+    ];
     (table, vec!["bool", "int", "int8", "int16", "int32", "int64", "uint", "uint8", "uint16", "uint32", "uint64", "float32", "float64", "complex128", "string", "[]string", "[]int", "[]float64", "[]uint8", "[]bool", "*S0", "*S1", "S2", "*S3", "S4", "*S5", "*S6", "S7", "*S8", "S9", "*S10", "*S11", "S12", "S13", "*R", "*MA", "MB", "Empty", "NoExp", "*Wrap", "GE", "BM", "*GP"])
 }

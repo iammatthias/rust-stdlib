@@ -5,8 +5,9 @@ change is committed. Results are written to `target/check-report.json`
 (not committed); the report records a source SHA-256 and fails if source
 changes during the run.
 
-Prerequisites: Rust 1.87+ with rustfmt, Python 3.11+, Go, and a C compiler for
-ring. Provision the pinned optional graphs once:
+Prerequisites: stable Rust with rustfmt and clippy (the crates' MSRV is 1.87;
+see docs/CI.md), Python 3.11+, Go, and a C compiler for ring. Provision the
+pinned optional graphs once:
 
 ```sh
 cargo fetch --locked --manifest-path backends/tls/Cargo.toml
@@ -30,13 +31,14 @@ cargo fetch --locked --manifest-path fuzz/Cargo.toml
 | Docs | `cargo doc` |
 | API parity | `tools/api_parity.py --check`: generated scoreboard is fresh and every mapped Rust path resolves |
 
-Also run `cargo clippy --all-targets --offline --locked -- -D warnings` with and
-without default features. Coverage-guided fuzzing is separate; see
+Every crate, the fuzz targets and the derive consumer tests are also
+clippy-clean with warnings denied, the root crate with default features, with
+none and with `tzdata`. Coverage-guided fuzzing is separate; see
 docs/FUZZING.md.
 
 ## Status
 
-The full gate passes on macOS arm64 (Rust 1.99.0, Go 1.27.1), and the crates
-build on Rust 1.87.0. Linux and Windows have not yet run the gate natively; see
-docs/ROADMAP.md. A pass describes tested behaviour, not an external security
-audit.
+The full gate passes natively on macOS arm64 and Linux arm64 (Rust 1.99.0,
+Go 1.27.1), and every crate builds and passes its tests on Rust 1.87.0. Linux
+x86_64 and Windows have not yet run the gate natively; see docs/ROADMAP.md. A
+pass describes tested behaviour, not an external security audit.
