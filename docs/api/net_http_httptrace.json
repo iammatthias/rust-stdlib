@@ -1,0 +1,107 @@
+{
+  "package": "net/http/httptrace",
+  "notes": "net::http::httptrace: every hook, wired into the Go-shaped Transport (connection acquisition, idle pool, DNS and connect via the context's net trace, TLS handshakes, request writing, Expect: 100-continue, 1xx and first-byte reads); hook order verified against Go with scripted servers. HTTP/2 connections fire the hooks where Go's http2 transport does (WroteHeaderField per HPACK field, WroteHeaders, Wait100Continue, WroteRequest, GotFirstResponseByte, Got1xxResponse, Got100Continue), verified over cleartext HTTP/2 with prior knowledge against Go",
+  "symbols": {
+    "ClientTrace": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace",
+      "note": "a struct of optional Arc closures; all error arguments are Option<&dyn Error>"
+    },
+    "ClientTrace.ConnectDone": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::connect_done"
+    },
+    "ClientTrace.ConnectStart": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::connect_start"
+    },
+    "ClientTrace.DNSDone": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::dns_done"
+    },
+    "ClientTrace.DNSStart": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::dns_start"
+    },
+    "ClientTrace.GetConn": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::get_conn"
+    },
+    "ClientTrace.Got100Continue": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::got_100_continue"
+    },
+    "ClientTrace.GotConn": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::got_conn"
+    },
+    "ClientTrace.GotFirstResponseByte": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::got_first_response_byte"
+    },
+    "ClientTrace.PutIdleConn": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::put_idle_conn"
+    },
+    "ClientTrace.TLSHandshakeStart": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::tls_handshake_start"
+    },
+    "ClientTrace.Wait100Continue": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::wait_100_continue"
+    },
+    "ClientTrace.WroteHeaderField": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::wrote_header_field"
+    },
+    "ClientTrace.WroteHeaders": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::wrote_headers"
+    },
+    "ClientTrace.WroteRequest": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::wrote_request"
+    },
+    "ClientTrace.Got1xxResponse": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::got_1xx_response",
+      "note": "receives the response Header and returns Result<(), BoxError>; replaces the former client::GOT_1XX_RESPONSE_KEY hook"
+    },
+    "ClientTrace.TLSHandshakeDone": {
+      "rust": "rust_stdlib::net::http::httptrace::ClientTrace::tls_handshake_done",
+      "note": "receives the crate's ConnectionState (the TlsConfig backend's facts) instead of tls.ConnectionState"
+    },
+    "ContextClientTrace": {
+      "rust": "rust_stdlib::net::http::httptrace::context_client_trace"
+    },
+    "DNSDoneInfo": {
+      "rust": "rust_stdlib::net::http::httptrace::DNSDoneInfo"
+    },
+    "DNSDoneInfo.Addrs": {
+      "rust": "rust_stdlib::net::http::httptrace::DNSDoneInfo::addrs"
+    },
+    "DNSDoneInfo.Coalesced": {
+      "rust": "rust_stdlib::net::http::httptrace::DNSDoneInfo::coalesced",
+      "note": "true when concurrent lookups of one host shared a query, as with Go's singleflight"
+    },
+    "DNSDoneInfo.Err": {
+      "rust": "rust_stdlib::net::http::httptrace::DNSDoneInfo::err"
+    },
+    "DNSStartInfo": {
+      "rust": "rust_stdlib::net::http::httptrace::DNSStartInfo"
+    },
+    "DNSStartInfo.Host": {
+      "rust": "rust_stdlib::net::http::httptrace::DNSStartInfo::host"
+    },
+    "GotConnInfo": {
+      "rust": "rust_stdlib::net::http::httptrace::GotConnInfo"
+    },
+    "GotConnInfo.Conn": {
+      "rust": "rust_stdlib::net::http::httptrace::GotConnInfo::conn"
+    },
+    "GotConnInfo.IdleTime": {
+      "rust": "rust_stdlib::net::http::httptrace::GotConnInfo::idle_time"
+    },
+    "GotConnInfo.Reused": {
+      "rust": "rust_stdlib::net::http::httptrace::GotConnInfo::reused"
+    },
+    "GotConnInfo.WasIdle": {
+      "rust": "rust_stdlib::net::http::httptrace::GotConnInfo::was_idle"
+    },
+    "WithClientTrace": {
+      "rust": "rust_stdlib::net::http::httptrace::with_client_trace",
+      "note": "takes the ClientTrace by value; Go's panic on a nil trace has no counterpart"
+    },
+    "WroteRequestInfo": {
+      "rust": "rust_stdlib::net::http::httptrace::WroteRequestInfo"
+    },
+    "WroteRequestInfo.Err": {
+      "rust": "rust_stdlib::net::http::httptrace::WroteRequestInfo::err"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "package": "crypto/sha256",
+  "notes": "rust-stdlib-crypto over RustCrypto sha2. State methods are inherent on Digest and emit Go's sha\\x02 (224) and sha\\x03 (256) formats.",
+  "symbols": {
+    "BlockSize": {
+      "rust": "rust_stdlib_crypto::sha256::BLOCK_SIZE"
+    },
+    "New": {
+      "rust": "rust_stdlib_crypto::sha256::new"
+    },
+    "New224": {
+      "rust": "rust_stdlib_crypto::sha256::new224"
+    },
+    "Size": {
+      "rust": "rust_stdlib_crypto::sha256::SIZE"
+    },
+    "Size224": {
+      "rust": "rust_stdlib_crypto::sha256::SIZE224"
+    },
+    "Sum224": {
+      "rust": "rust_stdlib_crypto::sha256::sum224"
+    },
+    "Sum256": {
+      "rust": "rust_stdlib_crypto::sha256::sum256"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "package": "image/png",
+  "notes": "image::png: All color types/depths, Adam7, PLTE/tRNS, CRC checks and explicit Limits; Go color-type selection on encode; compression through zlib::Writer at Go's levels, so the whole file is byte-identical to Go's for every image type and level; no interlaced or custom-filter encoding; IDAT chunks after the one the zlib stream ends in are skipped as Go skips them, bytes after the stream inside that chunk are rejected (deviation idat-tail-bytes on Decode); EncoderBuffer reuses the output allocation; a bad palette fails after the signature and IHDR are written, as in Go; FormatError/UnsupportedError are payloads of io::Error",
+  "symbols": {
+    "BestCompression": {
+      "rust": "rust_stdlib::image::png::CompressionLevel::BestCompression"
+    },
+    "BestSpeed": {
+      "rust": "rust_stdlib::image::png::CompressionLevel::BestSpeed"
+    },
+    "CompressionLevel": {
+      "rust": "rust_stdlib::image::png::CompressionLevel"
+    },
+    "Decode": {
+      "rust": "rust_stdlib::image::png::decode",
+      "deviation": "default-budget+idat-tail-bytes",
+      "note": "Returns the crate's closed AnyImage enum, which holds every image type png.Decode can return (Rust shape). Default Limits (width and height 1M each, 64M pixels, 256 MiB compressed, 256 MiB decompressed, 1 GiB input) reject larger inputs that Go accepts; they do not change results on Go's own testdata, and Limits can be raised or disabled. Bytes after the end of the zlib stream inside the IDAT chunk the stream ends in are always rejected as \"too much pixel data\"; Go accepts them when the rest of that chunk fits in its 4 KiB bufio read-ahead and rejects them otherwise. Whole IDAT chunks after that one are skipped as Go skips them, with their CRC and truncation errors. Their payloads count toward max_compressed_bytes, so a skipped chunk that declares a length beyond the budget is rejected with the limit error, where Go streams it through a 4 KiB buffer (or rejects a length above 0x7fffffff as \"Bad chunk length\"); this is the default-budget deviation."
+    },
+    "DecodeConfig": {
+      "rust": "rust_stdlib::image::png::decode_config",
+      "deviation": "default-budget",
+      "note": "Default Limits (width and height 1M each, 64M pixels, 256 MiB compressed, 256 MiB decompressed, 1 GiB input) reject larger inputs that Go accepts; they do not change results on Go's own testdata, and Limits can be raised or disabled."
+    },
+    "DefaultCompression": {
+      "rust": "rust_stdlib::image::png::CompressionLevel::Default"
+    },
+    "Encode": {
+      "rust": "rust_stdlib::image::png::encode",
+      "note": "Like Go, a bad palette fails after the signature and IHDR have been written; an invalid size writes nothing. The file is otherwise buffered and written once."
+    },
+    "Encoder": {
+      "rust": "rust_stdlib::image::png::Encoder"
+    },
+    "Encoder.BufferPool": {
+      "rust": "rust_stdlib::image::png::Encoder::buffer_pool",
+      "note": "Option<Arc<dyn EncoderBufferPool>>: None is Go's nil interface"
+    },
+    "Encoder.CompressionLevel": {
+      "rust": "rust_stdlib::image::png::Encoder::compression_level"
+    },
+    "Encoder.Encode": {
+      "rust": "rust_stdlib::image::png::Encoder::encode",
+      "note": "Like Go, a bad palette fails after the signature and IHDR have been written; an invalid size writes nothing. The file is otherwise buffered and written once."
+    },
+    "EncoderBuffer": {
+      "rust": "rust_stdlib::image::png::EncoderBuffer"
+    },
+    "EncoderBufferPool": {
+      "rust": "rust_stdlib::image::png::EncoderBufferPool"
+    },
+    "EncoderBufferPool.Get": {
+      "rust": "rust_stdlib::image::png::EncoderBufferPool::get",
+      "note": "Option<EncoderBuffer>: None is Go's nil *EncoderBuffer"
+    },
+    "EncoderBufferPool.Put": {
+      "rust": "rust_stdlib::image::png::EncoderBufferPool::put"
+    },
+    "FormatError": {
+      "rust": "rust_stdlib::image::png::FormatError",
+      "note": "a tuple struct; the decoder and encoder return it as the payload of an io::Error of kind InvalidData or InvalidInput"
+    },
+    "FormatError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "NoCompression": {
+      "rust": "rust_stdlib::image::png::CompressionLevel::NoCompression"
+    },
+    "UnsupportedError": {
+      "rust": "rust_stdlib::image::png::UnsupportedError",
+      "note": "a tuple struct; returned as the payload of an io::Error of kind Unsupported"
+    },
+    "UnsupportedError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    }
+  }
+}

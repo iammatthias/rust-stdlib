@@ -1,0 +1,29 @@
+{
+  "package": "encoding/ascii85",
+  "notes": "encoding::ascii85: Buffered and incremental encoding/decoding with Go-compatible shorthand and whitespace",
+  "symbols": {
+    "CorruptInputError": {
+      "rust": "rust_stdlib::encoding::ascii85::CorruptInputError"
+    },
+    "CorruptInputError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display text, identical to Go's Error() string"
+    },
+    "Decode": {
+      "rust": "rust_stdlib::encoding::ascii85::decode"
+    },
+    "Encode": {
+      "rust": "rust_stdlib::encoding::ascii85::encode"
+    },
+    "MaxEncodedLen": {
+      "rust": "rust_stdlib::encoding::ascii85::max_encoded_len"
+    },
+    "NewDecoder": {
+      "rust": "rust_stdlib::encoding::ascii85::Decoder::new"
+    },
+    "NewEncoder": {
+      "rust": "rust_stdlib::encoding::ascii85::Encoder::new",
+      "note": "finish() plays Go's Close and returns the inner writer"
+    }
+  }
+}

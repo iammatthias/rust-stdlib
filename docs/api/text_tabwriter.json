@@ -1,0 +1,44 @@
+{
+  "package": "text/tabwriter",
+  "notes": "tabwriter: Incremental elastic tab stops and Go flags; explicit section/cell/column/output budgets; Writer<W> is statically typed, so Init takes the same writer type",
+  "symbols": {
+    "AlignRight": {
+      "rust": "rust_stdlib::tabwriter::ALIGN_RIGHT"
+    },
+    "Debug": {
+      "rust": "rust_stdlib::tabwriter::DEBUG"
+    },
+    "DiscardEmptyColumns": {
+      "rust": "rust_stdlib::tabwriter::DISCARD_EMPTY_COLUMNS"
+    },
+    "Escape": {
+      "rust": "rust_stdlib::tabwriter::ESCAPE"
+    },
+    "FilterHTML": {
+      "rust": "rust_stdlib::tabwriter::FILTER_HTML"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::tabwriter::TabWriter::new"
+    },
+    "StripEscape": {
+      "rust": "rust_stdlib::tabwriter::STRIP_ESCAPE"
+    },
+    "TabIndent": {
+      "rust": "rust_stdlib::tabwriter::TAB_INDENT"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::tabwriter::TabWriter"
+    },
+    "Writer.Flush": {
+      "rust": "rust_stdlib::tabwriter::TabWriter::flush"
+    },
+    "Writer.Init": {
+      "rust": "rust_stdlib::tabwriter::TabWriter::init",
+      "note": "Writer<W> is statically typed, so the new output has the same Rust type as the old one; a caller that needs a different writer type uses Writer<Box<dyn Write>> (Rust shape)."
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write",
+      "note": "implemented by TabWriter"
+    }
+  }
+}

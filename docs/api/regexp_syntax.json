@@ -1,0 +1,349 @@
+{
+  "package": "regexp/syntax",
+  "notes": "regexp/syntax: port of parse, simplify, compile and the prog dumps, checked against Go on thousands of patterns. Flags, Op, InstOp, EmptyOp and ErrorCode are newtypes with associated constants. Sub holds Arc<Regexp>; parse takes &str and parse_bytes takes bytes (the only way to reach ErrInvalidUTF8); Error.Expr is lossy UTF-8. Go's limits (maxHeight 1000, maxSize, maxRunes) are kept.",
+  "symbols": {
+    "ClassNL": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::CLASS_NL"
+    },
+    "Compile": {
+      "rust": "rust_stdlib::regexp::syntax::compile"
+    },
+    "DotNL": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::DOT_NL"
+    },
+    "EmptyBeginLine": {
+      "rust": "rust_stdlib::regexp::syntax::EmptyOp::BEGIN_LINE"
+    },
+    "EmptyBeginText": {
+      "rust": "rust_stdlib::regexp::syntax::EmptyOp::BEGIN_TEXT"
+    },
+    "EmptyEndLine": {
+      "rust": "rust_stdlib::regexp::syntax::EmptyOp::END_LINE"
+    },
+    "EmptyEndText": {
+      "rust": "rust_stdlib::regexp::syntax::EmptyOp::END_TEXT"
+    },
+    "EmptyNoWordBoundary": {
+      "rust": "rust_stdlib::regexp::syntax::EmptyOp::NO_WORD_BOUNDARY"
+    },
+    "EmptyOp": {
+      "rust": "rust_stdlib::regexp::syntax::EmptyOp"
+    },
+    "EmptyOpContext": {
+      "rust": "rust_stdlib::regexp::syntax::empty_op_context"
+    },
+    "EmptyWordBoundary": {
+      "rust": "rust_stdlib::regexp::syntax::EmptyOp::WORD_BOUNDARY"
+    },
+    "ErrInternalError": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INTERNAL_ERROR"
+    },
+    "ErrInvalidCharClass": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INVALID_CHAR_CLASS"
+    },
+    "ErrInvalidCharRange": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INVALID_CHAR_RANGE"
+    },
+    "ErrInvalidEscape": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INVALID_ESCAPE"
+    },
+    "ErrInvalidNamedCapture": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INVALID_NAMED_CAPTURE"
+    },
+    "ErrInvalidPerlOp": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INVALID_PERL_OP"
+    },
+    "ErrInvalidRepeatOp": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INVALID_REPEAT_OP"
+    },
+    "ErrInvalidRepeatSize": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INVALID_REPEAT_SIZE"
+    },
+    "ErrInvalidUTF8": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::INVALID_UTF8"
+    },
+    "ErrLarge": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::LARGE"
+    },
+    "ErrMissingBracket": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::MISSING_BRACKET"
+    },
+    "ErrMissingParen": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::MISSING_PAREN"
+    },
+    "ErrMissingRepeatArgument": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::MISSING_REPEAT_ARGUMENT"
+    },
+    "ErrNestingDepth": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::NESTING_DEPTH"
+    },
+    "ErrTrailingBackslash": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::TRAILING_BACKSLASH"
+    },
+    "ErrUnexpectedParen": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode::UNEXPECTED_PAREN"
+    },
+    "Error": {
+      "rust": "rust_stdlib::regexp::syntax::Error"
+    },
+    "Error.Code": {
+      "rust": "rust_stdlib::regexp::syntax::Error::code"
+    },
+    "Error.Error": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Error.Expr": {
+      "rust": "rust_stdlib::regexp::syntax::Error::expr",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Rust String: the offending expression is converted lossily (U+FFFD), which is reachable through parse_bytes."
+    },
+    "ErrorCode": {
+      "rust": "rust_stdlib::regexp::syntax::ErrorCode"
+    },
+    "ErrorCode.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Flags": {
+      "rust": "rust_stdlib::regexp::syntax::Flags"
+    },
+    "FoldCase": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::FOLD_CASE"
+    },
+    "Inst": {
+      "rust": "rust_stdlib::regexp::syntax::Inst"
+    },
+    "Inst.Arg": {
+      "rust": "rust_stdlib::regexp::syntax::Inst::arg"
+    },
+    "Inst.MatchEmptyWidth": {
+      "rust": "rust_stdlib::regexp::syntax::Inst::match_empty_width"
+    },
+    "Inst.MatchRune": {
+      "rust": "rust_stdlib::regexp::syntax::Inst::match_rune"
+    },
+    "Inst.MatchRunePos": {
+      "rust": "rust_stdlib::regexp::syntax::Inst::match_rune_pos"
+    },
+    "Inst.Op": {
+      "rust": "rust_stdlib::regexp::syntax::Inst::op"
+    },
+    "Inst.Out": {
+      "rust": "rust_stdlib::regexp::syntax::Inst::out"
+    },
+    "Inst.Rune": {
+      "rust": "rust_stdlib::regexp::syntax::Inst::rune"
+    },
+    "Inst.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "InstAlt": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::ALT"
+    },
+    "InstAltMatch": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::ALT_MATCH"
+    },
+    "InstCapture": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::CAPTURE"
+    },
+    "InstEmptyWidth": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::EMPTY_WIDTH"
+    },
+    "InstFail": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::FAIL"
+    },
+    "InstMatch": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::MATCH"
+    },
+    "InstNop": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::NOP"
+    },
+    "InstOp": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp"
+    },
+    "InstOp.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "InstRune": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::RUNE"
+    },
+    "InstRune1": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::RUNE1"
+    },
+    "InstRuneAny": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::RUNE_ANY"
+    },
+    "InstRuneAnyNotNL": {
+      "rust": "rust_stdlib::regexp::syntax::InstOp::RUNE_ANY_NOT_NL"
+    },
+    "IsWordChar": {
+      "rust": "rust_stdlib::regexp::syntax::is_word_char"
+    },
+    "Literal": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::LITERAL"
+    },
+    "MatchNL": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::MATCH_NL"
+    },
+    "NonGreedy": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::NON_GREEDY"
+    },
+    "OneLine": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::ONE_LINE"
+    },
+    "Op": {
+      "rust": "rust_stdlib::regexp::syntax::Op"
+    },
+    "Op.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "OpAlternate": {
+      "rust": "rust_stdlib::regexp::syntax::Op::ALTERNATE"
+    },
+    "OpAnyChar": {
+      "rust": "rust_stdlib::regexp::syntax::Op::ANY_CHAR"
+    },
+    "OpAnyCharNotNL": {
+      "rust": "rust_stdlib::regexp::syntax::Op::ANY_CHAR_NOT_NL"
+    },
+    "OpBeginLine": {
+      "rust": "rust_stdlib::regexp::syntax::Op::BEGIN_LINE"
+    },
+    "OpBeginText": {
+      "rust": "rust_stdlib::regexp::syntax::Op::BEGIN_TEXT"
+    },
+    "OpCapture": {
+      "rust": "rust_stdlib::regexp::syntax::Op::CAPTURE"
+    },
+    "OpCharClass": {
+      "rust": "rust_stdlib::regexp::syntax::Op::CHAR_CLASS"
+    },
+    "OpConcat": {
+      "rust": "rust_stdlib::regexp::syntax::Op::CONCAT"
+    },
+    "OpEmptyMatch": {
+      "rust": "rust_stdlib::regexp::syntax::Op::EMPTY_MATCH"
+    },
+    "OpEndLine": {
+      "rust": "rust_stdlib::regexp::syntax::Op::END_LINE"
+    },
+    "OpEndText": {
+      "rust": "rust_stdlib::regexp::syntax::Op::END_TEXT"
+    },
+    "OpLiteral": {
+      "rust": "rust_stdlib::regexp::syntax::Op::LITERAL"
+    },
+    "OpNoMatch": {
+      "rust": "rust_stdlib::regexp::syntax::Op::NO_MATCH"
+    },
+    "OpNoWordBoundary": {
+      "rust": "rust_stdlib::regexp::syntax::Op::NO_WORD_BOUNDARY"
+    },
+    "OpPlus": {
+      "rust": "rust_stdlib::regexp::syntax::Op::PLUS"
+    },
+    "OpQuest": {
+      "rust": "rust_stdlib::regexp::syntax::Op::QUEST"
+    },
+    "OpRepeat": {
+      "rust": "rust_stdlib::regexp::syntax::Op::REPEAT"
+    },
+    "OpStar": {
+      "rust": "rust_stdlib::regexp::syntax::Op::STAR"
+    },
+    "OpWordBoundary": {
+      "rust": "rust_stdlib::regexp::syntax::Op::WORD_BOUNDARY"
+    },
+    "POSIX": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::POSIX"
+    },
+    "Parse": {
+      "rust": "rust_stdlib::regexp::syntax::parse"
+    },
+    "Perl": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::PERL"
+    },
+    "PerlX": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::PERL_X"
+    },
+    "Prog": {
+      "rust": "rust_stdlib::regexp::syntax::Prog"
+    },
+    "Prog.Inst": {
+      "rust": "rust_stdlib::regexp::syntax::Prog::inst"
+    },
+    "Prog.NumCap": {
+      "rust": "rust_stdlib::regexp::syntax::Prog::num_cap"
+    },
+    "Prog.Prefix": {
+      "rust": "rust_stdlib::regexp::syntax::Prog::prefix"
+    },
+    "Prog.Start": {
+      "rust": "rust_stdlib::regexp::syntax::Prog::start"
+    },
+    "Prog.StartCond": {
+      "rust": "rust_stdlib::regexp::syntax::Prog::start_cond"
+    },
+    "Prog.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Regexp": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp"
+    },
+    "Regexp.Cap": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::cap"
+    },
+    "Regexp.CapNames": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::cap_names"
+    },
+    "Regexp.Equal": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::equal"
+    },
+    "Regexp.Flags": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::flags"
+    },
+    "Regexp.Max": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::max"
+    },
+    "Regexp.MaxCap": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::max_cap"
+    },
+    "Regexp.Min": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::min"
+    },
+    "Regexp.Name": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::name"
+    },
+    "Regexp.Op": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::op"
+    },
+    "Regexp.Rune": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::rune"
+    },
+    "Regexp.Rune0": {
+      "deviation": "storage-arrays",
+      "note": "Go's small-storage arrays for Sub and Rune; a Rust Vec owns its storage so nothing aliases"
+    },
+    "Regexp.Simplify": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::simplify"
+    },
+    "Regexp.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Regexp.Sub": {
+      "rust": "rust_stdlib::regexp::syntax::Regexp::sub"
+    },
+    "Regexp.Sub0": {
+      "deviation": "storage-arrays",
+      "note": "Go's small-storage arrays for Sub and Rune; a Rust Vec owns its storage so nothing aliases"
+    },
+    "Simple": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::SIMPLE"
+    },
+    "UnicodeGroups": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::UNICODE_GROUPS"
+    },
+    "WasDollar": {
+      "rust": "rust_stdlib::regexp::syntax::Flags::WAS_DOLLAR"
+    }
+  }
+}

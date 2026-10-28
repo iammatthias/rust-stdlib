@@ -1,0 +1,576 @@
+{
+  "package": "math/big",
+  "symbols": {
+    "Above": {
+      "rust": "rust_stdlib::math::big::Accuracy::Above"
+    },
+    "Accuracy": {
+      "rust": "rust_stdlib::math::big::Accuracy"
+    },
+    "Accuracy.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "implemented as rust_stdlib::math::big::Accuracy (Display)"
+    },
+    "AwayFromZero": {
+      "rust": "rust_stdlib::math::big::RoundingMode::AwayFromZero"
+    },
+    "Below": {
+      "rust": "rust_stdlib::math::big::Accuracy::Below"
+    },
+    "Ceil": {
+      "rust": "rust_stdlib::math::big::RoundingMode::CEIL"
+    },
+    "ErrNaN": {
+      "note": "Go panics with ErrNaN; Float::{add,sub,mul,quo,sqrt,set_float64} and Float::from_f64 return Err(ErrNaN) and leave the receiver as Go does before panicking.",
+      "rust": "rust_stdlib::math::big::ErrNaN"
+    },
+    "ErrNaN.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "implemented as rust_stdlib::math::big::ErrNaN (Display, std::error::Error)"
+    },
+    "Exact": {
+      "rust": "rust_stdlib::math::big::Accuracy::Exact"
+    },
+    "Float": {
+      "rust": "rust_stdlib::math::big::Float"
+    },
+    "Float.Abs": {
+      "rust": "rust_stdlib::math::big::Float::abs"
+    },
+    "Float.Acc": {
+      "rust": "rust_stdlib::math::big::Float::acc"
+    },
+    "Float.Add": {
+      "rust": "rust_stdlib::math::big::Float::add_into"
+    },
+    "Float.Append": {
+      "rust": "rust_stdlib::math::big::Float::append"
+    },
+    "Float.AppendText": {
+      "rust": "rust_stdlib::math::big::Float::append_text"
+    },
+    "Float.Cmp": {
+      "note": "Ord::cmp returns std::cmp::Ordering instead of -1/0/+1; Eq/Ord treat -0 and +0 as equal, as Go does. implemented as rust_stdlib::math::big::Float (Ord::cmp)",
+      "rust": "std::cmp::Ord::cmp"
+    },
+    "Float.Copy": {
+      "rust": "rust_stdlib::math::big::Float::copy_from"
+    },
+    "Float.Float32": {
+      "rust": "rust_stdlib::math::big::Float::float32"
+    },
+    "Float.Float64": {
+      "rust": "rust_stdlib::math::big::Float::float64"
+    },
+    "Float.Format": {
+      "note": "Go's fmt.Formatter receives fmt.State; Float::format(verb, &FormatSpec) takes the parsed directive. Go's fmt intercepts %p for pointers before Float.Format sees it; Float::format('p', ..) applies Float's own 'p' format. and Display/LowerExp/UpperExp",
+      "rust": "rust_stdlib::math::big::Float::format",
+      "deviation": "fmt-pointer-verb"
+    },
+    "Float.GobDecode": {
+      "note": "stores the rounding-mode, accuracy and form bits unvalidated, as Go does (RoundingMode and Accuracy are byte/int8 newtypes like Go's); checked by tools/big_check.py f.gobraw",
+      "rust": "rust_stdlib::math::big::Float::gob_decode"
+    },
+    "Float.GobEncode": {
+      "rust": "rust_stdlib::math::big::Float::gob_encode"
+    },
+    "Float.Int": {
+      "note": "None for \u00b1Inf instead of a nil *Int.",
+      "rust": "rust_stdlib::math::big::Float::int"
+    },
+    "Float.Int64": {
+      "rust": "rust_stdlib::math::big::Float::int64"
+    },
+    "Float.IsInf": {
+      "rust": "rust_stdlib::math::big::Float::is_inf"
+    },
+    "Float.IsInt": {
+      "rust": "rust_stdlib::math::big::Float::is_int"
+    },
+    "Float.MantExp": {
+      "rust": "rust_stdlib::math::big::Float::mant_exp"
+    },
+    "Float.MarshalText": {
+      "rust": "rust_stdlib::math::big::Float::marshal_text"
+    },
+    "Float.MinPrec": {
+      "rust": "rust_stdlib::math::big::Float::min_prec"
+    },
+    "Float.Mode": {
+      "rust": "rust_stdlib::math::big::Float::mode"
+    },
+    "Float.Mul": {
+      "rust": "rust_stdlib::math::big::Float::mul_into"
+    },
+    "Float.Neg": {
+      "rust": "rust_stdlib::math::big::Float::neg_into"
+    },
+    "Float.Parse": {
+      "rust": "rust_stdlib::math::big::Float::parse"
+    },
+    "Float.Prec": {
+      "rust": "rust_stdlib::math::big::Float::prec"
+    },
+    "Float.Quo": {
+      "rust": "rust_stdlib::math::big::Float::quo_into"
+    },
+    "Float.Rat": {
+      "note": "None for \u00b1Inf instead of a nil *Rat.",
+      "rust": "rust_stdlib::math::big::Float::rat"
+    },
+    "Float.Scan": {
+      "note": "Float::scan(&mut self, BufRead) reads Go's base-0 float syntax into the receiver.",
+      "rust": "rust_stdlib::math::big::Float::scan"
+    },
+    "Float.Set": {
+      "rust": "rust_stdlib::math::big::Float::set"
+    },
+    "Float.SetFloat64": {
+      "rust": "rust_stdlib::math::big::Float::set_float64"
+    },
+    "Float.SetInf": {
+      "rust": "rust_stdlib::math::big::Float::set_inf"
+    },
+    "Float.SetInt": {
+      "rust": "rust_stdlib::math::big::Float::set_int"
+    },
+    "Float.SetInt64": {
+      "rust": "rust_stdlib::math::big::Float::set_int64"
+    },
+    "Float.SetMantExp": {
+      "rust": "rust_stdlib::math::big::Float::set_mant_exp"
+    },
+    "Float.SetMode": {
+      "rust": "rust_stdlib::math::big::Float::set_mode"
+    },
+    "Float.SetPrec": {
+      "rust": "rust_stdlib::math::big::Float::set_prec"
+    },
+    "Float.SetRat": {
+      "rust": "rust_stdlib::math::big::Float::set_rat"
+    },
+    "Float.SetString": {
+      "note": "None instead of (nil, false).",
+      "rust": "rust_stdlib::math::big::Float::set_string"
+    },
+    "Float.SetUint64": {
+      "rust": "rust_stdlib::math::big::Float::set_uint64"
+    },
+    "Float.Sign": {
+      "rust": "rust_stdlib::math::big::Float::sign"
+    },
+    "Float.Signbit": {
+      "rust": "rust_stdlib::math::big::Float::signbit"
+    },
+    "Float.Sqrt": {
+      "rust": "rust_stdlib::math::big::Float::sqrt"
+    },
+    "Float.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "implemented as rust_stdlib::math::big::Float (Display)"
+    },
+    "Float.Sub": {
+      "rust": "rust_stdlib::math::big::Float::sub_into"
+    },
+    "Float.Text": {
+      "rust": "rust_stdlib::math::big::Float::text"
+    },
+    "Float.Uint64": {
+      "rust": "rust_stdlib::math::big::Float::uint64"
+    },
+    "Float.UnmarshalText": {
+      "rust": "rust_stdlib::math::big::Float::unmarshal_text",
+      "note": "FromStr"
+    },
+    "Floor": {
+      "rust": "rust_stdlib::math::big::RoundingMode::FLOOR"
+    },
+    "Int": {
+      "rust": "rust_stdlib::math::big::Int"
+    },
+    "Int.Abs": {
+      "rust": "rust_stdlib::math::big::Int::abs"
+    },
+    "Int.Add": {
+      "rust": "rust_stdlib::math::big::Int (impl Add)",
+      "note": "also &Int + &Int"
+    },
+    "Int.And": {
+      "rust": "rust_stdlib::math::big::Int (impl BitAnd)",
+      "note": "also &Int & &Int"
+    },
+    "Int.AndNot": {
+      "rust": "rust_stdlib::math::big::Int::and_not"
+    },
+    "Int.Append": {
+      "rust": "rust_stdlib::math::big::Int::append"
+    },
+    "Int.AppendText": {
+      "rust": "rust_stdlib::math::big::Int::append_text"
+    },
+    "Int.Binomial": {
+      "rust": "rust_stdlib::math::big::Int::binomial"
+    },
+    "Int.Bit": {
+      "rust": "rust_stdlib::math::big::Int::bit"
+    },
+    "Int.BitLen": {
+      "rust": "rust_stdlib::math::big::Int::bit_len"
+    },
+    "Int.Bits": {
+      "rust": "rust_stdlib::math::big::Int::bits"
+    },
+    "Int.Bytes": {
+      "rust": "rust_stdlib::math::big::Int::bytes"
+    },
+    "Int.Cmp": {
+      "note": "Ord::cmp returns std::cmp::Ordering instead of -1/0/+1 (`as i32` gives Go's value). implemented as rust_stdlib::math::big::Int (Ord::cmp)",
+      "rust": "std::cmp::Ord::cmp"
+    },
+    "Int.CmpAbs": {
+      "rust": "rust_stdlib::math::big::Int::cmp_abs"
+    },
+    "Int.Div": {
+      "rust": "rust_stdlib::math::big::Int::div_euclid"
+    },
+    "Int.DivMod": {
+      "rust": "rust_stdlib::math::big::Int::div_mod"
+    },
+    "Int.Divide": {
+      "rust": "rust_stdlib::math::big::Int::divide"
+    },
+    "Int.Exp": {
+      "note": "Go returns nil when no inverse exists for y < 0; Int::exp returns None. A None modulus is Go's nil m.",
+      "rust": "rust_stdlib::math::big::Int::exp"
+    },
+    "Int.FillBytes": {
+      "rust": "rust_stdlib::math::big::Int::fill_bytes"
+    },
+    "Int.Float64": {
+      "rust": "rust_stdlib::math::big::Int::float64"
+    },
+    "Int.Format": {
+      "note": "Go's fmt.Formatter receives fmt.State; Int::format(verb, &FormatSpec) takes the parsed directive (FormatSpec::parse(\"%+08x\")) and the Rust fmt traits map Rust flags onto it. {:#o} uses Go's %O. and Display/LowerHex/UpperHex/Binary/Octal",
+      "rust": "rust_stdlib::math::big::Int::format"
+    },
+    "Int.GCD": {
+      "note": "Go's nil x/y outputs select the variant: Int::gcd (no cofactors) or Int::gcd_ext (both). Int::gcd without cofactors",
+      "rust": "rust_stdlib::math::big::Int::gcd_ext"
+    },
+    "Int.GobDecode": {
+      "note": "keeps a negative sign on a zero magnitude, as Go does; checked by tools/big_check.py i.gobraw",
+      "rust": "rust_stdlib::math::big::Int::gob_decode"
+    },
+    "Int.GobEncode": {
+      "rust": "rust_stdlib::math::big::Int::gob_encode"
+    },
+    "Int.Int64": {
+      "note": "Go leaves values outside int64 undefined; Int::int64 wraps the low 64 bits like Go's 64-bit implementation.",
+      "rust": "rust_stdlib::math::big::Int::int64"
+    },
+    "Int.IsInt64": {
+      "rust": "rust_stdlib::math::big::Int::is_int64"
+    },
+    "Int.IsUint64": {
+      "rust": "rust_stdlib::math::big::Int::is_uint64"
+    },
+    "Int.Lsh": {
+      "rust": "rust_stdlib::math::big::Int::lsh",
+      "note": "also &Int << usize"
+    },
+    "Int.MarshalJSON": {
+      "rust": "rust_stdlib::math::big::Int::marshal_json"
+    },
+    "Int.MarshalText": {
+      "rust": "rust_stdlib::math::big::Int::marshal_text"
+    },
+    "Int.Mod": {
+      "rust": "rust_stdlib::math::big::Int::rem_euclid"
+    },
+    "Int.ModInverse": {
+      "note": "None instead of a nil *Int.",
+      "rust": "rust_stdlib::math::big::Int::mod_inverse"
+    },
+    "Int.ModSqrt": {
+      "note": "None instead of a nil *Int.",
+      "rust": "rust_stdlib::math::big::Int::mod_sqrt"
+    },
+    "Int.Mul": {
+      "rust": "rust_stdlib::math::big::Int (impl Mul)",
+      "note": "also &Int * &Int"
+    },
+    "Int.MulRange": {
+      "rust": "rust_stdlib::math::big::Int::mul_range"
+    },
+    "Int.Neg": {
+      "rust": "rust_stdlib::math::big::Int::neg",
+      "note": "also -&Int"
+    },
+    "Int.Not": {
+      "rust": "rust_stdlib::math::big::Int::not",
+      "note": "also !&Int"
+    },
+    "Int.Or": {
+      "rust": "rust_stdlib::math::big::Int (impl BitOr)",
+      "note": "also &Int | &Int"
+    },
+    "Int.ProbablyPrime": {
+      "rust": "rust_stdlib::math::big::Int::probably_prime"
+    },
+    "Int.Quo": {
+      "rust": "rust_stdlib::math::big::Int (impl Div)",
+      "note": "also &Int / &Int"
+    },
+    "Int.QuoRem": {
+      "rust": "rust_stdlib::math::big::Int::quo_rem"
+    },
+    "Int.Rand": {
+      "note": "Takes Go's math/rand v1 generator (rust_stdlib::math::rand::v1::Rand) and draws exactly as Go.",
+      "rust": "rust_stdlib::math::big::Int::random"
+    },
+    "Int.Rem": {
+      "rust": "rust_stdlib::math::big::Int (impl Rem)",
+      "note": "also &Int % &Int"
+    },
+    "Int.Rsh": {
+      "rust": "rust_stdlib::math::big::Int::rsh",
+      "note": "also &Int >> usize"
+    },
+    "Int.Scan": {
+      "note": "Go's fmt.Scanner reads a fmt.ScanState; Int::scan reads any std::io::BufRead with the same verbs and leaves the terminating byte unread.",
+      "rust": "rust_stdlib::math::big::Int::scan"
+    },
+    "Int.Set": {
+      "note": "Int is a value: Go's z.Set(x) is x.clone(); other Int setters are constructors (Int::new, Int::from_u64, Int::from_bytes, Int::from_bits, Int::from_str_radix). implemented as rust_stdlib::math::big::Int (Clone::clone)",
+      "rust": "std::clone::Clone::clone"
+    },
+    "Int.SetBit": {
+      "rust": "rust_stdlib::math::big::Int::set_bit"
+    },
+    "Int.SetBits": {
+      "rust": "rust_stdlib::math::big::Int::from_bits"
+    },
+    "Int.SetBytes": {
+      "rust": "rust_stdlib::math::big::Int::from_bytes"
+    },
+    "Int.SetInt64": {
+      "rust": "rust_stdlib::math::big::Int::new",
+      "note": "From<i64>"
+    },
+    "Int.SetString": {
+      "note": "None instead of (nil, false).",
+      "rust": "rust_stdlib::math::big::Int::from_str_radix"
+    },
+    "Int.SetUint64": {
+      "rust": "rust_stdlib::math::big::Int::from_u64",
+      "note": "From<u64>"
+    },
+    "Int.Sign": {
+      "rust": "rust_stdlib::math::big::Int::sign"
+    },
+    "Int.Sqrt": {
+      "rust": "rust_stdlib::math::big::Int::sqrt"
+    },
+    "Int.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "implemented as rust_stdlib::math::big::Int (Display)"
+    },
+    "Int.Sub": {
+      "rust": "rust_stdlib::math::big::Int (impl Sub)",
+      "note": "also &Int - &Int"
+    },
+    "Int.Text": {
+      "rust": "rust_stdlib::math::big::Int::text"
+    },
+    "Int.TrailingZeroBits": {
+      "rust": "rust_stdlib::math::big::Int::trailing_zero_bits"
+    },
+    "Int.Uint64": {
+      "rust": "rust_stdlib::math::big::Int::uint64"
+    },
+    "Int.UnmarshalJSON": {
+      "note": "Go leaves the receiver unchanged for JSON null; Int::unmarshal_json returns Ok(None).",
+      "rust": "rust_stdlib::math::big::Int::unmarshal_json"
+    },
+    "Int.UnmarshalText": {
+      "rust": "rust_stdlib::math::big::Int::unmarshal_text",
+      "note": "FromStr"
+    },
+    "Int.Xor": {
+      "rust": "rust_stdlib::math::big::Int (impl BitXor)",
+      "note": "also &Int ^ &Int"
+    },
+    "Jacobi": {
+      "rust": "rust_stdlib::math::big::jacobi"
+    },
+    "MaxBase": {
+      "rust": "rust_stdlib::math::big::MAX_BASE"
+    },
+    "MaxExp": {
+      "rust": "rust_stdlib::math::big::MAX_EXP"
+    },
+    "MaxPrec": {
+      "rust": "rust_stdlib::math::big::MAX_PREC"
+    },
+    "MinExp": {
+      "rust": "rust_stdlib::math::big::MIN_EXP"
+    },
+    "NewFloat": {
+      "rust": "rust_stdlib::math::big::Float::from_f64"
+    },
+    "NewInt": {
+      "rust": "rust_stdlib::math::big::Int::new"
+    },
+    "NewRat": {
+      "rust": "rust_stdlib::math::big::Rat::new"
+    },
+    "ParseFloat": {
+      "rust": "rust_stdlib::math::big::Float::parse_float"
+    },
+    "Rat": {
+      "rust": "rust_stdlib::math::big::Rat"
+    },
+    "Rat.Abs": {
+      "rust": "rust_stdlib::math::big::Rat::abs"
+    },
+    "Rat.Add": {
+      "rust": "rust_stdlib::math::big::Rat (impl Add)",
+      "note": "also &Rat + &Rat"
+    },
+    "Rat.AppendText": {
+      "rust": "rust_stdlib::math::big::Rat::append_text"
+    },
+    "Rat.Cmp": {
+      "note": "Ord::cmp returns std::cmp::Ordering instead of -1/0/+1. implemented as rust_stdlib::math::big::Rat (Ord::cmp)",
+      "rust": "std::cmp::Ord::cmp"
+    },
+    "Rat.Denom": {
+      "rust": "rust_stdlib::math::big::Rat::denom"
+    },
+    "Rat.Float32": {
+      "rust": "rust_stdlib::math::big::Rat::float32"
+    },
+    "Rat.Float64": {
+      "rust": "rust_stdlib::math::big::Rat::float64"
+    },
+    "Rat.FloatPrec": {
+      "rust": "rust_stdlib::math::big::Rat::float_prec"
+    },
+    "Rat.FloatString": {
+      "rust": "rust_stdlib::math::big::Rat::float_string"
+    },
+    "Rat.GobDecode": {
+      "note": "stores what it reads, as Go does: an empty or zero denominator is 1 (Go's Rat treats an empty denominator as 1), the fraction is not reduced and a negative zero numerator is kept; checked by tools/big_check.py q.gobraw",
+      "rust": "rust_stdlib::math::big::Rat::gob_decode"
+    },
+    "Rat.GobEncode": {
+      "rust": "rust_stdlib::math::big::Rat::gob_encode"
+    },
+    "Rat.Inv": {
+      "rust": "rust_stdlib::math::big::Rat::inv"
+    },
+    "Rat.IsInt": {
+      "rust": "rust_stdlib::math::big::Rat::is_int"
+    },
+    "Rat.MarshalText": {
+      "rust": "rust_stdlib::math::big::Rat::marshal_text"
+    },
+    "Rat.Mul": {
+      "rust": "rust_stdlib::math::big::Rat (impl Mul)",
+      "note": "also &Rat * &Rat"
+    },
+    "Rat.Neg": {
+      "rust": "rust_stdlib::math::big::Rat::neg",
+      "note": "also -&Rat"
+    },
+    "Rat.Num": {
+      "rust": "rust_stdlib::math::big::Rat::num"
+    },
+    "Rat.Quo": {
+      "rust": "rust_stdlib::math::big::Rat (impl Div)",
+      "note": "also &Rat / &Rat"
+    },
+    "Rat.RatString": {
+      "rust": "rust_stdlib::math::big::Rat::rat_string"
+    },
+    "Rat.Scan": {
+      "note": "Rat::scan reads a std::io::BufRead (token of +-/0123456789.eE, verbs efgEFGv).",
+      "rust": "rust_stdlib::math::big::Rat::scan"
+    },
+    "Rat.Set": {
+      "note": "Rat is a value: Go's z.Set(x) is x.clone(). implemented as rust_stdlib::math::big::Rat (Clone::clone)",
+      "rust": "std::clone::Clone::clone"
+    },
+    "Rat.SetFloat64": {
+      "note": "None for a non-finite f64 instead of nil.",
+      "rust": "rust_stdlib::math::big::Rat::from_f64"
+    },
+    "Rat.SetFrac": {
+      "rust": "rust_stdlib::math::big::Rat::from_frac"
+    },
+    "Rat.SetFrac64": {
+      "rust": "rust_stdlib::math::big::Rat::new"
+    },
+    "Rat.SetInt": {
+      "rust": "rust_stdlib::math::big::Rat::from_int",
+      "note": "From<Int>"
+    },
+    "Rat.SetInt64": {
+      "rust": "rust_stdlib::math::big::Rat::from_i64",
+      "note": "From<i64>"
+    },
+    "Rat.SetString": {
+      "note": "None instead of (nil, false).",
+      "rust": "rust_stdlib::math::big::Rat::from_string"
+    },
+    "Rat.SetUint64": {
+      "rust": "rust_stdlib::math::big::Rat::from_u64"
+    },
+    "Rat.Sign": {
+      "rust": "rust_stdlib::math::big::Rat::sign"
+    },
+    "Rat.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "implemented as rust_stdlib::math::big::Rat (Display)"
+    },
+    "Rat.Sub": {
+      "rust": "rust_stdlib::math::big::Rat (impl Sub)",
+      "note": "also &Rat - &Rat"
+    },
+    "Rat.UnmarshalText": {
+      "rust": "rust_stdlib::math::big::Rat::unmarshal_text",
+      "note": "FromStr"
+    },
+    "Round": {
+      "rust": "rust_stdlib::math::big::RoundingMode::ROUND"
+    },
+    "RoundingMode": {
+      "rust": "rust_stdlib::math::big::RoundingMode"
+    },
+    "RoundingMode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "implemented as rust_stdlib::math::big::RoundingMode (Display)"
+    },
+    "ToNearestAway": {
+      "rust": "rust_stdlib::math::big::RoundingMode::ToNearestAway"
+    },
+    "ToNearestEven": {
+      "rust": "rust_stdlib::math::big::RoundingMode::ToNearestEven"
+    },
+    "ToNegativeInf": {
+      "rust": "rust_stdlib::math::big::RoundingMode::ToNegativeInf"
+    },
+    "ToPositiveInf": {
+      "rust": "rust_stdlib::math::big::RoundingMode::ToPositiveInf"
+    },
+    "ToZero": {
+      "rust": "rust_stdlib::math::big::RoundingMode::ToZero"
+    },
+    "Trunc": {
+      "rust": "rust_stdlib::math::big::RoundingMode::TRUNC"
+    },
+    "Word": {
+      "rust": "rust_stdlib::math::big::Word"
+    }
+  }
+}

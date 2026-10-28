@@ -1,0 +1,78 @@
+{
+  "package": "crypto/ecdh",
+  "notes": "rust-stdlib-crypto over the reviewed p256, p384, p521 and x25519-dalek crates. Curve is a sealed trait whose values are the four functions (curves compare by name); keys are structs with Go's validation order and error messages, and add PKIX/PKCS#8 DER hooks for x509. Like Go 1.26+ without GODEBUG=cryptocustomrand=1, GenerateKey ignores the reader and uses crypto/rand (including cryptotest.SetGlobalRandom).",
+  "symbols": {
+    "Curve": {
+      "rust": "rust_stdlib_crypto::ecdh::Curve"
+    },
+    "Curve.GenerateKey": {
+      "rust": "rust_stdlib_crypto::ecdh::Curve::generate_key",
+      "note": "Go's reader argument becomes `ecdh::Curve::generate_key_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go 1.26+ ignores the reader unless GODEBUG=cryptocustomrand=1."
+    },
+    "Curve.NewPrivateKey": {
+      "rust": "rust_stdlib_crypto::ecdh::Curve::private_key_from_bytes"
+    },
+    "Curve.NewPublicKey": {
+      "rust": "rust_stdlib_crypto::ecdh::Curve::public_key_from_bytes"
+    },
+    "KeyExchanger": {
+      "rust": "rust_stdlib_crypto::ecdh::KeyExchanger"
+    },
+    "KeyExchanger.Curve": {
+      "rust": "rust_stdlib_crypto::ecdh::KeyExchanger::curve"
+    },
+    "KeyExchanger.ECDH": {
+      "rust": "rust_stdlib_crypto::ecdh::KeyExchanger::ecdh"
+    },
+    "KeyExchanger.PublicKey": {
+      "rust": "rust_stdlib_crypto::ecdh::KeyExchanger::public_key"
+    },
+    "P256": {
+      "rust": "rust_stdlib_crypto::ecdh::p256"
+    },
+    "P384": {
+      "rust": "rust_stdlib_crypto::ecdh::p384"
+    },
+    "P521": {
+      "rust": "rust_stdlib_crypto::ecdh::p521"
+    },
+    "PrivateKey": {
+      "rust": "rust_stdlib_crypto::ecdh::PrivateKey"
+    },
+    "PrivateKey.Bytes": {
+      "rust": "rust_stdlib_crypto::ecdh::PrivateKey::bytes"
+    },
+    "PrivateKey.Curve": {
+      "rust": "rust_stdlib_crypto::ecdh::PrivateKey::curve"
+    },
+    "PrivateKey.ECDH": {
+      "rust": "rust_stdlib_crypto::ecdh::PrivateKey::ecdh"
+    },
+    "PrivateKey.Equal": {
+      "rust": "rust_stdlib_crypto::ecdh::PrivateKey::equal",
+      "note": "takes &dyn Any in place of crypto.PrivateKey"
+    },
+    "PrivateKey.Public": {
+      "rust": "rust_stdlib_crypto::ecdh::PrivateKey::public"
+    },
+    "PrivateKey.PublicKey": {
+      "rust": "rust_stdlib_crypto::ecdh::PrivateKey::public_key"
+    },
+    "PublicKey": {
+      "rust": "rust_stdlib_crypto::ecdh::PublicKey"
+    },
+    "PublicKey.Bytes": {
+      "rust": "rust_stdlib_crypto::ecdh::PublicKey::bytes"
+    },
+    "PublicKey.Curve": {
+      "rust": "rust_stdlib_crypto::ecdh::PublicKey::curve"
+    },
+    "PublicKey.Equal": {
+      "rust": "rust_stdlib_crypto::ecdh::PublicKey::equal",
+      "note": "takes &dyn Any in place of crypto.PublicKey"
+    },
+    "X25519": {
+      "rust": "rust_stdlib_crypto::ecdh::x25519"
+    }
+  }
+}

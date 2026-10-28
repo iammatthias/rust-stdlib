@@ -1,0 +1,1250 @@
+{
+  "package": "net/http",
+  "notes": "net::http: Go's net/http over a synchronous, thread-per-connection server and a pooling Transport. Request, Response, Client, Server, Handler, ServeMux, Transport, Cookie and Header are the one implementation of each concept (also reachable from their modules: request, response, client, server, handler, servemux, transport, cookie, header). HTTP/1.1 and, through net::http::h2, HTTP/2. TLS comes from the rust-stdlib-tls backend through the TlsConfig hook. See docs/HTTP.md.",
+  "symbols": {
+    "AllowQuerySemicolons": {
+      "rust": "rust_stdlib::net::http::util::allow_query_semicolons"
+    },
+    "CanonicalHeaderKey": {
+      "rust": "rust_stdlib::net::http::header::canonical_header_key"
+    },
+    "Client": {
+      "rust": "rust_stdlib::net::http::client::Client"
+    },
+    "Client.CheckRedirect": {
+      "rust": "rust_stdlib::net::http::client::Client::check_redirect"
+    },
+    "Client.CloseIdleConnections": {
+      "rust": "rust_stdlib::net::http::client::Client::close_idle_connections"
+    },
+    "Client.Do": {
+      "rust": "rust_stdlib::net::http::client::Client::do_request"
+    },
+    "Client.Get": {
+      "rust": "rust_stdlib::net::http::client::Client::get"
+    },
+    "Client.Head": {
+      "rust": "rust_stdlib::net::http::client::Client::head"
+    },
+    "Client.Jar": {
+      "rust": "rust_stdlib::net::http::client::Client::jar"
+    },
+    "Client.Post": {
+      "rust": "rust_stdlib::net::http::client::Client::post"
+    },
+    "Client.PostForm": {
+      "rust": "rust_stdlib::net::http::client::Client::post_form"
+    },
+    "Client.Timeout": {
+      "rust": "rust_stdlib::net::http::client::Client::timeout"
+    },
+    "Client.Transport": {
+      "rust": "rust_stdlib::net::http::client::Client::transport"
+    },
+    "ClientConn": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn"
+    },
+    "ClientConn.Available": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn::available"
+    },
+    "ClientConn.Close": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn::close"
+    },
+    "ClientConn.Err": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn::err"
+    },
+    "ClientConn.InFlight": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn::in_flight"
+    },
+    "ClientConn.Release": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn::release"
+    },
+    "ClientConn.Reserve": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn::reserve"
+    },
+    "ClientConn.RoundTrip": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn::round_trip"
+    },
+    "ClientConn.SetStateHook": {
+      "rust": "rust_stdlib::net::http::transport::ClientConn::set_state_hook"
+    },
+    "CloseNotifier": {
+      "rust": "rust_stdlib::net::http::handler::CloseNotifier"
+    },
+    "CloseNotifier.CloseNotify": {
+      "rust": "rust_stdlib::net::http::handler::CloseNotifier::close_notify"
+    },
+    "ConnState": {
+      "rust": "rust_stdlib::net::http::server::ConnState"
+    },
+    "ConnState.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Cookie": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie"
+    },
+    "Cookie.Domain": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::domain"
+    },
+    "Cookie.Expires": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::expires"
+    },
+    "Cookie.HttpOnly": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::http_only"
+    },
+    "Cookie.MaxAge": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::max_age"
+    },
+    "Cookie.Name": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::name"
+    },
+    "Cookie.Partitioned": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::partitioned"
+    },
+    "Cookie.Path": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::path"
+    },
+    "Cookie.Quoted": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::quoted"
+    },
+    "Cookie.Raw": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::raw"
+    },
+    "Cookie.RawExpires": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::raw_expires"
+    },
+    "Cookie.SameSite": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::same_site"
+    },
+    "Cookie.Secure": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::secure"
+    },
+    "Cookie.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Cookie.Unparsed": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::unparsed"
+    },
+    "Cookie.Valid": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::valid"
+    },
+    "Cookie.Value": {
+      "rust": "rust_stdlib::net::http::cookie::Cookie::value"
+    },
+    "CookieJar": {
+      "rust": "rust_stdlib::net::http::cookie::CookieJar"
+    },
+    "CookieJar.Cookies": {
+      "rust": "rust_stdlib::net::http::cookie::CookieJar::cookies"
+    },
+    "CookieJar.SetCookies": {
+      "rust": "rust_stdlib::net::http::cookie::CookieJar::set_cookies"
+    },
+    "CrossOriginProtection": {
+      "rust": "rust_stdlib::net::http::middleware::CrossOriginProtection"
+    },
+    "CrossOriginProtection.AddInsecureBypassPattern": {
+      "rust": "rust_stdlib::net::http::middleware::CrossOriginProtection::add_insecure_bypass_pattern",
+      "note": "Returns an error where Go panics on an invalid pattern."
+    },
+    "CrossOriginProtection.AddTrustedOrigin": {
+      "rust": "rust_stdlib::net::http::middleware::CrossOriginProtection::add_trusted_origin"
+    },
+    "CrossOriginProtection.Check": {
+      "rust": "rust_stdlib::net::http::middleware::CrossOriginProtection::check"
+    },
+    "CrossOriginProtection.Handler": {
+      "rust": "rust_stdlib::net::http::middleware::CrossOriginProtection::handler"
+    },
+    "CrossOriginProtection.SetDenyHandler": {
+      "rust": "rust_stdlib::net::http::middleware::CrossOriginProtection::set_deny_handler"
+    },
+    "DefaultClient": {
+      "rust": "rust_stdlib::net::http::client::DEFAULT_CLIENT"
+    },
+    "DefaultMaxHeaderBytes": {
+      "rust": "rust_stdlib::net::http::status::DEFAULT_MAX_HEADER_BYTES"
+    },
+    "DefaultMaxHeaderValueCount": {
+      "rust": "rust_stdlib::net::http::status::DEFAULT_MAX_HEADER_VALUE_COUNT"
+    },
+    "DefaultMaxIdleConnsPerHost": {
+      "rust": "rust_stdlib::net::http::transport::DEFAULT_MAX_IDLE_CONNS_PER_HOST"
+    },
+    "DefaultServeMux": {
+      "rust": "rust_stdlib::net::http::servemux::DEFAULT_SERVE_MUX"
+    },
+    "DefaultTransport": {
+      "rust": "rust_stdlib::net::http::transport::default_transport"
+    },
+    "DetectContentType": {
+      "rust": "rust_stdlib::net::http::detect_content_type"
+    },
+    "Dir": {
+      "rust": "rust_stdlib::net::http::fs::Dir"
+    },
+    "Dir.Open": {
+      "rust": "rust_stdlib::net::http::fs::FileSystem::open"
+    },
+    "ErrAbortHandler": {
+      "rust": "rust_stdlib::net::http::header::ERR_ABORT_HANDLER"
+    },
+    "ErrBodyNotAllowed": {
+      "rust": "rust_stdlib::net::http::header::ERR_BODY_NOT_ALLOWED"
+    },
+    "ErrBodyReadAfterClose": {
+      "rust": "rust_stdlib::net::http::header::ERR_BODY_READ_AFTER_CLOSE"
+    },
+    "ErrContentLength": {
+      "rust": "rust_stdlib::net::http::header::ERR_CONTENT_LENGTH"
+    },
+    "ErrHandlerTimeout": {
+      "rust": "rust_stdlib::net::http::header::ERR_HANDLER_TIMEOUT"
+    },
+    "ErrHeaderTooLong": {
+      "rust": "rust_stdlib::net::http::header::ERR_HEADER_TOO_LONG"
+    },
+    "ErrHijacked": {
+      "rust": "rust_stdlib::net::http::header::ERR_HIJACKED"
+    },
+    "ErrLineTooLong": {
+      "rust": "rust_stdlib::net::http::header::ERR_LINE_TOO_LONG"
+    },
+    "ErrMissingBoundary": {
+      "rust": "rust_stdlib::net::http::header::ERR_MISSING_BOUNDARY"
+    },
+    "ErrMissingContentLength": {
+      "rust": "rust_stdlib::net::http::header::ERR_MISSING_CONTENT_LENGTH"
+    },
+    "ErrMissingFile": {
+      "rust": "rust_stdlib::net::http::header::ERR_MISSING_FILE"
+    },
+    "ErrNoCookie": {
+      "rust": "rust_stdlib::net::http::header::ERR_NO_COOKIE"
+    },
+    "ErrNoLocation": {
+      "rust": "rust_stdlib::net::http::header::ERR_NO_LOCATION"
+    },
+    "ErrNotMultipart": {
+      "rust": "rust_stdlib::net::http::header::ERR_NOT_MULTIPART"
+    },
+    "ErrNotSupported": {
+      "rust": "rust_stdlib::net::http::header::ERR_NOT_SUPPORTED"
+    },
+    "ErrSchemeMismatch": {
+      "rust": "rust_stdlib::net::http::header::ERR_SCHEME_MISMATCH"
+    },
+    "ErrServerClosed": {
+      "rust": "rust_stdlib::net::http::header::ERR_SERVER_CLOSED"
+    },
+    "ErrShortBody": {
+      "rust": "rust_stdlib::net::http::header::ERR_SHORT_BODY"
+    },
+    "ErrSkipAltProtocol": {
+      "rust": "rust_stdlib::net::http::header::ERR_SKIP_ALT_PROTOCOL"
+    },
+    "ErrUnexpectedTrailer": {
+      "rust": "rust_stdlib::net::http::header::ERR_UNEXPECTED_TRAILER"
+    },
+    "ErrUseLastResponse": {
+      "rust": "rust_stdlib::net::http::header::ERR_USE_LAST_RESPONSE"
+    },
+    "ErrWriteAfterFlush": {
+      "rust": "rust_stdlib::net::http::header::ERR_WRITE_AFTER_FLUSH"
+    },
+    "Error": {
+      "rust": "rust_stdlib::net::http::util::error"
+    },
+    "FS": {
+      "rust": "rust_stdlib::net::http::fs::fs_adapter"
+    },
+    "File": {
+      "rust": "rust_stdlib::net::http::fs::File"
+    },
+    "File.Readdir": {
+      "rust": "rust_stdlib::net::http::fs::File::readdir"
+    },
+    "File.Stat": {
+      "rust": "rust_stdlib::net::http::fs::File::stat"
+    },
+    "FileServer": {
+      "rust": "rust_stdlib::net::http::fs::file_server"
+    },
+    "FileServerFS": {
+      "rust": "rust_stdlib::net::http::fs::file_server_fs"
+    },
+    "FileSystem": {
+      "rust": "rust_stdlib::net::http::fs::FileSystem"
+    },
+    "FileSystem.Open": {
+      "rust": "rust_stdlib::net::http::fs::FileSystem::open"
+    },
+    "Flusher": {
+      "rust": "rust_stdlib::net::http::handler::Flusher"
+    },
+    "Flusher.Flush": {
+      "rust": "rust_stdlib::net::http::handler::Flusher::flush"
+    },
+    "Get": {
+      "rust": "rust_stdlib::net::http::client::get"
+    },
+    "HTTP2Config": {
+      "rust": "rust_stdlib::net::http::header::Http2Config"
+    },
+    "HTTP2Config.CountError": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::count_error"
+    },
+    "HTTP2Config.MaxConcurrentStreams": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::max_concurrent_streams"
+    },
+    "HTTP2Config.MaxDecoderHeaderTableSize": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::max_decoder_header_table_size"
+    },
+    "HTTP2Config.MaxEncoderHeaderTableSize": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::max_encoder_header_table_size"
+    },
+    "HTTP2Config.MaxReadFrameSize": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::max_read_frame_size"
+    },
+    "HTTP2Config.MaxReceiveBufferPerConnection": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::max_receive_buffer_per_connection"
+    },
+    "HTTP2Config.MaxReceiveBufferPerStream": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::max_receive_buffer_per_stream"
+    },
+    "HTTP2Config.PermitProhibitedCipherSuites": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::permit_prohibited_cipher_suites"
+    },
+    "HTTP2Config.PingTimeout": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::ping_timeout"
+    },
+    "HTTP2Config.SendPingTimeout": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::send_ping_timeout"
+    },
+    "HTTP2Config.StrictMaxConcurrentRequests": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::strict_max_concurrent_requests"
+    },
+    "HTTP2Config.WriteByteTimeout": {
+      "rust": "rust_stdlib::net::http::header::Http2Config::write_byte_timeout"
+    },
+    "Handle": {
+      "rust": "rust_stdlib::net::http::servemux::handle",
+      "note": "Returns an error where Go panics on an invalid or conflicting pattern."
+    },
+    "HandleFunc": {
+      "rust": "rust_stdlib::net::http::servemux::handle_func",
+      "note": "Returns an error where Go panics on an invalid or conflicting pattern."
+    },
+    "Handler": {
+      "rust": "rust_stdlib::net::http::handler::Handler"
+    },
+    "Handler.ServeHTTP": {
+      "rust": "rust_stdlib::net::http::handler::Handler::serve_http"
+    },
+    "HandlerFunc": {
+      "rust": "rust_stdlib::net::http::handler::HandlerFunc"
+    },
+    "HandlerFunc.ServeHTTP": {
+      "rust": "rust_stdlib::net::http::handler::HandlerFunc::serve_http"
+    },
+    "Head": {
+      "rust": "rust_stdlib::net::http::client::head"
+    },
+    "Header": {
+      "rust": "rust_stdlib::net::http::header::Header"
+    },
+    "Header.Add": {
+      "rust": "rust_stdlib::net::http::header::Header::add"
+    },
+    "Header.Clone": {
+      "rust": "std::clone::Clone::clone"
+    },
+    "Header.Del": {
+      "rust": "rust_stdlib::net::http::header::Header::del"
+    },
+    "Header.Get": {
+      "rust": "rust_stdlib::net::http::header::Header::get",
+      "note": "Returns Option<&str>: None for a missing key, so Go's \"\" is unwrap_or(\"\"); a present empty value is Some(\"\")."
+    },
+    "Header.Set": {
+      "rust": "rust_stdlib::net::http::header::Header::set"
+    },
+    "Header.Values": {
+      "rust": "rust_stdlib::net::http::header::Header::values"
+    },
+    "Header.Write": {
+      "rust": "rust_stdlib::net::http::header::Header::write"
+    },
+    "Header.WriteSubset": {
+      "rust": "rust_stdlib::net::http::header::Header::write_subset"
+    },
+    "Hijacker": {
+      "rust": "rust_stdlib::net::http::handler::Hijacker"
+    },
+    "Hijacker.Hijack": {
+      "rust": "rust_stdlib::net::http::handler::Hijacker::hijack"
+    },
+    "ListenAndServe": {
+      "rust": "rust_stdlib::net::http::server::listen_and_serve"
+    },
+    "ListenAndServeTLS": {
+      "rust": "rust_stdlib::net::http::server::listen_and_serve_tls",
+      "deviation": "crypto-tls-config",
+      "note": "needs a TLS backend: Server::tls_config from rust-stdlib-tls (rust_stdlib_tls::tls::Config implements the hook)"
+    },
+    "LocalAddrContextKey": {
+      "rust": "rust_stdlib::net::http::server::LOCAL_ADDR_CONTEXT_KEY"
+    },
+    "MaxBytesError": {
+      "rust": "rust_stdlib::net::http::util::MaxBytesError"
+    },
+    "MaxBytesError.Error": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "MaxBytesError.Limit": {
+      "rust": "rust_stdlib::net::http::util::MaxBytesError::limit"
+    },
+    "MaxBytesHandler": {
+      "rust": "rust_stdlib::net::http::util::max_bytes_handler"
+    },
+    "MaxBytesReader": {
+      "rust": "rust_stdlib::net::http::util::max_bytes_reader"
+    },
+    "MethodConnect": {
+      "rust": "rust_stdlib::net::http::status::METHOD_CONNECT"
+    },
+    "MethodDelete": {
+      "rust": "rust_stdlib::net::http::status::METHOD_DELETE"
+    },
+    "MethodGet": {
+      "rust": "rust_stdlib::net::http::status::METHOD_GET"
+    },
+    "MethodHead": {
+      "rust": "rust_stdlib::net::http::status::METHOD_HEAD"
+    },
+    "MethodOptions": {
+      "rust": "rust_stdlib::net::http::status::METHOD_OPTIONS"
+    },
+    "MethodPatch": {
+      "rust": "rust_stdlib::net::http::status::METHOD_PATCH"
+    },
+    "MethodPost": {
+      "rust": "rust_stdlib::net::http::status::METHOD_POST"
+    },
+    "MethodPut": {
+      "rust": "rust_stdlib::net::http::status::METHOD_PUT"
+    },
+    "MethodTrace": {
+      "rust": "rust_stdlib::net::http::status::METHOD_TRACE"
+    },
+    "NewCrossOriginProtection": {
+      "rust": "rust_stdlib::net::http::middleware::CrossOriginProtection::new"
+    },
+    "NewFileTransport": {
+      "rust": "rust_stdlib::net::http::transport::FileTransport::new"
+    },
+    "NewFileTransportFS": {
+      "rust": "rust_stdlib::net::http::transport::FileTransport::from_fs"
+    },
+    "NewRequest": {
+      "rust": "rust_stdlib::net::http::request::Request::new"
+    },
+    "NewRequestWithContext": {
+      "rust": "rust_stdlib::net::http::request::Request::in_context"
+    },
+    "NewResponseController": {
+      "rust": "rust_stdlib::net::http::handler::ResponseController::new"
+    },
+    "NewServeMux": {
+      "rust": "rust_stdlib::net::http::servemux::ServeMux::new"
+    },
+    "NoBody": {
+      "rust": "rust_stdlib::net::http::body::NoBody"
+    },
+    "NotFound": {
+      "rust": "rust_stdlib::net::http::util::not_found"
+    },
+    "NotFoundHandler": {
+      "rust": "rust_stdlib::net::http::util::not_found_handler"
+    },
+    "ParseCookie": {
+      "rust": "rust_stdlib::net::http::cookie::parse_cookie"
+    },
+    "ParseHTTPVersion": {
+      "rust": "rust_stdlib::net::http::header::parse_http_version"
+    },
+    "ParseSetCookie": {
+      "rust": "rust_stdlib::net::http::cookie::parse_set_cookie"
+    },
+    "ParseTime": {
+      "rust": "rust_stdlib::net::http::header::parse_time"
+    },
+    "Post": {
+      "rust": "rust_stdlib::net::http::client::post"
+    },
+    "PostForm": {
+      "rust": "rust_stdlib::net::http::client::post_form"
+    },
+    "ProtocolError": {
+      "rust": "rust_stdlib::net::http::header::ProtocolError"
+    },
+    "ProtocolError.Error": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "ProtocolError.ErrorString": {
+      "rust": "rust_stdlib::net::http::header::ProtocolError::error_string"
+    },
+    "ProtocolError.Is": {
+      "rust": "rust_stdlib::net::http::header::ProtocolError::is"
+    },
+    "Protocols": {
+      "rust": "rust_stdlib::net::http::header::Protocols"
+    },
+    "Protocols.HTTP1": {
+      "rust": "rust_stdlib::net::http::header::Protocols::http1"
+    },
+    "Protocols.HTTP2": {
+      "rust": "rust_stdlib::net::http::header::Protocols::http2"
+    },
+    "Protocols.SetHTTP1": {
+      "rust": "rust_stdlib::net::http::header::Protocols::set_http1"
+    },
+    "Protocols.SetHTTP2": {
+      "rust": "rust_stdlib::net::http::header::Protocols::set_http2"
+    },
+    "Protocols.SetUnencryptedHTTP2": {
+      "rust": "rust_stdlib::net::http::header::Protocols::set_unencrypted_http2"
+    },
+    "Protocols.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Protocols.UnencryptedHTTP2": {
+      "rust": "rust_stdlib::net::http::header::Protocols::unencrypted_http2"
+    },
+    "ProxyFromEnvironment": {
+      "rust": "rust_stdlib::net::http::transport::proxy_from_environment"
+    },
+    "ProxyURL": {
+      "rust": "rust_stdlib::net::http::transport::proxy_url"
+    },
+    "PushOptions": {
+      "rust": "rust_stdlib::net::http::header::PushOptions"
+    },
+    "PushOptions.Header": {
+      "rust": "rust_stdlib::net::http::header::PushOptions::header"
+    },
+    "PushOptions.Method": {
+      "rust": "rust_stdlib::net::http::header::PushOptions::method"
+    },
+    "Pusher": {
+      "rust": "rust_stdlib::net::http::header::Pusher"
+    },
+    "Pusher.Push": {
+      "rust": "rust_stdlib::net::http::header::Pusher::push"
+    },
+    "ReadRequest": {
+      "rust": "rust_stdlib::net::http::request::read_request",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Header values and the request line are Rust strings: a request with non-UTF-8 header bytes is rejected where Go keeps the bytes."
+    },
+    "ReadResponse": {
+      "rust": "rust_stdlib::net::http::response::read_response",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Header values and the status line are Rust strings: a response with non-UTF-8 header bytes is rejected where Go keeps the bytes."
+    },
+    "Redirect": {
+      "rust": "rust_stdlib::net::http::util::redirect"
+    },
+    "RedirectHandler": {
+      "rust": "rust_stdlib::net::http::util::redirect_handler"
+    },
+    "Request": {
+      "rust": "rust_stdlib::net::http::request::Request"
+    },
+    "Request.AddCookie": {
+      "rust": "rust_stdlib::net::http::request::Request::add_cookie"
+    },
+    "Request.BasicAuth": {
+      "rust": "rust_stdlib::net::http::request::Request::basic_auth"
+    },
+    "Request.Body": {
+      "rust": "rust_stdlib::net::http::request::Request::body"
+    },
+    "Request.Cancel": {
+      "rust": "rust_stdlib::net::http::request::Request::cancel"
+    },
+    "Request.Clone": {
+      "rust": "rust_stdlib::net::http::request::Request::clone_with_context"
+    },
+    "Request.Close": {
+      "rust": "rust_stdlib::net::http::request::Request::close"
+    },
+    "Request.ContentLength": {
+      "rust": "rust_stdlib::net::http::request::Request::content_length"
+    },
+    "Request.Context": {
+      "rust": "rust_stdlib::net::http::request::Request::context"
+    },
+    "Request.Cookie": {
+      "rust": "rust_stdlib::net::http::request::Request::cookie"
+    },
+    "Request.Cookies": {
+      "rust": "rust_stdlib::net::http::request::Request::cookies"
+    },
+    "Request.CookiesNamed": {
+      "rust": "rust_stdlib::net::http::request::Request::cookies_named"
+    },
+    "Request.Form": {
+      "rust": "rust_stdlib::net::http::request::Request::form"
+    },
+    "Request.FormFile": {
+      "rust": "rust_stdlib::net::http::request::Request::form_file"
+    },
+    "Request.FormValue": {
+      "rust": "rust_stdlib::net::http::request::Request::form_value"
+    },
+    "Request.GetBody": {
+      "rust": "rust_stdlib::net::http::request::Request::get_body"
+    },
+    "Request.Header": {
+      "rust": "rust_stdlib::net::http::request::Request::header"
+    },
+    "Request.Host": {
+      "rust": "rust_stdlib::net::http::request::Request::host"
+    },
+    "Request.Method": {
+      "rust": "rust_stdlib::net::http::request::Request::method"
+    },
+    "Request.MultipartForm": {
+      "rust": "rust_stdlib::net::http::request::Request::multipart_form"
+    },
+    "Request.MultipartReader": {
+      "rust": "rust_stdlib::net::http::request::Request::multipart_reader"
+    },
+    "Request.ParseForm": {
+      "rust": "rust_stdlib::net::http::request::Request::parse_form"
+    },
+    "Request.ParseMultipartForm": {
+      "rust": "rust_stdlib::net::http::request::Request::parse_multipart_form"
+    },
+    "Request.PathValue": {
+      "rust": "rust_stdlib::net::http::request::Request::path_value"
+    },
+    "Request.Pattern": {
+      "rust": "rust_stdlib::net::http::request::Request::pattern"
+    },
+    "Request.PostForm": {
+      "rust": "rust_stdlib::net::http::request::Request::post_form"
+    },
+    "Request.PostFormValue": {
+      "rust": "rust_stdlib::net::http::request::Request::post_form_value"
+    },
+    "Request.Proto": {
+      "rust": "rust_stdlib::net::http::request::Request::proto"
+    },
+    "Request.ProtoAtLeast": {
+      "rust": "rust_stdlib::net::http::request::Request::proto_at_least"
+    },
+    "Request.ProtoMajor": {
+      "rust": "rust_stdlib::net::http::request::Request::proto_major"
+    },
+    "Request.ProtoMinor": {
+      "rust": "rust_stdlib::net::http::request::Request::proto_minor"
+    },
+    "Request.Referer": {
+      "rust": "rust_stdlib::net::http::request::Request::referer"
+    },
+    "Request.RemoteAddr": {
+      "rust": "rust_stdlib::net::http::request::Request::remote_addr"
+    },
+    "Request.RequestURI": {
+      "rust": "rust_stdlib::net::http::request::Request::request_uri"
+    },
+    "Request.Response": {
+      "rust": "rust_stdlib::net::http::request::Request::response"
+    },
+    "Request.SetBasicAuth": {
+      "rust": "rust_stdlib::net::http::request::Request::set_basic_auth"
+    },
+    "Request.SetPathValue": {
+      "rust": "rust_stdlib::net::http::request::Request::set_path_value"
+    },
+    "Request.TLS": {
+      "rust": "rust_stdlib::net::http::request::Request::tls"
+    },
+    "Request.Trailer": {
+      "rust": "rust_stdlib::net::http::request::Request::trailer"
+    },
+    "Request.TransferEncoding": {
+      "rust": "rust_stdlib::net::http::request::Request::transfer_encoding"
+    },
+    "Request.URL": {
+      "rust": "rust_stdlib::net::http::request::Request::url"
+    },
+    "Request.UserAgent": {
+      "rust": "rust_stdlib::net::http::request::Request::user_agent"
+    },
+    "Request.WithContext": {
+      "rust": "rust_stdlib::net::http::request::Request::with_context",
+      "note": "Go shares the Header and Form maps between the copy and the original. Header is a plain value type whose map is a public tuple field used by about 300 call sites, so a Rust copy owns its maps; Trailer, which is a shared handle, is shared as in Go.",
+      "deviation": "value-semantics"
+    },
+    "Request.Write": {
+      "rust": "rust_stdlib::net::http::request::Request::write"
+    },
+    "Request.WriteProxy": {
+      "rust": "rust_stdlib::net::http::request::Request::write_proxy"
+    },
+    "Response": {
+      "rust": "rust_stdlib::net::http::response::Response"
+    },
+    "Response.Body": {
+      "rust": "rust_stdlib::net::http::response::Response::body"
+    },
+    "Response.Close": {
+      "rust": "rust_stdlib::net::http::response::Response::close"
+    },
+    "Response.ContentLength": {
+      "rust": "rust_stdlib::net::http::response::Response::content_length"
+    },
+    "Response.Cookies": {
+      "rust": "rust_stdlib::net::http::response::Response::cookies"
+    },
+    "Response.Header": {
+      "rust": "rust_stdlib::net::http::response::Response::header"
+    },
+    "Response.Location": {
+      "rust": "rust_stdlib::net::http::response::Response::location"
+    },
+    "Response.Proto": {
+      "rust": "rust_stdlib::net::http::response::Response::proto"
+    },
+    "Response.ProtoAtLeast": {
+      "rust": "rust_stdlib::net::http::response::Response::proto_at_least"
+    },
+    "Response.ProtoMajor": {
+      "rust": "rust_stdlib::net::http::response::Response::proto_major"
+    },
+    "Response.ProtoMinor": {
+      "rust": "rust_stdlib::net::http::response::Response::proto_minor"
+    },
+    "Response.Request": {
+      "rust": "rust_stdlib::net::http::response::Response::request"
+    },
+    "Response.Status": {
+      "rust": "rust_stdlib::net::http::response::Response::status"
+    },
+    "Response.StatusCode": {
+      "rust": "rust_stdlib::net::http::response::Response::status_code"
+    },
+    "Response.TLS": {
+      "rust": "rust_stdlib::net::http::response::Response::tls"
+    },
+    "Response.Trailer": {
+      "rust": "rust_stdlib::net::http::response::Response::trailer"
+    },
+    "Response.TransferEncoding": {
+      "rust": "rust_stdlib::net::http::response::Response::transfer_encoding"
+    },
+    "Response.Uncompressed": {
+      "rust": "rust_stdlib::net::http::response::Response::uncompressed"
+    },
+    "Response.Write": {
+      "rust": "rust_stdlib::net::http::response::Response::write"
+    },
+    "ResponseController": {
+      "rust": "rust_stdlib::net::http::handler::ResponseController"
+    },
+    "ResponseController.EnableFullDuplex": {
+      "rust": "rust_stdlib::net::http::handler::ResponseController::enable_full_duplex"
+    },
+    "ResponseController.Flush": {
+      "rust": "rust_stdlib::net::http::handler::ResponseController::flush"
+    },
+    "ResponseController.Hijack": {
+      "rust": "rust_stdlib::net::http::handler::ResponseController::hijack"
+    },
+    "ResponseController.SetReadDeadline": {
+      "rust": "rust_stdlib::net::http::handler::ResponseController::set_read_deadline"
+    },
+    "ResponseController.SetWriteDeadline": {
+      "rust": "rust_stdlib::net::http::handler::ResponseController::set_write_deadline"
+    },
+    "ResponseWriter": {
+      "rust": "rust_stdlib::net::http::handler::ResponseWriter",
+      "note": "ResponseWriter: std::io::Write. Go's io.WriteString is ResponseWriter::write_string (the server frames it as a StringWriter) and the server's unexported response.ReadFrom (io.Copy into the writer) is ResponseWriter::copy_from: the first 512 bytes go through Write for content sniffing, then the header is flushed and the rest streamed straight to a plain TCP connection."
+    },
+    "ResponseWriter.Header": {
+      "rust": "rust_stdlib::net::http::handler::ResponseWriter::header"
+    },
+    "ResponseWriter.Write": {
+      "rust": "std::io::Write::write"
+    },
+    "ResponseWriter.WriteHeader": {
+      "rust": "rust_stdlib::net::http::handler::ResponseWriter::write_header"
+    },
+    "RoundTripper": {
+      "rust": "rust_stdlib::net::http::client::RoundTripper"
+    },
+    "RoundTripper.RoundTrip": {
+      "rust": "rust_stdlib::net::http::client::RoundTripper::round_trip"
+    },
+    "SameSite": {
+      "rust": "rust_stdlib::net::http::cookie::SameSite"
+    },
+    "SameSiteDefaultMode": {
+      "rust": "rust_stdlib::net::http::cookie::SAME_SITE_DEFAULT_MODE"
+    },
+    "SameSiteLaxMode": {
+      "rust": "rust_stdlib::net::http::cookie::SAME_SITE_LAX_MODE"
+    },
+    "SameSiteNoneMode": {
+      "rust": "rust_stdlib::net::http::cookie::SAME_SITE_NONE_MODE"
+    },
+    "SameSiteStrictMode": {
+      "rust": "rust_stdlib::net::http::cookie::SAME_SITE_STRICT_MODE"
+    },
+    "Serve": {
+      "rust": "rust_stdlib::net::http::server::serve"
+    },
+    "ServeContent": {
+      "rust": "rust_stdlib::net::http::fs::serve_content"
+    },
+    "ServeFile": {
+      "rust": "rust_stdlib::net::http::fs::serve_file"
+    },
+    "ServeFileFS": {
+      "rust": "rust_stdlib::net::http::fs::serve_file_fs"
+    },
+    "ServeMux": {
+      "rust": "rust_stdlib::net::http::servemux::ServeMux"
+    },
+    "ServeMux.Handle": {
+      "rust": "rust_stdlib::net::http::servemux::ServeMux::handle",
+      "note": "Returns an error where Go panics on an invalid or conflicting pattern."
+    },
+    "ServeMux.HandleFunc": {
+      "rust": "rust_stdlib::net::http::servemux::ServeMux::handle_func",
+      "note": "Returns an error where Go panics on an invalid or conflicting pattern."
+    },
+    "ServeMux.Handler": {
+      "rust": "rust_stdlib::net::http::servemux::ServeMux::handler"
+    },
+    "ServeMux.ServeHTTP": {
+      "rust": "rust_stdlib::net::http::handler::Handler::serve_http"
+    },
+    "ServeTLS": {
+      "rust": "rust_stdlib::net::http::server::serve_tls",
+      "deviation": "crypto-tls-config",
+      "note": "needs a TLS backend: Server::tls_config from rust-stdlib-tls"
+    },
+    "Server": {
+      "rust": "rust_stdlib::net::http::server::Server"
+    },
+    "Server.Addr": {
+      "rust": "rust_stdlib::net::http::server::Server::addr"
+    },
+    "Server.BaseContext": {
+      "rust": "rust_stdlib::net::http::server::Server::base_context"
+    },
+    "Server.Close": {
+      "rust": "rust_stdlib::net::http::server::Server::close"
+    },
+    "Server.ConnContext": {
+      "rust": "rust_stdlib::net::http::server::Server::conn_context"
+    },
+    "Server.ConnState": {
+      "rust": "rust_stdlib::net::http::server::Server::conn_state"
+    },
+    "Server.DisableClientPriority": {
+      "rust": "rust_stdlib::net::http::server::Server::disable_client_priority"
+    },
+    "Server.DisableGeneralOptionsHandler": {
+      "rust": "rust_stdlib::net::http::server::Server::disable_general_options_handler"
+    },
+    "Server.ErrorLog": {
+      "rust": "rust_stdlib::net::http::server::Server::error_log"
+    },
+    "Server.HTTP2": {
+      "rust": "rust_stdlib::net::http::server::Server::http2"
+    },
+    "Server.Handler": {
+      "rust": "rust_stdlib::net::http::server::Server::handler"
+    },
+    "Server.IdleTimeout": {
+      "rust": "rust_stdlib::net::http::server::Server::idle_timeout"
+    },
+    "Server.ListenAndServe": {
+      "rust": "rust_stdlib::net::http::server::Server::listen_and_serve"
+    },
+    "Server.ListenAndServeTLS": {
+      "rust": "rust_stdlib::net::http::server::Server::listen_and_serve_tls",
+      "deviation": "crypto-tls-config",
+      "note": "needs a TLS backend: Server::tls_config from rust-stdlib-tls"
+    },
+    "Server.MaxHeaderBytes": {
+      "rust": "rust_stdlib::net::http::server::Server::max_header_bytes"
+    },
+    "Server.MaxHeaderValueCount": {
+      "rust": "rust_stdlib::net::http::server::Server::max_header_value_count"
+    },
+    "Server.Protocols": {
+      "rust": "rust_stdlib::net::http::server::Server::protocols"
+    },
+    "Server.ReadHeaderTimeout": {
+      "rust": "rust_stdlib::net::http::server::Server::read_header_timeout"
+    },
+    "Server.ReadTimeout": {
+      "rust": "rust_stdlib::net::http::server::Server::read_timeout"
+    },
+    "Server.RegisterOnShutdown": {
+      "rust": "rust_stdlib::net::http::server::Server::register_on_shutdown"
+    },
+    "Server.Serve": {
+      "rust": "rust_stdlib::net::http::server::Server::serve"
+    },
+    "Server.ServeTLS": {
+      "rust": "rust_stdlib::net::http::server::Server::serve_tls",
+      "deviation": "crypto-tls-config",
+      "note": "needs a TLS backend: Server::tls_config from rust-stdlib-tls"
+    },
+    "Server.SetKeepAlivesEnabled": {
+      "rust": "rust_stdlib::net::http::server::Server::set_keep_alives_enabled"
+    },
+    "Server.Shutdown": {
+      "rust": "rust_stdlib::net::http::server::Server::shutdown"
+    },
+    "Server.TLSConfig": {
+      "rust": "rust_stdlib::net::http::server::Server::tls_config",
+      "deviation": "crypto-tls-config",
+      "note": "the field holds the core's TlsConfig hook (implemented by rust_stdlib_tls::tls::Config), not a crypto/tls.Config"
+    },
+    "Server.TLSNextProto": {
+      "rust": "rust_stdlib::net::http::server::Server::tls_next_proto"
+    },
+    "Server.WriteTimeout": {
+      "rust": "rust_stdlib::net::http::server::Server::write_timeout"
+    },
+    "ServerContextKey": {
+      "rust": "rust_stdlib::net::http::server::SERVER_CONTEXT_KEY"
+    },
+    "SetCookie": {
+      "rust": "rust_stdlib::net::http::cookie::set_cookie"
+    },
+    "StateActive": {
+      "rust": "rust_stdlib::net::http::server::STATE_ACTIVE"
+    },
+    "StateClosed": {
+      "rust": "rust_stdlib::net::http::server::STATE_CLOSED"
+    },
+    "StateHijacked": {
+      "rust": "rust_stdlib::net::http::server::STATE_HIJACKED"
+    },
+    "StateIdle": {
+      "rust": "rust_stdlib::net::http::server::STATE_IDLE"
+    },
+    "StateNew": {
+      "rust": "rust_stdlib::net::http::server::STATE_NEW"
+    },
+    "StatusAccepted": {
+      "rust": "rust_stdlib::net::http::status::STATUS_ACCEPTED"
+    },
+    "StatusAlreadyReported": {
+      "rust": "rust_stdlib::net::http::status::STATUS_ALREADY_REPORTED"
+    },
+    "StatusBadGateway": {
+      "rust": "rust_stdlib::net::http::status::STATUS_BAD_GATEWAY"
+    },
+    "StatusBadRequest": {
+      "rust": "rust_stdlib::net::http::status::STATUS_BAD_REQUEST"
+    },
+    "StatusConflict": {
+      "rust": "rust_stdlib::net::http::status::STATUS_CONFLICT"
+    },
+    "StatusContinue": {
+      "rust": "rust_stdlib::net::http::status::STATUS_CONTINUE"
+    },
+    "StatusCreated": {
+      "rust": "rust_stdlib::net::http::status::STATUS_CREATED"
+    },
+    "StatusEarlyHints": {
+      "rust": "rust_stdlib::net::http::status::STATUS_EARLY_HINTS"
+    },
+    "StatusExpectationFailed": {
+      "rust": "rust_stdlib::net::http::status::STATUS_EXPECTATION_FAILED"
+    },
+    "StatusFailedDependency": {
+      "rust": "rust_stdlib::net::http::status::STATUS_FAILED_DEPENDENCY"
+    },
+    "StatusForbidden": {
+      "rust": "rust_stdlib::net::http::status::STATUS_FORBIDDEN"
+    },
+    "StatusFound": {
+      "rust": "rust_stdlib::net::http::status::STATUS_FOUND"
+    },
+    "StatusGatewayTimeout": {
+      "rust": "rust_stdlib::net::http::status::STATUS_GATEWAY_TIMEOUT"
+    },
+    "StatusGone": {
+      "rust": "rust_stdlib::net::http::status::STATUS_GONE"
+    },
+    "StatusHTTPVersionNotSupported": {
+      "rust": "rust_stdlib::net::http::status::STATUS_HTTP_VERSION_NOT_SUPPORTED"
+    },
+    "StatusIMUsed": {
+      "rust": "rust_stdlib::net::http::status::STATUS_IM_USED"
+    },
+    "StatusInsufficientStorage": {
+      "rust": "rust_stdlib::net::http::status::STATUS_INSUFFICIENT_STORAGE"
+    },
+    "StatusInternalServerError": {
+      "rust": "rust_stdlib::net::http::status::STATUS_INTERNAL_SERVER_ERROR"
+    },
+    "StatusLengthRequired": {
+      "rust": "rust_stdlib::net::http::status::STATUS_LENGTH_REQUIRED"
+    },
+    "StatusLocked": {
+      "rust": "rust_stdlib::net::http::status::STATUS_LOCKED"
+    },
+    "StatusLoopDetected": {
+      "rust": "rust_stdlib::net::http::status::STATUS_LOOP_DETECTED"
+    },
+    "StatusMethodNotAllowed": {
+      "rust": "rust_stdlib::net::http::status::STATUS_METHOD_NOT_ALLOWED"
+    },
+    "StatusMisdirectedRequest": {
+      "rust": "rust_stdlib::net::http::status::STATUS_MISDIRECTED_REQUEST"
+    },
+    "StatusMovedPermanently": {
+      "rust": "rust_stdlib::net::http::status::STATUS_MOVED_PERMANENTLY"
+    },
+    "StatusMultiStatus": {
+      "rust": "rust_stdlib::net::http::status::STATUS_MULTI_STATUS"
+    },
+    "StatusMultipleChoices": {
+      "rust": "rust_stdlib::net::http::status::STATUS_MULTIPLE_CHOICES"
+    },
+    "StatusNetworkAuthenticationRequired": {
+      "rust": "rust_stdlib::net::http::status::STATUS_NETWORK_AUTHENTICATION_REQUIRED"
+    },
+    "StatusNoContent": {
+      "rust": "rust_stdlib::net::http::status::STATUS_NO_CONTENT"
+    },
+    "StatusNonAuthoritativeInfo": {
+      "rust": "rust_stdlib::net::http::status::STATUS_NON_AUTHORITATIVE_INFO"
+    },
+    "StatusNotAcceptable": {
+      "rust": "rust_stdlib::net::http::status::STATUS_NOT_ACCEPTABLE"
+    },
+    "StatusNotExtended": {
+      "rust": "rust_stdlib::net::http::status::STATUS_NOT_EXTENDED"
+    },
+    "StatusNotFound": {
+      "rust": "rust_stdlib::net::http::status::STATUS_NOT_FOUND"
+    },
+    "StatusNotImplemented": {
+      "rust": "rust_stdlib::net::http::status::STATUS_NOT_IMPLEMENTED"
+    },
+    "StatusNotModified": {
+      "rust": "rust_stdlib::net::http::status::STATUS_NOT_MODIFIED"
+    },
+    "StatusOK": {
+      "rust": "rust_stdlib::net::http::status::STATUS_OK"
+    },
+    "StatusPartialContent": {
+      "rust": "rust_stdlib::net::http::status::STATUS_PARTIAL_CONTENT"
+    },
+    "StatusPaymentRequired": {
+      "rust": "rust_stdlib::net::http::status::STATUS_PAYMENT_REQUIRED"
+    },
+    "StatusPermanentRedirect": {
+      "rust": "rust_stdlib::net::http::status::STATUS_PERMANENT_REDIRECT"
+    },
+    "StatusPreconditionFailed": {
+      "rust": "rust_stdlib::net::http::status::STATUS_PRECONDITION_FAILED"
+    },
+    "StatusPreconditionRequired": {
+      "rust": "rust_stdlib::net::http::status::STATUS_PRECONDITION_REQUIRED"
+    },
+    "StatusProcessing": {
+      "rust": "rust_stdlib::net::http::status::STATUS_PROCESSING"
+    },
+    "StatusProxyAuthRequired": {
+      "rust": "rust_stdlib::net::http::status::STATUS_PROXY_AUTH_REQUIRED"
+    },
+    "StatusRequestEntityTooLarge": {
+      "rust": "rust_stdlib::net::http::status::STATUS_REQUEST_ENTITY_TOO_LARGE"
+    },
+    "StatusRequestHeaderFieldsTooLarge": {
+      "rust": "rust_stdlib::net::http::status::STATUS_REQUEST_HEADER_FIELDS_TOO_LARGE"
+    },
+    "StatusRequestTimeout": {
+      "rust": "rust_stdlib::net::http::status::STATUS_REQUEST_TIMEOUT"
+    },
+    "StatusRequestURITooLong": {
+      "rust": "rust_stdlib::net::http::status::STATUS_REQUEST_URI_TOO_LONG"
+    },
+    "StatusRequestedRangeNotSatisfiable": {
+      "rust": "rust_stdlib::net::http::status::STATUS_REQUESTED_RANGE_NOT_SATISFIABLE"
+    },
+    "StatusResetContent": {
+      "rust": "rust_stdlib::net::http::status::STATUS_RESET_CONTENT"
+    },
+    "StatusSeeOther": {
+      "rust": "rust_stdlib::net::http::status::STATUS_SEE_OTHER"
+    },
+    "StatusServiceUnavailable": {
+      "rust": "rust_stdlib::net::http::status::STATUS_SERVICE_UNAVAILABLE"
+    },
+    "StatusSwitchingProtocols": {
+      "rust": "rust_stdlib::net::http::status::STATUS_SWITCHING_PROTOCOLS"
+    },
+    "StatusTeapot": {
+      "rust": "rust_stdlib::net::http::status::STATUS_TEAPOT"
+    },
+    "StatusTemporaryRedirect": {
+      "rust": "rust_stdlib::net::http::status::STATUS_TEMPORARY_REDIRECT"
+    },
+    "StatusText": {
+      "rust": "rust_stdlib::net::http::status_text"
+    },
+    "StatusTooEarly": {
+      "rust": "rust_stdlib::net::http::status::STATUS_TOO_EARLY"
+    },
+    "StatusTooManyRequests": {
+      "rust": "rust_stdlib::net::http::status::STATUS_TOO_MANY_REQUESTS"
+    },
+    "StatusUnauthorized": {
+      "rust": "rust_stdlib::net::http::status::STATUS_UNAUTHORIZED"
+    },
+    "StatusUnavailableForLegalReasons": {
+      "rust": "rust_stdlib::net::http::status::STATUS_UNAVAILABLE_FOR_LEGAL_REASONS"
+    },
+    "StatusUnprocessableEntity": {
+      "rust": "rust_stdlib::net::http::status::STATUS_UNPROCESSABLE_ENTITY"
+    },
+    "StatusUnsupportedMediaType": {
+      "rust": "rust_stdlib::net::http::status::STATUS_UNSUPPORTED_MEDIA_TYPE"
+    },
+    "StatusUpgradeRequired": {
+      "rust": "rust_stdlib::net::http::status::STATUS_UPGRADE_REQUIRED"
+    },
+    "StatusUseProxy": {
+      "rust": "rust_stdlib::net::http::status::STATUS_USE_PROXY"
+    },
+    "StatusVariantAlsoNegotiates": {
+      "rust": "rust_stdlib::net::http::status::STATUS_VARIANT_ALSO_NEGOTIATES"
+    },
+    "StripPrefix": {
+      "rust": "rust_stdlib::net::http::util::strip_prefix"
+    },
+    "TimeFormat": {
+      "rust": "rust_stdlib::net::http::status::TIME_FORMAT"
+    },
+    "TimeoutHandler": {
+      "rust": "rust_stdlib::net::http::middleware::timeout_handler"
+    },
+    "TrailerPrefix": {
+      "rust": "rust_stdlib::net::http::status::TRAILER_PREFIX"
+    },
+    "Transport": {
+      "rust": "rust_stdlib::net::http::transport::Transport"
+    },
+    "Transport.CancelRequest": {
+      "rust": "rust_stdlib::net::http::transport::Transport::cancel_request_now"
+    },
+    "Transport.Clone": {
+      "rust": "rust_stdlib::net::http::transport::Transport::clone_transport"
+    },
+    "Transport.CloseIdleConnections": {
+      "rust": "rust_stdlib::net::http::transport::Transport::close_idle_connections_now"
+    },
+    "Transport.Dial": {
+      "rust": "rust_stdlib::net::http::transport::Transport::dial"
+    },
+    "Transport.DialContext": {
+      "rust": "rust_stdlib::net::http::transport::Transport::dial_context"
+    },
+    "Transport.DialTLS": {
+      "rust": "rust_stdlib::net::http::transport::Transport::dial_tls"
+    },
+    "Transport.DialTLSContext": {
+      "rust": "rust_stdlib::net::http::transport::Transport::dial_tls_context"
+    },
+    "Transport.DisableCompression": {
+      "rust": "rust_stdlib::net::http::transport::Transport::disable_compression"
+    },
+    "Transport.DisableKeepAlives": {
+      "rust": "rust_stdlib::net::http::transport::Transport::disable_keep_alives"
+    },
+    "Transport.ExpectContinueTimeout": {
+      "rust": "rust_stdlib::net::http::transport::Transport::expect_continue_timeout"
+    },
+    "Transport.ForceAttemptHTTP2": {
+      "rust": "rust_stdlib::net::http::transport::Transport::force_attempt_http2"
+    },
+    "Transport.GetProxyConnectHeader": {
+      "rust": "rust_stdlib::net::http::transport::Transport::get_proxy_connect_header"
+    },
+    "Transport.HTTP2": {
+      "rust": "rust_stdlib::net::http::transport::Transport::http2"
+    },
+    "Transport.IdleConnTimeout": {
+      "rust": "rust_stdlib::net::http::transport::Transport::idle_conn_timeout"
+    },
+    "Transport.MaxConnsPerHost": {
+      "rust": "rust_stdlib::net::http::transport::Transport::max_conns_per_host"
+    },
+    "Transport.MaxIdleConns": {
+      "rust": "rust_stdlib::net::http::transport::Transport::max_idle_conns"
+    },
+    "Transport.MaxIdleConnsPerHost": {
+      "rust": "rust_stdlib::net::http::transport::Transport::max_idle_conns_per_host"
+    },
+    "Transport.MaxResponseHeaderBytes": {
+      "rust": "rust_stdlib::net::http::transport::Transport::max_response_header_bytes"
+    },
+    "Transport.NewClientConn": {
+      "rust": "rust_stdlib::net::http::transport::Transport::client_conn"
+    },
+    "Transport.OnProxyConnectResponse": {
+      "rust": "rust_stdlib::net::http::transport::Transport::on_proxy_connect_response"
+    },
+    "Transport.Protocols": {
+      "rust": "rust_stdlib::net::http::transport::Transport::protocols"
+    },
+    "Transport.Proxy": {
+      "rust": "rust_stdlib::net::http::transport::Transport::proxy"
+    },
+    "Transport.ProxyConnectHeader": {
+      "rust": "rust_stdlib::net::http::transport::Transport::proxy_connect_header"
+    },
+    "Transport.ReadBufferSize": {
+      "rust": "rust_stdlib::net::http::transport::Transport::read_buffer_size"
+    },
+    "Transport.RegisterProtocol": {
+      "rust": "rust_stdlib::net::http::transport::Transport::register_protocol",
+      "note": "Returns an error where Go panics when the scheme is already registered."
+    },
+    "Transport.ResponseHeaderTimeout": {
+      "rust": "rust_stdlib::net::http::transport::Transport::response_header_timeout"
+    },
+    "Transport.RoundTrip": {
+      "rust": "rust_stdlib::net::http::client::RoundTripper::round_trip"
+    },
+    "Transport.TLSClientConfig": {
+      "rust": "rust_stdlib::net::http::transport::Transport::tls_client_config",
+      "deviation": "crypto-tls-config",
+      "note": "the field holds the core's TlsConfig hook (implemented by rust_stdlib_tls::tls::Config), not a crypto/tls.Config"
+    },
+    "Transport.TLSHandshakeTimeout": {
+      "rust": "rust_stdlib::net::http::transport::Transport::tls_handshake_timeout"
+    },
+    "Transport.TLSNextProto": {
+      "rust": "rust_stdlib::net::http::transport::Transport::tls_next_proto"
+    },
+    "Transport.WriteBufferSize": {
+      "rust": "rust_stdlib::net::http::transport::Transport::write_buffer_size"
+    }
+  }
+}

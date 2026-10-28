@@ -1,0 +1,86 @@
+[package]
+name = "rust-stdlib"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.87"
+publish = false
+license = "MIT"
+description = "A first-party, zero-dependency application library built on Rust std"
+
+[lib]
+name = "rust_stdlib"
+path = "src/lib.rs"
+
+[features]
+default = ["net"]
+net = []
+# Embed the IANA time zone database (Go's time/tzdata, about 400 KB).
+tzdata = []
+
+[dependencies]
+
+[dev-dependencies]
+
+[build-dependencies]
+
+[[example]]
+name = "conformance"
+
+[[example]]
+name = "httputil_probe"
+required-features = ["net"]
+
+[[example]]
+name = "http_probe"
+required-features = ["net"]
+
+[[example]]
+name = "http_server"
+required-features = ["net"]
+
+[[example]]
+name = "http_client"
+required-features = ["net"]
+
+[[example]]
+name = "cookiejar_probe"
+required-features = ["net"]
+
+[[example]]
+name = "smtp_probe"
+required-features = ["net"]
+
+[[example]]
+name = "httptrace_probe"
+required-features = ["net"]
+
+[[example]]
+name = "cgi_probe"
+required-features = ["net"]
+
+[[example]]
+name = "pprof_probe"
+required-features = ["net"]
+
+[[example]]
+name = "h2_interop_client"
+path = "examples/h2_interop_client/main.rs"
+required-features = ["net"]
+
+[[example]]
+name = "h2_interop_server"
+path = "examples/h2_interop_server/main.rs"
+required-features = ["net"]
+
+[[example]]
+name = "h2_probe"
+path = "examples/h2_probe/main.rs"
+required-features = ["net"]
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "debuginfo"

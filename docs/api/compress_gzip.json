@@ -1,0 +1,95 @@
+{
+  "package": "compress/gzip",
+  "notes": "compress::gzip: Reader (header fields, header CRC, multistream, Reset) and Writer (header, levels, Flush, Close, Reset) over flate; ModTime is Option<time::DateTime>, Extra is Option<Vec<u8>>",
+  "symbols": {
+    "BestCompression": {
+      "rust": "rust_stdlib::compress::gzip::BEST_COMPRESSION"
+    },
+    "BestSpeed": {
+      "rust": "rust_stdlib::compress::gzip::BEST_SPEED"
+    },
+    "DefaultCompression": {
+      "rust": "rust_stdlib::compress::gzip::DEFAULT_COMPRESSION"
+    },
+    "ErrChecksum": {
+      "rust": "rust_stdlib::compress::gzip::ERR_CHECKSUM"
+    },
+    "ErrHeader": {
+      "rust": "rust_stdlib::compress::gzip::ERR_HEADER"
+    },
+    "Header": {
+      "rust": "rust_stdlib::compress::gzip::Header"
+    },
+    "Header.Comment": {
+      "rust": "rust_stdlib::compress::gzip::Header::comment"
+    },
+    "Header.Extra": {
+      "rust": "rust_stdlib::compress::gzip::Header::extra",
+      "note": "Option<Vec<u8>> distinguishes nil from empty"
+    },
+    "Header.ModTime": {
+      "rust": "rust_stdlib::compress::gzip::Header::mod_time",
+      "note": "Option<time::DateTime>; None is the zero time"
+    },
+    "Header.Name": {
+      "rust": "rust_stdlib::compress::gzip::Header::name"
+    },
+    "Header.OS": {
+      "rust": "rust_stdlib::compress::gzip::Header::os"
+    },
+    "HuffmanOnly": {
+      "rust": "rust_stdlib::compress::gzip::HUFFMAN_ONLY"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::compress::gzip::Reader::new",
+      "note": "reads the header immediately; Reader::from_buf_read avoids over-reading a BufRead source"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::compress::gzip::Writer::new"
+    },
+    "NewWriterLevel": {
+      "rust": "rust_stdlib::compress::gzip::Writer::with_level"
+    },
+    "NoCompression": {
+      "rust": "rust_stdlib::compress::gzip::NO_COMPRESSION"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::compress::gzip::Reader"
+    },
+    "Reader.Close": {
+      "rust": "rust_stdlib::compress::gzip::Reader::close"
+    },
+    "Reader.Header": {
+      "rust": "rust_stdlib::compress::gzip::Reader::header"
+    },
+    "Reader.Multistream": {
+      "rust": "rust_stdlib::compress::gzip::Reader::multistream"
+    },
+    "Reader.Read": {
+      "rust": "std::io::Read::read",
+      "note": "impl Read for rust_stdlib::compress::gzip::Reader"
+    },
+    "Reader.Reset": {
+      "rust": "rust_stdlib::compress::gzip::Reader::reset"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::compress::gzip::Writer"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::compress::gzip::Writer::close"
+    },
+    "Writer.Flush": {
+      "rust": "rust_stdlib::compress::gzip::Writer::flush"
+    },
+    "Writer.Header": {
+      "rust": "rust_stdlib::compress::gzip::Writer::header"
+    },
+    "Writer.Reset": {
+      "rust": "rust_stdlib::compress::gzip::Writer::reset"
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write",
+      "note": "impl Write for rust_stdlib::compress::gzip::Writer"
+    }
+  }
+}

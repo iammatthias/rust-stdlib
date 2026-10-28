@@ -1,0 +1,186 @@
+{
+  "package": "math/rand/v2",
+  "notes": "math::rand: Seeded PCG/ChaCha8 (marshal, Read) and all Rand methods, Zipf bit-identical to Go amd64/arm64; OS-seeded per-thread non-CSPRNG globals",
+  "symbols": {
+    "ChaCha8": {
+      "rust": "rust_stdlib::math::rand::ChaCha8"
+    },
+    "ChaCha8.AppendBinary": {
+      "rust": "rust_stdlib::math::rand::ChaCha8::append_binary"
+    },
+    "ChaCha8.MarshalBinary": {
+      "rust": "rust_stdlib::math::rand::ChaCha8::marshal_binary"
+    },
+    "ChaCha8.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "ChaCha8.Seed": {
+      "rust": "rust_stdlib::math::rand::ChaCha8::seed"
+    },
+    "ChaCha8.Uint64": {
+      "rust": "rust_stdlib::math::rand::Source::uint64"
+    },
+    "ChaCha8.UnmarshalBinary": {
+      "rust": "rust_stdlib::math::rand::ChaCha8::unmarshal_binary"
+    },
+    "ExpFloat64": {
+      "rust": "rust_stdlib::math::rand::exp_float64"
+    },
+    "Float32": {
+      "rust": "rust_stdlib::math::rand::float32"
+    },
+    "Float64": {
+      "rust": "rust_stdlib::math::rand::float64"
+    },
+    "Int": {
+      "rust": "rust_stdlib::math::rand::int"
+    },
+    "Int32": {
+      "rust": "rust_stdlib::math::rand::int32"
+    },
+    "Int32N": {
+      "rust": "rust_stdlib::math::rand::int32_n"
+    },
+    "Int64": {
+      "rust": "rust_stdlib::math::rand::int64"
+    },
+    "Int64N": {
+      "rust": "rust_stdlib::math::rand::int64_n"
+    },
+    "IntN": {
+      "rust": "rust_stdlib::math::rand::int_n"
+    },
+    "N": {
+      "rust": "rust_stdlib::math::rand::n"
+    },
+    "New": {
+      "rust": "rust_stdlib::math::rand::Rand::new"
+    },
+    "NewChaCha8": {
+      "rust": "rust_stdlib::math::rand::ChaCha8::new"
+    },
+    "NewPCG": {
+      "rust": "rust_stdlib::math::rand::Pcg::new"
+    },
+    "NewZipf": {
+      "rust": "rust_stdlib::math::rand::Zipf::new"
+    },
+    "NormFloat64": {
+      "rust": "rust_stdlib::math::rand::norm_float64"
+    },
+    "PCG": {
+      "rust": "rust_stdlib::math::rand::Pcg"
+    },
+    "PCG.AppendBinary": {
+      "rust": "rust_stdlib::math::rand::Pcg::append_binary"
+    },
+    "PCG.MarshalBinary": {
+      "rust": "rust_stdlib::math::rand::Pcg::marshal_binary"
+    },
+    "PCG.Seed": {
+      "rust": "rust_stdlib::math::rand::Pcg::seed"
+    },
+    "PCG.Uint64": {
+      "rust": "rust_stdlib::math::rand::Source::uint64"
+    },
+    "PCG.UnmarshalBinary": {
+      "rust": "rust_stdlib::math::rand::Pcg::unmarshal_binary"
+    },
+    "Perm": {
+      "rust": "rust_stdlib::math::rand::perm"
+    },
+    "Rand": {
+      "rust": "rust_stdlib::math::rand::Rand"
+    },
+    "Rand.ExpFloat64": {
+      "rust": "rust_stdlib::math::rand::Rand::exp_float64"
+    },
+    "Rand.Float32": {
+      "rust": "rust_stdlib::math::rand::Rand::float32"
+    },
+    "Rand.Float64": {
+      "rust": "rust_stdlib::math::rand::Rand::float64"
+    },
+    "Rand.Int": {
+      "rust": "rust_stdlib::math::rand::Rand::int"
+    },
+    "Rand.Int32": {
+      "rust": "rust_stdlib::math::rand::Rand::int32"
+    },
+    "Rand.Int32N": {
+      "rust": "rust_stdlib::math::rand::Rand::int32_n"
+    },
+    "Rand.Int64": {
+      "rust": "rust_stdlib::math::rand::Rand::int64"
+    },
+    "Rand.Int64N": {
+      "rust": "rust_stdlib::math::rand::Rand::int64_n"
+    },
+    "Rand.IntN": {
+      "rust": "rust_stdlib::math::rand::Rand::int_n"
+    },
+    "Rand.N": {
+      "rust": "rust_stdlib::math::rand::Rand::n"
+    },
+    "Rand.NormFloat64": {
+      "rust": "rust_stdlib::math::rand::Rand::norm_float64"
+    },
+    "Rand.Perm": {
+      "rust": "rust_stdlib::math::rand::Rand::perm"
+    },
+    "Rand.Shuffle": {
+      "rust": "rust_stdlib::math::rand::Rand::shuffle"
+    },
+    "Rand.Uint": {
+      "rust": "rust_stdlib::math::rand::Rand::uint"
+    },
+    "Rand.Uint32": {
+      "rust": "rust_stdlib::math::rand::Rand::uint32"
+    },
+    "Rand.Uint32N": {
+      "rust": "rust_stdlib::math::rand::Rand::uint32_n"
+    },
+    "Rand.Uint64": {
+      "rust": "rust_stdlib::math::rand::Rand::uint64"
+    },
+    "Rand.Uint64N": {
+      "rust": "rust_stdlib::math::rand::Rand::uint64_n"
+    },
+    "Rand.UintN": {
+      "rust": "rust_stdlib::math::rand::Rand::uint_n"
+    },
+    "Shuffle": {
+      "rust": "rust_stdlib::math::rand::shuffle"
+    },
+    "Source": {
+      "rust": "rust_stdlib::math::rand::Source"
+    },
+    "Source.Uint64": {
+      "rust": "rust_stdlib::math::rand::Source::uint64"
+    },
+    "Uint": {
+      "rust": "rust_stdlib::math::rand::uint"
+    },
+    "Uint32": {
+      "rust": "rust_stdlib::math::rand::uint32"
+    },
+    "Uint32N": {
+      "rust": "rust_stdlib::math::rand::uint32_n"
+    },
+    "Uint64": {
+      "rust": "rust_stdlib::math::rand::uint64"
+    },
+    "Uint64N": {
+      "rust": "rust_stdlib::math::rand::uint64_n"
+    },
+    "UintN": {
+      "rust": "rust_stdlib::math::rand::uint_n"
+    },
+    "Zipf": {
+      "rust": "rust_stdlib::math::rand::Zipf"
+    },
+    "Zipf.Uint64": {
+      "rust": "rust_stdlib::math::rand::Zipf::uint64"
+    }
+  }
+}

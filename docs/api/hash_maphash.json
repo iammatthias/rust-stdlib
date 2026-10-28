@@ -1,0 +1,78 @@
+{
+  "package": "hash/maphash",
+  "notes": "SipHash-1-3 (std DefaultHasher) keyed by prefixing the seed. Values are implementation-defined (as in Go) and differ between processes; the differential compares properties (streaming equals one-shot, chunking independence, Sum layout, seed sensitivity). Comparable values hash through std::hash::Hash.",
+  "symbols": {
+    "Bytes": {
+      "rust": "rust_stdlib::hash::maphash::bytes"
+    },
+    "Comparable": {
+      "rust": "rust_stdlib::hash::maphash::comparable"
+    },
+    "ComparableHasher": {
+      "rust": "rust_stdlib::hash::maphash::ComparableHasher"
+    },
+    "ComparableHasher.Equal": {
+      "rust": "rust_stdlib::hash::maphash::Hasher::equal"
+    },
+    "ComparableHasher.Hash": {
+      "rust": "rust_stdlib::hash::maphash::Hasher::hash"
+    },
+    "Hash": {
+      "rust": "rust_stdlib::hash::maphash::Hash"
+    },
+    "Hash.BlockSize": {
+      "rust": "rust_stdlib::hash::maphash::Hash::block_size"
+    },
+    "Hash.Clone": {
+      "rust": "std::clone::Clone::clone"
+    },
+    "Hash.Reset": {
+      "rust": "rust_stdlib::hash::maphash::Hash::reset"
+    },
+    "Hash.Seed": {
+      "rust": "rust_stdlib::hash::maphash::Hash::seed"
+    },
+    "Hash.SetSeed": {
+      "rust": "rust_stdlib::hash::maphash::Hash::set_seed"
+    },
+    "Hash.Size": {
+      "rust": "rust_stdlib::hash::maphash::Hash::size"
+    },
+    "Hash.Sum": {
+      "rust": "rust_stdlib::hash::maphash::Hash::sum"
+    },
+    "Hash.Sum64": {
+      "rust": "rust_stdlib::hash::maphash::Hash::sum64"
+    },
+    "Hash.Write": {
+      "rust": "std::io::Write::write"
+    },
+    "Hash.WriteByte": {
+      "rust": "rust_stdlib::hash::maphash::Hash::write_byte"
+    },
+    "Hash.WriteString": {
+      "rust": "rust_stdlib::hash::maphash::Hash::write_string"
+    },
+    "Hasher": {
+      "rust": "rust_stdlib::hash::maphash::Hasher"
+    },
+    "Hasher.Equal": {
+      "rust": "rust_stdlib::hash::maphash::Hasher::equal"
+    },
+    "Hasher.Hash": {
+      "rust": "rust_stdlib::hash::maphash::Hasher::hash"
+    },
+    "MakeSeed": {
+      "rust": "rust_stdlib::hash::maphash::make_seed"
+    },
+    "Seed": {
+      "rust": "rust_stdlib::hash::maphash::Seed"
+    },
+    "String": {
+      "rust": "rust_stdlib::hash::maphash::string"
+    },
+    "WriteComparable": {
+      "rust": "rust_stdlib::hash::maphash::write_comparable"
+    }
+  }
+}

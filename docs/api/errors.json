@@ -1,0 +1,32 @@
+{
+  "package": "errors",
+  "notes": "errors: std::error::Error is the error interface; Unwrap is Error::source and As is downcast_ref. rust_stdlib::error adds what std lacks: Joined (Join), Message (New, ErrUnsupported; compared by identity), and is/find, which walk source chains and Joined trees depth first.",
+  "symbols": {
+    "As": {
+      "rust": "rust_stdlib::error::find",
+      "note": "targets are concrete error types; a type with Go's As method implements ErrorAs and calls error::register_as::<T>() once"
+    },
+    "AsType": {
+      "rust": "rust_stdlib::error::find"
+    },
+    "ErrUnsupported": {
+      "rust": "rust_stdlib::error::Message::unsupported"
+    },
+    "Is": {
+      "rust": "rust_stdlib::error::is",
+      "note": "Equality is identity of Message values or the same object; Go's optional Is(error) bool method is ErrorIs, registered once with error::register_is::<T>() (Rust cannot discover a trait on a dyn Error)"
+    },
+    "Join": {
+      "rust": "rust_stdlib::error::Joined::new",
+      "note": "nil errors are filtered by the caller"
+    },
+    "New": {
+      "rust": "rust_stdlib::error::Message::new",
+      "note": "Box<dyn Error>::from(str) also works; Message adds identity comparison"
+    },
+    "Unwrap": {
+      "rust": "std::error::Error::source",
+      "note": "Unwrap() []error is Joined::errors"
+    }
+  }
+}

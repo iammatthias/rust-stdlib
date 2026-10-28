@@ -1,0 +1,34 @@
+{
+  "package": "crypto/dsa",
+  "notes": "rust-stdlib-crypto over the reviewed RustCrypto dsa crate (0.7.0, with its hazmat feature for the private key type and pkcs8 for PKIX DER). Embedding is a public field plus Deref; *big.Int fields are bigint::Int. The crate supports the FIPS 186-3 parameter sizes only and truncates a hash longer than Q to its leftmost N/8 bytes (Go reduces it modulo Q and leaves truncation to the caller); Go's panics become false/errors.",
+  "symbols": {
+    "ErrInvalidPublicKey": {"rust": "rust_stdlib_crypto::dsa::Error::invalid_public_key"},
+    "GenerateKey": {"rust": "rust_stdlib_crypto::dsa::generate_key", "note": "Go's reader argument becomes `dsa::generate_key_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go always honours the reader."},
+    "GenerateParameters": {"rust": "rust_stdlib_crypto::dsa::generate_parameters", "note": "Go's reader argument becomes `dsa::generate_parameters_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go always honours the reader."},
+    "L1024N160": {"rust": "rust_stdlib_crypto::dsa::L1024N160"},
+    "L2048N224": {"rust": "rust_stdlib_crypto::dsa::L2048N224"},
+    "L2048N256": {"rust": "rust_stdlib_crypto::dsa::L2048N256"},
+    "L3072N256": {"rust": "rust_stdlib_crypto::dsa::L3072N256"},
+    "ParameterSizes": {"rust": "rust_stdlib_crypto::dsa::ParameterSizes"},
+    "Parameters": {"rust": "rust_stdlib_crypto::dsa::Parameters"},
+    "Parameters.G": {"rust": "rust_stdlib_crypto::dsa::Parameters::g"},
+    "Parameters.P": {"rust": "rust_stdlib_crypto::dsa::Parameters::p"},
+    "Parameters.Q": {"rust": "rust_stdlib_crypto::dsa::Parameters::q"},
+    "PrivateKey": {"rust": "rust_stdlib_crypto::dsa::PrivateKey"},
+    "PrivateKey.PublicKey": {"rust": "rust_stdlib_crypto::dsa::PrivateKey::public_key"},
+    "PrivateKey.X": {"rust": "rust_stdlib_crypto::dsa::PrivateKey::x"},
+    "PublicKey": {"rust": "rust_stdlib_crypto::dsa::PublicKey"},
+    "PublicKey.Parameters": {"rust": "rust_stdlib_crypto::dsa::PublicKey::parameters"},
+    "PublicKey.Y": {"rust": "rust_stdlib_crypto::dsa::PublicKey::y"},
+    "Sign": {
+      "rust": "rust_stdlib_crypto::dsa::sign",
+      "deviation": "dependency-dsa-sizes",
+      "note": "only the FIPS 186-3 parameter sizes (1024/160, 2048/224, 2048/256, 3072/256) are supported, and a hash longer than Q is truncated to its leftmost N/8 bytes as FIPS 186-3 section 4.6 says; Go's reader argument becomes `dsa::sign_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go 1.26+ ignores the reader unless GODEBUG=cryptocustomrand=1."
+    },
+    "Verify": {
+      "rust": "rust_stdlib_crypto::dsa::verify",
+      "deviation": "dependency-dsa-sizes",
+      "note": "as Sign: other parameter sizes verify as false"
+    }
+  }
+}

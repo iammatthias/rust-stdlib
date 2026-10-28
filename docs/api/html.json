@@ -1,0 +1,12 @@
+{
+  "package": "html",
+  "notes": "html: Text escaping and Go-compatible named/numeric character-reference decoding",
+  "symbols": {
+    "EscapeString": {
+      "rust": "rust_stdlib::html::escape"
+    },
+    "UnescapeString": {
+      "rust": "rust_stdlib::html::unescape"
+    }
+  }
+}

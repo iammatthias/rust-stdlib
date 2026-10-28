@@ -1,0 +1,21 @@
+{
+  "package": "cmp",
+  "notes": "cmp: std Ord/PartialOrd for integers and strings; floats use rust_stdlib::math::compare for Go's NaN rules (NaN below everything and equal to itself, -0 == +0)",
+  "symbols": {
+    "Compare": {
+      "rust": "rust_stdlib::math::compare",
+      "note": "std::cmp::Ord::cmp for integers and strings"
+    },
+    "Less": {
+      "rust": "rust_stdlib::math::compare",
+      "note": "compare(x, y).is_lt(); PartialOrd::lt for integers and strings"
+    },
+    "Or": {
+      "rust": "std::iter::Iterator::find",
+      "note": "first non-default value: vals.iter().find(|v| **v != T::default())"
+    },
+    "Ordered": {
+      "rust": "std::cmp::PartialOrd"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "package": "hash/crc64",
+  "notes": "hash::crc64: ISO/ECMA/custom polynomial incremental checksums; Go-compatible binary state serialization",
+  "symbols": {
+    "Checksum": {
+      "rust": "rust_stdlib::hash::crc64::checksum"
+    },
+    "ECMA": {
+      "rust": "rust_stdlib::hash::crc64::ECMA"
+    },
+    "ISO": {
+      "rust": "rust_stdlib::hash::crc64::ISO"
+    },
+    "MakeTable": {
+      "rust": "rust_stdlib::hash::crc64::Table::new"
+    },
+    "New": {
+      "rust": "rust_stdlib::hash::crc64::Crc64::new"
+    },
+    "Size": {
+      "rust": "rust_stdlib::hash::crc64::SIZE"
+    },
+    "Table": {
+      "rust": "rust_stdlib::hash::crc64::Table"
+    },
+    "Update": {
+      "rust": "rust_stdlib::hash::crc64::update"
+    }
+  }
+}

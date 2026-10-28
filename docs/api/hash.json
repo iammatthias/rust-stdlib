@@ -1,0 +1,48 @@
+{
+  "package": "hash",
+  "notes": "Traits over std::io::Write/Read implemented by the crate's adler32, crc32, crc64 and fnv digests and by maphash.Hash. XOF is the trait only; SHAKE lives in the cryptography crate.",
+  "symbols": {
+    "Cloner": {
+      "rust": "rust_stdlib::hash::Cloner"
+    },
+    "Cloner.Clone": {
+      "rust": "rust_stdlib::hash::Cloner::clone_hash"
+    },
+    "Hash": {
+      "rust": "rust_stdlib::hash::Hash"
+    },
+    "Hash.BlockSize": {
+      "rust": "rust_stdlib::hash::Hash::block_size"
+    },
+    "Hash.Reset": {
+      "rust": "rust_stdlib::hash::Hash::reset"
+    },
+    "Hash.Size": {
+      "rust": "rust_stdlib::hash::Hash::size"
+    },
+    "Hash.Sum": {
+      "rust": "rust_stdlib::hash::Hash::sum"
+    },
+    "Hash32": {
+      "rust": "rust_stdlib::hash::Hash32"
+    },
+    "Hash32.Sum32": {
+      "rust": "rust_stdlib::hash::Hash32::sum32"
+    },
+    "Hash64": {
+      "rust": "rust_stdlib::hash::Hash64"
+    },
+    "Hash64.Sum64": {
+      "rust": "rust_stdlib::hash::Hash64::sum64"
+    },
+    "XOF": {
+      "rust": "rust_stdlib::hash::Xof"
+    },
+    "XOF.BlockSize": {
+      "rust": "rust_stdlib::hash::Xof::block_size"
+    },
+    "XOF.Reset": {
+      "rust": "rust_stdlib::hash::Xof::reset"
+    }
+  }
+}

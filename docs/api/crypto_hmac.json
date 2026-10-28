@@ -1,0 +1,14 @@
+{
+  "package": "crypto/hmac",
+  "notes": "rust-stdlib-crypto over RustCrypto hmac (SimpleHmac, so SHA-3 works too). New takes a constructor of any hash of this crate (sha256::new, a closure returning crypto::Hash::new, ...) and returns an error for other hash.Hash implementations, which RustCrypto cannot key without knowing the algorithm. Equal runs on the subtle crate.",
+  "symbols": {
+    "Equal": {
+      "rust": "rust_stdlib_crypto::hmac::equal"
+    },
+    "New": {
+      "rust": "rust_stdlib_crypto::hmac::new",
+      "note": "Only this crate's hashes are accepted; other hash.Hash implementations return UnsupportedHashError, because HMAC is provided by the reviewed hmac crate and the project does not build MAC constructions itself (ADR 0003).",
+      "deviation": "dependency-hash-set"
+    }
+  }
+}

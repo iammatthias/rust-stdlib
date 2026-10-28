@@ -1,0 +1,26 @@
+{
+  "package": "plugin",
+  "notes": "plugin: a permanent deviation (ADR 0004). Go plugins are shared objects built by the Go toolchain and loaded into a Go runtime that shares its type tables; Rust has neither. The surface exists and Open fails with \"plugin: not implemented\", as Go's stub does on platforms without plugin support",
+  "symbols": {
+    "Open": {
+      "rust": "rust_stdlib::plugin::open",
+      "deviation": "go-runtime-plugin",
+      "note": "fails with \"plugin: not implemented\", as Go's stub does where plugins are unsupported"
+    },
+    "Plugin": {
+      "rust": "rust_stdlib::plugin::Plugin",
+      "deviation": "go-runtime-plugin",
+      "note": "cannot be constructed: Open never succeeds"
+    },
+    "Plugin.Lookup": {
+      "rust": "rust_stdlib::plugin::Plugin::lookup",
+      "deviation": "go-runtime-plugin",
+      "note": "unreachable without a Plugin; returns the same error"
+    },
+    "Symbol": {
+      "rust": "rust_stdlib::plugin::Symbol",
+      "deviation": "go-runtime-plugin",
+      "note": "any boxed value; no plugin can supply one"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "package": "compress/zlib",
+  "notes": "compress::zlib: Reader/Writer over flate with preset dictionaries, FLEVEL header bits, Adler-32 checks and Resetter; Go's sentinel errors are Error constants carried in io::Error",
+  "symbols": {
+    "BestCompression": {
+      "rust": "rust_stdlib::compress::zlib::BEST_COMPRESSION"
+    },
+    "BestSpeed": {
+      "rust": "rust_stdlib::compress::zlib::BEST_SPEED"
+    },
+    "DefaultCompression": {
+      "rust": "rust_stdlib::compress::zlib::DEFAULT_COMPRESSION"
+    },
+    "ErrChecksum": {
+      "rust": "rust_stdlib::compress::zlib::ERR_CHECKSUM"
+    },
+    "ErrDictionary": {
+      "rust": "rust_stdlib::compress::zlib::ERR_DICTIONARY"
+    },
+    "ErrHeader": {
+      "rust": "rust_stdlib::compress::zlib::ERR_HEADER"
+    },
+    "HuffmanOnly": {
+      "rust": "rust_stdlib::compress::zlib::HUFFMAN_ONLY"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::compress::zlib::Reader::new"
+    },
+    "NewReaderDict": {
+      "rust": "rust_stdlib::compress::zlib::Reader::with_dictionary"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::compress::zlib::Writer::new"
+    },
+    "NewWriterLevel": {
+      "rust": "rust_stdlib::compress::zlib::Writer::with_level"
+    },
+    "NewWriterLevelDict": {
+      "rust": "rust_stdlib::compress::zlib::Writer::with_level_and_dictionary",
+      "note": "dict is Option<&[u8]>: Some (even empty) sets the header's dictionary flag like a non-nil slice"
+    },
+    "NoCompression": {
+      "rust": "rust_stdlib::compress::zlib::NO_COMPRESSION"
+    },
+    "Resetter": {
+      "rust": "rust_stdlib::compress::zlib::Resetter"
+    },
+    "Resetter.Reset": {
+      "rust": "rust_stdlib::compress::zlib::Resetter::reset"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::compress::zlib::Writer"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::compress::zlib::Writer::close"
+    },
+    "Writer.Flush": {
+      "rust": "rust_stdlib::compress::zlib::Writer::flush"
+    },
+    "Writer.Reset": {
+      "rust": "rust_stdlib::compress::zlib::Writer::reset"
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write",
+      "note": "impl Write for rust_stdlib::compress::zlib::Writer"
+    }
+  }
+}

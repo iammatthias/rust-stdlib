@@ -1,0 +1,217 @@
+{
+  "package": "net/url",
+  "notes": "net::url is Go's generic URI parser (Parse, ParseRequestURI, ResolveReference, JoinPath, escaping, Values, ParseQuery) with Go's error texts, urlstrictcolons default and 10000-parameter limit. Strings are Rust Strings: percent-decoded components that are not UTF-8 hold U+FFFD (raw_path, raw_fragment and raw_query keep the encoded bytes so String round-trips them, the host and userinfo also keep their raw bytes, so String prints a non-UTF-8 %XX there unchanged); EscapeError holds bytes. Error.Timeout/Temporary delegate to the wrapped error for this crate's error types and io::Error.",
+  "symbols": {
+    "Error": {
+      "rust": "rust_stdlib::net::url::Error"
+    },
+    "Error.Err": {
+      "rust": "rust_stdlib::net::url::Error::err"
+    },
+    "Error.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for Error: `%s %q: %s`"
+    },
+    "Error.Op": {
+      "rust": "rust_stdlib::net::url::Error::op"
+    },
+    "Error.Temporary": {
+      "rust": "rust_stdlib::net::url::Error::temporary",
+      "note": "Delegates to the wrapped error when it is one of this crate's error types (net, context, url) or an io::Error; Go finds a Timeout/Temporary method on any error by interface assertion, which a downcast on arbitrary user types cannot do.",
+      "deviation": "interface-assertion"
+    },
+    "Error.Timeout": {
+      "rust": "rust_stdlib::net::url::Error::timeout",
+      "note": "Delegates to the wrapped error when it is one of this crate's error types (net, context, url) or an io::Error; Go finds a Timeout/Temporary method on any error by interface assertion, which a downcast on arbitrary user types cannot do.",
+      "deviation": "interface-assertion"
+    },
+    "Error.URL": {
+      "rust": "rust_stdlib::net::url::Error::url"
+    },
+    "Error.Unwrap": {
+      "rust": "rust_stdlib::net::url::Error::unwrap"
+    },
+    "EscapeError": {
+      "rust": "rust_stdlib::net::url::EscapeError"
+    },
+    "EscapeError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for EscapeError with Go's text"
+    },
+    "InvalidHostError": {
+      "rust": "rust_stdlib::net::url::InvalidHostError"
+    },
+    "InvalidHostError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for InvalidHostError with Go's text"
+    },
+    "JoinPath": {
+      "rust": "rust_stdlib::net::url::join_path"
+    },
+    "Parse": {
+      "rust": "std::str::FromStr::from_str",
+      "note": "impl FromStr for Url; url::parse is the same function."
+    },
+    "ParseQuery": {
+      "rust": "rust_stdlib::net::url::parse_query",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns Rust Strings: percent-decoded bytes that are not UTF-8 become U+FFFD where Go keeps the bytes."
+    },
+    "ParseRequestURI": {
+      "rust": "rust_stdlib::net::url::parse_request_uri"
+    },
+    "PathEscape": {
+      "rust": "rust_stdlib::net::url::path_escape"
+    },
+    "PathUnescape": {
+      "rust": "rust_stdlib::net::url::path_unescape",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns Rust Strings: percent-decoded bytes that are not UTF-8 become U+FFFD where Go keeps the bytes."
+    },
+    "QueryEscape": {
+      "rust": "rust_stdlib::net::url::query_escape"
+    },
+    "QueryUnescape": {
+      "rust": "rust_stdlib::net::url::query_unescape",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns Rust Strings: percent-decoded bytes that are not UTF-8 become U+FFFD where Go keeps the bytes."
+    },
+    "URL": {
+      "rust": "rust_stdlib::net::url::Url"
+    },
+    "URL.AppendBinary": {
+      "rust": "rust_stdlib::net::url::Url::append_binary"
+    },
+    "URL.Clone": {
+      "rust": "std::clone::Clone::clone"
+    },
+    "URL.EscapedFragment": {
+      "rust": "rust_stdlib::net::url::Url::escaped_fragment"
+    },
+    "URL.EscapedPath": {
+      "rust": "rust_stdlib::net::url::Url::escaped_path"
+    },
+    "URL.ForceQuery": {
+      "rust": "rust_stdlib::net::url::Url::force_query"
+    },
+    "URL.Fragment": {
+      "rust": "rust_stdlib::net::url::Url::fragment",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns Rust Strings: percent-decoded bytes that are not UTF-8 become U+FFFD where Go keeps the bytes."
+    },
+    "URL.Host": {
+      "rust": "rust_stdlib::net::url::Url::host"
+    },
+    "URL.Hostname": {
+      "rust": "rust_stdlib::net::url::Url::hostname"
+    },
+    "URL.IsAbs": {
+      "rust": "rust_stdlib::net::url::Url::is_abs"
+    },
+    "URL.JoinPath": {
+      "rust": "rust_stdlib::net::url::Url::join_path"
+    },
+    "URL.MarshalBinary": {
+      "rust": "rust_stdlib::net::url::Url::marshal_binary"
+    },
+    "URL.OmitHost": {
+      "rust": "rust_stdlib::net::url::Url::omit_host"
+    },
+    "URL.Opaque": {
+      "rust": "rust_stdlib::net::url::Url::opaque"
+    },
+    "URL.Parse": {
+      "rust": "rust_stdlib::net::url::Url::parse",
+      "note": "method; the package-level Parse is url::parse"
+    },
+    "URL.Path": {
+      "rust": "rust_stdlib::net::url::Url::path",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns Rust Strings: percent-decoded bytes that are not UTF-8 become U+FFFD where Go keeps the bytes."
+    },
+    "URL.Port": {
+      "rust": "rust_stdlib::net::url::Url::port"
+    },
+    "URL.Query": {
+      "rust": "rust_stdlib::net::url::Url::query"
+    },
+    "URL.RawFragment": {
+      "rust": "rust_stdlib::net::url::Url::raw_fragment"
+    },
+    "URL.RawPath": {
+      "rust": "rust_stdlib::net::url::Url::raw_path"
+    },
+    "URL.RawQuery": {
+      "rust": "rust_stdlib::net::url::Url::raw_query"
+    },
+    "URL.Redacted": {
+      "rust": "rust_stdlib::net::url::Url::redacted"
+    },
+    "URL.RequestURI": {
+      "rust": "rust_stdlib::net::url::Url::request_uri"
+    },
+    "URL.ResolveReference": {
+      "rust": "rust_stdlib::net::url::Url::resolve_reference"
+    },
+    "URL.Scheme": {
+      "rust": "rust_stdlib::net::url::Url::scheme"
+    },
+    "URL.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "The host and user info keep the unescaped bytes of a percent-escaped non-UTF-8 byte (Url::host_bytes, Userinfo::username_bytes/password_bytes), so String() prints the original %XX as Go does; the String fields read as U+FFFD."
+    },
+    "URL.UnmarshalBinary": {
+      "rust": "rust_stdlib::net::url::Url::unmarshal_binary"
+    },
+    "URL.User": {
+      "rust": "rust_stdlib::net::url::Url::user"
+    },
+    "User": {
+      "rust": "rust_stdlib::net::url::user"
+    },
+    "UserPassword": {
+      "rust": "rust_stdlib::net::url::user_password"
+    },
+    "Userinfo": {
+      "rust": "rust_stdlib::net::url::Userinfo"
+    },
+    "Userinfo.Password": {
+      "rust": "rust_stdlib::net::url::Userinfo::password",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Option<&str> stands for Go's (string, bool) Returns Rust Strings: percent-decoded bytes that are not UTF-8 become U+FFFD where Go keeps the bytes."
+    },
+    "Userinfo.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display for Userinfo is Go's Userinfo.String"
+    },
+    "Userinfo.Username": {
+      "rust": "rust_stdlib::net::url::Userinfo::username",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns Rust Strings: percent-decoded bytes that are not UTF-8 become U+FFFD where Go keeps the bytes."
+    },
+    "Values": {
+      "rust": "rust_stdlib::net::url::Values"
+    },
+    "Values.Add": {
+      "rust": "rust_stdlib::net::url::Values::add"
+    },
+    "Values.Clone": {
+      "rust": "std::clone::Clone::clone"
+    },
+    "Values.Del": {
+      "rust": "rust_stdlib::net::url::Values::del"
+    },
+    "Values.Encode": {
+      "rust": "rust_stdlib::net::url::Values::encode"
+    },
+    "Values.Get": {
+      "rust": "rust_stdlib::net::url::Values::get"
+    },
+    "Values.Has": {
+      "rust": "rust_stdlib::net::url::Values::has"
+    },
+    "Values.Set": {
+      "rust": "rust_stdlib::net::url::Values::set"
+    }
+  }
+}

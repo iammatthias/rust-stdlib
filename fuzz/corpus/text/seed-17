@@ -1,0 +1,1 @@
+{{if eq .x "☃"}}é{{else}}{{x | upper}}{{end}}

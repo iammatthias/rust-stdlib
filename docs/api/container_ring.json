@@ -1,0 +1,37 @@
+{
+  "package": "container/ring",
+  "notes": "container/ring: Rc/RefCell nodes (next strong, prev weak); nil ring is Option::None",
+  "symbols": {
+    "New": {
+      "rust": "rust_stdlib::collections::ring::Ring::new"
+    },
+    "Ring": {
+      "rust": "rust_stdlib::collections::ring::Ring"
+    },
+    "Ring.Value": {
+      "rust": "rust_stdlib::collections::ring::Ring::value",
+      "note": "also set_value and with_value"
+    },
+    "Ring.Do": {
+      "rust": "rust_stdlib::collections::ring::Ring::for_each"
+    },
+    "Ring.Move": {
+      "rust": "rust_stdlib::collections::ring::Ring::move_by"
+    },
+    "Ring.Len": {
+      "rust": "rust_stdlib::collections::ring::Ring::len"
+    },
+    "Ring.Link": {
+      "rust": "rust_stdlib::collections::ring::Ring::link"
+    },
+    "Ring.Next": {
+      "rust": "rust_stdlib::collections::ring::Ring::next"
+    },
+    "Ring.Prev": {
+      "rust": "rust_stdlib::collections::ring::Ring::prev"
+    },
+    "Ring.Unlink": {
+      "rust": "rust_stdlib::collections::ring::Ring::unlink"
+    }
+  }
+}

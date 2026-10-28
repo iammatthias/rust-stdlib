@@ -1,0 +1,9 @@
+{
+  "package": "crypto/pbkdf2",
+  "notes": "rust-stdlib-crypto over RustCrypto pbkdf2 with HMAC. Password is any AsRef<[u8]> (a superset of Go's string); the iteration count is a u32 where Go takes an int, and zero acts as one like Go. Errors for zero or too-large key lengths carry Go's messages.",
+  "symbols": {
+    "Key": {
+      "rust": "rust_stdlib_crypto::pbkdf2::key"
+    }
+  }
+}

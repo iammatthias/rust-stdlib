@@ -1,0 +1,113 @@
+{
+  "package": "mime/multipart",
+  "notes": "multipart: Go's Writer, Reader (NextPart, NextRawPart, ReadForm) with Go's lenient framing, Form/FileHeader/File and Part names, differential-checked by tools/multipart_check.py. Part is an io::Read over the underlying stream that borrows the Reader (Go's rule that the next part discards the rest of the current one holds; Part::into_owned buffers it), text is Strings (non-UTF-8 headers and form values are errors), and ReadForm keeps file parts in memory up to maxMemory and spills larger ones to multipart-* temporary files in TMPDIR exactly as Go does (one shared file unless GODEBUG=multipartfiles=distinct; Form.RemoveAll deletes them and, as in Go, dropping a Form does not).",
+  "symbols": {
+    "ErrMessageTooLarge": {
+      "rust": "rust_stdlib::multipart::ERR_MESSAGE_TOO_LARGE"
+    },
+    "File": {
+      "rust": "rust_stdlib::multipart::File",
+      "note": "Read, Seek, ReadAt and File::close cover Go's File interface; the contents are read from memory or the temporary file without copying"
+    },
+    "FileContentDisposition": {
+      "rust": "rust_stdlib::multipart::file_content_disposition"
+    },
+    "FileHeader": {
+      "rust": "rust_stdlib::multipart::FileHeader"
+    },
+    "FileHeader.Filename": {
+      "rust": "rust_stdlib::multipart::FileHeader::filename"
+    },
+    "FileHeader.Header": {
+      "rust": "rust_stdlib::multipart::FileHeader::header"
+    },
+    "FileHeader.Open": {
+      "rust": "rust_stdlib::multipart::FileHeader::open"
+    },
+    "FileHeader.Size": {
+      "rust": "rust_stdlib::multipart::FileHeader::size"
+    },
+    "Form": {
+      "rust": "rust_stdlib::multipart::Form"
+    },
+    "Form.File": {
+      "rust": "rust_stdlib::multipart::Form::file"
+    },
+    "Form.RemoveAll": {
+      "rust": "rust_stdlib::multipart::Form::remove_all"
+    },
+    "Form.Value": {
+      "rust": "rust_stdlib::multipart::Form::value"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::multipart::Reader::new",
+      "note": "Reader::new(reader, boundary) takes any io::Read and has no budgets beyond Go's own limits; it does not fail (an empty boundary fails at the first NextPart, as in Go)."
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::multipart::Writer::new",
+      "note": "The 30 boundary bytes come from /dev/urandom (where crypto/rand reads), and, like Go's randomBoundary, it panics when that file cannot be read (no weaker fallback)."
+    },
+    "Part": {
+      "rust": "rust_stdlib::multipart::Part",
+      "note": "streams the body from the Reader; into_owned reads it into an OwnedPart"
+    },
+    "Part.Close": {
+      "rust": "rust_stdlib::multipart::Part::close"
+    },
+    "Part.FileName": {
+      "rust": "rust_stdlib::multipart::Part::file_name"
+    },
+    "Part.FormName": {
+      "rust": "rust_stdlib::multipart::Part::form_name"
+    },
+    "Part.Header": {
+      "rust": "rust_stdlib::multipart::Part::header"
+    },
+    "Part.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::multipart::Reader"
+    },
+    "Reader.NextPart": {
+      "rust": "rust_stdlib::multipart::Reader::next_part",
+      "note": "A port of Go's reader: LF or CRLF framing, optional Content-Disposition, folded and duplicate headers, quoted-printable decoded by NextPart only, Go's 4096-byte look-ahead and its header limits (10000 headers, 10 MB). The body is streamed by the returned Part; a read error in the middle of it is returned by Read after the bytes before it, and asking for the next part discards what is left of this one (through the quoted-printable decoder when the part has one, as Go's Part.Close does). Header names and values are Strings, so a part whose header is not valid UTF-8 is an error (Go keeps the bytes)."
+    },
+    "Reader.NextRawPart": {
+      "rust": "rust_stdlib::multipart::Reader::next_raw_part",
+      "note": "A port of Go's reader: LF or CRLF framing, optional Content-Disposition, folded and duplicate headers, quoted-printable decoded by NextPart only, Go's 4096-byte look-ahead and its header limits (10000 headers, 10 MB). The body is streamed by the returned Part; a read error in the middle of it is returned by Read after the bytes before it, and asking for the next part discards what is left of this one (through the quoted-printable decoder when the part has one, as Go's Part.Close does). Header names and values are Strings, so a part whose header is not valid UTF-8 is an error (Go keeps the bytes)."
+    },
+    "Reader.ReadForm": {
+      "rust": "rust_stdlib::multipart::Reader::read_form",
+      "note": "The same framing as NextPart and Go's memory accounting and error values (ErrMessageTooLarge). Form values are Strings, so a value that is not valid UTF-8 is an error where Go keeps the bytes; file parts above maxMemory are spilled to multipart-* temporary files and removed by Form::remove_all, as in Go; GODEBUG multipartfiles, multipartmaxparts and multipartmaxheaders are honoured."
+    },
+    "Writer": {
+      "rust": "rust_stdlib::multipart::Writer"
+    },
+    "Writer.Boundary": {
+      "rust": "rust_stdlib::multipart::Writer::boundary"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::multipart::Writer::close"
+    },
+    "Writer.CreateFormField": {
+      "rust": "rust_stdlib::multipart::Writer::create_form_field"
+    },
+    "Writer.CreateFormFile": {
+      "rust": "rust_stdlib::multipart::Writer::create_form_file"
+    },
+    "Writer.CreatePart": {
+      "rust": "rust_stdlib::multipart::Writer::create_part_map",
+      "note": "create_part_map takes a plain map and writes its keys as given, sorted, as Go does; create_part takes a MIMEHeader, whose keys are canonical."
+    },
+    "Writer.FormDataContentType": {
+      "rust": "rust_stdlib::multipart::Writer::form_data_content_type"
+    },
+    "Writer.SetBoundary": {
+      "rust": "rust_stdlib::multipart::Writer::set_boundary"
+    },
+    "Writer.WriteField": {
+      "rust": "rust_stdlib::multipart::Writer::write_field"
+    }
+  }
+}

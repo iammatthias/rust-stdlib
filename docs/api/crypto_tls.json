@@ -1,0 +1,960 @@
+{
+  "package": "crypto/tls",
+  "notes": "rust-stdlib-tls::tls over Rustls with the ring provider (docs/adr/0002): no first-party TLS state machine or cryptography. Go's `net.Conn` is `rust_stdlib::net::Conn` (tls::Conn implements it); `*x509.Certificate` and `*x509.CertPool` are the DER-reading stand-ins in tls::x509 because backends/tls cannot depend on crates/crypto (the two locks resolve getrandom and zeroize at different versions and the dependency policy forbids duplicate package names); crypto.PrivateKey is the PrivateKey enum (PKCS #1/#8/SEC 1 DER or a Rustls SigningKey). Go callbacks are `Arc<dyn Fn>` fields; Go `error` is tls::Error whose variants are Go's concrete error types. Certificate verification is webpki's with Go's x509 error texts (checked by tools/gotls_check.py). Where Rustls deliberately refuses a Go option (TLS 1.0/1.1, renegotiation, RC4/3DES/CBC suites, static RSA, P-521 and post-quantum groups, SHA-1 signatures, Encrypted Client Hello, external ticket keys) the entry is a `rustls-policy` deviation and the option fails with an explicit error rather than being ignored. InsecureSkipVerify exists only because Go exposes it. Not honoured or different, each recorded per symbol: nil RootCAs/ClientCAs on macOS (no-platform-verifier), TLSUnique/SCTs, WrapSession/UnwrapSession, QUIC secrets (keys are provided instead).",
+  "symbols": {
+    "AlertError": {
+      "rust": "rust_stdlib_tls::tls::AlertError"
+    },
+    "AlertError.Error": {
+      "rust": "rust_stdlib_tls::tls::AlertError::error"
+    },
+    "Certificate": {
+      "rust": "rust_stdlib_tls::tls::Certificate"
+    },
+    "Certificate.Certificate": {
+      "rust": "rust_stdlib_tls::tls::Certificate::certificate"
+    },
+    "Certificate.Leaf": {
+      "rust": "rust_stdlib_tls::tls::Certificate::leaf"
+    },
+    "Certificate.OCSPStaple": {
+      "rust": "rust_stdlib_tls::tls::Certificate::ocsp_staple"
+    },
+    "Certificate.PrivateKey": {
+      "rust": "rust_stdlib_tls::tls::Certificate::private_key"
+    },
+    "Certificate.SignedCertificateTimestamps": {
+      "rust": "rust_stdlib_tls::tls::Certificate::signed_certificate_timestamps",
+      "deviation": "rustls-policy",
+      "note": "The field exists but Rustls does not send SCTs, so the value is only used as data."
+    },
+    "Certificate.SupportedSignatureAlgorithms": {
+      "rust": "rust_stdlib_tls::tls::Certificate::supported_signature_algorithms",
+      "deviation": "rustls-policy",
+      "note": "Honoured by SupportsCertificate and certificate selection. Rustls chooses the signature scheme from the key type itself, so the list cannot further restrict the scheme used when signing."
+    },
+    "CertificateRequestInfo": {
+      "rust": "rust_stdlib_tls::tls::CertificateRequestInfo"
+    },
+    "CertificateRequestInfo.AcceptableCAs": {
+      "rust": "rust_stdlib_tls::tls::CertificateRequestInfo::acceptable_cas"
+    },
+    "CertificateRequestInfo.Context": {
+      "rust": "rust_stdlib_tls::tls::CertificateRequestInfo::context"
+    },
+    "CertificateRequestInfo.SignatureSchemes": {
+      "rust": "rust_stdlib_tls::tls::CertificateRequestInfo::signature_schemes"
+    },
+    "CertificateRequestInfo.SupportsCertificate": {
+      "rust": "rust_stdlib_tls::tls::CertificateRequestInfo::supports_certificate"
+    },
+    "CertificateRequestInfo.Version": {
+      "rust": "rust_stdlib_tls::tls::CertificateRequestInfo::version",
+      "deviation": "rustls-policy",
+      "note": "Best effort: Rustls does not tell a client certificate resolver the negotiated version, so the value is the highest version the connection has reported so far (zero if none yet)."
+    },
+    "CertificateVerificationError": {
+      "rust": "rust_stdlib_tls::tls::CertificateVerificationError",
+      "deviation": "webpki-distrust",
+      "note": "Verification is webpki's, which also rejects a chain through a root on its distrust list (the emSign roots since rustls-webpki 0.103.16, RUSTSEC-2026-0382) with \"x509: certificate chains to a distrusted root\". Go has no distrust list and accepts such a chain from a caller pool; rust_stdlib_crypto::x509::Certificate::verify still does."
+    },
+    "CertificateVerificationError.Err": {
+      "rust": "rust_stdlib_tls::tls::CertificateVerificationError::err"
+    },
+    "CertificateVerificationError.Error": {
+      "rust": "rust_stdlib_tls::tls::CertificateVerificationError::error"
+    },
+    "CertificateVerificationError.UnverifiedCertificates": {
+      "rust": "rust_stdlib_tls::tls::CertificateVerificationError::unverified_certificates"
+    },
+    "CertificateVerificationError.Unwrap": {
+      "rust": "rust_stdlib_tls::tls::CertificateVerificationError::unwrap"
+    },
+    "CipherSuite": {
+      "rust": "rust_stdlib_tls::tls::CipherSuite"
+    },
+    "CipherSuite.ID": {
+      "rust": "rust_stdlib_tls::tls::CipherSuite::id"
+    },
+    "CipherSuite.Insecure": {
+      "rust": "rust_stdlib_tls::tls::CipherSuite::insecure"
+    },
+    "CipherSuite.Name": {
+      "rust": "rust_stdlib_tls::tls::CipherSuite::name"
+    },
+    "CipherSuite.SupportedVersions": {
+      "rust": "rust_stdlib_tls::tls::CipherSuite::supported_versions"
+    },
+    "CipherSuiteName": {
+      "rust": "rust_stdlib_tls::tls::cipher_suite_name"
+    },
+    "CipherSuites": {
+      "rust": "rust_stdlib_tls::tls::cipher_suites"
+    },
+    "Client": {
+      "rust": "rust_stdlib_tls::tls::client"
+    },
+    "ClientAuthType": {
+      "rust": "rust_stdlib_tls::tls::ClientAuthType"
+    },
+    "ClientAuthType.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display"
+    },
+    "ClientHelloInfo": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo"
+    },
+    "ClientHelloInfo.CipherSuites": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::cipher_suites"
+    },
+    "ClientHelloInfo.Conn": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::conn"
+    },
+    "ClientHelloInfo.Context": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::context"
+    },
+    "ClientHelloInfo.Extensions": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::extensions"
+    },
+    "ClientHelloInfo.HelloRetryRequest": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::hello_retry_request",
+      "deviation": "rustls-policy",
+      "note": "Always false: Rustls invokes the certificate resolver only for the final ClientHello and does not say whether a HelloRetryRequest preceded it. ConnectionState.HelloRetryRequest is accurate."
+    },
+    "ClientHelloInfo.ServerName": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::server_name"
+    },
+    "ClientHelloInfo.SignatureSchemes": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::signature_schemes"
+    },
+    "ClientHelloInfo.SupportedCurves": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::supported_curves"
+    },
+    "ClientHelloInfo.SupportedPoints": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::supported_points"
+    },
+    "ClientHelloInfo.SupportedProtos": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::supported_protos"
+    },
+    "ClientHelloInfo.SupportedVersions": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::supported_versions"
+    },
+    "ClientHelloInfo.SupportsCertificate": {
+      "rust": "rust_stdlib_tls::tls::ClientHelloInfo::supports_certificate"
+    },
+    "ClientSessionCache": {
+      "rust": "rust_stdlib_tls::tls::ClientSessionCache"
+    },
+    "ClientSessionCache.Get": {
+      "rust": "rust_stdlib_tls::tls::ClientSessionCache::get"
+    },
+    "ClientSessionCache.Put": {
+      "rust": "rust_stdlib_tls::tls::ClientSessionCache::put"
+    },
+    "ClientSessionState": {
+      "rust": "rust_stdlib_tls::tls::ClientSessionState"
+    },
+    "ClientSessionState.ResumptionState": {
+      "rust": "rust_stdlib_tls::tls::ClientSessionState::resumption_state",
+      "deviation": "rustls-policy",
+      "note": "Returns the ticket and SessionState only for states built with NewResumptionState; states the handshake puts in a ClientSessionCache are handles to secrets Rustls holds opaquely and have none."
+    },
+    "Config": {
+      "rust": "rust_stdlib_tls::tls::Config"
+    },
+    "Config.BuildNameToCertificate": {
+      "rust": "rust_stdlib_tls::tls::Config::build_name_to_certificate"
+    },
+    "Config.Certificates": {
+      "rust": "rust_stdlib_tls::tls::Config::certificates"
+    },
+    "Config.CipherSuites": {
+      "rust": "rust_stdlib_tls::tls::Config::cipher_suites"
+    },
+    "Config.ClientAuth": {
+      "rust": "rust_stdlib_tls::tls::Config::client_auth"
+    },
+    "Config.ClientCAs": {
+      "rust": "rust_stdlib_tls::tls::Config::client_cas",
+      "note": "A nil pool verifies client certificates against the system roots, loaded as x509.SystemCertPool loads them: SSL_CERT_FILE / SSL_CERT_DIR, then Go's Unix file and directory lists, or on macOS the keychain exported with `security` when neither variable is set. Only when client certificates are verified (VerifyClientCertIfGiven, RequireAndVerifyClientCert); the CertificateRequest lists CAs only for a set pool, as Go does. On macOS without SSL_CERT_FILE/SSL_CERT_DIR Go verifies with Security.framework (no-platform-verifier), which the adapter cannot call.",
+      "deviation": "no-platform-verifier"
+    },
+    "Config.ClientSessionCache": {
+      "rust": "rust_stdlib_tls::tls::Config::client_session_cache"
+    },
+    "Config.Clone": {
+      "rust": "rust_stdlib_tls::tls::Config::clone_config"
+    },
+    "Config.CurvePreferences": {
+      "rust": "rust_stdlib_tls::tls::Config::curve_preferences"
+    },
+    "Config.DecryptTicket": {
+      "rust": "rust_stdlib_tls::tls::Config::decrypt_ticket",
+      "deviation": "rustls-policy",
+      "note": "Return an error: Rustls tickets are opaque and not Go's SessionState encoding. SessionState itself encodes and parses exactly as Go's (checked by the differential)."
+    },
+    "Config.DynamicRecordSizingDisabled": {
+      "rust": "rust_stdlib_tls::tls::Config::dynamic_record_sizing_disabled",
+      "deviation": "rustls-policy",
+      "note": "The field exists but has no effect: Rustls fragments records at its own fixed policy and offers no dynamic record sizing, so Go's latency optimisation is not reproduced. Records are valid either way."
+    },
+    "Config.EncryptTicket": {
+      "rust": "rust_stdlib_tls::tls::Config::encrypt_ticket",
+      "deviation": "rustls-policy",
+      "note": "Return an error: Rustls tickets are opaque and not Go's SessionState encoding. SessionState itself encodes and parses exactly as Go's (checked by the differential)."
+    },
+    "Config.EncryptedClientHelloConfigList": {
+      "rust": "rust_stdlib_tls::tls::Config::encrypted_client_hello_config_list",
+      "deviation": "rustls-policy",
+      "note": "The field exists. Encrypted Client Hello needs an HPKE provider and Rustls' ring provider has none, so setting it fails the handshake with an explicit error instead of sending an unprotected hello."
+    },
+    "Config.EncryptedClientHelloKeys": {
+      "rust": "rust_stdlib_tls::tls::Config::encrypted_client_hello_keys",
+      "deviation": "rustls-policy",
+      "note": "The field exists. Encrypted Client Hello needs an HPKE provider and Rustls' ring provider has none, so setting it fails the handshake with an explicit error instead of sending an unprotected hello."
+    },
+    "Config.EncryptedClientHelloRejectionVerify": {
+      "rust": "rust_stdlib_tls::tls::Config::encrypted_client_hello_rejection_verify",
+      "deviation": "rustls-policy",
+      "note": "The field exists. Encrypted Client Hello needs an HPKE provider and Rustls' ring provider has none, so setting it fails the handshake with an explicit error instead of sending an unprotected hello."
+    },
+    "Config.GetCertificate": {
+      "rust": "rust_stdlib_tls::tls::Config::get_certificate"
+    },
+    "Config.GetClientCertificate": {
+      "rust": "rust_stdlib_tls::tls::Config::get_client_certificate"
+    },
+    "Config.GetConfigForClient": {
+      "rust": "rust_stdlib_tls::tls::Config::get_config_for_client"
+    },
+    "Config.GetEncryptedClientHelloKeys": {
+      "rust": "rust_stdlib_tls::tls::Config::get_encrypted_client_hello_keys",
+      "deviation": "rustls-policy",
+      "note": "The field exists. Encrypted Client Hello needs an HPKE provider and Rustls' ring provider has none, so setting it fails the handshake with an explicit error instead of sending an unprotected hello."
+    },
+    "Config.InsecureSkipVerify": {
+      "rust": "rust_stdlib_tls::tls::Config::insecure_skip_verify"
+    },
+    "Config.KeyLogWriter": {
+      "rust": "rust_stdlib_tls::tls::Config::key_log_writer"
+    },
+    "Config.MaxVersion": {
+      "rust": "rust_stdlib_tls::tls::Config::max_version",
+      "deviation": "rustls-policy",
+      "note": "Honoured for TLS 1.2 and 1.3. Rustls implements no older version, so a MinVersion below TLS 1.2 is raised to TLS 1.2 and a MaxVersion below TLS 1.2 fails the handshake with Go's `tls: no supported versions satisfy MinVersion and MaxVersion`."
+    },
+    "Config.MinVersion": {
+      "rust": "rust_stdlib_tls::tls::Config::min_version",
+      "deviation": "rustls-policy",
+      "note": "Honoured for TLS 1.2 and 1.3. Rustls implements no older version, so a MinVersion below TLS 1.2 is raised to TLS 1.2 and a MaxVersion below TLS 1.2 fails the handshake with Go's `tls: no supported versions satisfy MinVersion and MaxVersion`."
+    },
+    "Config.NameToCertificate": {
+      "rust": "rust_stdlib_tls::tls::Config::name_to_certificate"
+    },
+    "Config.NextProtos": {
+      "rust": "rust_stdlib_tls::tls::Config::next_protos"
+    },
+    "Config.PreferServerCipherSuites": {
+      "rust": "rust_stdlib_tls::tls::Config::prefer_server_cipher_suites"
+    },
+    "Config.Rand": {
+      "deviation": "rustls-policy",
+      "note": "No field: Rustls draws all randomness from the ring provider's system RNG and has no way to inject a reader."
+    },
+    "Config.Renegotiation": {
+      "rust": "rust_stdlib_tls::tls::Config::renegotiation",
+      "deviation": "rustls-policy",
+      "note": "The field exists; only RenegotiateNever is supported. Any other value fails the handshake with `tls: renegotiation is not supported by the rustls adapter`."
+    },
+    "Config.RootCAs": {
+      "rust": "rust_stdlib_tls::tls::Config::root_cas",
+      "note": "A nil pool verifies server certificates against the system roots, loaded as x509.SystemCertPool loads them: SSL_CERT_FILE / SSL_CERT_DIR, then Go's Unix file and directory lists, or on macOS the keychain exported with `security` when neither variable is set. The loader is a copy of crates/crypto's (backends/tls cannot depend on it). On macOS without SSL_CERT_FILE/SSL_CERT_DIR Go verifies with Security.framework (no-platform-verifier), which the adapter cannot call, so the exported Apple roots are used instead and user trust settings are not.",
+      "deviation": "no-platform-verifier"
+    },
+    "Config.ServerName": {
+      "rust": "rust_stdlib_tls::tls::Config::server_name"
+    },
+    "Config.SessionTicketKey": {
+      "rust": "rust_stdlib_tls::tls::Config::session_ticket_key",
+      "deviation": "rustls-policy",
+      "note": "The field exists. Rustls generates and rotates its own ticket keys (ring `Ticketer`) and cannot install external ones: a non-zero value fails the handshake with an explicit error."
+    },
+    "Config.SessionTicketsDisabled": {
+      "rust": "rust_stdlib_tls::tls::Config::session_tickets_disabled"
+    },
+    "Config.SetSessionTicketKeys": {
+      "rust": "rust_stdlib_tls::tls::Config::set_session_ticket_keys",
+      "deviation": "rustls-policy",
+      "note": "Returns an error: externally supplied session ticket keys cannot be installed in Rustls. Go panics for an empty key list; that is an error here too."
+    },
+    "Config.Time": {
+      "rust": "rust_stdlib_tls::tls::Config::time"
+    },
+    "Config.UnwrapSession": {
+      "rust": "rust_stdlib_tls::tls::Config::unwrap_session",
+      "deviation": "rustls-policy",
+      "note": "The fields exist. Rustls owns ticket encryption and cannot call them, so setting either fails the handshake with an explicit error."
+    },
+    "Config.VerifyConnection": {
+      "rust": "rust_stdlib_tls::tls::Config::verify_connection",
+      "deviation": "rustls-policy",
+      "note": "Called with the final ConnectionState once Rustls reports the handshake complete, not before the client Finished is sent as Go does; the verifier hooks Rustls offers cannot see the negotiated parameters. A failing callback still fails the handshake with the callback's error."
+    },
+    "Config.VerifyPeerCertificate": {
+      "rust": "rust_stdlib_tls::tls::Config::verify_peer_certificate"
+    },
+    "Config.WrapSession": {
+      "rust": "rust_stdlib_tls::tls::Config::wrap_session",
+      "deviation": "rustls-policy",
+      "note": "The fields exist. Rustls owns ticket encryption and cannot call them, so setting either fails the handshake with an explicit error."
+    },
+    "Conn": {
+      "rust": "rust_stdlib_tls::tls::Conn"
+    },
+    "Conn.Close": {
+      "rust": "rust_stdlib_tls::tls::Conn::close"
+    },
+    "Conn.CloseWrite": {
+      "rust": "rust_stdlib_tls::tls::Conn::close_write"
+    },
+    "Conn.ConnectionState": {
+      "rust": "rust_stdlib_tls::tls::Conn::connection_state"
+    },
+    "Conn.Handshake": {
+      "rust": "rust_stdlib_tls::tls::Conn::handshake"
+    },
+    "Conn.HandshakeContext": {
+      "rust": "rust_stdlib_tls::tls::Conn::handshake_context"
+    },
+    "Conn.LocalAddr": {
+      "rust": "rust_stdlib_tls::tls::Conn::local_addr"
+    },
+    "Conn.NetConn": {
+      "rust": "rust_stdlib_tls::tls::Conn::net_conn"
+    },
+    "Conn.OCSPResponse": {
+      "rust": "rust_stdlib_tls::tls::Conn::ocsp_response"
+    },
+    "Conn.Read": {
+      "rust": "rust_stdlib_tls::tls::Conn::read"
+    },
+    "Conn.RemoteAddr": {
+      "rust": "rust_stdlib_tls::tls::Conn::remote_addr"
+    },
+    "Conn.SetDeadline": {
+      "rust": "rust_stdlib_tls::tls::Conn::set_deadline"
+    },
+    "Conn.SetReadDeadline": {
+      "rust": "rust_stdlib_tls::tls::Conn::set_read_deadline"
+    },
+    "Conn.SetWriteDeadline": {
+      "rust": "rust_stdlib_tls::tls::Conn::set_write_deadline"
+    },
+    "Conn.VerifyHostname": {
+      "rust": "rust_stdlib_tls::tls::Conn::verify_hostname"
+    },
+    "Conn.Write": {
+      "rust": "rust_stdlib_tls::tls::Conn::write"
+    },
+    "ConnectionState": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState"
+    },
+    "ConnectionState.CipherSuite": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::cipher_suite"
+    },
+    "ConnectionState.CurveID": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::curve_id",
+      "deviation": "rustls-policy",
+      "note": "Matches Go except on resumed TLS 1.2 connections, where Go reports the original session's curve and Rustls keeps no key exchange for the resumed session (zero)."
+    },
+    "ConnectionState.DidResume": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::did_resume"
+    },
+    "ConnectionState.ECHAccepted": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::ech_accepted",
+      "deviation": "rustls-policy",
+      "note": "Always false: Encrypted Client Hello is unavailable with the ring provider."
+    },
+    "ConnectionState.ExportKeyingMaterial": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::export_keying_material"
+    },
+    "ConnectionState.HandshakeComplete": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::handshake_complete"
+    },
+    "ConnectionState.HelloRetryRequest": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::hello_retry_request"
+    },
+    "ConnectionState.LocalCertificate": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::local_certificate"
+    },
+    "ConnectionState.NegotiatedProtocol": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::negotiated_protocol"
+    },
+    "ConnectionState.NegotiatedProtocolIsMutual": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::negotiated_protocol_is_mutual"
+    },
+    "ConnectionState.OCSPResponse": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::ocsp_response"
+    },
+    "ConnectionState.PeerCertificates": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::peer_certificates"
+    },
+    "ConnectionState.ServerName": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::server_name"
+    },
+    "ConnectionState.SignedCertificateTimestamps": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::signed_certificate_timestamps",
+      "deviation": "rustls-policy",
+      "note": "Always empty: Rustls does not expose the peer's SCTs."
+    },
+    "ConnectionState.TLSUnique": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::tls_unique",
+      "deviation": "rustls-policy",
+      "note": "Always empty: Rustls does not expose the Finished message used for tls-unique channel binding."
+    },
+    "ConnectionState.VerifiedChains": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::verified_chains"
+    },
+    "ConnectionState.Version": {
+      "rust": "rust_stdlib_tls::tls::ConnectionState::version"
+    },
+    "CurveID": {
+      "rust": "rust_stdlib_tls::tls::CurveID"
+    },
+    "CurveID.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display"
+    },
+    "CurveP256": {
+      "rust": "rust_stdlib_tls::tls::CURVE_P256"
+    },
+    "CurveP384": {
+      "rust": "rust_stdlib_tls::tls::CURVE_P384"
+    },
+    "CurveP521": {
+      "rust": "rust_stdlib_tls::tls::CURVE_P521",
+      "deviation": "rustls-policy",
+      "note": "The constant and its String value exist. The ring provider offers X25519, P-256 and P-384 only (no P-521, no post-quantum hybrids), so the group cannot be negotiated and is skipped in Config.CurvePreferences."
+    },
+    "Dial": {
+      "rust": "rust_stdlib_tls::tls::dial"
+    },
+    "DialWithDialer": {
+      "rust": "rust_stdlib_tls::tls::dial_with_dialer"
+    },
+    "Dialer": {
+      "rust": "rust_stdlib_tls::tls::Dialer"
+    },
+    "Dialer.Config": {
+      "rust": "rust_stdlib_tls::tls::Dialer::config"
+    },
+    "Dialer.Dial": {
+      "rust": "rust_stdlib_tls::tls::Dialer::dial"
+    },
+    "Dialer.DialContext": {
+      "rust": "rust_stdlib_tls::tls::Dialer::dial_context"
+    },
+    "Dialer.NetDialer": {
+      "rust": "rust_stdlib_tls::tls::Dialer::net_dialer"
+    },
+    "ECDSAWithP256AndSHA256": {
+      "rust": "rust_stdlib_tls::tls::ECDSA_WITH_P256_AND_SHA256"
+    },
+    "ECDSAWithP384AndSHA384": {
+      "rust": "rust_stdlib_tls::tls::ECDSA_WITH_P384_AND_SHA384"
+    },
+    "ECDSAWithP521AndSHA512": {
+      "rust": "rust_stdlib_tls::tls::ECDSA_WITH_P521_AND_SHA512",
+      "deviation": "rustls-policy",
+      "note": "The constant exists. The ring provider has no P-521 ECDSA, so this scheme is never offered or accepted."
+    },
+    "ECDSAWithSHA1": {
+      "rust": "rust_stdlib_tls::tls::ECDSA_WITH_SHA1",
+      "deviation": "rustls-policy",
+      "note": "The constant exists. Rustls refuses SHA-1 handshake signatures, so the scheme is never offered or accepted (Go also rejects them in TLS 1.3 and disables them by default in TLS 1.2)."
+    },
+    "ECHRejectionError": {
+      "rust": "rust_stdlib_tls::tls::ECHRejectionError"
+    },
+    "ECHRejectionError.Error": {
+      "rust": "rust_stdlib_tls::tls::ECHRejectionError::error"
+    },
+    "ECHRejectionError.RetryConfigList": {
+      "rust": "rust_stdlib_tls::tls::ECHRejectionError::retry_config_list"
+    },
+    "Ed25519": {
+      "rust": "rust_stdlib_tls::tls::ED25519"
+    },
+    "EncryptedClientHelloKey": {
+      "rust": "rust_stdlib_tls::tls::EncryptedClientHelloKey",
+      "deviation": "rustls-policy",
+      "note": "The type exists for API shape. Server-side ECH is unavailable with the ring provider (no HPKE), so keys are rejected at handshake time."
+    },
+    "EncryptedClientHelloKey.Config": {
+      "rust": "rust_stdlib_tls::tls::EncryptedClientHelloKey::config",
+      "deviation": "rustls-policy",
+      "note": "The type exists for API shape. Server-side ECH is unavailable with the ring provider (no HPKE), so keys are rejected at handshake time."
+    },
+    "EncryptedClientHelloKey.PrivateKey": {
+      "rust": "rust_stdlib_tls::tls::EncryptedClientHelloKey::private_key",
+      "deviation": "rustls-policy",
+      "note": "The type exists for API shape. Server-side ECH is unavailable with the ring provider (no HPKE), so keys are rejected at handshake time."
+    },
+    "EncryptedClientHelloKey.SendAsRetry": {
+      "rust": "rust_stdlib_tls::tls::EncryptedClientHelloKey::send_as_retry",
+      "deviation": "rustls-policy",
+      "note": "The type exists for API shape. Server-side ECH is unavailable with the ring provider (no HPKE), so keys are rejected at handshake time."
+    },
+    "InsecureCipherSuites": {
+      "rust": "rust_stdlib_tls::tls::insecure_cipher_suites"
+    },
+    "Listen": {
+      "rust": "rust_stdlib_tls::tls::listen"
+    },
+    "LoadX509KeyPair": {
+      "rust": "rust_stdlib_tls::tls::load_x509_key_pair"
+    },
+    "MLDSA44": {
+      "rust": "rust_stdlib_tls::tls::MLDSA44",
+      "deviation": "rustls-policy",
+      "note": "The constant and its String value exist. The ring provider has no ML-DSA, so the scheme is never offered and certificates with ML-DSA keys are not supported."
+    },
+    "MLDSA65": {
+      "rust": "rust_stdlib_tls::tls::MLDSA65",
+      "deviation": "rustls-policy",
+      "note": "The constant and its String value exist. The ring provider has no ML-DSA, so the scheme is never offered and certificates with ML-DSA keys are not supported."
+    },
+    "MLDSA87": {
+      "rust": "rust_stdlib_tls::tls::MLDSA87",
+      "deviation": "rustls-policy",
+      "note": "The constant and its String value exist. The ring provider has no ML-DSA, so the scheme is never offered and certificates with ML-DSA keys are not supported."
+    },
+    "MLKEM1024": {
+      "rust": "rust_stdlib_tls::tls::MLKEM1024",
+      "deviation": "rustls-policy",
+      "note": "The constant and its String value exist. The ring provider offers X25519, P-256 and P-384 only (no P-521, no post-quantum hybrids), so the group cannot be negotiated and is skipped in Config.CurvePreferences."
+    },
+    "NewLRUClientSessionCache": {
+      "rust": "rust_stdlib_tls::tls::LruClientSessionCache::new"
+    },
+    "NewListener": {
+      "rust": "rust_stdlib_tls::tls::Listener::new"
+    },
+    "NewResumptionState": {
+      "rust": "rust_stdlib_tls::tls::ClientSessionState::new"
+    },
+    "NoClientCert": {
+      "rust": "rust_stdlib_tls::tls::NO_CLIENT_CERT"
+    },
+    "PKCS1WithSHA1": {
+      "rust": "rust_stdlib_tls::tls::PKCS1_WITH_SHA1",
+      "deviation": "rustls-policy",
+      "note": "The constant exists. Rustls refuses SHA-1 handshake signatures, so the scheme is never offered or accepted (Go also rejects them in TLS 1.3 and disables them by default in TLS 1.2)."
+    },
+    "PKCS1WithSHA256": {
+      "rust": "rust_stdlib_tls::tls::PKCS1_WITH_SHA256"
+    },
+    "PKCS1WithSHA384": {
+      "rust": "rust_stdlib_tls::tls::PKCS1_WITH_SHA384"
+    },
+    "PKCS1WithSHA512": {
+      "rust": "rust_stdlib_tls::tls::PKCS1_WITH_SHA512"
+    },
+    "PSSWithSHA256": {
+      "rust": "rust_stdlib_tls::tls::PSS_WITH_SHA256"
+    },
+    "PSSWithSHA384": {
+      "rust": "rust_stdlib_tls::tls::PSS_WITH_SHA384"
+    },
+    "PSSWithSHA512": {
+      "rust": "rust_stdlib_tls::tls::PSS_WITH_SHA512"
+    },
+    "ParseSessionState": {
+      "rust": "rust_stdlib_tls::tls::parse_session_state"
+    },
+    "QUICClient": {
+      "rust": "rust_stdlib_tls::tls::quic_client"
+    },
+    "QUICConfig": {
+      "rust": "rust_stdlib_tls::tls::QUICConfig"
+    },
+    "QUICConfig.ClientHelloInfoConn": {
+      "rust": "rust_stdlib_tls::tls::QUICConfig::client_hello_info_conn"
+    },
+    "QUICConfig.EnableSessionEvents": {
+      "rust": "rust_stdlib_tls::tls::QUICConfig::enable_session_events",
+      "deviation": "rustls-policy",
+      "note": "Session events are not produced: setting it makes Start fail with an explicit error. Rustls resumes sessions through its own client session store."
+    },
+    "QUICConfig.TLSConfig": {
+      "rust": "rust_stdlib_tls::tls::QUICConfig::tls_config"
+    },
+    "QUICConn": {
+      "rust": "rust_stdlib_tls::tls::QUICConn"
+    },
+    "QUICConn.Close": {
+      "rust": "rust_stdlib_tls::tls::QUICConn::close"
+    },
+    "QUICConn.ConnectionState": {
+      "rust": "rust_stdlib_tls::tls::QUICConn::connection_state"
+    },
+    "QUICConn.HandleData": {
+      "rust": "rust_stdlib_tls::tls::QUICConn::handle_data"
+    },
+    "QUICConn.NextEvent": {
+      "rust": "rust_stdlib_tls::tls::QUICConn::next_event"
+    },
+    "QUICConn.SendSessionTicket": {
+      "rust": "rust_stdlib_tls::tls::QUICConn::send_session_ticket",
+      "deviation": "rustls-policy",
+      "note": "Return an error. Rustls sends TLS 1.3 session tickets by itself and keeps client sessions in its own store, so the application cannot trigger, shape or store them."
+    },
+    "QUICConn.SetTransportParameters": {
+      "rust": "rust_stdlib_tls::tls::QUICConn::set_transport_parameters"
+    },
+    "QUICConn.Start": {
+      "rust": "rust_stdlib_tls::tls::QUICConn::start"
+    },
+    "QUICConn.StoreSession": {
+      "rust": "rust_stdlib_tls::tls::QUICConn::store_session",
+      "deviation": "rustls-policy",
+      "note": "Return an error. Rustls sends TLS 1.3 session tickets by itself and keeps client sessions in its own store, so the application cannot trigger, shape or store them."
+    },
+    "QUICEncryptionLevel": {
+      "rust": "rust_stdlib_tls::tls::QUICEncryptionLevel"
+    },
+    "QUICEncryptionLevel.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display"
+    },
+    "QUICEncryptionLevelApplication": {
+      "rust": "rust_stdlib_tls::tls::QUIC_ENCRYPTION_LEVEL_APPLICATION"
+    },
+    "QUICEncryptionLevelEarly": {
+      "rust": "rust_stdlib_tls::tls::QUIC_ENCRYPTION_LEVEL_EARLY"
+    },
+    "QUICEncryptionLevelHandshake": {
+      "rust": "rust_stdlib_tls::tls::QUIC_ENCRYPTION_LEVEL_HANDSHAKE"
+    },
+    "QUICEncryptionLevelInitial": {
+      "rust": "rust_stdlib_tls::tls::QUIC_ENCRYPTION_LEVEL_INITIAL"
+    },
+    "QUICErrorEvent": {
+      "rust": "rust_stdlib_tls::tls::QUIC_ERROR_EVENT"
+    },
+    "QUICEvent": {
+      "rust": "rust_stdlib_tls::tls::QUICEvent"
+    },
+    "QUICEvent.Data": {
+      "rust": "rust_stdlib_tls::tls::QUICEvent::data",
+      "deviation": "rustls-policy",
+      "note": "The events are produced at Go's points with Level and Suite, but Rustls exports packet and header protection keys, not raw traffic secrets: Data is empty for these events and the keys are in the `keys` field. WriteData and TransportParameters carry Data as in Go."
+    },
+    "QUICEvent.Err": {
+      "rust": "rust_stdlib_tls::tls::QUICEvent::err"
+    },
+    "QUICEvent.Kind": {
+      "rust": "rust_stdlib_tls::tls::QUICEvent::kind"
+    },
+    "QUICEvent.Level": {
+      "rust": "rust_stdlib_tls::tls::QUICEvent::level"
+    },
+    "QUICEvent.SessionState": {
+      "rust": "rust_stdlib_tls::tls::QUICEvent::session_state",
+      "deviation": "rustls-policy",
+      "note": "Never produced: session events are not supported (see QUICConfig.EnableSessionEvents)."
+    },
+    "QUICEvent.Suite": {
+      "rust": "rust_stdlib_tls::tls::QUICEvent::suite"
+    },
+    "QUICEventKind": {
+      "rust": "rust_stdlib_tls::tls::QUICEventKind"
+    },
+    "QUICHandshakeDone": {
+      "rust": "rust_stdlib_tls::tls::QUIC_HANDSHAKE_DONE"
+    },
+    "QUICNoEvent": {
+      "rust": "rust_stdlib_tls::tls::QUIC_NO_EVENT"
+    },
+    "QUICRejectedEarlyData": {
+      "rust": "rust_stdlib_tls::tls::QUIC_REJECTED_EARLY_DATA",
+      "deviation": "rustls-policy",
+      "note": "Never produced: 0-RTT is not offered through this adapter."
+    },
+    "QUICResumeSession": {
+      "rust": "rust_stdlib_tls::tls::QUIC_RESUME_SESSION",
+      "deviation": "rustls-policy",
+      "note": "Never produced: session events are not supported (see QUICConfig.EnableSessionEvents)."
+    },
+    "QUICServer": {
+      "rust": "rust_stdlib_tls::tls::quic_server"
+    },
+    "QUICSessionTicketOptions": {
+      "rust": "rust_stdlib_tls::tls::QUICSessionTicketOptions",
+      "deviation": "rustls-policy",
+      "note": "The type exists for API shape; QUICConn.SendSessionTicket, its only consumer, is unsupported."
+    },
+    "QUICSessionTicketOptions.EarlyData": {
+      "rust": "rust_stdlib_tls::tls::QUICSessionTicketOptions::early_data",
+      "deviation": "rustls-policy",
+      "note": "The type exists for API shape; QUICConn.SendSessionTicket, its only consumer, is unsupported."
+    },
+    "QUICSessionTicketOptions.Extra": {
+      "rust": "rust_stdlib_tls::tls::QUICSessionTicketOptions::extra",
+      "deviation": "rustls-policy",
+      "note": "The type exists for API shape; QUICConn.SendSessionTicket, its only consumer, is unsupported."
+    },
+    "QUICSetReadSecret": {
+      "rust": "rust_stdlib_tls::tls::QUIC_SET_READ_SECRET",
+      "deviation": "rustls-policy",
+      "note": "The events are produced at Go's points with Level and Suite, but Rustls exports packet and header protection keys, not raw traffic secrets: Data is empty for these events and the keys are in the `keys` field. WriteData and TransportParameters carry Data as in Go."
+    },
+    "QUICSetWriteSecret": {
+      "rust": "rust_stdlib_tls::tls::QUIC_SET_WRITE_SECRET",
+      "deviation": "rustls-policy",
+      "note": "The events are produced at Go's points with Level and Suite, but Rustls exports packet and header protection keys, not raw traffic secrets: Data is empty for these events and the keys are in the `keys` field. WriteData and TransportParameters carry Data as in Go."
+    },
+    "QUICStoreSession": {
+      "rust": "rust_stdlib_tls::tls::QUIC_STORE_SESSION",
+      "deviation": "rustls-policy",
+      "note": "Never produced: session events are not supported (see QUICConfig.EnableSessionEvents)."
+    },
+    "QUICTransportParameters": {
+      "rust": "rust_stdlib_tls::tls::QUIC_TRANSPORT_PARAMETERS"
+    },
+    "QUICTransportParametersRequired": {
+      "rust": "rust_stdlib_tls::tls::QUIC_TRANSPORT_PARAMETERS_REQUIRED",
+      "deviation": "rustls-policy",
+      "note": "Rustls needs the transport parameters before it starts, so a server emits this event at Start (Go asks after parsing the ClientHello); SetTransportParameters then starts the handshake."
+    },
+    "QUICWriteData": {
+      "rust": "rust_stdlib_tls::tls::QUIC_WRITE_DATA"
+    },
+    "RecordHeaderError": {
+      "rust": "rust_stdlib_tls::tls::RecordHeaderError"
+    },
+    "RecordHeaderError.Conn": {
+      "rust": "rust_stdlib_tls::tls::RecordHeaderError::conn"
+    },
+    "RecordHeaderError.Error": {
+      "rust": "rust_stdlib_tls::tls::RecordHeaderError::error"
+    },
+    "RecordHeaderError.Msg": {
+      "rust": "rust_stdlib_tls::tls::RecordHeaderError::msg"
+    },
+    "RecordHeaderError.RecordHeader": {
+      "rust": "rust_stdlib_tls::tls::RecordHeaderError::record_header"
+    },
+    "RenegotiateFreelyAsClient": {
+      "rust": "rust_stdlib_tls::tls::RENEGOTIATE_FREELY_AS_CLIENT",
+      "deviation": "rustls-policy",
+      "note": "Rustls never renegotiates and answers a HelloRequest with a refusal; a Config.Renegotiation other than RenegotiateNever fails the handshake with an explicit error."
+    },
+    "RenegotiateNever": {
+      "rust": "rust_stdlib_tls::tls::RENEGOTIATE_NEVER"
+    },
+    "RenegotiateOnceAsClient": {
+      "rust": "rust_stdlib_tls::tls::RENEGOTIATE_ONCE_AS_CLIENT",
+      "deviation": "rustls-policy",
+      "note": "Rustls never renegotiates and answers a HelloRequest with a refusal; a Config.Renegotiation other than RenegotiateNever fails the handshake with an explicit error."
+    },
+    "RenegotiationSupport": {
+      "rust": "rust_stdlib_tls::tls::RenegotiationSupport"
+    },
+    "RequestClientCert": {
+      "rust": "rust_stdlib_tls::tls::REQUEST_CLIENT_CERT"
+    },
+    "RequireAndVerifyClientCert": {
+      "rust": "rust_stdlib_tls::tls::REQUIRE_AND_VERIFY_CLIENT_CERT"
+    },
+    "RequireAnyClientCert": {
+      "rust": "rust_stdlib_tls::tls::REQUIRE_ANY_CLIENT_CERT"
+    },
+    "SecP256r1MLKEM768": {
+      "rust": "rust_stdlib_tls::tls::SEC_P256R1_MLKEM768",
+      "deviation": "rustls-policy",
+      "note": "The constant and its String value exist. The ring provider offers X25519, P-256 and P-384 only (no P-521, no post-quantum hybrids), so the group cannot be negotiated and is skipped in Config.CurvePreferences."
+    },
+    "SecP384r1MLKEM1024": {
+      "rust": "rust_stdlib_tls::tls::SEC_P384R1_MLKEM1024",
+      "deviation": "rustls-policy",
+      "note": "The constant and its String value exist. The ring provider offers X25519, P-256 and P-384 only (no P-521, no post-quantum hybrids), so the group cannot be negotiated and is skipped in Config.CurvePreferences."
+    },
+    "Server": {
+      "rust": "rust_stdlib_tls::tls::server"
+    },
+    "SessionState": {
+      "rust": "rust_stdlib_tls::tls::SessionState"
+    },
+    "SessionState.Bytes": {
+      "rust": "rust_stdlib_tls::tls::SessionState::bytes"
+    },
+    "SessionState.EarlyData": {
+      "rust": "rust_stdlib_tls::tls::SessionState::early_data"
+    },
+    "SessionState.Extra": {
+      "rust": "rust_stdlib_tls::tls::SessionState::extra"
+    },
+    "SignatureScheme": {
+      "rust": "rust_stdlib_tls::tls::SignatureScheme"
+    },
+    "SignatureScheme.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display"
+    },
+    "TLS_AES_128_GCM_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_AES_128_GCM_SHA256"
+    },
+    "TLS_AES_256_GCM_SHA384": {
+      "rust": "rust_stdlib_tls::tls::TLS_AES_256_GCM_SHA384"
+    },
+    "TLS_CHACHA20_POLY1305_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_CHACHA20_POLY1305_SHA256"
+    },
+    "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (CipherSuites/InsecureCipherSuites tables match Go). Rustls implements only AEAD suites, so CBC suites cannot be negotiated; a Config.CipherSuites list naming only them fails with Go's `no cipher suite supported by both client and server`."
+    },
+    "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (CipherSuites/InsecureCipherSuites tables match Go). Rustls implements only AEAD suites, so CBC suites cannot be negotiated; a Config.CipherSuites list naming only them fails with Go's `no cipher suite supported by both client and server`."
+    },
+    "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256"
+    },
+    "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (CipherSuites/InsecureCipherSuites tables match Go). Rustls implements only AEAD suites, so CBC suites cannot be negotiated; a Config.CipherSuites list naming only them fails with Go's `no cipher suite supported by both client and server`."
+    },
+    "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
+    },
+    "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305"
+    },
+    "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256"
+    },
+    "TLS_ECDHE_ECDSA_WITH_RC4_128_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_ECDSA_WITH_RC4_128_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists and the suite appears in InsecureCipherSuites with Go's table. Rustls does not implement RC4 and the suite cannot be negotiated; listing it in Config.CipherSuites is ignored, as Go ignores unknown IDs."
+    },
+    "TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (InsecureCipherSuites table matches Go). Rustls does not implement 3DES and the suite cannot be negotiated."
+    },
+    "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (CipherSuites/InsecureCipherSuites tables match Go). Rustls implements only AEAD suites, so CBC suites cannot be negotiated; a Config.CipherSuites list naming only them fails with Go's `no cipher suite supported by both client and server`."
+    },
+    "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (CipherSuites/InsecureCipherSuites tables match Go). Rustls implements only AEAD suites, so CBC suites cannot be negotiated; a Config.CipherSuites list naming only them fails with Go's `no cipher suite supported by both client and server`."
+    },
+    "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+    },
+    "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (CipherSuites/InsecureCipherSuites tables match Go). Rustls implements only AEAD suites, so CBC suites cannot be negotiated; a Config.CipherSuites list naming only them fails with Go's `no cipher suite supported by both client and server`."
+    },
+    "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+    },
+    "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"
+    },
+    "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256"
+    },
+    "TLS_ECDHE_RSA_WITH_RC4_128_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_ECDHE_RSA_WITH_RC4_128_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists and the suite appears in InsecureCipherSuites with Go's table. Rustls does not implement RC4 and the suite cannot be negotiated; listing it in Config.CipherSuites is ignored, as Go ignores unknown IDs."
+    },
+    "TLS_FALLBACK_SCSV": {
+      "rust": "rust_stdlib_tls::tls::TLS_FALLBACK_SCSV"
+    },
+    "TLS_RSA_WITH_3DES_EDE_CBC_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_RSA_WITH_3DES_EDE_CBC_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (InsecureCipherSuites table matches Go). Rustls does not implement 3DES and the suite cannot be negotiated."
+    },
+    "TLS_RSA_WITH_AES_128_CBC_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_RSA_WITH_AES_128_CBC_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (InsecureCipherSuites table matches Go). Rustls refuses static RSA key exchange (no forward secrecy), so the suite cannot be negotiated."
+    },
+    "TLS_RSA_WITH_AES_128_CBC_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_RSA_WITH_AES_128_CBC_SHA256",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (InsecureCipherSuites table matches Go). Rustls refuses static RSA key exchange (no forward secrecy), so the suite cannot be negotiated."
+    },
+    "TLS_RSA_WITH_AES_128_GCM_SHA256": {
+      "rust": "rust_stdlib_tls::tls::TLS_RSA_WITH_AES_128_GCM_SHA256",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (InsecureCipherSuites table matches Go). Rustls refuses static RSA key exchange (no forward secrecy), so the suite cannot be negotiated."
+    },
+    "TLS_RSA_WITH_AES_256_CBC_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_RSA_WITH_AES_256_CBC_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (InsecureCipherSuites table matches Go). Rustls refuses static RSA key exchange (no forward secrecy), so the suite cannot be negotiated."
+    },
+    "TLS_RSA_WITH_AES_256_GCM_SHA384": {
+      "rust": "rust_stdlib_tls::tls::TLS_RSA_WITH_AES_256_GCM_SHA384",
+      "deviation": "rustls-policy",
+      "note": "The constant exists (InsecureCipherSuites table matches Go). Rustls refuses static RSA key exchange (no forward secrecy), so the suite cannot be negotiated."
+    },
+    "TLS_RSA_WITH_RC4_128_SHA": {
+      "rust": "rust_stdlib_tls::tls::TLS_RSA_WITH_RC4_128_SHA",
+      "deviation": "rustls-policy",
+      "note": "The constant exists and the suite appears in InsecureCipherSuites with Go's table. Rustls does not implement RC4 and the suite cannot be negotiated; listing it in Config.CipherSuites is ignored, as Go ignores unknown IDs."
+    },
+    "VerifyClientCertIfGiven": {
+      "rust": "rust_stdlib_tls::tls::VERIFY_CLIENT_CERT_IF_GIVEN"
+    },
+    "VersionName": {
+      "rust": "rust_stdlib_tls::tls::version_name"
+    },
+    "VersionSSL30": {
+      "rust": "rust_stdlib_tls::tls::VERSION_SSL30",
+      "deviation": "rustls-policy",
+      "note": "The constant exists with Go's value. Rustls implements only TLS 1.2 and 1.3 and refuses older protocol versions by design: MinVersion below TLS 1.2 is raised to TLS 1.2, and a MaxVersion below TLS 1.2 fails the handshake with Go's `tls: no supported versions satisfy MinVersion and MaxVersion`."
+    },
+    "VersionTLS10": {
+      "rust": "rust_stdlib_tls::tls::VERSION_TLS10",
+      "deviation": "rustls-policy",
+      "note": "The constant exists with Go's value. Rustls implements only TLS 1.2 and 1.3 and refuses older protocol versions by design: MinVersion below TLS 1.2 is raised to TLS 1.2, and a MaxVersion below TLS 1.2 fails the handshake with Go's `tls: no supported versions satisfy MinVersion and MaxVersion`."
+    },
+    "VersionTLS11": {
+      "rust": "rust_stdlib_tls::tls::VERSION_TLS11",
+      "deviation": "rustls-policy",
+      "note": "The constant exists with Go's value. Rustls implements only TLS 1.2 and 1.3 and refuses older protocol versions by design: MinVersion below TLS 1.2 is raised to TLS 1.2, and a MaxVersion below TLS 1.2 fails the handshake with Go's `tls: no supported versions satisfy MinVersion and MaxVersion`."
+    },
+    "VersionTLS12": {
+      "rust": "rust_stdlib_tls::tls::VERSION_TLS12"
+    },
+    "VersionTLS13": {
+      "rust": "rust_stdlib_tls::tls::VERSION_TLS13"
+    },
+    "X25519": {
+      "rust": "rust_stdlib_tls::tls::X25519"
+    },
+    "X25519MLKEM768": {
+      "rust": "rust_stdlib_tls::tls::X25519_MLKEM768",
+      "deviation": "rustls-policy",
+      "note": "The constant and its String value exist. The ring provider offers X25519, P-256 and P-384 only (no P-521, no post-quantum hybrids), so the group cannot be negotiated and is skipped in Config.CurvePreferences."
+    },
+    "X509KeyPair": {
+      "rust": "rust_stdlib_tls::tls::x509_key_pair"
+    }
+  }
+}

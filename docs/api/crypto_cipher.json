@@ -1,0 +1,121 @@
+{
+  "package": "crypto/cipher",
+  "notes": "rust-stdlib-crypto over the RustCrypto cbc, cfb-mode, ctr, ofb and aes-gcm crates. Block, Stream, BlockMode and AEAD are traits (Block, Stream, BlockMode, Aead); constructors return boxed trait objects borrowing the Block. Go panics (wrong IV or nonce length, short output, input not full blocks, wrong nonce length given to GCM) are Err(cipher::Error) carrying Go's panic message; errOpen is Error::is_authentication_failure. Rust's borrow rules make Go's 'invalid buffer overlap' panics unreachable; the exact-overlap idiom is covered by the *_in_place methods, and Seal/Open append to a Vec like Go's dst. Modes accept any Block with an 8 or 16 byte block size (every Go block cipher); GCM requires 16. NewGCMWithNonceSize supports the nonce sizes in cipher::GCM_NONCE_SIZES (1-32, 36, 40, 44, 48, 56, 60, 64, 72, 80, 96, 100, 112, 120, 128, 192, 256) because the aes-gcm crate fixes the size at compile time; Go accepts any positive size. io.Closer has no Rust equivalent, so StreamWriter::close flushes the underlying writer and drops it.",
+  "symbols": {
+    "AEAD": {
+      "rust": "rust_stdlib_crypto::cipher::Aead"
+    },
+    "AEAD.NonceSize": {
+      "rust": "rust_stdlib_crypto::cipher::Aead::nonce_size"
+    },
+    "AEAD.Open": {
+      "rust": "rust_stdlib_crypto::cipher::Aead::open",
+      "note": "appends to a Vec; open_in_place is Go's ciphertext[:0] idiom"
+    },
+    "AEAD.Overhead": {
+      "rust": "rust_stdlib_crypto::cipher::Aead::overhead"
+    },
+    "AEAD.Seal": {
+      "rust": "rust_stdlib_crypto::cipher::Aead::seal",
+      "note": "appends to a Vec; seal_in_place is Go's plaintext[:0] idiom"
+    },
+    "Block": {
+      "rust": "rust_stdlib_crypto::cipher::Block"
+    },
+    "Block.BlockSize": {
+      "rust": "rust_stdlib_crypto::cipher::Block::block_size"
+    },
+    "Block.Decrypt": {
+      "rust": "rust_stdlib_crypto::cipher::Block::decrypt"
+    },
+    "Block.Encrypt": {
+      "rust": "rust_stdlib_crypto::cipher::Block::encrypt"
+    },
+    "BlockMode": {
+      "rust": "rust_stdlib_crypto::cipher::BlockMode"
+    },
+    "BlockMode.BlockSize": {
+      "rust": "rust_stdlib_crypto::cipher::BlockMode::block_size"
+    },
+    "BlockMode.CryptBlocks": {
+      "rust": "rust_stdlib_crypto::cipher::BlockMode::crypt_blocks",
+      "note": "crypt_blocks_in_place covers dst equal to src"
+    },
+    "NewCBCDecrypter": {
+      "rust": "rust_stdlib_crypto::cipher::cbc_decrypter"
+    },
+    "NewCBCEncrypter": {
+      "rust": "rust_stdlib_crypto::cipher::cbc_encrypter"
+    },
+    "NewCFBDecrypter": {
+      "rust": "rust_stdlib_crypto::cipher::cfb_decrypter",
+      "note": "deprecated in Go, implemented"
+    },
+    "NewCFBEncrypter": {
+      "rust": "rust_stdlib_crypto::cipher::cfb_encrypter",
+      "note": "deprecated in Go, implemented"
+    },
+    "NewCTR": {
+      "rust": "rust_stdlib_crypto::cipher::ctr"
+    },
+    "NewGCM": {
+      "rust": "rust_stdlib_crypto::cipher::gcm"
+    },
+    "NewGCMWithNonceSize": {
+      "rust": "rust_stdlib_crypto::cipher::gcm_with_nonce_size",
+      "note": "Nonce sizes outside cipher::GCM_NONCE_SIZES return an error: the reviewed aes-gcm crate fixes the nonce size at compile time, and the project does not build GCM itself (ADR 0003: no first-party cryptographic constructions).",
+      "deviation": "dependency-nonce-sizes"
+    },
+    "NewGCMWithRandomNonce": {
+      "rust": "rust_stdlib_crypto::cipher::gcm_with_random_nonce"
+    },
+    "NewGCMWithTagSize": {
+      "rust": "rust_stdlib_crypto::cipher::gcm_with_tag_size"
+    },
+    "NewOFB": {
+      "rust": "rust_stdlib_crypto::cipher::ofb",
+      "note": "deprecated in Go, implemented"
+    },
+    "Stream": {
+      "rust": "rust_stdlib_crypto::cipher::Stream"
+    },
+    "Stream.XORKeyStream": {
+      "rust": "rust_stdlib_crypto::cipher::Stream::xor_key_stream",
+      "note": "xor_key_stream_in_place covers dst equal to src"
+    },
+    "StreamReader": {
+      "rust": "rust_stdlib_crypto::cipher::StreamReader"
+    },
+    "StreamReader.R": {
+      "rust": "rust_stdlib_crypto::cipher::StreamReader::r"
+    },
+    "StreamReader.Read": {
+      "rust": "std::io::Read::read",
+      "note": "impl Read for StreamReader"
+    },
+    "StreamReader.S": {
+      "rust": "rust_stdlib_crypto::cipher::StreamReader::s"
+    },
+    "StreamWriter": {
+      "rust": "rust_stdlib_crypto::cipher::StreamWriter"
+    },
+    "StreamWriter.Close": {
+      "rust": "rust_stdlib_crypto::cipher::StreamWriter::close",
+      "note": "flushes and drops the writer: Rust has no io.Closer"
+    },
+    "StreamWriter.Err": {
+      "rust": "rust_stdlib_crypto::cipher::StreamWriter::err",
+      "note": "unused, as in Go"
+    },
+    "StreamWriter.S": {
+      "rust": "rust_stdlib_crypto::cipher::StreamWriter::s"
+    },
+    "StreamWriter.W": {
+      "rust": "rust_stdlib_crypto::cipher::StreamWriter::w"
+    },
+    "StreamWriter.Write": {
+      "rust": "std::io::Write::write",
+      "note": "impl Write for StreamWriter; a short write is an error, as in Go"
+    }
+  }
+}

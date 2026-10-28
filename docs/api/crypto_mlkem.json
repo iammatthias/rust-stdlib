@@ -1,0 +1,94 @@
+{
+  "package": "crypto/mlkem",
+  "notes": "rust-stdlib-crypto over the reviewed RustCrypto ml-kem crate (0.3.2). Decapsulation keys are the 64-byte seeds; the keys implement crypto::Decapsulator and crypto::Encapsulator. Decapsulate rejects only a wrong ciphertext length (implicit rejection otherwise), like Go.",
+  "symbols": {
+    "CiphertextSize1024": {
+      "rust": "rust_stdlib_crypto::mlkem::CIPHERTEXT_SIZE_1024"
+    },
+    "CiphertextSize768": {
+      "rust": "rust_stdlib_crypto::mlkem::CIPHERTEXT_SIZE_768"
+    },
+    "DecapsulationKey1024": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey1024"
+    },
+    "DecapsulationKey1024.Bytes": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey1024::bytes",
+      "note": "the 64-byte seed"
+    },
+    "DecapsulationKey1024.Decapsulate": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey1024::decapsulate"
+    },
+    "DecapsulationKey1024.EncapsulationKey": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey1024::encapsulation_key"
+    },
+    "DecapsulationKey1024.Encapsulator": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey1024::encapsulator",
+      "note": "returns a boxed crypto::Encapsulator"
+    },
+    "DecapsulationKey768": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey768"
+    },
+    "DecapsulationKey768.Bytes": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey768::bytes",
+      "note": "the 64-byte seed"
+    },
+    "DecapsulationKey768.Decapsulate": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey768::decapsulate"
+    },
+    "DecapsulationKey768.EncapsulationKey": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey768::encapsulation_key"
+    },
+    "DecapsulationKey768.Encapsulator": {
+      "rust": "rust_stdlib_crypto::mlkem::DecapsulationKey768::encapsulator",
+      "note": "returns a boxed crypto::Encapsulator"
+    },
+    "EncapsulationKey1024": {
+      "rust": "rust_stdlib_crypto::mlkem::EncapsulationKey1024"
+    },
+    "EncapsulationKey1024.Bytes": {
+      "rust": "rust_stdlib_crypto::mlkem::EncapsulationKey1024::bytes"
+    },
+    "EncapsulationKey1024.Encapsulate": {
+      "rust": "rust_stdlib_crypto::mlkem::EncapsulationKey1024::encapsulate"
+    },
+    "EncapsulationKey768": {
+      "rust": "rust_stdlib_crypto::mlkem::EncapsulationKey768"
+    },
+    "EncapsulationKey768.Bytes": {
+      "rust": "rust_stdlib_crypto::mlkem::EncapsulationKey768::bytes"
+    },
+    "EncapsulationKey768.Encapsulate": {
+      "rust": "rust_stdlib_crypto::mlkem::EncapsulationKey768::encapsulate"
+    },
+    "EncapsulationKeySize1024": {
+      "rust": "rust_stdlib_crypto::mlkem::ENCAPSULATION_KEY_SIZE_1024"
+    },
+    "EncapsulationKeySize768": {
+      "rust": "rust_stdlib_crypto::mlkem::ENCAPSULATION_KEY_SIZE_768"
+    },
+    "GenerateKey1024": {
+      "rust": "rust_stdlib_crypto::mlkem::generate_key1024"
+    },
+    "GenerateKey768": {
+      "rust": "rust_stdlib_crypto::mlkem::generate_key768"
+    },
+    "NewDecapsulationKey1024": {
+      "rust": "rust_stdlib_crypto::mlkem::new_decapsulation_key1024"
+    },
+    "NewDecapsulationKey768": {
+      "rust": "rust_stdlib_crypto::mlkem::new_decapsulation_key768"
+    },
+    "NewEncapsulationKey1024": {
+      "rust": "rust_stdlib_crypto::mlkem::new_encapsulation_key1024"
+    },
+    "NewEncapsulationKey768": {
+      "rust": "rust_stdlib_crypto::mlkem::new_encapsulation_key768"
+    },
+    "SeedSize": {
+      "rust": "rust_stdlib_crypto::mlkem::SEED_SIZE"
+    },
+    "SharedKeySize": {
+      "rust": "rust_stdlib_crypto::mlkem::SHARED_KEY_SIZE"
+    }
+  }
+}

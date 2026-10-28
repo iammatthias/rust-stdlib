@@ -1,0 +1,97 @@
+{
+  "package": "net/smtp",
+  "notes": "net::smtp: Go's client commands, error texts and extension handling verified byte for byte against Go with scripted servers; TLS is the TlsConfig hook and CRAM-MD5 takes the HMAC-MD5 function as a parameter because the root crate has neither TLS nor cryptography",
+  "symbols": {
+    "Auth": {
+      "rust": "rust_stdlib::net::smtp::Auth",
+      "note": "a trait; Go's nil toServer is None from next"
+    },
+    "Auth.Next": {
+      "rust": "rust_stdlib::net::smtp::Auth::next"
+    },
+    "Auth.Start": {
+      "rust": "rust_stdlib::net::smtp::Auth::start"
+    },
+    "CRAMMD5Auth": {
+      "rust": "rust_stdlib::net::smtp::cram_md5_auth",
+      "deviation": "crypto-hook",
+      "note": "the root crate has no cryptography (ADR 0003): the HMAC-MD5 function is a parameter; rust_stdlib_crypto::hmac::Hmac::new(Hash::Md5, ..) supplies it"
+    },
+    "Client": {
+      "rust": "rust_stdlib::net::smtp::Client"
+    },
+    "Client.Auth": {
+      "rust": "rust_stdlib::net::smtp::Client::auth"
+    },
+    "Client.Close": {
+      "rust": "rust_stdlib::net::smtp::Client::close"
+    },
+    "Client.Data": {
+      "rust": "rust_stdlib::net::smtp::Client::data"
+    },
+    "Client.Extension": {
+      "rust": "rust_stdlib::net::smtp::Client::extension"
+    },
+    "Client.Hello": {
+      "rust": "rust_stdlib::net::smtp::Client::hello"
+    },
+    "Client.Mail": {
+      "rust": "rust_stdlib::net::smtp::Client::mail"
+    },
+    "Client.Noop": {
+      "rust": "rust_stdlib::net::smtp::Client::noop"
+    },
+    "Client.Quit": {
+      "rust": "rust_stdlib::net::smtp::Client::quit"
+    },
+    "Client.Rcpt": {
+      "rust": "rust_stdlib::net::smtp::Client::rcpt"
+    },
+    "Client.Reset": {
+      "rust": "rust_stdlib::net::smtp::Client::reset"
+    },
+    "Client.Verify": {
+      "rust": "rust_stdlib::net::smtp::Client::verify"
+    },
+    "Client.StartTLS": {
+      "rust": "rust_stdlib::net::smtp::Client::start_tls",
+      "deviation": "tls-config-hook",
+      "note": "takes the TlsConfig hook (implemented by the rust-stdlib-tls backend) instead of *tls.Config; the verified server name is the client's host"
+    },
+    "Client.TLSConnectionState": {
+      "rust": "rust_stdlib::net::smtp::Client::tls_connection_state",
+      "deviation": "tls-config-hook",
+      "note": "returns the crate's TlsConnectionState as an Option, not tls.ConnectionState"
+    },
+    "Client.Text": {
+      "rust": "rust_stdlib::net::smtp::Client::text",
+      "note": "a public field holding textproto::Conn"
+    },
+    "Dial": {
+      "rust": "rust_stdlib::net::smtp::dial"
+    },
+    "NewClient": {
+      "rust": "rust_stdlib::net::smtp::Client::new"
+    },
+    "PlainAuth": {
+      "rust": "rust_stdlib::net::smtp::plain_auth"
+    },
+    "SendMail": {
+      "rust": "rust_stdlib::net::smtp::send_mail",
+      "deviation": "tls-config-hook",
+      "note": "takes an optional TlsConfig hook; when the server offers STARTTLS and none is given it fails instead of sending in the clear"
+    },
+    "ServerInfo": {
+      "rust": "rust_stdlib::net::smtp::ServerInfo"
+    },
+    "ServerInfo.Auth": {
+      "rust": "rust_stdlib::net::smtp::ServerInfo::auth"
+    },
+    "ServerInfo.Name": {
+      "rust": "rust_stdlib::net::smtp::ServerInfo::name"
+    },
+    "ServerInfo.TLS": {
+      "rust": "rust_stdlib::net::smtp::ServerInfo::tls"
+    }
+  }
+}

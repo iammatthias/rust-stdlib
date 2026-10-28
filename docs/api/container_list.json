@@ -1,0 +1,78 @@
+{
+  "package": "container/list",
+  "notes": "container/list: index-arena list; Element is a Copy handle validated by list id and slot generation; List.Remove of an element of another list returns None",
+  "symbols": {
+    "New": {
+      "rust": "rust_stdlib::collections::list::List::new"
+    },
+    "List": {
+      "rust": "rust_stdlib::collections::list::List"
+    },
+    "Element": {
+      "rust": "rust_stdlib::collections::list::Element"
+    },
+    "Element.Next": {
+      "rust": "rust_stdlib::collections::list::Element::next",
+      "note": "takes the list"
+    },
+    "Element.Prev": {
+      "rust": "rust_stdlib::collections::list::Element::prev",
+      "note": "takes the list"
+    },
+    "Element.Value": {
+      "rust": "rust_stdlib::collections::list::Element::value",
+      "note": "read via value(&list), write via value_mut(&mut list)"
+    },
+    "List.Back": {
+      "rust": "rust_stdlib::collections::list::List::back"
+    },
+    "List.Front": {
+      "rust": "rust_stdlib::collections::list::List::front"
+    },
+    "List.Init": {
+      "rust": "rust_stdlib::collections::list::List::init"
+    },
+    "List.InsertAfter": {
+      "rust": "rust_stdlib::collections::list::List::insert_after"
+    },
+    "List.InsertBefore": {
+      "rust": "rust_stdlib::collections::list::List::insert_before"
+    },
+    "List.Len": {
+      "rust": "rust_stdlib::collections::list::List::len"
+    },
+    "List.MoveAfter": {
+      "rust": "rust_stdlib::collections::list::List::move_after"
+    },
+    "List.MoveBefore": {
+      "rust": "rust_stdlib::collections::list::List::move_before"
+    },
+    "List.MoveToBack": {
+      "rust": "rust_stdlib::collections::list::List::move_to_back"
+    },
+    "List.MoveToFront": {
+      "rust": "rust_stdlib::collections::list::List::move_to_front"
+    },
+    "List.PushBack": {
+      "rust": "rust_stdlib::collections::list::List::push_back"
+    },
+    "List.PushBackList": {
+      "rust": "rust_stdlib::collections::list::List::push_back_list",
+      "note": "other must be a separate list; Go allows pushing a list onto itself, which requires a clone first here.",
+      "deviation": "self-aliasing"
+    },
+    "List.PushFront": {
+      "rust": "rust_stdlib::collections::list::List::push_front"
+    },
+    "List.PushFrontList": {
+      "rust": "rust_stdlib::collections::list::List::push_front_list",
+      "note": "other must be a separate list; Go allows pushing a list onto itself, which requires a clone first here.",
+      "deviation": "self-aliasing"
+    },
+    "List.Remove": {
+      "rust": "rust_stdlib::collections::list::List::remove",
+      "note": "Returns None for an element of another list or one already removed. Go returns that element's Value because the Value lives in the element; here values are owned by the list's arena, so another list's value cannot be reached from this list.",
+      "deviation": "element-ownership"
+    }
+  }
+}

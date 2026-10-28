@@ -1,0 +1,979 @@
+{
+  "package": "unicode",
+  "notes": "unicode: range tables generated from Go's unicode package by tools/unicode_gen.go (Unicode 17.0.0); runes are i32; Go maps are sorted slices of pairs; In takes a slice (in_); IsControl is std char::is_control (compared against Go by tools/unicode_check.py); IsSpace is std char::is_whitespace",
+  "symbols": {
+    "ASCII_Hex_Digit": {
+      "rust": "rust_stdlib::unicode::ASCII_HEX_DIGIT"
+    },
+    "Adlam": {
+      "rust": "rust_stdlib::unicode::ADLAM"
+    },
+    "Ahom": {
+      "rust": "rust_stdlib::unicode::AHOM"
+    },
+    "Anatolian_Hieroglyphs": {
+      "rust": "rust_stdlib::unicode::ANATOLIAN_HIEROGLYPHS"
+    },
+    "Arabic": {
+      "rust": "rust_stdlib::unicode::ARABIC"
+    },
+    "Armenian": {
+      "rust": "rust_stdlib::unicode::ARMENIAN"
+    },
+    "Avestan": {
+      "rust": "rust_stdlib::unicode::AVESTAN"
+    },
+    "AzeriCase": {
+      "rust": "rust_stdlib::unicode::AZERI_CASE"
+    },
+    "Balinese": {
+      "rust": "rust_stdlib::unicode::BALINESE"
+    },
+    "Bamum": {
+      "rust": "rust_stdlib::unicode::BAMUM"
+    },
+    "Bassa_Vah": {
+      "rust": "rust_stdlib::unicode::BASSA_VAH"
+    },
+    "Batak": {
+      "rust": "rust_stdlib::unicode::BATAK"
+    },
+    "Bengali": {
+      "rust": "rust_stdlib::unicode::BENGALI"
+    },
+    "Beria_Erfe": {
+      "rust": "rust_stdlib::unicode::BERIA_ERFE"
+    },
+    "Bhaiksuki": {
+      "rust": "rust_stdlib::unicode::BHAIKSUKI"
+    },
+    "Bidi_Control": {
+      "rust": "rust_stdlib::unicode::BIDI_CONTROL"
+    },
+    "Bopomofo": {
+      "rust": "rust_stdlib::unicode::BOPOMOFO"
+    },
+    "Brahmi": {
+      "rust": "rust_stdlib::unicode::BRAHMI"
+    },
+    "Braille": {
+      "rust": "rust_stdlib::unicode::BRAILLE"
+    },
+    "Buginese": {
+      "rust": "rust_stdlib::unicode::BUGINESE"
+    },
+    "Buhid": {
+      "rust": "rust_stdlib::unicode::BUHID"
+    },
+    "C": {
+      "rust": "rust_stdlib::unicode::C"
+    },
+    "Canadian_Aboriginal": {
+      "rust": "rust_stdlib::unicode::CANADIAN_ABORIGINAL"
+    },
+    "Carian": {
+      "rust": "rust_stdlib::unicode::CARIAN"
+    },
+    "CaseRange": {
+      "rust": "rust_stdlib::unicode::CaseRange"
+    },
+    "CaseRange.Delta": {
+      "rust": "rust_stdlib::unicode::CaseRange::delta"
+    },
+    "CaseRange.Hi": {
+      "rust": "rust_stdlib::unicode::CaseRange::hi"
+    },
+    "CaseRange.Lo": {
+      "rust": "rust_stdlib::unicode::CaseRange::lo"
+    },
+    "CaseRanges": {
+      "rust": "rust_stdlib::unicode::CASE_RANGES"
+    },
+    "Categories": {
+      "rust": "rust_stdlib::unicode::CATEGORIES"
+    },
+    "CategoryAliases": {
+      "rust": "rust_stdlib::unicode::CATEGORY_ALIASES"
+    },
+    "Caucasian_Albanian": {
+      "rust": "rust_stdlib::unicode::CAUCASIAN_ALBANIAN"
+    },
+    "Cc": {
+      "rust": "rust_stdlib::unicode::CC"
+    },
+    "Cf": {
+      "rust": "rust_stdlib::unicode::CF"
+    },
+    "Chakma": {
+      "rust": "rust_stdlib::unicode::CHAKMA"
+    },
+    "Cham": {
+      "rust": "rust_stdlib::unicode::CHAM"
+    },
+    "Cherokee": {
+      "rust": "rust_stdlib::unicode::CHEROKEE"
+    },
+    "Chorasmian": {
+      "rust": "rust_stdlib::unicode::CHORASMIAN"
+    },
+    "Cn": {
+      "rust": "rust_stdlib::unicode::CN"
+    },
+    "Co": {
+      "rust": "rust_stdlib::unicode::CO"
+    },
+    "Common": {
+      "rust": "rust_stdlib::unicode::COMMON"
+    },
+    "Coptic": {
+      "rust": "rust_stdlib::unicode::COPTIC"
+    },
+    "Cs": {
+      "rust": "rust_stdlib::unicode::CS"
+    },
+    "Cuneiform": {
+      "rust": "rust_stdlib::unicode::CUNEIFORM"
+    },
+    "Cypriot": {
+      "rust": "rust_stdlib::unicode::CYPRIOT"
+    },
+    "Cypro_Minoan": {
+      "rust": "rust_stdlib::unicode::CYPRO_MINOAN"
+    },
+    "Cyrillic": {
+      "rust": "rust_stdlib::unicode::CYRILLIC"
+    },
+    "Dash": {
+      "rust": "rust_stdlib::unicode::DASH"
+    },
+    "Deprecated": {
+      "rust": "rust_stdlib::unicode::DEPRECATED"
+    },
+    "Deseret": {
+      "rust": "rust_stdlib::unicode::DESERET"
+    },
+    "Devanagari": {
+      "rust": "rust_stdlib::unicode::DEVANAGARI"
+    },
+    "Diacritic": {
+      "rust": "rust_stdlib::unicode::DIACRITIC"
+    },
+    "Digit": {
+      "rust": "rust_stdlib::unicode::DIGIT"
+    },
+    "Dives_Akuru": {
+      "rust": "rust_stdlib::unicode::DIVES_AKURU"
+    },
+    "Dogra": {
+      "rust": "rust_stdlib::unicode::DOGRA"
+    },
+    "Duployan": {
+      "rust": "rust_stdlib::unicode::DUPLOYAN"
+    },
+    "Egyptian_Hieroglyphs": {
+      "rust": "rust_stdlib::unicode::EGYPTIAN_HIEROGLYPHS"
+    },
+    "Elbasan": {
+      "rust": "rust_stdlib::unicode::ELBASAN"
+    },
+    "Elymaic": {
+      "rust": "rust_stdlib::unicode::ELYMAIC"
+    },
+    "Ethiopic": {
+      "rust": "rust_stdlib::unicode::ETHIOPIC"
+    },
+    "Extender": {
+      "rust": "rust_stdlib::unicode::EXTENDER"
+    },
+    "FoldCategory": {
+      "rust": "rust_stdlib::unicode::FOLD_CATEGORY"
+    },
+    "FoldScript": {
+      "rust": "rust_stdlib::unicode::FOLD_SCRIPT"
+    },
+    "Garay": {
+      "rust": "rust_stdlib::unicode::GARAY"
+    },
+    "Georgian": {
+      "rust": "rust_stdlib::unicode::GEORGIAN"
+    },
+    "Glagolitic": {
+      "rust": "rust_stdlib::unicode::GLAGOLITIC"
+    },
+    "Gothic": {
+      "rust": "rust_stdlib::unicode::GOTHIC"
+    },
+    "Grantha": {
+      "rust": "rust_stdlib::unicode::GRANTHA"
+    },
+    "GraphicRanges": {
+      "rust": "rust_stdlib::unicode::GRAPHIC_RANGES"
+    },
+    "Greek": {
+      "rust": "rust_stdlib::unicode::GREEK"
+    },
+    "Gujarati": {
+      "rust": "rust_stdlib::unicode::GUJARATI"
+    },
+    "Gunjala_Gondi": {
+      "rust": "rust_stdlib::unicode::GUNJALA_GONDI"
+    },
+    "Gurmukhi": {
+      "rust": "rust_stdlib::unicode::GURMUKHI"
+    },
+    "Gurung_Khema": {
+      "rust": "rust_stdlib::unicode::GURUNG_KHEMA"
+    },
+    "Han": {
+      "rust": "rust_stdlib::unicode::HAN"
+    },
+    "Hangul": {
+      "rust": "rust_stdlib::unicode::HANGUL"
+    },
+    "Hanifi_Rohingya": {
+      "rust": "rust_stdlib::unicode::HANIFI_ROHINGYA"
+    },
+    "Hanunoo": {
+      "rust": "rust_stdlib::unicode::HANUNOO"
+    },
+    "Hatran": {
+      "rust": "rust_stdlib::unicode::HATRAN"
+    },
+    "Hebrew": {
+      "rust": "rust_stdlib::unicode::HEBREW"
+    },
+    "Hex_Digit": {
+      "rust": "rust_stdlib::unicode::HEX_DIGIT"
+    },
+    "Hiragana": {
+      "rust": "rust_stdlib::unicode::HIRAGANA"
+    },
+    "Hyphen": {
+      "rust": "rust_stdlib::unicode::HYPHEN"
+    },
+    "IDS_Binary_Operator": {
+      "rust": "rust_stdlib::unicode::IDS_BINARY_OPERATOR"
+    },
+    "IDS_Trinary_Operator": {
+      "rust": "rust_stdlib::unicode::IDS_TRINARY_OPERATOR"
+    },
+    "IDS_Unary_Operator": {
+      "rust": "rust_stdlib::unicode::IDS_UNARY_OPERATOR"
+    },
+    "ID_Compat_Math_Continue": {
+      "rust": "rust_stdlib::unicode::ID_COMPAT_MATH_CONTINUE"
+    },
+    "ID_Compat_Math_Start": {
+      "rust": "rust_stdlib::unicode::ID_COMPAT_MATH_START"
+    },
+    "Ideographic": {
+      "rust": "rust_stdlib::unicode::IDEOGRAPHIC"
+    },
+    "Imperial_Aramaic": {
+      "rust": "rust_stdlib::unicode::IMPERIAL_ARAMAIC"
+    },
+    "In": {
+      "rust": "rust_stdlib::unicode::in_",
+      "note": "Go's variadic ranges become a slice; `in` is a Rust keyword"
+    },
+    "Inherited": {
+      "rust": "rust_stdlib::unicode::INHERITED"
+    },
+    "Inscriptional_Pahlavi": {
+      "rust": "rust_stdlib::unicode::INSCRIPTIONAL_PAHLAVI"
+    },
+    "Inscriptional_Parthian": {
+      "rust": "rust_stdlib::unicode::INSCRIPTIONAL_PARTHIAN"
+    },
+    "Is": {
+      "rust": "rust_stdlib::unicode::is"
+    },
+    "IsControl": {
+      "rust": "std::primitive::char::is_control"
+    },
+    "IsDigit": {
+      "rust": "rust_stdlib::unicode::is_digit"
+    },
+    "IsGraphic": {
+      "rust": "rust_stdlib::unicode::is_graphic"
+    },
+    "IsLetter": {
+      "rust": "rust_stdlib::unicode::is_letter"
+    },
+    "IsLower": {
+      "rust": "rust_stdlib::unicode::is_lower"
+    },
+    "IsMark": {
+      "rust": "rust_stdlib::unicode::is_mark"
+    },
+    "IsNumber": {
+      "rust": "rust_stdlib::unicode::is_number"
+    },
+    "IsOneOf": {
+      "rust": "rust_stdlib::unicode::is_one_of"
+    },
+    "IsPrint": {
+      "rust": "rust_stdlib::unicode::is_print"
+    },
+    "IsPunct": {
+      "rust": "rust_stdlib::unicode::is_punct"
+    },
+    "IsSpace": {
+      "rust": "std::primitive::char::is_whitespace"
+    },
+    "IsSymbol": {
+      "rust": "rust_stdlib::unicode::is_symbol"
+    },
+    "IsTitle": {
+      "rust": "rust_stdlib::unicode::is_title"
+    },
+    "IsUpper": {
+      "rust": "rust_stdlib::unicode::is_upper"
+    },
+    "Javanese": {
+      "rust": "rust_stdlib::unicode::JAVANESE"
+    },
+    "Join_Control": {
+      "rust": "rust_stdlib::unicode::JOIN_CONTROL"
+    },
+    "Kaithi": {
+      "rust": "rust_stdlib::unicode::KAITHI"
+    },
+    "Kannada": {
+      "rust": "rust_stdlib::unicode::KANNADA"
+    },
+    "Katakana": {
+      "rust": "rust_stdlib::unicode::KATAKANA"
+    },
+    "Kawi": {
+      "rust": "rust_stdlib::unicode::KAWI"
+    },
+    "Kayah_Li": {
+      "rust": "rust_stdlib::unicode::KAYAH_LI"
+    },
+    "Kharoshthi": {
+      "rust": "rust_stdlib::unicode::KHAROSHTHI"
+    },
+    "Khitan_Small_Script": {
+      "rust": "rust_stdlib::unicode::KHITAN_SMALL_SCRIPT"
+    },
+    "Khmer": {
+      "rust": "rust_stdlib::unicode::KHMER"
+    },
+    "Khojki": {
+      "rust": "rust_stdlib::unicode::KHOJKI"
+    },
+    "Khudawadi": {
+      "rust": "rust_stdlib::unicode::KHUDAWADI"
+    },
+    "Kirat_Rai": {
+      "rust": "rust_stdlib::unicode::KIRAT_RAI"
+    },
+    "L": {
+      "rust": "rust_stdlib::unicode::L"
+    },
+    "LC": {
+      "rust": "rust_stdlib::unicode::LC"
+    },
+    "Lao": {
+      "rust": "rust_stdlib::unicode::LAO"
+    },
+    "Latin": {
+      "rust": "rust_stdlib::unicode::LATIN"
+    },
+    "Lepcha": {
+      "rust": "rust_stdlib::unicode::LEPCHA"
+    },
+    "Letter": {
+      "rust": "rust_stdlib::unicode::LETTER"
+    },
+    "Limbu": {
+      "rust": "rust_stdlib::unicode::LIMBU"
+    },
+    "Linear_A": {
+      "rust": "rust_stdlib::unicode::LINEAR_A"
+    },
+    "Linear_B": {
+      "rust": "rust_stdlib::unicode::LINEAR_B"
+    },
+    "Lisu": {
+      "rust": "rust_stdlib::unicode::LISU"
+    },
+    "Ll": {
+      "rust": "rust_stdlib::unicode::LL"
+    },
+    "Lm": {
+      "rust": "rust_stdlib::unicode::LM"
+    },
+    "Lo": {
+      "rust": "rust_stdlib::unicode::LO"
+    },
+    "Logical_Order_Exception": {
+      "rust": "rust_stdlib::unicode::LOGICAL_ORDER_EXCEPTION"
+    },
+    "Lower": {
+      "rust": "rust_stdlib::unicode::LOWER"
+    },
+    "LowerCase": {
+      "rust": "rust_stdlib::unicode::LOWER_CASE"
+    },
+    "Lt": {
+      "rust": "rust_stdlib::unicode::LT"
+    },
+    "Lu": {
+      "rust": "rust_stdlib::unicode::LU"
+    },
+    "Lycian": {
+      "rust": "rust_stdlib::unicode::LYCIAN"
+    },
+    "Lydian": {
+      "rust": "rust_stdlib::unicode::LYDIAN"
+    },
+    "M": {
+      "rust": "rust_stdlib::unicode::M"
+    },
+    "Mahajani": {
+      "rust": "rust_stdlib::unicode::MAHAJANI"
+    },
+    "Makasar": {
+      "rust": "rust_stdlib::unicode::MAKASAR"
+    },
+    "Malayalam": {
+      "rust": "rust_stdlib::unicode::MALAYALAM"
+    },
+    "Mandaic": {
+      "rust": "rust_stdlib::unicode::MANDAIC"
+    },
+    "Manichaean": {
+      "rust": "rust_stdlib::unicode::MANICHAEAN"
+    },
+    "Marchen": {
+      "rust": "rust_stdlib::unicode::MARCHEN"
+    },
+    "Mark": {
+      "rust": "rust_stdlib::unicode::MARK"
+    },
+    "Masaram_Gondi": {
+      "rust": "rust_stdlib::unicode::MASARAM_GONDI"
+    },
+    "MaxASCII": {
+      "rust": "rust_stdlib::unicode::MAX_ASCII"
+    },
+    "MaxCase": {
+      "rust": "rust_stdlib::unicode::MAX_CASE"
+    },
+    "MaxLatin1": {
+      "rust": "rust_stdlib::unicode::MAX_LATIN1"
+    },
+    "MaxRune": {
+      "rust": "rust_stdlib::unicode::MAX_RUNE"
+    },
+    "Mc": {
+      "rust": "rust_stdlib::unicode::MC"
+    },
+    "Me": {
+      "rust": "rust_stdlib::unicode::ME"
+    },
+    "Medefaidrin": {
+      "rust": "rust_stdlib::unicode::MEDEFAIDRIN"
+    },
+    "Meetei_Mayek": {
+      "rust": "rust_stdlib::unicode::MEETEI_MAYEK"
+    },
+    "Mende_Kikakui": {
+      "rust": "rust_stdlib::unicode::MENDE_KIKAKUI"
+    },
+    "Meroitic_Cursive": {
+      "rust": "rust_stdlib::unicode::MEROITIC_CURSIVE"
+    },
+    "Meroitic_Hieroglyphs": {
+      "rust": "rust_stdlib::unicode::MEROITIC_HIEROGLYPHS"
+    },
+    "Miao": {
+      "rust": "rust_stdlib::unicode::MIAO"
+    },
+    "Mn": {
+      "rust": "rust_stdlib::unicode::MN"
+    },
+    "Modi": {
+      "rust": "rust_stdlib::unicode::MODI"
+    },
+    "Modifier_Combining_Mark": {
+      "rust": "rust_stdlib::unicode::MODIFIER_COMBINING_MARK"
+    },
+    "Mongolian": {
+      "rust": "rust_stdlib::unicode::MONGOLIAN"
+    },
+    "Mro": {
+      "rust": "rust_stdlib::unicode::MRO"
+    },
+    "Multani": {
+      "rust": "rust_stdlib::unicode::MULTANI"
+    },
+    "Myanmar": {
+      "rust": "rust_stdlib::unicode::MYANMAR"
+    },
+    "N": {
+      "rust": "rust_stdlib::unicode::N"
+    },
+    "Nabataean": {
+      "rust": "rust_stdlib::unicode::NABATAEAN"
+    },
+    "Nag_Mundari": {
+      "rust": "rust_stdlib::unicode::NAG_MUNDARI"
+    },
+    "Nandinagari": {
+      "rust": "rust_stdlib::unicode::NANDINAGARI"
+    },
+    "Nd": {
+      "rust": "rust_stdlib::unicode::ND"
+    },
+    "New_Tai_Lue": {
+      "rust": "rust_stdlib::unicode::NEW_TAI_LUE"
+    },
+    "Newa": {
+      "rust": "rust_stdlib::unicode::NEWA"
+    },
+    "Nko": {
+      "rust": "rust_stdlib::unicode::NKO"
+    },
+    "Nl": {
+      "rust": "rust_stdlib::unicode::NL"
+    },
+    "No": {
+      "rust": "rust_stdlib::unicode::NO"
+    },
+    "Noncharacter_Code_Point": {
+      "rust": "rust_stdlib::unicode::NONCHARACTER_CODE_POINT"
+    },
+    "Number": {
+      "rust": "rust_stdlib::unicode::NUMBER"
+    },
+    "Nushu": {
+      "rust": "rust_stdlib::unicode::NUSHU"
+    },
+    "Nyiakeng_Puachue_Hmong": {
+      "rust": "rust_stdlib::unicode::NYIAKENG_PUACHUE_HMONG"
+    },
+    "Ogham": {
+      "rust": "rust_stdlib::unicode::OGHAM"
+    },
+    "Ol_Chiki": {
+      "rust": "rust_stdlib::unicode::OL_CHIKI"
+    },
+    "Ol_Onal": {
+      "rust": "rust_stdlib::unicode::OL_ONAL"
+    },
+    "Old_Hungarian": {
+      "rust": "rust_stdlib::unicode::OLD_HUNGARIAN"
+    },
+    "Old_Italic": {
+      "rust": "rust_stdlib::unicode::OLD_ITALIC"
+    },
+    "Old_North_Arabian": {
+      "rust": "rust_stdlib::unicode::OLD_NORTH_ARABIAN"
+    },
+    "Old_Permic": {
+      "rust": "rust_stdlib::unicode::OLD_PERMIC"
+    },
+    "Old_Persian": {
+      "rust": "rust_stdlib::unicode::OLD_PERSIAN"
+    },
+    "Old_Sogdian": {
+      "rust": "rust_stdlib::unicode::OLD_SOGDIAN"
+    },
+    "Old_South_Arabian": {
+      "rust": "rust_stdlib::unicode::OLD_SOUTH_ARABIAN"
+    },
+    "Old_Turkic": {
+      "rust": "rust_stdlib::unicode::OLD_TURKIC"
+    },
+    "Old_Uyghur": {
+      "rust": "rust_stdlib::unicode::OLD_UYGHUR"
+    },
+    "Oriya": {
+      "rust": "rust_stdlib::unicode::ORIYA"
+    },
+    "Osage": {
+      "rust": "rust_stdlib::unicode::OSAGE"
+    },
+    "Osmanya": {
+      "rust": "rust_stdlib::unicode::OSMANYA"
+    },
+    "Other": {
+      "rust": "rust_stdlib::unicode::OTHER"
+    },
+    "Other_Alphabetic": {
+      "rust": "rust_stdlib::unicode::OTHER_ALPHABETIC"
+    },
+    "Other_Default_Ignorable_Code_Point": {
+      "rust": "rust_stdlib::unicode::OTHER_DEFAULT_IGNORABLE_CODE_POINT"
+    },
+    "Other_Grapheme_Extend": {
+      "rust": "rust_stdlib::unicode::OTHER_GRAPHEME_EXTEND"
+    },
+    "Other_ID_Continue": {
+      "rust": "rust_stdlib::unicode::OTHER_ID_CONTINUE"
+    },
+    "Other_ID_Start": {
+      "rust": "rust_stdlib::unicode::OTHER_ID_START"
+    },
+    "Other_Lowercase": {
+      "rust": "rust_stdlib::unicode::OTHER_LOWERCASE"
+    },
+    "Other_Math": {
+      "rust": "rust_stdlib::unicode::OTHER_MATH"
+    },
+    "Other_Uppercase": {
+      "rust": "rust_stdlib::unicode::OTHER_UPPERCASE"
+    },
+    "P": {
+      "rust": "rust_stdlib::unicode::P"
+    },
+    "Pahawh_Hmong": {
+      "rust": "rust_stdlib::unicode::PAHAWH_HMONG"
+    },
+    "Palmyrene": {
+      "rust": "rust_stdlib::unicode::PALMYRENE"
+    },
+    "Pattern_Syntax": {
+      "rust": "rust_stdlib::unicode::PATTERN_SYNTAX"
+    },
+    "Pattern_White_Space": {
+      "rust": "rust_stdlib::unicode::PATTERN_WHITE_SPACE"
+    },
+    "Pau_Cin_Hau": {
+      "rust": "rust_stdlib::unicode::PAU_CIN_HAU"
+    },
+    "Pc": {
+      "rust": "rust_stdlib::unicode::PC"
+    },
+    "Pd": {
+      "rust": "rust_stdlib::unicode::PD"
+    },
+    "Pe": {
+      "rust": "rust_stdlib::unicode::PE"
+    },
+    "Pf": {
+      "rust": "rust_stdlib::unicode::PF"
+    },
+    "Phags_Pa": {
+      "rust": "rust_stdlib::unicode::PHAGS_PA"
+    },
+    "Phoenician": {
+      "rust": "rust_stdlib::unicode::PHOENICIAN"
+    },
+    "Pi": {
+      "rust": "rust_stdlib::unicode::PI"
+    },
+    "Po": {
+      "rust": "rust_stdlib::unicode::PO"
+    },
+    "Prepended_Concatenation_Mark": {
+      "rust": "rust_stdlib::unicode::PREPENDED_CONCATENATION_MARK"
+    },
+    "PrintRanges": {
+      "rust": "rust_stdlib::unicode::PRINT_RANGES"
+    },
+    "Properties": {
+      "rust": "rust_stdlib::unicode::PROPERTIES"
+    },
+    "Ps": {
+      "rust": "rust_stdlib::unicode::PS"
+    },
+    "Psalter_Pahlavi": {
+      "rust": "rust_stdlib::unicode::PSALTER_PAHLAVI"
+    },
+    "Punct": {
+      "rust": "rust_stdlib::unicode::PUNCT"
+    },
+    "Quotation_Mark": {
+      "rust": "rust_stdlib::unicode::QUOTATION_MARK"
+    },
+    "Radical": {
+      "rust": "rust_stdlib::unicode::RADICAL"
+    },
+    "Range16": {
+      "rust": "rust_stdlib::unicode::Range16"
+    },
+    "Range16.Hi": {
+      "rust": "rust_stdlib::unicode::Range16::hi"
+    },
+    "Range16.Lo": {
+      "rust": "rust_stdlib::unicode::Range16::lo"
+    },
+    "Range16.Stride": {
+      "rust": "rust_stdlib::unicode::Range16::stride"
+    },
+    "Range32": {
+      "rust": "rust_stdlib::unicode::Range32"
+    },
+    "Range32.Hi": {
+      "rust": "rust_stdlib::unicode::Range32::hi"
+    },
+    "Range32.Lo": {
+      "rust": "rust_stdlib::unicode::Range32::lo"
+    },
+    "Range32.Stride": {
+      "rust": "rust_stdlib::unicode::Range32::stride"
+    },
+    "RangeTable": {
+      "rust": "rust_stdlib::unicode::RangeTable"
+    },
+    "RangeTable.LatinOffset": {
+      "rust": "rust_stdlib::unicode::RangeTable::latin_offset"
+    },
+    "RangeTable.R16": {
+      "rust": "rust_stdlib::unicode::RangeTable::r16"
+    },
+    "RangeTable.R32": {
+      "rust": "rust_stdlib::unicode::RangeTable::r32"
+    },
+    "Regional_Indicator": {
+      "rust": "rust_stdlib::unicode::REGIONAL_INDICATOR"
+    },
+    "Rejang": {
+      "rust": "rust_stdlib::unicode::REJANG"
+    },
+    "ReplacementChar": {
+      "rust": "rust_stdlib::unicode::REPLACEMENT_CHAR"
+    },
+    "Runic": {
+      "rust": "rust_stdlib::unicode::RUNIC"
+    },
+    "S": {
+      "rust": "rust_stdlib::unicode::S"
+    },
+    "STerm": {
+      "rust": "rust_stdlib::unicode::STERM"
+    },
+    "Samaritan": {
+      "rust": "rust_stdlib::unicode::SAMARITAN"
+    },
+    "Saurashtra": {
+      "rust": "rust_stdlib::unicode::SAURASHTRA"
+    },
+    "Sc": {
+      "rust": "rust_stdlib::unicode::SC"
+    },
+    "Scripts": {
+      "rust": "rust_stdlib::unicode::SCRIPTS"
+    },
+    "Sentence_Terminal": {
+      "rust": "rust_stdlib::unicode::SENTENCE_TERMINAL"
+    },
+    "Sharada": {
+      "rust": "rust_stdlib::unicode::SHARADA"
+    },
+    "Shavian": {
+      "rust": "rust_stdlib::unicode::SHAVIAN"
+    },
+    "Siddham": {
+      "rust": "rust_stdlib::unicode::SIDDHAM"
+    },
+    "Sidetic": {
+      "rust": "rust_stdlib::unicode::SIDETIC"
+    },
+    "SignWriting": {
+      "rust": "rust_stdlib::unicode::SIGNWRITING"
+    },
+    "SimpleFold": {
+      "rust": "rust_stdlib::unicode::simple_fold"
+    },
+    "Sinhala": {
+      "rust": "rust_stdlib::unicode::SINHALA"
+    },
+    "Sk": {
+      "rust": "rust_stdlib::unicode::SK"
+    },
+    "Sm": {
+      "rust": "rust_stdlib::unicode::SM"
+    },
+    "So": {
+      "rust": "rust_stdlib::unicode::SO"
+    },
+    "Soft_Dotted": {
+      "rust": "rust_stdlib::unicode::SOFT_DOTTED"
+    },
+    "Sogdian": {
+      "rust": "rust_stdlib::unicode::SOGDIAN"
+    },
+    "Sora_Sompeng": {
+      "rust": "rust_stdlib::unicode::SORA_SOMPENG"
+    },
+    "Soyombo": {
+      "rust": "rust_stdlib::unicode::SOYOMBO"
+    },
+    "Space": {
+      "rust": "rust_stdlib::unicode::SPACE"
+    },
+    "SpecialCase": {
+      "rust": "rust_stdlib::unicode::SpecialCase"
+    },
+    "SpecialCase.ToLower": {
+      "rust": "rust_stdlib::unicode::SpecialCase::to_lower"
+    },
+    "SpecialCase.ToTitle": {
+      "rust": "rust_stdlib::unicode::SpecialCase::to_title"
+    },
+    "SpecialCase.ToUpper": {
+      "rust": "rust_stdlib::unicode::SpecialCase::to_upper"
+    },
+    "Sundanese": {
+      "rust": "rust_stdlib::unicode::SUNDANESE"
+    },
+    "Sunuwar": {
+      "rust": "rust_stdlib::unicode::SUNUWAR"
+    },
+    "Syloti_Nagri": {
+      "rust": "rust_stdlib::unicode::SYLOTI_NAGRI"
+    },
+    "Symbol": {
+      "rust": "rust_stdlib::unicode::SYMBOL"
+    },
+    "Syriac": {
+      "rust": "rust_stdlib::unicode::SYRIAC"
+    },
+    "Tagalog": {
+      "rust": "rust_stdlib::unicode::TAGALOG"
+    },
+    "Tagbanwa": {
+      "rust": "rust_stdlib::unicode::TAGBANWA"
+    },
+    "Tai_Le": {
+      "rust": "rust_stdlib::unicode::TAI_LE"
+    },
+    "Tai_Tham": {
+      "rust": "rust_stdlib::unicode::TAI_THAM"
+    },
+    "Tai_Viet": {
+      "rust": "rust_stdlib::unicode::TAI_VIET"
+    },
+    "Tai_Yo": {
+      "rust": "rust_stdlib::unicode::TAI_YO"
+    },
+    "Takri": {
+      "rust": "rust_stdlib::unicode::TAKRI"
+    },
+    "Tamil": {
+      "rust": "rust_stdlib::unicode::TAMIL"
+    },
+    "Tangsa": {
+      "rust": "rust_stdlib::unicode::TANGSA"
+    },
+    "Tangut": {
+      "rust": "rust_stdlib::unicode::TANGUT"
+    },
+    "Telugu": {
+      "rust": "rust_stdlib::unicode::TELUGU"
+    },
+    "Terminal_Punctuation": {
+      "rust": "rust_stdlib::unicode::TERMINAL_PUNCTUATION"
+    },
+    "Thaana": {
+      "rust": "rust_stdlib::unicode::THAANA"
+    },
+    "Thai": {
+      "rust": "rust_stdlib::unicode::THAI"
+    },
+    "Tibetan": {
+      "rust": "rust_stdlib::unicode::TIBETAN"
+    },
+    "Tifinagh": {
+      "rust": "rust_stdlib::unicode::TIFINAGH"
+    },
+    "Tirhuta": {
+      "rust": "rust_stdlib::unicode::TIRHUTA"
+    },
+    "Title": {
+      "rust": "rust_stdlib::unicode::TITLE"
+    },
+    "TitleCase": {
+      "rust": "rust_stdlib::unicode::TITLE_CASE"
+    },
+    "To": {
+      "rust": "rust_stdlib::unicode::to"
+    },
+    "ToLower": {
+      "rust": "rust_stdlib::unicode::to_lower"
+    },
+    "ToTitle": {
+      "rust": "rust_stdlib::unicode::to_title"
+    },
+    "ToUpper": {
+      "rust": "rust_stdlib::unicode::to_upper"
+    },
+    "Todhri": {
+      "rust": "rust_stdlib::unicode::TODHRI"
+    },
+    "Tolong_Siki": {
+      "rust": "rust_stdlib::unicode::TOLONG_SIKI"
+    },
+    "Toto": {
+      "rust": "rust_stdlib::unicode::TOTO"
+    },
+    "Tulu_Tigalari": {
+      "rust": "rust_stdlib::unicode::TULU_TIGALARI"
+    },
+    "TurkishCase": {
+      "rust": "rust_stdlib::unicode::TURKISH_CASE"
+    },
+    "Ugaritic": {
+      "rust": "rust_stdlib::unicode::UGARITIC"
+    },
+    "Unified_Ideograph": {
+      "rust": "rust_stdlib::unicode::UNIFIED_IDEOGRAPH"
+    },
+    "Upper": {
+      "rust": "rust_stdlib::unicode::UPPER"
+    },
+    "UpperCase": {
+      "rust": "rust_stdlib::unicode::UPPER_CASE"
+    },
+    "UpperLower": {
+      "rust": "rust_stdlib::unicode::UPPER_LOWER"
+    },
+    "Vai": {
+      "rust": "rust_stdlib::unicode::VAI"
+    },
+    "Variation_Selector": {
+      "rust": "rust_stdlib::unicode::VARIATION_SELECTOR"
+    },
+    "Version": {
+      "rust": "rust_stdlib::unicode::VERSION"
+    },
+    "Vithkuqi": {
+      "rust": "rust_stdlib::unicode::VITHKUQI"
+    },
+    "Wancho": {
+      "rust": "rust_stdlib::unicode::WANCHO"
+    },
+    "Warang_Citi": {
+      "rust": "rust_stdlib::unicode::WARANG_CITI"
+    },
+    "White_Space": {
+      "rust": "rust_stdlib::unicode::WHITE_SPACE"
+    },
+    "Yezidi": {
+      "rust": "rust_stdlib::unicode::YEZIDI"
+    },
+    "Yi": {
+      "rust": "rust_stdlib::unicode::YI"
+    },
+    "Z": {
+      "rust": "rust_stdlib::unicode::Z"
+    },
+    "Zanabazar_Square": {
+      "rust": "rust_stdlib::unicode::ZANABAZAR_SQUARE"
+    },
+    "Zl": {
+      "rust": "rust_stdlib::unicode::ZL"
+    },
+    "Zp": {
+      "rust": "rust_stdlib::unicode::ZP"
+    },
+    "Zs": {
+      "rust": "rust_stdlib::unicode::ZS"
+    }
+  }
+}

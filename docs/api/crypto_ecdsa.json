@@ -1,0 +1,85 @@
+{
+  "package": "crypto/ecdsa",
+  "notes": "rust-stdlib-crypto over the reviewed p224, p256, p384, p521 and ecdsa crates. Embedding (PrivateKey embeds PublicKey, PublicKey embeds elliptic.Curve) is a public field plus Deref; the *big.Int fields are bigint::Int. Randomized signing is the hedged RFC 6979 variant with entropy from crypto/rand, the reader arguments are ignored like Go 1.26+ without GODEBUG=cryptocustomrand=1, and signing with no reader is deterministic RFC 6979 over the hash named by the options, as in Go. Keys on a custom elliptic.CurveParams can be held but signing and verifying return an error (Go's math/big fallback is a first-party ECDSA implementation, ADR 0003). PrivateKey implements crypto::Signer; PKIX, PKCS #8 and SEC 1 DER hooks serve x509.",
+  "symbols": {
+    "GenerateKey": {
+      "rust": "rust_stdlib_crypto::ecdsa::generate_key",
+      "deviation": "dependency-custom-curves",
+      "note": "NIST curves only; a custom CurveParams returns an error where Go uses its generic implementation; Go's reader argument becomes `ecdsa::generate_key_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go 1.26+ ignores the reader unless GODEBUG=cryptocustomrand=1."
+    },
+    "ParseRawPrivateKey": {
+      "rust": "rust_stdlib_crypto::ecdsa::parse_raw_private_key"
+    },
+    "ParseUncompressedPublicKey": {
+      "rust": "rust_stdlib_crypto::ecdsa::parse_uncompressed_public_key"
+    },
+    "PrivateKey": {
+      "rust": "rust_stdlib_crypto::ecdsa::PrivateKey"
+    },
+    "PrivateKey.Bytes": {
+      "rust": "rust_stdlib_crypto::ecdsa::PrivateKey::bytes"
+    },
+    "PrivateKey.D": {
+      "rust": "rust_stdlib_crypto::ecdsa::PrivateKey::d"
+    },
+    "PrivateKey.ECDH": {
+      "rust": "rust_stdlib_crypto::ecdsa::PrivateKey::ecdh"
+    },
+    "PrivateKey.Equal": {
+      "rust": "rust_stdlib_crypto::ecdsa::PrivateKey::equal",
+      "note": "takes &dyn Any in place of crypto.PrivateKey"
+    },
+    "PrivateKey.Public": {
+      "rust": "rust_stdlib_crypto::ecdsa::PrivateKey::public"
+    },
+    "PrivateKey.PublicKey": {
+      "rust": "rust_stdlib_crypto::ecdsa::PrivateKey::public_key"
+    },
+    "PrivateKey.Sign": {
+      "rust": "rust_stdlib_crypto::ecdsa::PrivateKey::sign",
+      "note": "rand and opts are optional (Go passes nil); the crypto::Signer implementation is the same method; sign is Go's Sign(nil, ...) (deterministic RFC 6979); sign_with_rng is Sign(rng, ...) (hedged, reader ignored like Go 1.26+ unless GODEBUG=cryptocustomrand=1)"
+    },
+    "PublicKey": {
+      "rust": "rust_stdlib_crypto::ecdsa::PublicKey"
+    },
+    "PublicKey.Bytes": {
+      "rust": "rust_stdlib_crypto::ecdsa::PublicKey::bytes"
+    },
+    "PublicKey.Curve": {
+      "rust": "rust_stdlib_crypto::ecdsa::PublicKey::curve"
+    },
+    "PublicKey.ECDH": {
+      "rust": "rust_stdlib_crypto::ecdsa::PublicKey::ecdh"
+    },
+    "PublicKey.Equal": {
+      "rust": "rust_stdlib_crypto::ecdsa::PublicKey::equal",
+      "note": "takes &dyn Any in place of crypto.PublicKey"
+    },
+    "PublicKey.X": {
+      "rust": "rust_stdlib_crypto::ecdsa::PublicKey::x"
+    },
+    "PublicKey.Y": {
+      "rust": "rust_stdlib_crypto::ecdsa::PublicKey::y"
+    },
+    "Sign": {
+      "rust": "rust_stdlib_crypto::ecdsa::sign",
+      "deviation": "dependency-custom-curves",
+      "note": "NIST curves only, as GenerateKey; Go's reader argument becomes `ecdsa::sign_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go 1.26+ ignores the reader unless GODEBUG=cryptocustomrand=1."
+    },
+    "SignASN1": {
+      "rust": "rust_stdlib_crypto::ecdsa::sign_asn1",
+      "deviation": "dependency-custom-curves",
+      "note": "NIST curves only, as GenerateKey; Go's reader argument becomes `ecdsa::sign_asn1_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go 1.26+ ignores the reader unless GODEBUG=cryptocustomrand=1."
+    },
+    "Verify": {
+      "rust": "rust_stdlib_crypto::ecdsa::verify",
+      "deviation": "dependency-custom-curves",
+      "note": "NIST curves only: false for a custom CurveParams"
+    },
+    "VerifyASN1": {
+      "rust": "rust_stdlib_crypto::ecdsa::verify_asn1",
+      "deviation": "dependency-custom-curves",
+      "note": "NIST curves only: false for a custom CurveParams"
+    }
+  }
+}

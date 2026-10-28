@@ -1,0 +1,155 @@
+{
+  "package": "crypto/x509/pkix",
+  "notes": "rust-stdlib-crypto::x509::pkix. AttributeTypeAndValue.Value (Go any) is the Value enum; asn1.ObjectIdentifier, asn1.BitString, asn1.RawValue and time.Time are the stand-ins defined in the x509 module. Name.ExtraNames is an Option<Vec<_>> because Go's Name.String distinguishes a nil ExtraNames from an empty one. The `type` fields are named type_.",
+  "symbols": {
+    "AlgorithmIdentifier": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AlgorithmIdentifier"
+    },
+    "AlgorithmIdentifier.Algorithm": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AlgorithmIdentifier::algorithm"
+    },
+    "AlgorithmIdentifier.Parameters": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AlgorithmIdentifier::parameters"
+    },
+    "AttributeTypeAndValue": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AttributeTypeAndValue"
+    },
+    "AttributeTypeAndValue.Type": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AttributeTypeAndValue::type_"
+    },
+    "AttributeTypeAndValue.Value": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AttributeTypeAndValue::value"
+    },
+    "AttributeTypeAndValueSET": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AttributeTypeAndValueSET"
+    },
+    "AttributeTypeAndValueSET.Type": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AttributeTypeAndValueSET::type_"
+    },
+    "AttributeTypeAndValueSET.Value": {
+      "rust": "rust_stdlib_crypto::x509::pkix::AttributeTypeAndValueSET::value"
+    },
+    "CertificateList": {
+      "rust": "rust_stdlib_crypto::x509::pkix::CertificateList"
+    },
+    "CertificateList.HasExpired": {
+      "rust": "rust_stdlib_crypto::x509::pkix::CertificateList::has_expired"
+    },
+    "CertificateList.SignatureAlgorithm": {
+      "rust": "rust_stdlib_crypto::x509::pkix::CertificateList::signature_algorithm"
+    },
+    "CertificateList.SignatureValue": {
+      "rust": "rust_stdlib_crypto::x509::pkix::CertificateList::signature_value"
+    },
+    "CertificateList.TBSCertList": {
+      "rust": "rust_stdlib_crypto::x509::pkix::CertificateList::tbs_cert_list"
+    },
+    "Extension": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Extension"
+    },
+    "Extension.Critical": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Extension::critical"
+    },
+    "Extension.Id": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Extension::id"
+    },
+    "Extension.Value": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Extension::value"
+    },
+    "Name": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name"
+    },
+    "Name.CommonName": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::common_name"
+    },
+    "Name.Country": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::country"
+    },
+    "Name.ExtraNames": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::extra_names"
+    },
+    "Name.FillFromRDNSequence": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::fill_from_rdn_sequence"
+    },
+    "Name.Locality": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::locality"
+    },
+    "Name.Names": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::names"
+    },
+    "Name.Organization": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::organization"
+    },
+    "Name.OrganizationalUnit": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::organizational_unit"
+    },
+    "Name.PostalCode": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::postal_code"
+    },
+    "Name.Province": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::province"
+    },
+    "Name.SerialNumber": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::serial_number"
+    },
+    "Name.StreetAddress": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::street_address"
+    },
+    "Name.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display"
+    },
+    "Name.ToRDNSequence": {
+      "rust": "rust_stdlib_crypto::x509::pkix::Name::to_rdn_sequence"
+    },
+    "RDNSequence": {
+      "rust": "rust_stdlib_crypto::x509::pkix::RDNSequence"
+    },
+    "RDNSequence.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display"
+    },
+    "RelativeDistinguishedNameSET": {
+      "rust": "rust_stdlib_crypto::x509::pkix::RelativeDistinguishedNameSET"
+    },
+    "RevokedCertificate": {
+      "rust": "rust_stdlib_crypto::x509::pkix::RevokedCertificate"
+    },
+    "RevokedCertificate.Extensions": {
+      "rust": "rust_stdlib_crypto::x509::pkix::RevokedCertificate::extensions"
+    },
+    "RevokedCertificate.RevocationTime": {
+      "rust": "rust_stdlib_crypto::x509::pkix::RevokedCertificate::revocation_time"
+    },
+    "RevokedCertificate.SerialNumber": {
+      "rust": "rust_stdlib_crypto::x509::pkix::RevokedCertificate::serial_number"
+    },
+    "TBSCertificateList": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList"
+    },
+    "TBSCertificateList.Extensions": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList::extensions"
+    },
+    "TBSCertificateList.Issuer": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList::issuer"
+    },
+    "TBSCertificateList.NextUpdate": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList::next_update"
+    },
+    "TBSCertificateList.Raw": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList::raw"
+    },
+    "TBSCertificateList.RevokedCertificates": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList::revoked_certificates"
+    },
+    "TBSCertificateList.Signature": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList::signature"
+    },
+    "TBSCertificateList.ThisUpdate": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList::this_update"
+    },
+    "TBSCertificateList.Version": {
+      "rust": "rust_stdlib_crypto::x509::pkix::TBSCertificateList::version"
+    }
+  }
+}

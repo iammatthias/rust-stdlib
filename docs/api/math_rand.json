@@ -1,0 +1,139 @@
+{
+  "package": "math/rand",
+  "notes": "math::rand::v1: NewSource lagged Fibonacci and all Rand methods incl. Read and Zipf bit-identical to Go amd64/arm64; Seed is the Go 1.24+ default no-op; Source64 is folded into Source",
+  "symbols": {
+    "ExpFloat64": {
+      "rust": "rust_stdlib::math::rand::v1::exp_float64"
+    },
+    "Float32": {
+      "rust": "rust_stdlib::math::rand::v1::float32"
+    },
+    "Float64": {
+      "rust": "rust_stdlib::math::rand::v1::float64"
+    },
+    "Int": {
+      "rust": "rust_stdlib::math::rand::v1::int"
+    },
+    "Int31": {
+      "rust": "rust_stdlib::math::rand::v1::int31"
+    },
+    "Int31n": {
+      "rust": "rust_stdlib::math::rand::v1::int31n"
+    },
+    "Int63": {
+      "rust": "rust_stdlib::math::rand::v1::int63"
+    },
+    "Int63n": {
+      "rust": "rust_stdlib::math::rand::v1::int63n"
+    },
+    "Intn": {
+      "rust": "rust_stdlib::math::rand::v1::intn"
+    },
+    "New": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::new"
+    },
+    "NewSource": {
+      "rust": "rust_stdlib::math::rand::v1::RngSource::new"
+    },
+    "NewZipf": {
+      "rust": "rust_stdlib::math::rand::v1::Zipf::new"
+    },
+    "NormFloat64": {
+      "rust": "rust_stdlib::math::rand::v1::norm_float64"
+    },
+    "Perm": {
+      "rust": "rust_stdlib::math::rand::v1::perm"
+    },
+    "Rand": {
+      "rust": "rust_stdlib::math::rand::v1::Rand"
+    },
+    "Rand.ExpFloat64": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::exp_float64"
+    },
+    "Rand.Float32": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::float32"
+    },
+    "Rand.Float64": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::float64"
+    },
+    "Rand.Int": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::int"
+    },
+    "Rand.Int31": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::int31"
+    },
+    "Rand.Int31n": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::int31n"
+    },
+    "Rand.Int63": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::int63"
+    },
+    "Rand.Int63n": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::int63n"
+    },
+    "Rand.Intn": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::intn"
+    },
+    "Rand.NormFloat64": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::norm_float64"
+    },
+    "Rand.Perm": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::perm"
+    },
+    "Rand.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "Rand.Seed": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::seed"
+    },
+    "Rand.Shuffle": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::shuffle"
+    },
+    "Rand.Uint32": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::uint32"
+    },
+    "Rand.Uint64": {
+      "rust": "rust_stdlib::math::rand::v1::Rand::uint64"
+    },
+    "Read": {
+      "rust": "rust_stdlib::math::rand::v1::read"
+    },
+    "Seed": {
+      "rust": "rust_stdlib::math::rand::v1::seed",
+      "deviation": "godebug-randseednop",
+      "note": "Go 1.24+ ignores Seed unless GODEBUG=randseednop=0 is set; this port implements the default no-op and does not read GODEBUG"
+    },
+    "Shuffle": {
+      "rust": "rust_stdlib::math::rand::v1::shuffle"
+    },
+    "Source": {
+      "rust": "rust_stdlib::math::rand::v1::Source"
+    },
+    "Source.Int63": {
+      "rust": "rust_stdlib::math::rand::v1::Source::int63"
+    },
+    "Source.Seed": {
+      "rust": "rust_stdlib::math::rand::v1::Source::seed"
+    },
+    "Source64": {
+      "rust": "rust_stdlib::math::rand::v1::Source",
+      "deviation": "folded-interface",
+      "note": "Go's optional Source64 interface is folded into Source::uint64, whose default is Go's Int63 composition, so Rand.Uint64 behaves as Go's does for every source"
+    },
+    "Source64.Uint64": {
+      "rust": "rust_stdlib::math::rand::v1::Source::uint64"
+    },
+    "Uint32": {
+      "rust": "rust_stdlib::math::rand::v1::uint32"
+    },
+    "Uint64": {
+      "rust": "rust_stdlib::math::rand::v1::uint64"
+    },
+    "Zipf": {
+      "rust": "rust_stdlib::math::rand::v1::Zipf"
+    },
+    "Zipf.Uint64": {
+      "rust": "rust_stdlib::math::rand::v1::Zipf::uint64"
+    }
+  }
+}

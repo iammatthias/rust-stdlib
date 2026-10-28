@@ -1,0 +1,276 @@
+{
+  "package": "encoding/xml",
+  "notes": "encoding::xml: Go's tokenizer (byte-exact errors, line numbers and offsets, name spaces, Strict/AutoClose/Entity/CharsetReader), Encoder and struct-tag Marshal/Unmarshal through the Marshal/Unmarshal traits and the rust-stdlib-derive macros. Documented differences: float digits are chosen by Rust's shortest formatter with ties resolved like Go; type strings in error messages are Rust type names; invalid UTF-8 bytes inside names show as U+FFFD; Decoder recursion is bounded by a stack budget (max_unmarshal_stack, default 1 MiB) as well as Go's depth limit, because it recurses on the native thread stack",
+  "symbols": {
+    "Attr": {
+      "rust": "rust_stdlib::encoding::xml::Attr"
+    },
+    "Attr.Name": {
+      "rust": "rust_stdlib::encoding::xml::Attr::name"
+    },
+    "Attr.Value": {
+      "rust": "rust_stdlib::encoding::xml::Attr::value"
+    },
+    "CharData": {
+      "rust": "rust_stdlib::encoding::xml::CharData"
+    },
+    "CharData.Copy": {
+      "rust": "rust_stdlib::encoding::xml::CharData::copy"
+    },
+    "Comment": {
+      "rust": "rust_stdlib::encoding::xml::Comment"
+    },
+    "Comment.Copy": {
+      "rust": "rust_stdlib::encoding::xml::Comment::copy"
+    },
+    "CopyToken": {
+      "rust": "rust_stdlib::encoding::xml::copy_token"
+    },
+    "Decoder": {
+      "rust": "rust_stdlib::encoding::xml::Decoder"
+    },
+    "Decoder.AutoClose": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::auto_close"
+    },
+    "Decoder.CharsetReader": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::charset_reader",
+      "note": "Option<Box<dyn FnMut(&str, Box<dyn Read>) -> Result<Box<dyn Read>, Box<dyn Error>>>>; the input is the remaining stream"
+    },
+    "Decoder.Decode": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::decode",
+      "note": "decode returns a new value; decode_into fills an existing one. Unmarshal recurses on the native thread stack, which is fixed-size in Rust (Go's grows on demand). Measured about 800 bytes per nesting level in release and over 6 KiB in debug, so Go's 10000 levels overflow a default 2 MiB or 8 MiB stack. Decoder::max_unmarshal_stack (default 1 MiB) turns that into the 'exceeded max depth' error instead of an abort; raise it together with the thread's stack size to decode the full max_unmarshal_depth of 10000 (tested with a 1 GiB stack).",
+      "deviation": "native-stack-recursion"
+    },
+    "Decoder.DecodeElement": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::decode_element",
+      "note": "start is Option<&StartElement>; decode_element returns a new value and decode_element_into fills an existing one"
+    },
+    "Decoder.DefaultSpace": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::default_space"
+    },
+    "Decoder.Entity": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::entity",
+      "note": "HashMap<String, String>; xml::html_entity() builds Go's HTMLEntity map"
+    },
+    "Decoder.InputOffset": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::input_offset"
+    },
+    "Decoder.InputPos": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::input_pos"
+    },
+    "Decoder.RawToken": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::raw_token",
+      "note": "Result<Token, Error>; end of input is Err(Error::Eof)"
+    },
+    "Decoder.Skip": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::skip"
+    },
+    "Decoder.Strict": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::strict"
+    },
+    "Decoder.Token": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::token",
+      "note": "Result<Token, Error>; end of input is Err(Error::Eof)"
+    },
+    "Directive": {
+      "rust": "rust_stdlib::encoding::xml::Directive"
+    },
+    "Directive.Copy": {
+      "rust": "rust_stdlib::encoding::xml::Directive::copy"
+    },
+    "Encoder": {
+      "rust": "rust_stdlib::encoding::xml::Encoder"
+    },
+    "Encoder.Close": {
+      "rust": "rust_stdlib::encoding::xml::Encoder::close"
+    },
+    "Encoder.Encode": {
+      "rust": "rust_stdlib::encoding::xml::Encoder::encode",
+      "note": "generic over the Marshal trait instead of reflection"
+    },
+    "Encoder.EncodeElement": {
+      "rust": "rust_stdlib::encoding::xml::Encoder::encode_element"
+    },
+    "Encoder.EncodeToken": {
+      "rust": "rust_stdlib::encoding::xml::Encoder::encode_token",
+      "note": "Token is an enum; Go's invalid-token-type errors cannot occur"
+    },
+    "Encoder.Flush": {
+      "rust": "rust_stdlib::encoding::xml::Encoder::flush"
+    },
+    "Encoder.Indent": {
+      "rust": "rust_stdlib::encoding::xml::Encoder::indent"
+    },
+    "EndElement": {
+      "rust": "rust_stdlib::encoding::xml::EndElement"
+    },
+    "EndElement.Name": {
+      "rust": "rust_stdlib::encoding::xml::EndElement::name"
+    },
+    "Escape": {
+      "rust": "rust_stdlib::encoding::xml::escape"
+    },
+    "EscapeText": {
+      "rust": "rust_stdlib::encoding::xml::escape_text"
+    },
+    "HTMLAutoClose": {
+      "rust": "rust_stdlib::encoding::xml::HTML_AUTO_CLOSE",
+      "note": "html_auto_close() returns it as the Vec<String> Decoder::auto_close takes"
+    },
+    "HTMLEntity": {
+      "rust": "rust_stdlib::encoding::xml::HTML_ENTITY",
+      "note": "sorted table; html_entity() returns the HashMap Decoder::entity takes"
+    },
+    "Header": {
+      "rust": "rust_stdlib::encoding::xml::HEADER"
+    },
+    "Marshal": {
+      "rust": "rust_stdlib::encoding::xml::marshal",
+      "note": "generic over the Marshal trait; the derive (rust-stdlib-derive) reads Go's xml struct tags"
+    },
+    "MarshalIndent": {
+      "rust": "rust_stdlib::encoding::xml::marshal_indent"
+    },
+    "Marshaler": {
+      "rust": "rust_stdlib::encoding::xml::Marshaler"
+    },
+    "Marshaler.MarshalXML": {
+      "rust": "rust_stdlib::encoding::xml::Marshaler::marshal_xml"
+    },
+    "MarshalerAttr": {
+      "rust": "rust_stdlib::encoding::xml::MarshalerAttr"
+    },
+    "MarshalerAttr.MarshalXMLAttr": {
+      "rust": "rust_stdlib::encoding::xml::MarshalerAttr::marshal_xml_attr"
+    },
+    "Name": {
+      "rust": "rust_stdlib::encoding::xml::Name"
+    },
+    "Name.Local": {
+      "rust": "rust_stdlib::encoding::xml::Name::local"
+    },
+    "Name.Space": {
+      "rust": "rust_stdlib::encoding::xml::Name::space"
+    },
+    "NewDecoder": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::new"
+    },
+    "NewEncoder": {
+      "rust": "rust_stdlib::encoding::xml::Encoder::new"
+    },
+    "NewTokenDecoder": {
+      "rust": "rust_stdlib::encoding::xml::Decoder::from_token_reader",
+      "note": "Always wraps the argument; Go returns an existing *Decoder unchanged, so its settings and state are shared rather than wrapped.",
+      "deviation": "wrapper-identity"
+    },
+    "ProcInst": {
+      "rust": "rust_stdlib::encoding::xml::ProcInst"
+    },
+    "ProcInst.Copy": {
+      "rust": "rust_stdlib::encoding::xml::ProcInst::copy"
+    },
+    "ProcInst.Inst": {
+      "rust": "rust_stdlib::encoding::xml::ProcInst::inst"
+    },
+    "ProcInst.Target": {
+      "rust": "rust_stdlib::encoding::xml::ProcInst::target"
+    },
+    "StartElement": {
+      "rust": "rust_stdlib::encoding::xml::StartElement"
+    },
+    "StartElement.Attr": {
+      "rust": "rust_stdlib::encoding::xml::StartElement::attr"
+    },
+    "StartElement.Copy": {
+      "rust": "rust_stdlib::encoding::xml::StartElement::copy"
+    },
+    "StartElement.End": {
+      "rust": "rust_stdlib::encoding::xml::StartElement::end"
+    },
+    "StartElement.Name": {
+      "rust": "rust_stdlib::encoding::xml::StartElement::name"
+    },
+    "SyntaxError": {
+      "rust": "rust_stdlib::encoding::xml::SyntaxError"
+    },
+    "SyntaxError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "deviation": "go-string-invalid-utf8",
+      "note": "An invalid UTF-8 byte inside a reported name appears as U+FFFD in the message; Go prints the raw byte."
+    },
+    "SyntaxError.Line": {
+      "rust": "rust_stdlib::encoding::xml::SyntaxError::line"
+    },
+    "SyntaxError.Msg": {
+      "rust": "rust_stdlib::encoding::xml::SyntaxError::msg"
+    },
+    "TagPathError": {
+      "rust": "rust_stdlib::encoding::xml::TagPathError"
+    },
+    "TagPathError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl gives Go's Error() text; checked by tools/xml_check.py"
+    },
+    "TagPathError.Field1": {
+      "rust": "rust_stdlib::encoding::xml::TagPathError::field1"
+    },
+    "TagPathError.Field2": {
+      "rust": "rust_stdlib::encoding::xml::TagPathError::field2"
+    },
+    "TagPathError.Struct": {
+      "rust": "rust_stdlib::encoding::xml::TagPathError::struct_type",
+      "note": "the struct's type name as a string instead of a reflect.Type"
+    },
+    "TagPathError.Tag1": {
+      "rust": "rust_stdlib::encoding::xml::TagPathError::tag1"
+    },
+    "TagPathError.Tag2": {
+      "rust": "rust_stdlib::encoding::xml::TagPathError::tag2"
+    },
+    "Token": {
+      "rust": "rust_stdlib::encoding::xml::Token",
+      "note": "enum of StartElement, EndElement, CharData, Comment, ProcInst, Directive"
+    },
+    "TokenReader": {
+      "rust": "rust_stdlib::encoding::xml::TokenReader"
+    },
+    "TokenReader.Token": {
+      "rust": "rust_stdlib::encoding::xml::TokenReader::token"
+    },
+    "Unmarshal": {
+      "rust": "rust_stdlib::encoding::xml::unmarshal",
+      "note": "Error texts name Rust types (type_name) where Go prints reflect.Type strings such as main.T; inexpressible. unmarshal returns a new value; unmarshal_into decodes into an existing one (Go's Unmarshal(data, &v)).",
+      "deviation": "type-name-text"
+    },
+    "UnmarshalError": {
+      "rust": "rust_stdlib::encoding::xml::UnmarshalError"
+    },
+    "UnmarshalError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl gives Go's Error() text; checked by tools/xml_check.py"
+    },
+    "Unmarshaler": {
+      "rust": "rust_stdlib::encoding::xml::Unmarshaler"
+    },
+    "Unmarshaler.UnmarshalXML": {
+      "rust": "rust_stdlib::encoding::xml::Unmarshaler::unmarshal_xml"
+    },
+    "UnmarshalerAttr": {
+      "rust": "rust_stdlib::encoding::xml::UnmarshalerAttr"
+    },
+    "UnmarshalerAttr.UnmarshalXMLAttr": {
+      "rust": "rust_stdlib::encoding::xml::UnmarshalerAttr::unmarshal_xml_attr"
+    },
+    "UnsupportedTypeError": {
+      "rust": "rust_stdlib::encoding::xml::UnsupportedTypeError"
+    },
+    "UnsupportedTypeError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl gives Go's Error() text; checked by tools/xml_check.py"
+    },
+    "UnsupportedTypeError.Type": {
+      "rust": "rust_stdlib::encoding::xml::UnsupportedTypeError::type_name",
+      "note": "the type's name as a string instead of a reflect.Type"
+    }
+  }
+}

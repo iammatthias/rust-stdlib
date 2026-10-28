@@ -1,0 +1,15 @@
+{
+  "package": "hash/adler32",
+  "notes": "hash::adler32 (compress::adler32 retained): Incremental Adler32 digest and Go binary state",
+  "symbols": {
+    "Checksum": {
+      "rust": "rust_stdlib::hash::adler32::checksum"
+    },
+    "New": {
+      "rust": "rust_stdlib::hash::adler32::Adler32::new"
+    },
+    "Size": {
+      "rust": "rust_stdlib::hash::adler32::SIZE"
+    }
+  }
+}

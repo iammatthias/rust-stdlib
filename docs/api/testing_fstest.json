@@ -1,0 +1,59 @@
+{
+  "package": "testing/fstest",
+  "notes": "MapFS and MapFile are the in-memory file system of rust_stdlib::io::fs (re-exported here), including Go's symlink resolution in Open, Lstat and ReadLink and MapFile.Sys. TestFS is a port of testfs.go: the same checks and error texts (verified against Go on generated and corrupted trees by tools/testing_check.py); the error is an io::Error wrapping a TestFSError that lists the problems. Files expose Seek and ReaderAt through File::as_seek/as_reader_at, the counterparts of Go's type assertions.",
+  "symbols": {
+    "MapFS": {
+      "rust": "rust_stdlib::testing::fstest::MapFS"
+    },
+    "MapFS.Glob": {
+      "rust": "rust_stdlib::io::fs::GlobFS::glob",
+      "note": "Trait item implemented by MapFS."
+    },
+    "MapFS.Lstat": {
+      "rust": "rust_stdlib::io::fs::ReadLinkFS::lstat",
+      "note": "Trait item implemented by MapFS."
+    },
+    "MapFS.Open": {
+      "rust": "rust_stdlib::io::fs::FS::open",
+      "note": "Trait item implemented by MapFS."
+    },
+    "MapFS.ReadDir": {
+      "rust": "rust_stdlib::io::fs::ReadDirFS::read_dir",
+      "note": "Trait item implemented by MapFS."
+    },
+    "MapFS.ReadFile": {
+      "rust": "rust_stdlib::io::fs::ReadFileFS::read_file",
+      "note": "Trait item implemented by MapFS."
+    },
+    "MapFS.ReadLink": {
+      "rust": "rust_stdlib::io::fs::ReadLinkFS::read_link",
+      "note": "Trait item implemented by MapFS."
+    },
+    "MapFS.Stat": {
+      "rust": "rust_stdlib::io::fs::StatFS::stat",
+      "note": "Trait item implemented by MapFS."
+    },
+    "MapFS.Sub": {
+      "rust": "rust_stdlib::io::fs::SubFS::sub",
+      "note": "Trait item implemented by MapFS."
+    },
+    "MapFile": {
+      "rust": "rust_stdlib::testing::fstest::MapFile"
+    },
+    "MapFile.Data": {
+      "rust": "rust_stdlib::testing::fstest::MapFile::data"
+    },
+    "MapFile.ModTime": {
+      "rust": "rust_stdlib::testing::fstest::MapFile::mod_time"
+    },
+    "MapFile.Mode": {
+      "rust": "rust_stdlib::testing::fstest::MapFile::mode"
+    },
+    "MapFile.Sys": {
+      "rust": "rust_stdlib::testing::fstest::MapFile::sys"
+    },
+    "TestFS": {
+      "rust": "rust_stdlib::testing::fstest::test_fs"
+    }
+  }
+}

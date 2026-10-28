@@ -1,0 +1,45 @@
+{
+  "package": "crypto/sha512",
+  "notes": "rust-stdlib-crypto over RustCrypto sha2. State methods are inherent on Digest and emit Go's sha\\x04 to sha\\x07 formats.",
+  "symbols": {
+    "BlockSize": {
+      "rust": "rust_stdlib_crypto::sha512::BLOCK_SIZE"
+    },
+    "New": {
+      "rust": "rust_stdlib_crypto::sha512::new"
+    },
+    "New384": {
+      "rust": "rust_stdlib_crypto::sha512::new384"
+    },
+    "New512_224": {
+      "rust": "rust_stdlib_crypto::sha512::new512_224"
+    },
+    "New512_256": {
+      "rust": "rust_stdlib_crypto::sha512::new512_256"
+    },
+    "Size": {
+      "rust": "rust_stdlib_crypto::sha512::SIZE"
+    },
+    "Size224": {
+      "rust": "rust_stdlib_crypto::sha512::SIZE224"
+    },
+    "Size256": {
+      "rust": "rust_stdlib_crypto::sha512::SIZE256"
+    },
+    "Size384": {
+      "rust": "rust_stdlib_crypto::sha512::SIZE384"
+    },
+    "Sum384": {
+      "rust": "rust_stdlib_crypto::sha512::sum384"
+    },
+    "Sum512": {
+      "rust": "rust_stdlib_crypto::sha512::sum512"
+    },
+    "Sum512_224": {
+      "rust": "rust_stdlib_crypto::sha512::sum512_224"
+    },
+    "Sum512_256": {
+      "rust": "rust_stdlib_crypto::sha512::sum512_256"
+    }
+  }
+}

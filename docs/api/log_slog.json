@@ -1,0 +1,506 @@
+{
+  "package": "log/slog",
+  "notes": "log/slog: a port of Go's commonHandler state machine over std, byte-identical to Go's TextHandler and JSONHandler (checked by tools/log_check.py). Deviations forced by Rust std: ...any lists are &[Arg]; any payloads implement Dynamic (text/JSON renderings, error and downcast hooks) because Rust has no reflection; strings are valid UTF-8 so Go's invalid-UTF-8 repairs never occur; Record.PC is a #[track_caller] Location and Source.Function is empty; times are time::DateTime, and the default time is Go's Local zone (TZ as in Go, via rust_stdlib::time::local); LogValuer panics carry no stack trace.",
+  "symbols": {
+    "Any": {
+      "rust": "rust_stdlib::log::slog::any",
+      "note": "converts anything with Into<Value>; types without a Value conversion implement Dynamic (Value::dynamic) to state their %+v / json.Marshal renderings"
+    },
+    "AnyValue": {
+      "rust": "rust_stdlib::log::slog::any_value",
+      "note": "converts anything with Into<Value>; types without a Value conversion implement Dynamic (Value::dynamic) to state their %+v / json.Marshal renderings"
+    },
+    "Attr": {
+      "rust": "rust_stdlib::log::slog::Attr"
+    },
+    "Attr.Equal": {
+      "rust": "rust_stdlib::log::slog::Attr::equal"
+    },
+    "Attr.Key": {
+      "rust": "rust_stdlib::log::slog::Attr::key"
+    },
+    "Attr.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Attr.Value": {
+      "rust": "rust_stdlib::log::slog::Attr::value"
+    },
+    "Bool": {
+      "rust": "rust_stdlib::log::slog::bool"
+    },
+    "BoolValue": {
+      "rust": "rust_stdlib::log::slog::bool_value"
+    },
+    "Debug": {
+      "rust": "rust_stdlib::log::slog::debug"
+    },
+    "DebugContext": {
+      "rust": "rust_stdlib::log::slog::debug_context"
+    },
+    "Default": {
+      "rust": "rust_stdlib::log::slog::default",
+      "note": "returns a cheap clone of the default Logger"
+    },
+    "DiscardHandler": {
+      "rust": "rust_stdlib::log::slog::DISCARD_HANDLER",
+      "note": "the DiscardHandler type and its DISCARD_HANDLER value"
+    },
+    "Duration": {
+      "rust": "rust_stdlib::log::slog::duration"
+    },
+    "DurationValue": {
+      "rust": "rust_stdlib::log::slog::duration_value"
+    },
+    "Error": {
+      "rust": "rust_stdlib::log::slog::error"
+    },
+    "ErrorContext": {
+      "rust": "rust_stdlib::log::slog::error_context"
+    },
+    "Float64": {
+      "rust": "rust_stdlib::log::slog::float64"
+    },
+    "Float64Value": {
+      "rust": "rust_stdlib::log::slog::float64_value"
+    },
+    "Group": {
+      "rust": "rust_stdlib::log::slog::group",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "GroupAttrs": {
+      "rust": "rust_stdlib::log::slog::group_attrs"
+    },
+    "GroupValue": {
+      "rust": "rust_stdlib::log::slog::group_value"
+    },
+    "Handler": {
+      "rust": "rust_stdlib::log::slog::Handler"
+    },
+    "Handler.Enabled": {
+      "rust": "rust_stdlib::log::slog::Handler::enabled"
+    },
+    "Handler.Handle": {
+      "rust": "rust_stdlib::log::slog::Handler::handle"
+    },
+    "Handler.WithAttrs": {
+      "rust": "rust_stdlib::log::slog::Handler::with_attrs"
+    },
+    "Handler.WithGroup": {
+      "rust": "rust_stdlib::log::slog::Handler::with_group"
+    },
+    "HandlerOptions": {
+      "rust": "rust_stdlib::log::slog::HandlerOptions"
+    },
+    "HandlerOptions.AddSource": {
+      "rust": "rust_stdlib::log::slog::HandlerOptions::add_source"
+    },
+    "HandlerOptions.Level": {
+      "rust": "rust_stdlib::log::slog::HandlerOptions::level"
+    },
+    "HandlerOptions.ReplaceAttr": {
+      "rust": "rust_stdlib::log::slog::HandlerOptions::replace_attr"
+    },
+    "Info": {
+      "rust": "rust_stdlib::log::slog::info"
+    },
+    "InfoContext": {
+      "rust": "rust_stdlib::log::slog::info_context"
+    },
+    "Int": {
+      "rust": "rust_stdlib::log::slog::int"
+    },
+    "Int64": {
+      "rust": "rust_stdlib::log::slog::int64"
+    },
+    "Int64Value": {
+      "rust": "rust_stdlib::log::slog::int64_value"
+    },
+    "IntValue": {
+      "rust": "rust_stdlib::log::slog::int_value"
+    },
+    "JSONHandler": {
+      "rust": "rust_stdlib::log::slog::JSONHandler"
+    },
+    "JSONHandler.Enabled": {
+      "rust": "rust_stdlib::log::slog::Handler::enabled",
+      "note": "implemented through the Handler trait"
+    },
+    "JSONHandler.Handle": {
+      "rust": "rust_stdlib::log::slog::Handler::handle",
+      "note": "implemented through the Handler trait"
+    },
+    "JSONHandler.WithAttrs": {
+      "rust": "rust_stdlib::log::slog::Handler::with_attrs",
+      "note": "implemented through the Handler trait"
+    },
+    "JSONHandler.WithGroup": {
+      "rust": "rust_stdlib::log::slog::Handler::with_group",
+      "note": "implemented through the Handler trait"
+    },
+    "Kind": {
+      "rust": "rust_stdlib::log::slog::Kind"
+    },
+    "Kind.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "KindAny": {
+      "rust": "rust_stdlib::log::slog::KIND_ANY"
+    },
+    "KindBool": {
+      "rust": "rust_stdlib::log::slog::KIND_BOOL"
+    },
+    "KindDuration": {
+      "rust": "rust_stdlib::log::slog::KIND_DURATION"
+    },
+    "KindFloat64": {
+      "rust": "rust_stdlib::log::slog::KIND_FLOAT64"
+    },
+    "KindGroup": {
+      "rust": "rust_stdlib::log::slog::KIND_GROUP"
+    },
+    "KindInt64": {
+      "rust": "rust_stdlib::log::slog::KIND_INT64"
+    },
+    "KindLogValuer": {
+      "rust": "rust_stdlib::log::slog::KIND_LOG_VALUER"
+    },
+    "KindString": {
+      "rust": "rust_stdlib::log::slog::KIND_STRING"
+    },
+    "KindTime": {
+      "rust": "rust_stdlib::log::slog::KIND_TIME"
+    },
+    "KindUint64": {
+      "rust": "rust_stdlib::log::slog::KIND_UINT64"
+    },
+    "Level": {
+      "rust": "rust_stdlib::log::slog::Level"
+    },
+    "Level.AppendText": {
+      "rust": "rust_stdlib::log::slog::Level::append_text"
+    },
+    "Level.Level": {
+      "rust": "rust_stdlib::log::slog::Leveler::level"
+    },
+    "Level.MarshalJSON": {
+      "rust": "rust_stdlib::log::slog::Level::marshal_json"
+    },
+    "Level.MarshalText": {
+      "rust": "rust_stdlib::log::slog::Level::marshal_text"
+    },
+    "Level.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Level.UnmarshalJSON": {
+      "rust": "rust_stdlib::log::slog::Level::unmarshal_json"
+    },
+    "Level.UnmarshalText": {
+      "rust": "rust_stdlib::log::slog::Level::unmarshal_text"
+    },
+    "LevelDebug": {
+      "rust": "rust_stdlib::log::slog::LEVEL_DEBUG"
+    },
+    "LevelError": {
+      "rust": "rust_stdlib::log::slog::LEVEL_ERROR"
+    },
+    "LevelInfo": {
+      "rust": "rust_stdlib::log::slog::LEVEL_INFO"
+    },
+    "LevelKey": {
+      "rust": "rust_stdlib::log::slog::LEVEL_KEY"
+    },
+    "LevelVar": {
+      "rust": "rust_stdlib::log::slog::LevelVar"
+    },
+    "LevelVar.AppendText": {
+      "rust": "rust_stdlib::log::slog::LevelVar::append_text"
+    },
+    "LevelVar.Level": {
+      "rust": "rust_stdlib::log::slog::LevelVar::level"
+    },
+    "LevelVar.MarshalText": {
+      "rust": "rust_stdlib::log::slog::LevelVar::marshal_text"
+    },
+    "LevelVar.Set": {
+      "rust": "rust_stdlib::log::slog::LevelVar::set"
+    },
+    "LevelVar.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "LevelVar.UnmarshalText": {
+      "rust": "rust_stdlib::log::slog::LevelVar::unmarshal_text"
+    },
+    "LevelWarn": {
+      "rust": "rust_stdlib::log::slog::LEVEL_WARN"
+    },
+    "Leveler": {
+      "rust": "rust_stdlib::log::slog::Leveler"
+    },
+    "Leveler.Level": {
+      "rust": "rust_stdlib::log::slog::Leveler::level"
+    },
+    "Log": {
+      "rust": "rust_stdlib::log::slog::log",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "LogAttrs": {
+      "rust": "rust_stdlib::log::slog::log_attrs"
+    },
+    "LogValuer": {
+      "rust": "rust_stdlib::log::slog::LogValuer"
+    },
+    "LogValuer.LogValue": {
+      "rust": "rust_stdlib::log::slog::LogValuer::log_value"
+    },
+    "Logger": {
+      "rust": "rust_stdlib::log::slog::Logger"
+    },
+    "Logger.Debug": {
+      "rust": "rust_stdlib::log::slog::Logger::debug",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "Logger.DebugContext": {
+      "rust": "rust_stdlib::log::slog::Logger::debug_context"
+    },
+    "Logger.Enabled": {
+      "rust": "rust_stdlib::log::slog::Logger::enabled"
+    },
+    "Logger.Error": {
+      "rust": "rust_stdlib::log::slog::Logger::error",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "Logger.ErrorContext": {
+      "rust": "rust_stdlib::log::slog::Logger::error_context"
+    },
+    "Logger.Handler": {
+      "rust": "rust_stdlib::log::slog::Logger::handler"
+    },
+    "Logger.Info": {
+      "rust": "rust_stdlib::log::slog::Logger::info",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "Logger.InfoContext": {
+      "rust": "rust_stdlib::log::slog::Logger::info_context"
+    },
+    "Logger.Log": {
+      "rust": "rust_stdlib::log::slog::Logger::log",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "Logger.LogAttrs": {
+      "rust": "rust_stdlib::log::slog::Logger::log_attrs",
+      "note": "Go's ...Attr argument list is &[Attr]; like Go it takes Attrs only, so there is no key/value pairing and no !BADKEY handling."
+    },
+    "Logger.Warn": {
+      "rust": "rust_stdlib::log::slog::Logger::warn",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "Logger.WarnContext": {
+      "rust": "rust_stdlib::log::slog::Logger::warn_context"
+    },
+    "Logger.With": {
+      "rust": "rust_stdlib::log::slog::Logger::with",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "Logger.WithGroup": {
+      "rust": "rust_stdlib::log::slog::Logger::with_group"
+    },
+    "MessageKey": {
+      "rust": "rust_stdlib::log::slog::MESSAGE_KEY"
+    },
+    "MultiHandler": {
+      "rust": "rust_stdlib::log::slog::MultiHandler"
+    },
+    "MultiHandler.Enabled": {
+      "rust": "rust_stdlib::log::slog::Handler::enabled",
+      "note": "implemented through the Handler trait"
+    },
+    "MultiHandler.Handle": {
+      "rust": "rust_stdlib::log::slog::Handler::handle",
+      "note": "implemented through the Handler trait"
+    },
+    "MultiHandler.WithAttrs": {
+      "rust": "rust_stdlib::log::slog::Handler::with_attrs",
+      "note": "implemented through the Handler trait"
+    },
+    "MultiHandler.WithGroup": {
+      "rust": "rust_stdlib::log::slog::Handler::with_group",
+      "note": "implemented through the Handler trait"
+    },
+    "New": {
+      "rust": "rust_stdlib::log::slog::Logger::new"
+    },
+    "NewJSONHandler": {
+      "rust": "rust_stdlib::log::slog::JSONHandler::new",
+      "note": "takes Option<HandlerOptions> (Go's nil *HandlerOptions)"
+    },
+    "NewLogLogger": {
+      "rust": "rust_stdlib::log::slog::log_logger"
+    },
+    "NewMultiHandler": {
+      "rust": "rust_stdlib::log::slog::MultiHandler::new"
+    },
+    "NewRecord": {
+      "rust": "rust_stdlib::log::slog::Record::new"
+    },
+    "NewTextHandler": {
+      "rust": "rust_stdlib::log::slog::TextHandler::new",
+      "note": "takes Option<HandlerOptions> (Go's nil *HandlerOptions)"
+    },
+    "Record": {
+      "rust": "rust_stdlib::log::slog::Record"
+    },
+    "Record.Add": {
+      "rust": "rust_stdlib::log::slog::Record::add",
+      "note": "Arguments are [Arg]: &str and String become Arg::Key (a key, or the value after one), a Value (even of string kind) becomes Arg::Value, so a Value in key position is reported as !BADKEY exactly as in Go."
+    },
+    "Record.AddAttrs": {
+      "rust": "rust_stdlib::log::slog::Record::add_attrs"
+    },
+    "Record.Attrs": {
+      "rust": "rust_stdlib::log::slog::Record::attrs"
+    },
+    "Record.Clone": {
+      "rust": "rust_stdlib::log::slog::Record::clone"
+    },
+    "Record.Level": {
+      "rust": "rust_stdlib::log::slog::Record::level"
+    },
+    "Record.Message": {
+      "rust": "rust_stdlib::log::slog::Record::message"
+    },
+    "Record.NumAttrs": {
+      "rust": "rust_stdlib::log::slog::Record::num_attrs"
+    },
+    "Record.PC": {
+      "rust": "rust_stdlib::log::slog::Record::pc",
+      "note": "the program counter is the #[track_caller] Location of the logging call"
+    },
+    "Record.Source": {
+      "rust": "rust_stdlib::log::slog::Record::source"
+    },
+    "Record.Time": {
+      "rust": "rust_stdlib::log::slog::Record::time"
+    },
+    "SetDefault": {
+      "rust": "rust_stdlib::log::slog::set_default"
+    },
+    "SetLogLoggerLevel": {
+      "rust": "rust_stdlib::log::slog::set_log_logger_level"
+    },
+    "Source": {
+      "rust": "rust_stdlib::log::slog::Source"
+    },
+    "Source.File": {
+      "rust": "rust_stdlib::log::slog::Source::file"
+    },
+    "Source.Function": {
+      "rust": "rust_stdlib::log::slog::Source::function",
+      "note": "Always empty; Go reports the name of the function that made the log call.",
+      "deviation": "runtime-function-names"
+    },
+    "Source.Line": {
+      "rust": "rust_stdlib::log::slog::Source::line"
+    },
+    "SourceKey": {
+      "rust": "rust_stdlib::log::slog::SOURCE_KEY"
+    },
+    "String": {
+      "rust": "rust_stdlib::log::slog::string"
+    },
+    "StringValue": {
+      "rust": "rust_stdlib::log::slog::string_value"
+    },
+    "TextHandler": {
+      "rust": "rust_stdlib::log::slog::TextHandler"
+    },
+    "TextHandler.Enabled": {
+      "rust": "rust_stdlib::log::slog::Handler::enabled",
+      "note": "implemented through the Handler trait"
+    },
+    "TextHandler.Handle": {
+      "rust": "rust_stdlib::log::slog::Handler::handle",
+      "note": "implemented through the Handler trait"
+    },
+    "TextHandler.WithAttrs": {
+      "rust": "rust_stdlib::log::slog::Handler::with_attrs",
+      "note": "implemented through the Handler trait"
+    },
+    "TextHandler.WithGroup": {
+      "rust": "rust_stdlib::log::slog::Handler::with_group",
+      "note": "implemented through the Handler trait"
+    },
+    "Time": {
+      "rust": "rust_stdlib::log::slog::time",
+      "note": "times are time::DateTime (UTC and fixed offsets, years 1-9999); local time is Go's Local zone"
+    },
+    "TimeKey": {
+      "rust": "rust_stdlib::log::slog::TIME_KEY"
+    },
+    "TimeValue": {
+      "rust": "rust_stdlib::log::slog::time_value",
+      "note": "times are time::DateTime (UTC and fixed offsets, years 1-9999); local time is Go's Local zone"
+    },
+    "Uint64": {
+      "rust": "rust_stdlib::log::slog::uint64"
+    },
+    "Uint64Value": {
+      "rust": "rust_stdlib::log::slog::uint64_value"
+    },
+    "Value": {
+      "rust": "rust_stdlib::log::slog::Value"
+    },
+    "Value.Any": {
+      "rust": "rust_stdlib::log::slog::Value::any",
+      "note": "returns the Dynamic payload of a Kind::Any value; other kinds use their typed accessors"
+    },
+    "Value.Bool": {
+      "rust": "rust_stdlib::log::slog::Value::bool"
+    },
+    "Value.Duration": {
+      "rust": "rust_stdlib::log::slog::Value::duration"
+    },
+    "Value.Equal": {
+      "rust": "rust_stdlib::log::slog::Value::equal",
+      "deviation": "dyn-eq",
+      "note": "Any values compare through Dynamic::dyn_eq or pointer identity, the stand-in for Go's interface equality"
+    },
+    "Value.Float64": {
+      "rust": "rust_stdlib::log::slog::Value::float64"
+    },
+    "Value.Group": {
+      "rust": "rust_stdlib::log::slog::Value::group"
+    },
+    "Value.Int64": {
+      "rust": "rust_stdlib::log::slog::Value::int64"
+    },
+    "Value.Kind": {
+      "rust": "rust_stdlib::log::slog::Value::kind"
+    },
+    "Value.LogValuer": {
+      "rust": "rust_stdlib::log::slog::Value::log_valuer"
+    },
+    "Value.Resolve": {
+      "rust": "rust_stdlib::log::slog::Value::resolve",
+      "note": "A LogValue panic becomes an error value without Go's stack trace.",
+      "deviation": "panic-stack-trace"
+    },
+    "Value.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Value.Time": {
+      "rust": "rust_stdlib::log::slog::Value::time"
+    },
+    "Value.Uint64": {
+      "rust": "rust_stdlib::log::slog::Value::uint64"
+    },
+    "Warn": {
+      "rust": "rust_stdlib::log::slog::warn"
+    },
+    "WarnContext": {
+      "rust": "rust_stdlib::log::slog::warn_context"
+    },
+    "With": {
+      "rust": "rust_stdlib::log::slog::with"
+    }
+  }
+}

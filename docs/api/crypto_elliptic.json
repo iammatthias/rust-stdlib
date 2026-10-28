@@ -1,0 +1,109 @@
+{
+  "package": "crypto/elliptic",
+  "notes": "rust-stdlib-crypto over the reviewed p224, p256, p384 and p521 crates. Curve is a trait, curves are Arc<dyn Curve> (P256() returns the same object every time, and elliptic::same_curve compares them like Go's interface ==); the *big.Int coordinates are the non-negative bigint::Int. Like Go the point operations panic on points that are not on the curve. Copies of the NIST curve parameters keep working (they delegate to the same crates as long as no field was modified). Go's generic CurveParams arithmetic for arbitrary curves is a first-party elliptic-curve implementation, so on a CurveParams that is not one of the four NIST curves the arithmetic methods panic with an explanatory message (ADR 0003).",
+  "symbols": {
+    "Curve": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve"
+    },
+    "Curve.Add": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::add"
+    },
+    "Curve.Double": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::double"
+    },
+    "Curve.IsOnCurve": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::is_on_curve"
+    },
+    "Curve.Params": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::params"
+    },
+    "Curve.ScalarBaseMult": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::scalar_base_mult"
+    },
+    "Curve.ScalarMult": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::scalar_mult"
+    },
+    "CurveParams": {
+      "rust": "rust_stdlib_crypto::elliptic::CurveParams"
+    },
+    "CurveParams.Add": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::add",
+      "deviation": "dependency-custom-curves",
+      "note": "NIST curve parameters delegate to the reviewed crates; Go's generic big.Int arithmetic for other curves is not implemented (ADR 0003) and panics"
+    },
+    "CurveParams.B": {
+      "rust": "rust_stdlib_crypto::elliptic::CurveParams::b"
+    },
+    "CurveParams.BitSize": {
+      "rust": "rust_stdlib_crypto::elliptic::CurveParams::bit_size"
+    },
+    "CurveParams.Double": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::double",
+      "deviation": "dependency-custom-curves",
+      "note": "as CurveParams.Add"
+    },
+    "CurveParams.Gx": {
+      "rust": "rust_stdlib_crypto::elliptic::CurveParams::gx"
+    },
+    "CurveParams.Gy": {
+      "rust": "rust_stdlib_crypto::elliptic::CurveParams::gy"
+    },
+    "CurveParams.IsOnCurve": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::is_on_curve",
+      "deviation": "dependency-custom-curves",
+      "note": "as CurveParams.Add"
+    },
+    "CurveParams.N": {
+      "rust": "rust_stdlib_crypto::elliptic::CurveParams::n"
+    },
+    "CurveParams.Name": {
+      "rust": "rust_stdlib_crypto::elliptic::CurveParams::name"
+    },
+    "CurveParams.P": {
+      "rust": "rust_stdlib_crypto::elliptic::CurveParams::p"
+    },
+    "CurveParams.Params": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::params"
+    },
+    "CurveParams.ScalarBaseMult": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::scalar_base_mult",
+      "deviation": "dependency-custom-curves",
+      "note": "as CurveParams.Add"
+    },
+    "CurveParams.ScalarMult": {
+      "rust": "rust_stdlib_crypto::elliptic::Curve::scalar_mult",
+      "deviation": "dependency-custom-curves",
+      "note": "as CurveParams.Add"
+    },
+    "GenerateKey": {
+      "rust": "rust_stdlib_crypto::elliptic::generate_key",
+      "note": "Go's reader argument becomes `elliptic::generate_key_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go always honours the reader."
+    },
+    "Marshal": {
+      "rust": "rust_stdlib_crypto::elliptic::marshal"
+    },
+    "MarshalCompressed": {
+      "rust": "rust_stdlib_crypto::elliptic::marshal_compressed"
+    },
+    "P224": {
+      "rust": "rust_stdlib_crypto::elliptic::p224"
+    },
+    "P256": {
+      "rust": "rust_stdlib_crypto::elliptic::p256"
+    },
+    "P384": {
+      "rust": "rust_stdlib_crypto::elliptic::p384"
+    },
+    "P521": {
+      "rust": "rust_stdlib_crypto::elliptic::p521"
+    },
+    "Unmarshal": {
+      "rust": "rust_stdlib_crypto::elliptic::unmarshal",
+      "note": "returns None where Go returns nil, nil"
+    },
+    "UnmarshalCompressed": {
+      "rust": "rust_stdlib_crypto::elliptic::unmarshal_compressed",
+      "note": "returns None where Go returns nil, nil"
+    }
+  }
+}

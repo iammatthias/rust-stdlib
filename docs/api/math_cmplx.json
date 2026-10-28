@@ -1,0 +1,105 @@
+{
+  "package": "math/cmplx",
+  "notes": "Go's complex128 is rust_stdlib::strconv::Complex (with Add/Sub/Mul/Neg and Go's Div, which is the runtime's complex128div). Algorithms, special values and branch cuts are Go's; only the real functions they call are this crate's math ports.",
+  "symbols": {
+    "Abs": {
+      "rust": "rust_stdlib::math::cmplx::abs"
+    },
+    "Acos": {
+      "rust": "rust_stdlib::math::cmplx::acos"
+    },
+    "Acosh": {
+      "rust": "rust_stdlib::math::cmplx::acosh"
+    },
+    "Asin": {
+      "rust": "rust_stdlib::math::cmplx::asin"
+    },
+    "Asinh": {
+      "rust": "rust_stdlib::math::cmplx::asinh"
+    },
+    "Atan": {
+      "rust": "rust_stdlib::math::cmplx::atan"
+    },
+    "Atanh": {
+      "rust": "rust_stdlib::math::cmplx::atanh"
+    },
+    "Conj": {
+      "rust": "rust_stdlib::math::cmplx::conj"
+    },
+    "Cos": {
+      "rust": "rust_stdlib::math::cmplx::cos",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Cosh": {
+      "rust": "rust_stdlib::math::cmplx::cosh",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Cot": {
+      "rust": "rust_stdlib::math::cmplx::cot",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Exp": {
+      "rust": "rust_stdlib::math::cmplx::exp",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Inf": {
+      "rust": "rust_stdlib::math::cmplx::inf"
+    },
+    "IsInf": {
+      "rust": "rust_stdlib::math::cmplx::is_inf"
+    },
+    "IsNaN": {
+      "rust": "rust_stdlib::math::cmplx::is_nan"
+    },
+    "Log": {
+      "rust": "rust_stdlib::math::cmplx::log"
+    },
+    "Log10": {
+      "rust": "rust_stdlib::math::cmplx::log10"
+    },
+    "NaN": {
+      "rust": "rust_stdlib::math::cmplx::nan"
+    },
+    "Phase": {
+      "rust": "rust_stdlib::math::cmplx::phase"
+    },
+    "Polar": {
+      "rust": "rust_stdlib::math::cmplx::polar"
+    },
+    "Pow": {
+      "rust": "rust_stdlib::math::cmplx::pow",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Rect": {
+      "rust": "rust_stdlib::math::cmplx::rect"
+    },
+    "Sin": {
+      "rust": "rust_stdlib::math::cmplx::sin",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Sinh": {
+      "rust": "rust_stdlib::math::cmplx::sinh",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Sqrt": {
+      "rust": "rust_stdlib::math::cmplx::sqrt"
+    },
+    "Tan": {
+      "rust": "rust_stdlib::math::cmplx::tan",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Tanh": {
+      "rust": "rust_stdlib::math::cmplx::tanh",
+      "deviation": "platform-float",
+      "note": "Built on math.Exp, Sinh or Cosh; the last bits of finite results differ from Go's because Go's Exp is platform assembly (relative error below 1e-12 over the differential). Special values and branch cuts match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    }
+  }
+}

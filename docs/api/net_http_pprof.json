@@ -1,0 +1,34 @@
+{
+  "package": "net/http/pprof",
+  "notes": "net::http::pprof: Cmdline and the Index page and the Symbol/Handler request handling are byte-identical to Go (verified with tools/pprof_check.py); Go's runtime profiles (goroutine, heap, allocs, block, mutex, threadcreate, goroutineleak, CPU, execution trace, program-counter symbols) are views of the Go runtime and do not exist for Rust programs, so those endpoints are the deviation go-runtime-profiles. register_profile adds custom profiles (runtime/pprof.NewProfile) and register_default_handlers mounts the five endpoints on the default mux as importing Go's package does",
+  "symbols": {
+    "Cmdline": {
+      "rust": "rust_stdlib::net::http::pprof::cmdline"
+    },
+    "Handler": {
+      "rust": "rust_stdlib::net::http::pprof::handler",
+      "deviation": "go-runtime-profiles",
+      "note": "serves profiles added with register_profile; Go's runtime profile names answer 404 Unknown profile"
+    },
+    "Index": {
+      "rust": "rust_stdlib::net::http::pprof::index",
+      "deviation": "go-runtime-profiles",
+      "note": "the exact HTML page, listing cmdline, profile, symbol, trace and the registered profiles; Go's runtime profile rows are absent"
+    },
+    "Profile": {
+      "rust": "rust_stdlib::net::http::pprof::profile",
+      "deviation": "go-runtime-profiles",
+      "note": "answers as Go does when the CPU profiler cannot start: 500 Could not enable CPU profiling"
+    },
+    "Symbol": {
+      "rust": "rust_stdlib::net::http::pprof::symbol",
+      "deviation": "go-runtime-profiles",
+      "note": "parses the same GET/POST counters and reports the same read errors, but resolves no function names (runtime.FuncForPC)"
+    },
+    "Trace": {
+      "rust": "rust_stdlib::net::http::pprof::trace",
+      "deviation": "go-runtime-profiles",
+      "note": "answers as Go does when tracing cannot start: 500 Could not enable tracing"
+    }
+  }
+}

@@ -1,0 +1,1155 @@
+{
+  "package": "net",
+  "notes": "net maps Go's package onto std::net and std::os::unix::net. Errors are one enum, NetError, over Go's concrete error types (OpError, AddrError, DNSError, ...); Read/Write return Ok(0) at end of stream instead of io.EOF; interface values become the Addr/Conn/Listener/PacketConn traits (Arc<dyn Addr>); nil slices are empty vectors or Option; time.Time deadlines are rust_stdlib::time::Time (zero means none); nil-pointer receivers are not representable. The pure-Go resolver (Resolver{prefer_builtin: true, dial: ...}) is a Rust port that reads /etc/resolv.conf, /etc/hosts and /etc/nsswitch.conf and speaks DNS over UDP/TCP; without prefer_builtin, host and IP lookups use the system resolver through ToSocketAddrs. Randomised orders (MX ties, SRV weights) differ run to run as in Go. Operations that need system calls std lacks are implemented in rust_stdlib_sys::net (crates/sys, ADR 0004) and mapped there: Interfaces, InterfaceAddrs, InterfaceByName/Index and the Interface methods (getifaddrs), SetLinger/SetReadBuffer/SetWriteBuffer/SetKeepAlive*, SyscallConn, ReadMsg*/WriteMsg*, Dial/Listen and their Dialer/ListenConfig options (local address, Control, KeepAlive, MultipathTCP, ip:* and unixpacket networks), ListenMulticastUDP, File{Conn,Listener,PacketConn} and IPConn. The sys option functions take any AsRawFd socket. rust_stdlib_sys::net also provides Go-shaped TCPConn, UDPConn, UnixConn, TCPListener and UnixListener over a poll(2) descriptor with a wake-up pipe, which its Dial/Listen family and Accept return: SetDeadline, SetReadDeadline, SetWriteDeadline and Close from another thread wake a blocked call at once, as in Go (the Close and deadline symbols of those five types are mapped there; the root crate's std-based types remain for callers who do not need the sys crate and take effect within about 50 ms). Raw IP and unixpacket success paths need root and a kernel with AF_UNIX sequenced packets, and are differentially covered only through their error paths on hosts without them. LookupAddr, LookupCNAME and the Resolver methods are rust_stdlib_sys::net, the cgo-resolver path (getnameinfo, res_search), differentially tested against Go in tools/dns_check.py (lookup_probe); the root crate's own lookup_addr/lookup_cname remain the pure resolver.",
+  "symbols": {
+    "Addr": {
+      "rust": "rust_stdlib::net::Addr"
+    },
+    "Addr.Network": {
+      "rust": "rust_stdlib::net::Addr::network"
+    },
+    "Addr.String": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "Addr has Display as a supertrait"
+    },
+    "AddrError": {
+      "rust": "rust_stdlib::net::AddrError"
+    },
+    "AddrError.Addr": {
+      "rust": "rust_stdlib::net::AddrError::addr"
+    },
+    "AddrError.Err": {
+      "rust": "rust_stdlib::net::AddrError::err"
+    },
+    "AddrError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for AddrError"
+    },
+    "AddrError.Temporary": {
+      "rust": "rust_stdlib::net::Error::temporary",
+      "note": "impl net::Error for AddrError"
+    },
+    "AddrError.Timeout": {
+      "rust": "rust_stdlib::net::Error::timeout",
+      "note": "impl net::Error for AddrError"
+    },
+    "Buffers": {
+      "rust": "rust_stdlib::net::Buffers"
+    },
+    "Buffers.Read": {
+      "rust": "std::io::Read::read",
+      "note": "impl Read for Buffers"
+    },
+    "Buffers.WriteTo": {
+      "rust": "rust_stdlib::net::Buffers::write_to"
+    },
+    "CIDRMask": {
+      "rust": "rust_stdlib::net::cidr_mask"
+    },
+    "Conn": {
+      "rust": "rust_stdlib::net::Conn"
+    },
+    "Conn.Close": {
+      "rust": "rust_stdlib::net::Conn::close"
+    },
+    "Conn.LocalAddr": {
+      "rust": "rust_stdlib::net::Conn::local_addr"
+    },
+    "Conn.Read": {
+      "rust": "rust_stdlib::net::Conn::read",
+      "deviation": "io-read-contract",
+      "note": "At end of stream Read returns Ok(0) (std convention) where Go returns io.EOF."
+    },
+    "Conn.RemoteAddr": {
+      "rust": "rust_stdlib::net::Conn::remote_addr"
+    },
+    "Conn.SetDeadline": {
+      "rust": "rust_stdlib::net::Conn::set_deadline",
+      "deviation": "deadline-polling",
+      "note": "The root crate's std sockets enforce deadlines by polling in slices of at most 50 ms, so a deadline change or Close from another thread takes effect within about 50 ms where Go wakes the blocked call at once (the rust_stdlib_sys::net types wake at once)."
+    },
+    "Conn.SetReadDeadline": {
+      "rust": "rust_stdlib::net::Conn::set_read_deadline",
+      "deviation": "deadline-polling",
+      "note": "The root crate's std sockets enforce deadlines by polling in slices of at most 50 ms, so a deadline change or Close from another thread takes effect within about 50 ms where Go wakes the blocked call at once (the rust_stdlib_sys::net types wake at once)."
+    },
+    "Conn.SetWriteDeadline": {
+      "rust": "rust_stdlib::net::Conn::set_write_deadline",
+      "deviation": "deadline-polling",
+      "note": "The root crate's std sockets enforce deadlines by polling in slices of at most 50 ms, so a deadline change or Close from another thread takes effect within about 50 ms where Go wakes the blocked call at once (the rust_stdlib_sys::net types wake at once)."
+    },
+    "Conn.Write": {
+      "rust": "rust_stdlib::net::Conn::write"
+    },
+    "DNSConfigError": {
+      "rust": "rust_stdlib::net::DNSConfigError"
+    },
+    "DNSConfigError.Err": {
+      "rust": "rust_stdlib::net::DNSConfigError::err"
+    },
+    "DNSConfigError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for DNSConfigError"
+    },
+    "DNSConfigError.Temporary": {
+      "rust": "rust_stdlib::net::Error::temporary",
+      "note": "impl net::Error for DNSConfigError"
+    },
+    "DNSConfigError.Timeout": {
+      "rust": "rust_stdlib::net::Error::timeout",
+      "note": "impl net::Error for DNSConfigError"
+    },
+    "DNSConfigError.Unwrap": {
+      "rust": "rust_stdlib::net::DNSConfigError::unwrap"
+    },
+    "DNSError": {
+      "rust": "rust_stdlib::net::DNSError"
+    },
+    "DNSError.Err": {
+      "rust": "rust_stdlib::net::DNSError::err"
+    },
+    "DNSError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for DNSError"
+    },
+    "DNSError.IsNotFound": {
+      "rust": "rust_stdlib::net::DNSError::is_not_found"
+    },
+    "DNSError.IsTemporary": {
+      "rust": "rust_stdlib::net::DNSError::is_temporary"
+    },
+    "DNSError.IsTimeout": {
+      "rust": "rust_stdlib::net::DNSError::is_timeout"
+    },
+    "DNSError.Name": {
+      "rust": "rust_stdlib::net::DNSError::name"
+    },
+    "DNSError.Server": {
+      "rust": "rust_stdlib::net::DNSError::server"
+    },
+    "DNSError.Temporary": {
+      "rust": "rust_stdlib::net::DNSError::temporary"
+    },
+    "DNSError.Timeout": {
+      "rust": "rust_stdlib::net::DNSError::timeout"
+    },
+    "DNSError.Unwrap": {
+      "rust": "rust_stdlib::net::DNSError::unwrap"
+    },
+    "DNSError.UnwrapErr": {
+      "rust": "rust_stdlib::net::DNSError::unwrap_err"
+    },
+    "DefaultResolver": {
+      "rust": "rust_stdlib::net::DEFAULT_RESOLVER"
+    },
+    "Dial": {
+      "rust": "rust_stdlib_sys::net::dial"
+    },
+    "DialIP": {
+      "rust": "rust_stdlib_sys::net::dial_ip"
+    },
+    "DialTCP": {
+      "rust": "rust_stdlib_sys::net::dial_tcp"
+    },
+    "DialTimeout": {
+      "rust": "rust_stdlib_sys::net::dial_timeout"
+    },
+    "DialUDP": {
+      "rust": "rust_stdlib::net::dial_udp"
+    },
+    "DialUnix": {
+      "rust": "rust_stdlib_sys::net::dial_unix"
+    },
+    "Dialer": {
+      "rust": "rust_stdlib::net::Dialer"
+    },
+    "Dialer.Cancel": {
+      "rust": "rust_stdlib::net::Dialer::cancel"
+    },
+    "Dialer.Control": {
+      "rust": "rust_stdlib_sys::net::Dialer::control"
+    },
+    "Dialer.ControlContext": {
+      "rust": "rust_stdlib_sys::net::Dialer::control_context"
+    },
+    "Dialer.Deadline": {
+      "rust": "rust_stdlib::net::Dialer::deadline"
+    },
+    "Dialer.Dial": {
+      "rust": "rust_stdlib_sys::net::Dialer::dial"
+    },
+    "Dialer.DialContext": {
+      "rust": "rust_stdlib_sys::net::Dialer::dial_context"
+    },
+    "Dialer.DialIP": {
+      "rust": "rust_stdlib_sys::net::Dialer::dial_ip"
+    },
+    "Dialer.DialTCP": {
+      "rust": "rust_stdlib_sys::net::Dialer::dial_tcp"
+    },
+    "Dialer.DialUDP": {
+      "rust": "rust_stdlib::net::Dialer::dial_udp"
+    },
+    "Dialer.DialUnix": {
+      "rust": "rust_stdlib_sys::net::Dialer::dial_unix"
+    },
+    "Dialer.DualStack": {
+      "rust": "rust_stdlib::net::Dialer::dual_stack"
+    },
+    "Dialer.FallbackDelay": {
+      "rust": "rust_stdlib::net::Dialer::fallback_delay"
+    },
+    "Dialer.KeepAlive": {
+      "rust": "rust_stdlib_sys::net::Dialer::keep_alive"
+    },
+    "Dialer.KeepAliveConfig": {
+      "rust": "rust_stdlib_sys::net::Dialer::keep_alive_config"
+    },
+    "Dialer.LocalAddr": {
+      "rust": "rust_stdlib_sys::net::Dialer::local_addr"
+    },
+    "Dialer.MultipathTCP": {
+      "rust": "rust_stdlib_sys::net::Dialer::multipath_tcp"
+    },
+    "Dialer.Resolver": {
+      "rust": "rust_stdlib::net::Dialer::resolver"
+    },
+    "Dialer.SetMultipathTCP": {
+      "rust": "rust_stdlib_sys::net::Dialer::set_multipath_tcp"
+    },
+    "Dialer.Timeout": {
+      "rust": "rust_stdlib::net::Dialer::timeout"
+    },
+    "ErrClosed": {
+      "rust": "rust_stdlib::net::ERR_CLOSED"
+    },
+    "ErrWriteToConnected": {
+      "rust": "rust_stdlib::net::ERR_WRITE_TO_CONNECTED"
+    },
+    "Error": {
+      "rust": "rust_stdlib::net::Error"
+    },
+    "Error.Temporary": {
+      "rust": "rust_stdlib::net::Error::temporary"
+    },
+    "Error.Timeout": {
+      "rust": "rust_stdlib::net::Error::timeout"
+    },
+    "FileConn": {
+      "rust": "rust_stdlib_sys::net::file_conn"
+    },
+    "FileListener": {
+      "rust": "rust_stdlib_sys::net::file_listener"
+    },
+    "FilePacketConn": {
+      "rust": "rust_stdlib_sys::net::file_packet_conn"
+    },
+    "FlagBroadcast": {
+      "rust": "rust_stdlib::net::FLAG_BROADCAST"
+    },
+    "FlagLoopback": {
+      "rust": "rust_stdlib::net::FLAG_LOOPBACK"
+    },
+    "FlagMulticast": {
+      "rust": "rust_stdlib::net::FLAG_MULTICAST"
+    },
+    "FlagPointToPoint": {
+      "rust": "rust_stdlib::net::FLAG_POINT_TO_POINT"
+    },
+    "FlagRunning": {
+      "rust": "rust_stdlib::net::FLAG_RUNNING"
+    },
+    "FlagUp": {
+      "rust": "rust_stdlib::net::FLAG_UP"
+    },
+    "Flags": {
+      "rust": "rust_stdlib::net::Flags"
+    },
+    "Flags.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "HardwareAddr": {
+      "rust": "rust_stdlib::net::HardwareAddr"
+    },
+    "HardwareAddr.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "IP": {
+      "rust": "rust_stdlib::net::IP"
+    },
+    "IP.AppendText": {
+      "rust": "rust_stdlib::net::IP::append_text"
+    },
+    "IP.DefaultMask": {
+      "rust": "rust_stdlib::net::IP::default_mask"
+    },
+    "IP.Equal": {
+      "rust": "rust_stdlib::net::IP::equal"
+    },
+    "IP.IsGlobalUnicast": {
+      "rust": "rust_stdlib::net::IP::is_global_unicast"
+    },
+    "IP.IsInterfaceLocalMulticast": {
+      "rust": "rust_stdlib::net::IP::is_interface_local_multicast"
+    },
+    "IP.IsLinkLocalMulticast": {
+      "rust": "rust_stdlib::net::IP::is_link_local_multicast"
+    },
+    "IP.IsLinkLocalUnicast": {
+      "rust": "rust_stdlib::net::IP::is_link_local_unicast"
+    },
+    "IP.IsLoopback": {
+      "rust": "rust_stdlib::net::IP::is_loopback"
+    },
+    "IP.IsMulticast": {
+      "rust": "rust_stdlib::net::IP::is_multicast"
+    },
+    "IP.IsPrivate": {
+      "rust": "rust_stdlib::net::IP::is_private"
+    },
+    "IP.IsUnspecified": {
+      "rust": "rust_stdlib::net::IP::is_unspecified"
+    },
+    "IP.MarshalText": {
+      "rust": "rust_stdlib::net::IP::marshal_text"
+    },
+    "IP.Mask": {
+      "rust": "rust_stdlib::net::IP::mask"
+    },
+    "IP.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "IP.To16": {
+      "rust": "rust_stdlib::net::IP::to16"
+    },
+    "IP.To4": {
+      "rust": "rust_stdlib::net::IP::to4"
+    },
+    "IP.UnmarshalText": {
+      "rust": "rust_stdlib::net::IP::unmarshal_text"
+    },
+    "IPAddr": {
+      "rust": "rust_stdlib::net::IPAddr"
+    },
+    "IPAddr.IP": {
+      "rust": "rust_stdlib::net::IPAddr::ip"
+    },
+    "IPAddr.Network": {
+      "rust": "rust_stdlib::net::IPAddr::network"
+    },
+    "IPAddr.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "IPAddr.Zone": {
+      "rust": "rust_stdlib::net::IPAddr::zone"
+    },
+    "IPConn": {
+      "rust": "rust_stdlib_sys::net::IPConn"
+    },
+    "IPConn.Close": {
+      "rust": "rust_stdlib_sys::net::IPConn::close"
+    },
+    "IPConn.File": {
+      "rust": "rust_stdlib_sys::net::IPConn::file"
+    },
+    "IPConn.LocalAddr": {
+      "rust": "rust_stdlib_sys::net::IPConn::local_addr"
+    },
+    "IPConn.Read": {
+      "rust": "rust_stdlib_sys::net::IPConn::read",
+      "deviation": "io-read-contract",
+      "note": "At end of stream Read returns Ok(0) (std convention) where Go returns io.EOF."
+    },
+    "IPConn.ReadFrom": {
+      "rust": "rust_stdlib_sys::net::IPConn::read_from"
+    },
+    "IPConn.ReadFromIP": {
+      "rust": "rust_stdlib_sys::net::IPConn::read_from_ip"
+    },
+    "IPConn.ReadMsgIP": {
+      "rust": "rust_stdlib_sys::net::IPConn::read_msg_ip"
+    },
+    "IPConn.RemoteAddr": {
+      "rust": "rust_stdlib_sys::net::IPConn::remote_addr"
+    },
+    "IPConn.SetDeadline": {
+      "rust": "rust_stdlib_sys::net::IPConn::set_deadline"
+    },
+    "IPConn.SetReadBuffer": {
+      "rust": "rust_stdlib_sys::net::IPConn::set_read_buffer"
+    },
+    "IPConn.SetReadDeadline": {
+      "rust": "rust_stdlib_sys::net::IPConn::set_read_deadline"
+    },
+    "IPConn.SetWriteBuffer": {
+      "rust": "rust_stdlib_sys::net::IPConn::set_write_buffer"
+    },
+    "IPConn.SetWriteDeadline": {
+      "rust": "rust_stdlib_sys::net::IPConn::set_write_deadline"
+    },
+    "IPConn.SyscallConn": {
+      "rust": "rust_stdlib_sys::net::IPConn::syscall_conn"
+    },
+    "IPConn.Write": {
+      "rust": "rust_stdlib_sys::net::IPConn::write"
+    },
+    "IPConn.WriteMsgIP": {
+      "rust": "rust_stdlib_sys::net::IPConn::write_msg_ip"
+    },
+    "IPConn.WriteTo": {
+      "rust": "rust_stdlib_sys::net::IPConn::write_to"
+    },
+    "IPConn.WriteToIP": {
+      "rust": "rust_stdlib_sys::net::IPConn::write_to_ip"
+    },
+    "IPMask": {
+      "rust": "rust_stdlib::net::IPMask"
+    },
+    "IPMask.Size": {
+      "rust": "rust_stdlib::net::IPMask::size"
+    },
+    "IPMask.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "IPNet": {
+      "rust": "rust_stdlib::net::IPNet"
+    },
+    "IPNet.Contains": {
+      "rust": "rust_stdlib::net::IPNet::contains"
+    },
+    "IPNet.IP": {
+      "rust": "rust_stdlib::net::IPNet::ip"
+    },
+    "IPNet.Mask": {
+      "rust": "rust_stdlib::net::IPNet::mask"
+    },
+    "IPNet.Network": {
+      "rust": "rust_stdlib::net::IPNet::network"
+    },
+    "IPNet.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "IPv4": {
+      "rust": "rust_stdlib::net::ipv4"
+    },
+    "IPv4Mask": {
+      "rust": "rust_stdlib::net::ipv4_mask"
+    },
+    "IPv4allrouter": {
+      "rust": "rust_stdlib::net::ipv4_allrouter"
+    },
+    "IPv4allsys": {
+      "rust": "rust_stdlib::net::ipv4_allsys"
+    },
+    "IPv4bcast": {
+      "rust": "rust_stdlib::net::ipv4_bcast"
+    },
+    "IPv4len": {
+      "rust": "rust_stdlib::net::IPV4LEN"
+    },
+    "IPv4zero": {
+      "rust": "rust_stdlib::net::ipv4_zero"
+    },
+    "IPv6interfacelocalallnodes": {
+      "rust": "rust_stdlib::net::ipv6_interface_local_all_nodes"
+    },
+    "IPv6len": {
+      "rust": "rust_stdlib::net::IPV6LEN"
+    },
+    "IPv6linklocalallnodes": {
+      "rust": "rust_stdlib::net::ipv6_link_local_all_nodes"
+    },
+    "IPv6linklocalallrouters": {
+      "rust": "rust_stdlib::net::ipv6_link_local_all_routers"
+    },
+    "IPv6loopback": {
+      "rust": "rust_stdlib::net::ipv6_loopback"
+    },
+    "IPv6unspecified": {
+      "rust": "rust_stdlib::net::ipv6_unspecified"
+    },
+    "IPv6zero": {
+      "rust": "rust_stdlib::net::ipv6_zero"
+    },
+    "Interface": {
+      "rust": "rust_stdlib::net::Interface"
+    },
+    "Interface.Addrs": {
+      "rust": "rust_stdlib_sys::net::Interface::addrs"
+    },
+    "Interface.Flags": {
+      "rust": "rust_stdlib::net::Interface::flags"
+    },
+    "Interface.HardwareAddr": {
+      "rust": "rust_stdlib::net::Interface::hardware_addr"
+    },
+    "Interface.Index": {
+      "rust": "rust_stdlib::net::Interface::index"
+    },
+    "Interface.MTU": {
+      "rust": "rust_stdlib::net::Interface::mtu"
+    },
+    "Interface.MulticastAddrs": {
+      "rust": "rust_stdlib_sys::net::Interface::multicast_addrs"
+    },
+    "Interface.Name": {
+      "rust": "rust_stdlib::net::Interface::name"
+    },
+    "InterfaceAddrs": {
+      "rust": "rust_stdlib_sys::net::interface_addrs"
+    },
+    "InterfaceByIndex": {
+      "rust": "rust_stdlib_sys::net::interface_by_index"
+    },
+    "InterfaceByName": {
+      "rust": "rust_stdlib_sys::net::interface_by_name"
+    },
+    "Interfaces": {
+      "rust": "rust_stdlib_sys::net::interfaces"
+    },
+    "InvalidAddrError": {
+      "rust": "rust_stdlib::net::InvalidAddrError"
+    },
+    "InvalidAddrError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for InvalidAddrError"
+    },
+    "InvalidAddrError.Temporary": {
+      "rust": "rust_stdlib::net::Error::temporary",
+      "note": "impl net::Error for InvalidAddrError"
+    },
+    "InvalidAddrError.Timeout": {
+      "rust": "rust_stdlib::net::Error::timeout",
+      "note": "impl net::Error for InvalidAddrError"
+    },
+    "JoinHostPort": {
+      "rust": "rust_stdlib::net::join_host_port"
+    },
+    "KeepAliveConfig": {
+      "rust": "rust_stdlib::net::KeepAliveConfig"
+    },
+    "KeepAliveConfig.Count": {
+      "rust": "rust_stdlib::net::KeepAliveConfig::count"
+    },
+    "KeepAliveConfig.Enable": {
+      "rust": "rust_stdlib::net::KeepAliveConfig::enable"
+    },
+    "KeepAliveConfig.Idle": {
+      "rust": "rust_stdlib::net::KeepAliveConfig::idle"
+    },
+    "KeepAliveConfig.Interval": {
+      "rust": "rust_stdlib::net::KeepAliveConfig::interval"
+    },
+    "Listen": {
+      "rust": "rust_stdlib_sys::net::listen"
+    },
+    "ListenConfig": {
+      "rust": "rust_stdlib::net::ListenConfig"
+    },
+    "ListenConfig.Control": {
+      "rust": "rust_stdlib_sys::net::ListenConfig::control"
+    },
+    "ListenConfig.KeepAlive": {
+      "rust": "rust_stdlib_sys::net::ListenConfig::keep_alive"
+    },
+    "ListenConfig.KeepAliveConfig": {
+      "rust": "rust_stdlib_sys::net::ListenConfig::keep_alive_config"
+    },
+    "ListenConfig.Listen": {
+      "rust": "rust_stdlib_sys::net::ListenConfig::listen"
+    },
+    "ListenConfig.ListenPacket": {
+      "rust": "rust_stdlib_sys::net::ListenConfig::listen_packet"
+    },
+    "ListenConfig.MultipathTCP": {
+      "rust": "rust_stdlib_sys::net::ListenConfig::multipath_tcp"
+    },
+    "ListenConfig.SetMultipathTCP": {
+      "rust": "rust_stdlib_sys::net::ListenConfig::set_multipath_tcp"
+    },
+    "ListenIP": {
+      "rust": "rust_stdlib_sys::net::listen_ip"
+    },
+    "ListenMulticastUDP": {
+      "rust": "rust_stdlib_sys::net::listen_multicast_udp"
+    },
+    "ListenPacket": {
+      "rust": "rust_stdlib_sys::net::listen_packet"
+    },
+    "ListenTCP": {
+      "rust": "rust_stdlib::net::listen_tcp"
+    },
+    "ListenUDP": {
+      "rust": "rust_stdlib::net::listen_udp"
+    },
+    "ListenUnix": {
+      "rust": "rust_stdlib_sys::net::listen_unix"
+    },
+    "ListenUnixgram": {
+      "rust": "rust_stdlib::net::listen_unixgram"
+    },
+    "Listener": {
+      "rust": "rust_stdlib::net::Listener"
+    },
+    "Listener.Accept": {
+      "rust": "rust_stdlib::net::Listener::accept"
+    },
+    "Listener.Addr": {
+      "rust": "rust_stdlib::net::Listener::addr"
+    },
+    "Listener.Close": {
+      "rust": "rust_stdlib::net::Listener::close"
+    },
+    "LookupAddr": {
+      "rust": "rust_stdlib_sys::net::lookup_addr",
+      "note": "The system-resolver path of Go's lookup: getnameinfo(NI_NAMEREQD) for addresses and res_search for CNAMEs, chosen as Go's conf.go chooses (PreferGo, GODEBUG=netdns, platform default, resolv.conf and nsswitch.conf). When Go's own resolver is chosen, or a CNAME lookup falls back to it, a PureResolver (the root crate's pure resolver) answers; without one the C library does."
+    },
+    "LookupCNAME": {
+      "rust": "rust_stdlib_sys::net::lookup_cname",
+      "note": "The system-resolver path of Go's lookup: getnameinfo(NI_NAMEREQD) for addresses and res_search for CNAMEs, chosen as Go's conf.go chooses (PreferGo, GODEBUG=netdns, platform default, resolv.conf and nsswitch.conf). When Go's own resolver is chosen, or a CNAME lookup falls back to it, a PureResolver (the root crate's pure resolver) answers; without one the C library does."
+    },
+    "LookupHost": {
+      "rust": "rust_stdlib::net::lookup_host"
+    },
+    "LookupIP": {
+      "rust": "rust_stdlib::net::lookup_ip"
+    },
+    "LookupMX": {
+      "rust": "rust_stdlib::net::lookup_mx"
+    },
+    "LookupNS": {
+      "rust": "rust_stdlib::net::lookup_ns"
+    },
+    "LookupPort": {
+      "rust": "rust_stdlib::net::lookup_port"
+    },
+    "LookupSRV": {
+      "rust": "rust_stdlib::net::lookup_srv"
+    },
+    "LookupTXT": {
+      "rust": "rust_stdlib::net::lookup_txt"
+    },
+    "MX": {
+      "rust": "rust_stdlib::net::MX"
+    },
+    "MX.Host": {
+      "rust": "rust_stdlib::net::MX::host"
+    },
+    "MX.Pref": {
+      "rust": "rust_stdlib::net::MX::pref"
+    },
+    "NS": {
+      "rust": "rust_stdlib::net::NS"
+    },
+    "NS.Host": {
+      "rust": "rust_stdlib::net::NS::host"
+    },
+    "OpError": {
+      "rust": "rust_stdlib::net::OpError"
+    },
+    "OpError.Addr": {
+      "rust": "rust_stdlib::net::OpError::addr"
+    },
+    "OpError.Err": {
+      "rust": "rust_stdlib::net::OpError::err"
+    },
+    "OpError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for OpError"
+    },
+    "OpError.Net": {
+      "rust": "rust_stdlib::net::OpError::net"
+    },
+    "OpError.Op": {
+      "rust": "rust_stdlib::net::OpError::op"
+    },
+    "OpError.Source": {
+      "rust": "rust_stdlib::net::OpError::source"
+    },
+    "OpError.Temporary": {
+      "rust": "rust_stdlib::net::OpError::temporary"
+    },
+    "OpError.Timeout": {
+      "rust": "rust_stdlib::net::OpError::timeout"
+    },
+    "OpError.Unwrap": {
+      "rust": "rust_stdlib::net::OpError::unwrap"
+    },
+    "PacketConn": {
+      "rust": "rust_stdlib::net::PacketConn"
+    },
+    "PacketConn.Close": {
+      "rust": "rust_stdlib::net::PacketConn::close"
+    },
+    "PacketConn.LocalAddr": {
+      "rust": "rust_stdlib::net::PacketConn::local_addr"
+    },
+    "PacketConn.ReadFrom": {
+      "rust": "rust_stdlib::net::PacketConn::read_from"
+    },
+    "PacketConn.SetDeadline": {
+      "rust": "rust_stdlib::net::PacketConn::set_deadline",
+      "deviation": "deadline-polling",
+      "note": "The root crate's std sockets enforce deadlines by polling in slices of at most 50 ms, so a deadline change or Close from another thread takes effect within about 50 ms where Go wakes the blocked call at once (the rust_stdlib_sys::net types wake at once)."
+    },
+    "PacketConn.SetReadDeadline": {
+      "rust": "rust_stdlib::net::PacketConn::set_read_deadline",
+      "deviation": "deadline-polling",
+      "note": "The root crate's std sockets enforce deadlines by polling in slices of at most 50 ms, so a deadline change or Close from another thread takes effect within about 50 ms where Go wakes the blocked call at once (the rust_stdlib_sys::net types wake at once)."
+    },
+    "PacketConn.SetWriteDeadline": {
+      "rust": "rust_stdlib::net::PacketConn::set_write_deadline",
+      "deviation": "deadline-polling",
+      "note": "The root crate's std sockets enforce deadlines by polling in slices of at most 50 ms, so a deadline change or Close from another thread takes effect within about 50 ms where Go wakes the blocked call at once (the rust_stdlib_sys::net types wake at once)."
+    },
+    "PacketConn.WriteTo": {
+      "rust": "rust_stdlib::net::PacketConn::write_to"
+    },
+    "ParseCIDR": {
+      "rust": "rust_stdlib::net::parse_cidr"
+    },
+    "ParseError": {
+      "rust": "rust_stdlib::net::ParseError"
+    },
+    "ParseError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for ParseError"
+    },
+    "ParseError.Temporary": {
+      "rust": "rust_stdlib::net::Error::temporary",
+      "note": "impl net::Error for ParseError"
+    },
+    "ParseError.Text": {
+      "rust": "rust_stdlib::net::ParseError::text"
+    },
+    "ParseError.Timeout": {
+      "rust": "rust_stdlib::net::Error::timeout",
+      "note": "impl net::Error for ParseError"
+    },
+    "ParseError.Type": {
+      "rust": "rust_stdlib::net::ParseError::type_"
+    },
+    "ParseIP": {
+      "rust": "rust_stdlib::net::parse_ip"
+    },
+    "ParseMAC": {
+      "rust": "rust_stdlib::net::parse_mac"
+    },
+    "Pipe": {
+      "rust": "rust_stdlib::net::pipe"
+    },
+    "ResolveIPAddr": {
+      "rust": "rust_stdlib::net::resolve_ip_addr"
+    },
+    "ResolveTCPAddr": {
+      "rust": "rust_stdlib::net::resolve_tcp_addr"
+    },
+    "ResolveUDPAddr": {
+      "rust": "rust_stdlib::net::resolve_udp_addr"
+    },
+    "ResolveUnixAddr": {
+      "rust": "rust_stdlib::net::resolve_unix_addr"
+    },
+    "Resolver": {
+      "rust": "rust_stdlib::net::Resolver"
+    },
+    "Resolver.Dial": {
+      "rust": "rust_stdlib::net::Resolver::dial"
+    },
+    "Resolver.LookupAddr": {
+      "rust": "rust_stdlib_sys::net::Resolver::lookup_addr",
+      "note": "The system-resolver path of Go's lookup: getnameinfo(NI_NAMEREQD) for addresses and res_search for CNAMEs, chosen as Go's conf.go chooses (PreferGo, GODEBUG=netdns, platform default, resolv.conf and nsswitch.conf). When Go's own resolver is chosen, or a CNAME lookup falls back to it, a PureResolver (the root crate's pure resolver) answers; without one the C library does."
+    },
+    "Resolver.LookupCNAME": {
+      "rust": "rust_stdlib_sys::net::Resolver::lookup_cname",
+      "note": "The system-resolver path of Go's lookup: getnameinfo(NI_NAMEREQD) for addresses and res_search for CNAMEs, chosen as Go's conf.go chooses (PreferGo, GODEBUG=netdns, platform default, resolv.conf and nsswitch.conf). When Go's own resolver is chosen, or a CNAME lookup falls back to it, a PureResolver (the root crate's pure resolver) answers; without one the C library does."
+    },
+    "Resolver.LookupHost": {
+      "rust": "rust_stdlib::net::Resolver::lookup_host"
+    },
+    "Resolver.LookupIP": {
+      "rust": "rust_stdlib::net::Resolver::lookup_ip"
+    },
+    "Resolver.LookupIPAddr": {
+      "rust": "rust_stdlib::net::Resolver::lookup_ip_addr"
+    },
+    "Resolver.LookupMX": {
+      "rust": "rust_stdlib::net::Resolver::lookup_mx"
+    },
+    "Resolver.LookupNS": {
+      "rust": "rust_stdlib::net::Resolver::lookup_ns"
+    },
+    "Resolver.LookupNetIP": {
+      "rust": "rust_stdlib::net::Resolver::lookup_net_ip"
+    },
+    "Resolver.LookupPort": {
+      "rust": "rust_stdlib::net::Resolver::lookup_port"
+    },
+    "Resolver.LookupSRV": {
+      "rust": "rust_stdlib::net::Resolver::lookup_srv"
+    },
+    "Resolver.LookupTXT": {
+      "rust": "rust_stdlib::net::Resolver::lookup_txt"
+    },
+    "Resolver.PreferGo": {
+      "rust": "rust_stdlib::net::Resolver::prefer_builtin"
+    },
+    "Resolver.StrictErrors": {
+      "rust": "rust_stdlib::net::Resolver::strict_errors"
+    },
+    "SRV": {
+      "rust": "rust_stdlib::net::SRV"
+    },
+    "SRV.Port": {
+      "rust": "rust_stdlib::net::SRV::port"
+    },
+    "SRV.Priority": {
+      "rust": "rust_stdlib::net::SRV::priority"
+    },
+    "SRV.Target": {
+      "rust": "rust_stdlib::net::SRV::target"
+    },
+    "SRV.Weight": {
+      "rust": "rust_stdlib::net::SRV::weight"
+    },
+    "SplitHostPort": {
+      "rust": "rust_stdlib::net::split_host_port"
+    },
+    "TCPAddr": {
+      "rust": "rust_stdlib::net::TCPAddr"
+    },
+    "TCPAddr.AddrPort": {
+      "rust": "rust_stdlib::net::TCPAddr::addr_port"
+    },
+    "TCPAddr.IP": {
+      "rust": "rust_stdlib::net::TCPAddr::ip"
+    },
+    "TCPAddr.Network": {
+      "rust": "rust_stdlib::net::TCPAddr::network"
+    },
+    "TCPAddr.Port": {
+      "rust": "rust_stdlib::net::TCPAddr::port"
+    },
+    "TCPAddr.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "TCPAddr.Zone": {
+      "rust": "rust_stdlib::net::TCPAddr::zone"
+    },
+    "TCPAddrFromAddrPort": {
+      "rust": "rust_stdlib::net::tcp_addr_from_addr_port"
+    },
+    "TCPConn": {
+      "rust": "rust_stdlib::net::TCPConn"
+    },
+    "TCPConn.Close": {
+      "rust": "rust_stdlib_sys::net::TCPConn::close"
+    },
+    "TCPConn.CloseRead": {
+      "rust": "rust_stdlib::net::TCPConn::close_read"
+    },
+    "TCPConn.CloseWrite": {
+      "rust": "rust_stdlib::net::TCPConn::close_write"
+    },
+    "TCPConn.File": {
+      "rust": "rust_stdlib::net::TCPConn::file"
+    },
+    "TCPConn.LocalAddr": {
+      "rust": "rust_stdlib::net::TCPConn::local_addr"
+    },
+    "TCPConn.MultipathTCP": {
+      "rust": "rust_stdlib::net::TCPConn::multipath_tcp"
+    },
+    "TCPConn.Read": {
+      "rust": "rust_stdlib::net::TCPConn::read",
+      "deviation": "io-read-contract",
+      "note": "At end of stream Read returns Ok(0) (std convention) where Go returns io.EOF."
+    },
+    "TCPConn.ReadFrom": {
+      "rust": "rust_stdlib::net::TCPConn::read_from"
+    },
+    "TCPConn.RemoteAddr": {
+      "rust": "rust_stdlib::net::TCPConn::remote_addr"
+    },
+    "TCPConn.SetDeadline": {
+      "rust": "rust_stdlib_sys::net::TCPConn::set_deadline"
+    },
+    "TCPConn.SetKeepAlive": {
+      "rust": "rust_stdlib_sys::net::set_keep_alive"
+    },
+    "TCPConn.SetKeepAliveConfig": {
+      "rust": "rust_stdlib_sys::net::set_keep_alive_config"
+    },
+    "TCPConn.SetKeepAlivePeriod": {
+      "rust": "rust_stdlib_sys::net::set_keep_alive_period"
+    },
+    "TCPConn.SetLinger": {
+      "rust": "rust_stdlib_sys::net::set_linger"
+    },
+    "TCPConn.SetNoDelay": {
+      "rust": "rust_stdlib::net::TCPConn::set_no_delay"
+    },
+    "TCPConn.SetReadBuffer": {
+      "rust": "rust_stdlib_sys::net::set_read_buffer"
+    },
+    "TCPConn.SetReadDeadline": {
+      "rust": "rust_stdlib_sys::net::TCPConn::set_read_deadline"
+    },
+    "TCPConn.SetWriteBuffer": {
+      "rust": "rust_stdlib_sys::net::set_write_buffer"
+    },
+    "TCPConn.SetWriteDeadline": {
+      "rust": "rust_stdlib_sys::net::TCPConn::set_write_deadline"
+    },
+    "TCPConn.SyscallConn": {
+      "rust": "rust_stdlib_sys::net::syscall_conn"
+    },
+    "TCPConn.Write": {
+      "rust": "rust_stdlib::net::TCPConn::write"
+    },
+    "TCPConn.WriteTo": {
+      "rust": "rust_stdlib::net::TCPConn::write_to"
+    },
+    "TCPListener": {
+      "rust": "rust_stdlib::net::TCPListener"
+    },
+    "TCPListener.Accept": {
+      "rust": "rust_stdlib::net::TCPListener::accept"
+    },
+    "TCPListener.AcceptTCP": {
+      "rust": "rust_stdlib::net::TCPListener::accept_tcp"
+    },
+    "TCPListener.Addr": {
+      "rust": "rust_stdlib::net::TCPListener::addr"
+    },
+    "TCPListener.Close": {
+      "rust": "rust_stdlib_sys::net::TCPListener::close"
+    },
+    "TCPListener.File": {
+      "rust": "rust_stdlib::net::TCPListener::file"
+    },
+    "TCPListener.SetDeadline": {
+      "rust": "rust_stdlib_sys::net::TCPListener::set_deadline"
+    },
+    "TCPListener.SyscallConn": {
+      "rust": "rust_stdlib_sys::net::syscall_listener"
+    },
+    "UDPAddr": {
+      "rust": "rust_stdlib::net::UDPAddr"
+    },
+    "UDPAddr.AddrPort": {
+      "rust": "rust_stdlib::net::UDPAddr::addr_port"
+    },
+    "UDPAddr.IP": {
+      "rust": "rust_stdlib::net::UDPAddr::ip"
+    },
+    "UDPAddr.Network": {
+      "rust": "rust_stdlib::net::UDPAddr::network"
+    },
+    "UDPAddr.Port": {
+      "rust": "rust_stdlib::net::UDPAddr::port"
+    },
+    "UDPAddr.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "UDPAddr.Zone": {
+      "rust": "rust_stdlib::net::UDPAddr::zone"
+    },
+    "UDPAddrFromAddrPort": {
+      "rust": "rust_stdlib::net::udp_addr_from_addr_port"
+    },
+    "UDPConn": {
+      "rust": "rust_stdlib::net::UDPConn"
+    },
+    "UDPConn.Close": {
+      "rust": "rust_stdlib_sys::net::UDPConn::close"
+    },
+    "UDPConn.File": {
+      "rust": "rust_stdlib::net::UDPConn::file"
+    },
+    "UDPConn.LocalAddr": {
+      "rust": "rust_stdlib::net::UDPConn::local_addr"
+    },
+    "UDPConn.Read": {
+      "rust": "rust_stdlib::net::UDPConn::read",
+      "deviation": "io-read-contract",
+      "note": "At end of stream Read returns Ok(0) (std convention) where Go returns io.EOF."
+    },
+    "UDPConn.ReadFrom": {
+      "rust": "rust_stdlib::net::UDPConn::read_from"
+    },
+    "UDPConn.ReadFromUDP": {
+      "rust": "rust_stdlib::net::UDPConn::read_from_udp"
+    },
+    "UDPConn.ReadFromUDPAddrPort": {
+      "rust": "rust_stdlib::net::UDPConn::read_from_udp_addr_port"
+    },
+    "UDPConn.ReadMsgUDP": {
+      "rust": "rust_stdlib_sys::net::read_msg_udp"
+    },
+    "UDPConn.ReadMsgUDPAddrPort": {
+      "rust": "rust_stdlib_sys::net::read_msg_udp_addr_port"
+    },
+    "UDPConn.RemoteAddr": {
+      "rust": "rust_stdlib::net::UDPConn::remote_addr"
+    },
+    "UDPConn.SetDeadline": {
+      "rust": "rust_stdlib_sys::net::UDPConn::set_deadline"
+    },
+    "UDPConn.SetReadBuffer": {
+      "rust": "rust_stdlib_sys::net::set_read_buffer"
+    },
+    "UDPConn.SetReadDeadline": {
+      "rust": "rust_stdlib_sys::net::UDPConn::set_read_deadline"
+    },
+    "UDPConn.SetWriteBuffer": {
+      "rust": "rust_stdlib_sys::net::set_write_buffer"
+    },
+    "UDPConn.SetWriteDeadline": {
+      "rust": "rust_stdlib_sys::net::UDPConn::set_write_deadline"
+    },
+    "UDPConn.SyscallConn": {
+      "rust": "rust_stdlib_sys::net::syscall_conn"
+    },
+    "UDPConn.Write": {
+      "rust": "rust_stdlib::net::UDPConn::write"
+    },
+    "UDPConn.WriteMsgUDP": {
+      "rust": "rust_stdlib_sys::net::write_msg_udp"
+    },
+    "UDPConn.WriteMsgUDPAddrPort": {
+      "rust": "rust_stdlib_sys::net::write_msg_udp_addr_port"
+    },
+    "UDPConn.WriteTo": {
+      "rust": "rust_stdlib::net::UDPConn::write_to"
+    },
+    "UDPConn.WriteToUDP": {
+      "rust": "rust_stdlib::net::UDPConn::write_to_udp"
+    },
+    "UDPConn.WriteToUDPAddrPort": {
+      "rust": "rust_stdlib::net::UDPConn::write_to_udp_addr_port"
+    },
+    "UnixAddr": {
+      "rust": "rust_stdlib::net::UnixAddr"
+    },
+    "UnixAddr.Name": {
+      "rust": "rust_stdlib::net::UnixAddr::name"
+    },
+    "UnixAddr.Net": {
+      "rust": "rust_stdlib::net::UnixAddr::net"
+    },
+    "UnixAddr.Network": {
+      "rust": "rust_stdlib::net::UnixAddr::network"
+    },
+    "UnixAddr.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "UnixConn": {
+      "rust": "rust_stdlib::net::UnixConn"
+    },
+    "UnixConn.Close": {
+      "rust": "rust_stdlib_sys::net::UnixConn::close"
+    },
+    "UnixConn.CloseRead": {
+      "rust": "rust_stdlib::net::UnixConn::close_read"
+    },
+    "UnixConn.CloseWrite": {
+      "rust": "rust_stdlib::net::UnixConn::close_write"
+    },
+    "UnixConn.File": {
+      "rust": "rust_stdlib::net::UnixConn::file"
+    },
+    "UnixConn.LocalAddr": {
+      "rust": "rust_stdlib::net::UnixConn::local_addr"
+    },
+    "UnixConn.Read": {
+      "rust": "rust_stdlib::net::UnixConn::read",
+      "deviation": "io-read-contract",
+      "note": "At end of stream Read returns Ok(0) (std convention) where Go returns io.EOF."
+    },
+    "UnixConn.ReadFrom": {
+      "rust": "rust_stdlib::net::UnixConn::read_from"
+    },
+    "UnixConn.ReadFromUnix": {
+      "rust": "rust_stdlib::net::UnixConn::read_from_unix"
+    },
+    "UnixConn.ReadMsgUnix": {
+      "rust": "rust_stdlib_sys::net::read_msg_unix"
+    },
+    "UnixConn.RemoteAddr": {
+      "rust": "rust_stdlib::net::UnixConn::remote_addr"
+    },
+    "UnixConn.SetDeadline": {
+      "rust": "rust_stdlib_sys::net::UnixConn::set_deadline"
+    },
+    "UnixConn.SetReadBuffer": {
+      "rust": "rust_stdlib_sys::net::set_read_buffer"
+    },
+    "UnixConn.SetReadDeadline": {
+      "rust": "rust_stdlib_sys::net::UnixConn::set_read_deadline"
+    },
+    "UnixConn.SetWriteBuffer": {
+      "rust": "rust_stdlib_sys::net::set_write_buffer"
+    },
+    "UnixConn.SetWriteDeadline": {
+      "rust": "rust_stdlib_sys::net::UnixConn::set_write_deadline"
+    },
+    "UnixConn.SyscallConn": {
+      "rust": "rust_stdlib_sys::net::syscall_conn"
+    },
+    "UnixConn.Write": {
+      "rust": "rust_stdlib::net::UnixConn::write"
+    },
+    "UnixConn.WriteMsgUnix": {
+      "rust": "rust_stdlib_sys::net::write_msg_unix"
+    },
+    "UnixConn.WriteTo": {
+      "rust": "rust_stdlib::net::UnixConn::write_to"
+    },
+    "UnixConn.WriteToUnix": {
+      "rust": "rust_stdlib::net::UnixConn::write_to_unix"
+    },
+    "UnixListener": {
+      "rust": "rust_stdlib::net::UnixListener"
+    },
+    "UnixListener.Accept": {
+      "rust": "rust_stdlib::net::UnixListener::accept"
+    },
+    "UnixListener.AcceptUnix": {
+      "rust": "rust_stdlib::net::UnixListener::accept_unix"
+    },
+    "UnixListener.Addr": {
+      "rust": "rust_stdlib::net::UnixListener::addr"
+    },
+    "UnixListener.Close": {
+      "rust": "rust_stdlib_sys::net::UnixListener::close"
+    },
+    "UnixListener.File": {
+      "rust": "rust_stdlib::net::UnixListener::file"
+    },
+    "UnixListener.SetDeadline": {
+      "rust": "rust_stdlib_sys::net::UnixListener::set_deadline"
+    },
+    "UnixListener.SetUnlinkOnClose": {
+      "rust": "rust_stdlib::net::UnixListener::set_unlink_on_close"
+    },
+    "UnixListener.SyscallConn": {
+      "rust": "rust_stdlib_sys::net::syscall_listener"
+    },
+    "UnknownNetworkError": {
+      "rust": "rust_stdlib::net::UnknownNetworkError"
+    },
+    "UnknownNetworkError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for UnknownNetworkError"
+    },
+    "UnknownNetworkError.Temporary": {
+      "rust": "rust_stdlib::net::Error::temporary",
+      "note": "impl net::Error for UnknownNetworkError"
+    },
+    "UnknownNetworkError.Timeout": {
+      "rust": "rust_stdlib::net::Error::timeout",
+      "note": "impl net::Error for UnknownNetworkError"
+    }
+  }
+}

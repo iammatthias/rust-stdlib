@@ -1,0 +1,15 @@
+{
+  "package": "unique",
+  "notes": "unique: Arc-based interning table keyed by TypeId; entries are swept as the table grows (Go uses the GC).",
+  "symbols": {
+    "Handle": {
+      "rust": "rust_stdlib::unique::Handle"
+    },
+    "Handle.Value": {
+      "rust": "rust_stdlib::unique::Handle::value"
+    },
+    "Make": {
+      "rust": "rust_stdlib::unique::Handle::new"
+    }
+  }
+}

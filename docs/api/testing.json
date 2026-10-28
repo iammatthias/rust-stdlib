@@ -1,0 +1,604 @@
+{
+  "package": "testing",
+  "notes": "Go's testing package: T, B, F, M, PB and the TB trait with Go's report format (--- FAIL lines, indented logs, === RUN/PAUSE/CONT/NAME/ATTR in verbose mode, benchmark result lines), usable from Rust #[test] functions through testing::run_test and the test_fn! macro or as a whole test binary through main_start/M::run. Fatal, FailNow, Skip and SkipNow unwind with the Goexit payload (testing::is_goexit). Log/Error/Fatal/Skip take a slice of Display operands (fmt.Sprintln) and the *f forms take format_args!. Subtests: T::run runs inline (may borrow), T::run_static on a thread (parallel). Cleanup closures are 'static. Differences are recorded as deviations; allocation statistics need an allocator calling testing::record_alloc.",
+  "symbols": {
+    "AllocsPerRun": {
+      "rust": "rust_stdlib::testing::allocs_per_run",
+      "deviation": "runtime-memstats",
+      "note": "Counts allocations recorded through testing::record_alloc (alloc_stats). Installing a counting GlobalAlloc needs unsafe, which the root crate forbids, so a program that wants real counts installs its own allocator calling record_alloc; without one the result is 0."
+    },
+    "B": {
+      "rust": "rust_stdlib::testing::B"
+    },
+    "B.ArtifactDir": {
+      "rust": "rust_stdlib::testing::TB::artifact_dir",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Attr": {
+      "rust": "rust_stdlib::testing::TB::attr",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Chdir": {
+      "rust": "rust_stdlib::testing::TB::chdir",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Cleanup": {
+      "rust": "rust_stdlib::testing::B::cleanup"
+    },
+    "B.Context": {
+      "rust": "rust_stdlib::testing::TB::context",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Elapsed": {
+      "rust": "rust_stdlib::testing::B::elapsed"
+    },
+    "B.Error": {
+      "rust": "rust_stdlib::testing::TB::error",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Errorf": {
+      "rust": "rust_stdlib::testing::TB::errorf",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Fail": {
+      "rust": "rust_stdlib::testing::TB::fail",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.FailNow": {
+      "rust": "rust_stdlib::testing::TB::fail_now",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Failed": {
+      "rust": "rust_stdlib::testing::TB::failed",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Fatal": {
+      "rust": "rust_stdlib::testing::TB::fatal",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Fatalf": {
+      "rust": "rust_stdlib::testing::TB::fatalf",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Helper": {
+      "rust": "rust_stdlib::testing::TB::helper",
+      "note": "Go marks the calling function by inspecting the stack. Rust has no such inspection: annotate the helper with #[track_caller] and the reported file:line skips it (tested by tb_helper_reports_the_caller).",
+      "deviation": "call-stack"
+    },
+    "B.Log": {
+      "rust": "rust_stdlib::testing::TB::log",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Logf": {
+      "rust": "rust_stdlib::testing::TB::logf",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Loop": {
+      "rust": "rust_stdlib::testing::B::loop_"
+    },
+    "B.N": {
+      "rust": "rust_stdlib::testing::B::n"
+    },
+    "B.Name": {
+      "rust": "rust_stdlib::testing::TB::name",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Output": {
+      "rust": "rust_stdlib::testing::TB::output",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.ReportAllocs": {
+      "rust": "rust_stdlib::testing::B::report_allocs",
+      "deviation": "runtime-memstats",
+      "note": "Enables the B/op and allocs/op columns; the counts come from testing::alloc_stats and are 0 unless the program installs an allocator that calls testing::record_alloc."
+    },
+    "B.ReportMetric": {
+      "rust": "rust_stdlib::testing::B::report_metric"
+    },
+    "B.ResetTimer": {
+      "rust": "rust_stdlib::testing::B::reset_timer"
+    },
+    "B.Run": {
+      "rust": "rust_stdlib::testing::B::run"
+    },
+    "B.RunParallel": {
+      "rust": "rust_stdlib::testing::B::run_parallel"
+    },
+    "B.SetBytes": {
+      "rust": "rust_stdlib::testing::B::set_bytes"
+    },
+    "B.SetParallelism": {
+      "rust": "rust_stdlib::testing::B::set_parallelism"
+    },
+    "B.Setenv": {
+      "rust": "rust_stdlib::testing::TB::setenv",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Skip": {
+      "rust": "rust_stdlib::testing::TB::skip",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.SkipNow": {
+      "rust": "rust_stdlib::testing::TB::skip_now",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Skipf": {
+      "rust": "rust_stdlib::testing::TB::skipf",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.Skipped": {
+      "rust": "rust_stdlib::testing::TB::skipped",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "B.StartTimer": {
+      "rust": "rust_stdlib::testing::B::start_timer"
+    },
+    "B.StopTimer": {
+      "rust": "rust_stdlib::testing::B::stop_timer"
+    },
+    "B.TempDir": {
+      "rust": "rust_stdlib::testing::TB::temp_dir",
+      "note": "Trait item: B implements testing::TB."
+    },
+    "Benchmark": {
+      "rust": "rust_stdlib::testing::benchmark"
+    },
+    "BenchmarkResult": {
+      "rust": "rust_stdlib::testing::BenchmarkResult"
+    },
+    "BenchmarkResult.AllocedBytesPerOp": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::alloced_bytes_per_op"
+    },
+    "BenchmarkResult.AllocsPerOp": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::allocs_per_op"
+    },
+    "BenchmarkResult.Bytes": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::bytes"
+    },
+    "BenchmarkResult.Extra": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::extra"
+    },
+    "BenchmarkResult.MemAllocs": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::mem_allocs"
+    },
+    "BenchmarkResult.MemBytes": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::mem_bytes"
+    },
+    "BenchmarkResult.MemString": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::mem_string"
+    },
+    "BenchmarkResult.N": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::n"
+    },
+    "BenchmarkResult.NsPerOp": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::ns_per_op"
+    },
+    "BenchmarkResult.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "BenchmarkResult.T": {
+      "rust": "rust_stdlib::testing::BenchmarkResult::t"
+    },
+    "Cover": {
+      "rust": "rust_stdlib::testing::Cover"
+    },
+    "Cover.Blocks": {
+      "rust": "rust_stdlib::testing::Cover::blocks"
+    },
+    "Cover.Counters": {
+      "rust": "rust_stdlib::testing::Cover::counters"
+    },
+    "Cover.CoveredPackages": {
+      "rust": "rust_stdlib::testing::Cover::covered_packages"
+    },
+    "Cover.Mode": {
+      "rust": "rust_stdlib::testing::Cover::mode"
+    },
+    "CoverBlock": {
+      "rust": "rust_stdlib::testing::CoverBlock"
+    },
+    "CoverBlock.Col0": {
+      "rust": "rust_stdlib::testing::CoverBlock::col0"
+    },
+    "CoverBlock.Col1": {
+      "rust": "rust_stdlib::testing::CoverBlock::col1"
+    },
+    "CoverBlock.Line0": {
+      "rust": "rust_stdlib::testing::CoverBlock::line0"
+    },
+    "CoverBlock.Line1": {
+      "rust": "rust_stdlib::testing::CoverBlock::line1"
+    },
+    "CoverBlock.Stmts": {
+      "rust": "rust_stdlib::testing::CoverBlock::stmts"
+    },
+    "CoverMode": {
+      "rust": "rust_stdlib::testing::cover_mode",
+      "deviation": "no-coverage-runtime",
+      "note": "Always empty: Rust coverage instrumentation (-C instrument-coverage) is not visible at run time, which is Go's value when coverage is off."
+    },
+    "Coverage": {
+      "rust": "rust_stdlib::testing::coverage",
+      "deviation": "no-coverage-runtime",
+      "note": "Always 0, see CoverMode."
+    },
+    "F": {
+      "rust": "rust_stdlib::testing::F"
+    },
+    "F.Add": {
+      "rust": "rust_stdlib::testing::F::add",
+      "deviation": "reflection",
+      "note": "Arguments are a typed tuple of the FuzzType types (the types Go supports) instead of reflect-checked any values; a wrong type is a compile error instead of a panic."
+    },
+    "F.ArtifactDir": {
+      "rust": "rust_stdlib::testing::TB::artifact_dir",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Attr": {
+      "rust": "rust_stdlib::testing::TB::attr",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Chdir": {
+      "rust": "rust_stdlib::testing::TB::chdir",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Cleanup": {
+      "rust": "rust_stdlib::testing::F::cleanup"
+    },
+    "F.Context": {
+      "rust": "rust_stdlib::testing::TB::context",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Error": {
+      "rust": "rust_stdlib::testing::TB::error",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Errorf": {
+      "rust": "rust_stdlib::testing::TB::errorf",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Fail": {
+      "rust": "rust_stdlib::testing::TB::fail",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.FailNow": {
+      "rust": "rust_stdlib::testing::TB::fail_now",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Failed": {
+      "rust": "rust_stdlib::testing::TB::failed",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Fatal": {
+      "rust": "rust_stdlib::testing::TB::fatal",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Fatalf": {
+      "rust": "rust_stdlib::testing::TB::fatalf",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Fuzz": {
+      "rust": "rust_stdlib::testing::F::fuzz",
+      "deviation": "coverage-guided-fuzzing",
+      "note": "Runs the seed corpus (F.add entries and testdata/fuzz/<Name> files in the go test fuzz v1 format) as subtests with Go's names and report. Coverage-guided input generation (go test -fuzz) needs compiler instrumentation and a worker protocol; use the cargo-fuzz targets under fuzz/."
+    },
+    "F.Helper": {
+      "rust": "rust_stdlib::testing::TB::helper",
+      "note": "Go marks the calling function by inspecting the stack. Rust has no such inspection: annotate the helper with #[track_caller] and the reported file:line skips it (tested by tb_helper_reports_the_caller).",
+      "deviation": "call-stack"
+    },
+    "F.Log": {
+      "rust": "rust_stdlib::testing::TB::log",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Logf": {
+      "rust": "rust_stdlib::testing::TB::logf",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Name": {
+      "rust": "rust_stdlib::testing::TB::name",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Output": {
+      "rust": "rust_stdlib::testing::TB::output",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Setenv": {
+      "rust": "rust_stdlib::testing::TB::setenv",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Skip": {
+      "rust": "rust_stdlib::testing::TB::skip",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.SkipNow": {
+      "rust": "rust_stdlib::testing::TB::skip_now",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Skipf": {
+      "rust": "rust_stdlib::testing::TB::skipf",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.Skipped": {
+      "rust": "rust_stdlib::testing::TB::skipped",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "F.TempDir": {
+      "rust": "rust_stdlib::testing::TB::temp_dir",
+      "note": "Trait item: F implements testing::TB."
+    },
+    "Init": {
+      "rust": "rust_stdlib::testing::init"
+    },
+    "InternalBenchmark": {
+      "rust": "rust_stdlib::testing::InternalBenchmark"
+    },
+    "InternalBenchmark.F": {
+      "rust": "rust_stdlib::testing::InternalBenchmark::f"
+    },
+    "InternalBenchmark.Name": {
+      "rust": "rust_stdlib::testing::TB::name",
+      "note": "Trait item: InternalBenchmark implements testing::TB."
+    },
+    "InternalExample": {
+      "rust": "rust_stdlib::testing::InternalExample"
+    },
+    "InternalExample.F": {
+      "rust": "rust_stdlib::testing::InternalExample::f",
+      "deviation": "stdout-capture",
+      "note": "Takes the writer the example prints to instead of writing to os.Stdout."
+    },
+    "InternalExample.Name": {
+      "rust": "rust_stdlib::testing::TB::name",
+      "note": "Trait item: InternalExample implements testing::TB."
+    },
+    "InternalExample.Output": {
+      "rust": "rust_stdlib::testing::TB::output",
+      "note": "Trait item: InternalExample implements testing::TB."
+    },
+    "InternalExample.Unordered": {
+      "rust": "rust_stdlib::testing::InternalExample::unordered"
+    },
+    "InternalFuzzTarget": {
+      "rust": "rust_stdlib::testing::InternalFuzzTarget"
+    },
+    "InternalFuzzTarget.Fn": {
+      "rust": "rust_stdlib::testing::InternalFuzzTarget::fn_"
+    },
+    "InternalFuzzTarget.Name": {
+      "rust": "rust_stdlib::testing::TB::name",
+      "note": "Trait item: InternalFuzzTarget implements testing::TB."
+    },
+    "InternalTest": {
+      "rust": "rust_stdlib::testing::InternalTest"
+    },
+    "InternalTest.F": {
+      "rust": "rust_stdlib::testing::InternalTest::f"
+    },
+    "InternalTest.Name": {
+      "rust": "rust_stdlib::testing::TB::name",
+      "note": "Trait item: InternalTest implements testing::TB."
+    },
+    "M": {
+      "rust": "rust_stdlib::testing::M"
+    },
+    "M.Run": {
+      "rust": "rust_stdlib::testing::M::run"
+    },
+    "Main": {
+      "rust": "rust_stdlib::testing::main"
+    },
+    "MainStart": {
+      "rust": "rust_stdlib::testing::main_start"
+    },
+    "PB": {
+      "rust": "rust_stdlib::testing::PB"
+    },
+    "PB.Next": {
+      "rust": "rust_stdlib::testing::PB::next"
+    },
+    "RegisterCover": {
+      "rust": "rust_stdlib::testing::register_cover"
+    },
+    "RunBenchmarks": {
+      "rust": "rust_stdlib::testing::run_benchmarks"
+    },
+    "RunExamples": {
+      "rust": "rust_stdlib::testing::run_examples",
+      "deviation": "stdout-capture",
+      "note": "Go captures the example's os.Stdout; Rust cannot redirect the process stdout, so InternalExample.f receives the writer to print to. Output comparison, Unordered and the report text are Go's."
+    },
+    "RunTests": {
+      "rust": "rust_stdlib::testing::run_tests"
+    },
+    "Short": {
+      "rust": "rust_stdlib::testing::short"
+    },
+    "T": {
+      "rust": "rust_stdlib::testing::T"
+    },
+    "T.ArtifactDir": {
+      "rust": "rust_stdlib::testing::TB::artifact_dir",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Attr": {
+      "rust": "rust_stdlib::testing::TB::attr",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Chdir": {
+      "rust": "rust_stdlib::testing::TB::chdir",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Cleanup": {
+      "rust": "rust_stdlib::testing::T::cleanup"
+    },
+    "T.Context": {
+      "rust": "rust_stdlib::testing::TB::context",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Deadline": {
+      "rust": "rust_stdlib::testing::T::deadline"
+    },
+    "T.Error": {
+      "rust": "rust_stdlib::testing::TB::error",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Errorf": {
+      "rust": "rust_stdlib::testing::TB::errorf",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Fail": {
+      "rust": "rust_stdlib::testing::TB::fail",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.FailNow": {
+      "rust": "rust_stdlib::testing::TB::fail_now",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Failed": {
+      "rust": "rust_stdlib::testing::TB::failed",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Fatal": {
+      "rust": "rust_stdlib::testing::TB::fatal",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Fatalf": {
+      "rust": "rust_stdlib::testing::TB::fatalf",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Helper": {
+      "rust": "rust_stdlib::testing::TB::helper",
+      "note": "Go marks the calling function by inspecting the stack. Rust has no such inspection: annotate the helper with #[track_caller] and the reported file:line skips it (tested by tb_helper_reports_the_caller).",
+      "deviation": "call-stack"
+    },
+    "T.Log": {
+      "rust": "rust_stdlib::testing::TB::log",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Logf": {
+      "rust": "rust_stdlib::testing::TB::logf",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Name": {
+      "rust": "rust_stdlib::testing::TB::name",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Output": {
+      "rust": "rust_stdlib::testing::TB::output",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Parallel": {
+      "rust": "rust_stdlib::testing::T::parallel",
+      "deviation": "borrowed-subtests",
+      "note": "Pauses a test that runs on its own thread (top-level tests and T::run_static subtests) until its parent returns, with Go's semantics and report. A subtest started with T::run runs inline so that it can borrow from its parent's frame, and there Parallel only marks it parallel (which forbids Setenv and Chdir): Rust cannot let a borrowing closure outlive its caller."
+    },
+    "T.Run": {
+      "rust": "rust_stdlib::testing::T::run"
+    },
+    "T.Setenv": {
+      "rust": "rust_stdlib::testing::TB::setenv",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Skip": {
+      "rust": "rust_stdlib::testing::TB::skip",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.SkipNow": {
+      "rust": "rust_stdlib::testing::TB::skip_now",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Skipf": {
+      "rust": "rust_stdlib::testing::TB::skipf",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.Skipped": {
+      "rust": "rust_stdlib::testing::TB::skipped",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "T.TempDir": {
+      "rust": "rust_stdlib::testing::TB::temp_dir",
+      "note": "Trait item: T implements testing::TB."
+    },
+    "TB": {
+      "rust": "rust_stdlib::testing::TB"
+    },
+    "TB.ArtifactDir": {
+      "rust": "rust_stdlib::testing::TB::artifact_dir"
+    },
+    "TB.Attr": {
+      "rust": "rust_stdlib::testing::TB::attr"
+    },
+    "TB.Chdir": {
+      "rust": "rust_stdlib::testing::TB::chdir"
+    },
+    "TB.Cleanup": {
+      "rust": "rust_stdlib::testing::TB::cleanup"
+    },
+    "TB.Context": {
+      "rust": "rust_stdlib::testing::TB::context"
+    },
+    "TB.Error": {
+      "rust": "rust_stdlib::testing::TB::error"
+    },
+    "TB.Errorf": {
+      "rust": "rust_stdlib::testing::TB::errorf"
+    },
+    "TB.Fail": {
+      "rust": "rust_stdlib::testing::TB::fail"
+    },
+    "TB.FailNow": {
+      "rust": "rust_stdlib::testing::TB::fail_now"
+    },
+    "TB.Failed": {
+      "rust": "rust_stdlib::testing::TB::failed"
+    },
+    "TB.Fatal": {
+      "rust": "rust_stdlib::testing::TB::fatal"
+    },
+    "TB.Fatalf": {
+      "rust": "rust_stdlib::testing::TB::fatalf"
+    },
+    "TB.Helper": {
+      "rust": "rust_stdlib::testing::TB::helper",
+      "deviation": "call-stack",
+      "note": "See T.Helper: use #[track_caller] on the helper function."
+    },
+    "TB.Log": {
+      "rust": "rust_stdlib::testing::TB::log"
+    },
+    "TB.Logf": {
+      "rust": "rust_stdlib::testing::TB::logf"
+    },
+    "TB.Name": {
+      "rust": "rust_stdlib::testing::TB::name"
+    },
+    "TB.Output": {
+      "rust": "rust_stdlib::testing::TB::output"
+    },
+    "TB.Setenv": {
+      "rust": "rust_stdlib::testing::TB::setenv"
+    },
+    "TB.Skip": {
+      "rust": "rust_stdlib::testing::TB::skip"
+    },
+    "TB.SkipNow": {
+      "rust": "rust_stdlib::testing::TB::skip_now"
+    },
+    "TB.Skipf": {
+      "rust": "rust_stdlib::testing::TB::skipf"
+    },
+    "TB.Skipped": {
+      "rust": "rust_stdlib::testing::TB::skipped"
+    },
+    "TB.TempDir": {
+      "rust": "rust_stdlib::testing::TB::temp_dir"
+    },
+    "Testing": {
+      "rust": "rust_stdlib::testing::testing"
+    },
+    "Verbose": {
+      "rust": "rust_stdlib::testing::verbose"
+    }
+  }
+}

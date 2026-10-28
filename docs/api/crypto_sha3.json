@@ -1,0 +1,105 @@
+{
+  "package": "crypto/sha3",
+  "notes": "rust-stdlib-crypto over RustCrypto sha3 (SHA3-224..512) and cshake (SHAKE and cSHAKE; empty name and customization give SHAKE, as in Go). Sha3 marshals Go's sha\\x08 format by translating the sha3 crate's public SerializableState bytes; only the absorbing direction exists for it, so Go states whose direction byte is 1 (not producible from Go's public SHA3 API) are rejected. Shake.write fails with an io::Error where Go panics 'Write after Read'. Shake additionally implements std::io::Read and Clone.",
+  "symbols": {
+    "New224": {
+      "rust": "rust_stdlib_crypto::sha3::new224"
+    },
+    "New256": {
+      "rust": "rust_stdlib_crypto::sha3::new256"
+    },
+    "New384": {
+      "rust": "rust_stdlib_crypto::sha3::new384"
+    },
+    "New512": {
+      "rust": "rust_stdlib_crypto::sha3::new512"
+    },
+    "NewCSHAKE128": {
+      "rust": "rust_stdlib_crypto::sha3::cshake128"
+    },
+    "NewCSHAKE256": {
+      "rust": "rust_stdlib_crypto::sha3::cshake256"
+    },
+    "NewSHAKE128": {
+      "rust": "rust_stdlib_crypto::sha3::shake128"
+    },
+    "NewSHAKE256": {
+      "rust": "rust_stdlib_crypto::sha3::shake256"
+    },
+    "SHA3": {
+      "rust": "rust_stdlib_crypto::sha3::Sha3"
+    },
+    "SHA3.AppendBinary": {
+      "rust": "rust_stdlib_crypto::sha3::Sha3::append_binary"
+    },
+    "SHA3.BlockSize": {
+      "rust": "rust_stdlib_crypto::sha3::Sha3::block_size"
+    },
+    "SHA3.Clone": {
+      "rust": "std::clone::Clone::clone"
+    },
+    "SHA3.MarshalBinary": {
+      "rust": "rust_stdlib_crypto::sha3::Sha3::marshal_binary"
+    },
+    "SHA3.Reset": {
+      "rust": "rust_stdlib_crypto::sha3::Sha3::reset"
+    },
+    "SHA3.Size": {
+      "rust": "rust_stdlib_crypto::sha3::Sha3::size"
+    },
+    "SHA3.Sum": {
+      "rust": "rust_stdlib_crypto::sha3::Sha3::sum"
+    },
+    "SHA3.UnmarshalBinary": {
+      "rust": "rust_stdlib_crypto::sha3::Sha3::unmarshal_binary"
+    },
+    "SHA3.Write": {
+      "rust": "std::io::Write::write"
+    },
+    "SHAKE": {
+      "rust": "rust_stdlib_crypto::sha3::Shake"
+    },
+    "SHAKE.AppendBinary": {
+      "deviation": "dependency-state-private",
+      "note": "RustCrypto's cshake crate (0.2.1) keeps its sponge state private and implements neither SerializableState nor any accessor, so Go's sha\\x09/sha\\x0a state format cannot be produced without reimplementing the primitive, which ADR 0003 forbids"
+    },
+    "SHAKE.BlockSize": {
+      "rust": "rust_stdlib_crypto::sha3::Shake::block_size"
+    },
+    "SHAKE.MarshalBinary": {
+      "deviation": "dependency-state-private",
+      "note": "RustCrypto's cshake crate (0.2.1) keeps its sponge state private and implements neither SerializableState nor any accessor, so Go's sha\\x09/sha\\x0a state format cannot be produced without reimplementing the primitive, which ADR 0003 forbids"
+    },
+    "SHAKE.Read": {
+      "rust": "rust_stdlib_crypto::sha3::Shake::read"
+    },
+    "SHAKE.Reset": {
+      "rust": "rust_stdlib_crypto::sha3::Shake::reset"
+    },
+    "SHAKE.UnmarshalBinary": {
+      "deviation": "dependency-state-private",
+      "note": "RustCrypto's cshake crate (0.2.1) keeps its sponge state private and implements neither SerializableState nor any accessor, so Go's sha\\x09/sha\\x0a state format cannot be produced without reimplementing the primitive, which ADR 0003 forbids"
+    },
+    "SHAKE.Write": {
+      "rust": "std::io::Write::write"
+    },
+    "Sum224": {
+      "rust": "rust_stdlib_crypto::sha3::sum224"
+    },
+    "Sum256": {
+      "rust": "rust_stdlib_crypto::sha3::sum256"
+    },
+    "Sum384": {
+      "rust": "rust_stdlib_crypto::sha3::sum384"
+    },
+    "Sum512": {
+      "rust": "rust_stdlib_crypto::sha3::sum512"
+    },
+    "SumSHAKE128": {
+      "rust": "rust_stdlib_crypto::sha3::sum_shake128"
+    },
+    "SumSHAKE256": {
+      "rust": "rust_stdlib_crypto::sha3::sum_shake256"
+    }
+  }
+}

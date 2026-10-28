@@ -1,0 +1,159 @@
+{
+  "package": "crypto",
+  "notes": "rust-stdlib-crypto: the Hash identifiers with New, Available, Size, HashFunc, String and RegisterHash. MD5, SHA-1, SHA-2 and SHA-3 are registered; MD4, RIPEMD-160, BLAKE2, MD5SHA1 and MLDSAMu exist as variants but are unavailable, as in a Go program that does not import their packages. The key, signing, decryption and KEM interfaces are traits: PublicKey, PrivateKey and DecrypterOpts are aliases of dyn Any (Go's empty interface); Go's nil rand reader is None; Go's signer.(MessageSigner) type assertion, which a trait object cannot express, is the provided method Signer::as_message_signer that SignMessage consults. The key types implement them: ed25519, ecdsa, rsa and mldsa private keys are Signers (rsa also a Decrypter, with Hash and the packages' option types as SignerOpts through SignerOpts::as_any), and the mlkem keys are Encapsulators and Decapsulators.",
+  "symbols": {
+    "BLAKE2b_256": {
+      "rust": "rust_stdlib_crypto::Hash::Blake2b256"
+    },
+    "BLAKE2b_384": {
+      "rust": "rust_stdlib_crypto::Hash::Blake2b384"
+    },
+    "BLAKE2b_512": {
+      "rust": "rust_stdlib_crypto::Hash::Blake2b512"
+    },
+    "BLAKE2s_256": {
+      "rust": "rust_stdlib_crypto::Hash::Blake2s256"
+    },
+    "Decapsulator": {
+      "rust": "rust_stdlib_crypto::Decapsulator"
+    },
+    "Decapsulator.Decapsulate": {
+      "rust": "rust_stdlib_crypto::Decapsulator::decapsulate"
+    },
+    "Decapsulator.Encapsulator": {
+      "rust": "rust_stdlib_crypto::Decapsulator::encapsulator",
+      "note": "returns a boxed Encapsulator"
+    },
+    "Decrypter": {
+      "rust": "rust_stdlib_crypto::Decrypter"
+    },
+    "Decrypter.Decrypt": {
+      "rust": "rust_stdlib_crypto::Decrypter::decrypt",
+      "note": "rand and opts are optional (Go passes nil); decrypt is Decrypt(nil, ...); decrypt_with_rng takes the reader"
+    },
+    "Decrypter.Public": {
+      "rust": "rust_stdlib_crypto::Decrypter::public"
+    },
+    "DecrypterOpts": {
+      "rust": "rust_stdlib_crypto::DecrypterOpts",
+      "note": "alias of dyn Any: Go's empty interface"
+    },
+    "Encapsulator": {
+      "rust": "rust_stdlib_crypto::Encapsulator"
+    },
+    "Encapsulator.Bytes": {
+      "rust": "rust_stdlib_crypto::Encapsulator::bytes"
+    },
+    "Encapsulator.Encapsulate": {
+      "rust": "rust_stdlib_crypto::Encapsulator::encapsulate"
+    },
+    "Hash": {
+      "rust": "rust_stdlib_crypto::Hash"
+    },
+    "Hash.Available": {
+      "rust": "rust_stdlib_crypto::Hash::available"
+    },
+    "Hash.HashFunc": {
+      "rust": "rust_stdlib_crypto::Hash::hash_func"
+    },
+    "Hash.New": {
+      "rust": "rust_stdlib_crypto::Hash::new",
+      "note": "Returns an error where Go panics when the hash is unavailable."
+    },
+    "Hash.Size": {
+      "rust": "rust_stdlib_crypto::Hash::size",
+      "note": "the enum cannot hold the out-of-range values for which Go panics"
+    },
+    "Hash.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display for Hash"
+    },
+    "MD4": {
+      "rust": "rust_stdlib_crypto::Hash::Md4"
+    },
+    "MD5": {
+      "rust": "rust_stdlib_crypto::Hash::Md5"
+    },
+    "MD5SHA1": {
+      "rust": "rust_stdlib_crypto::Hash::Md5Sha1"
+    },
+    "MLDSAMu": {
+      "rust": "rust_stdlib_crypto::Hash::MlDsaMu"
+    },
+    "MessageSigner": {
+      "rust": "rust_stdlib_crypto::MessageSigner"
+    },
+    "MessageSigner.SignMessage": {
+      "rust": "rust_stdlib_crypto::MessageSigner::sign_message",
+      "note": "sign_message is SignMessage(nil, ...); sign_message_with_rng takes the reader"
+    },
+    "PrivateKey": {
+      "rust": "rust_stdlib_crypto::PrivateKey",
+      "note": "alias of dyn Any: Go's empty interface"
+    },
+    "PublicKey": {
+      "rust": "rust_stdlib_crypto::PublicKey",
+      "note": "alias of dyn Any: Go's empty interface"
+    },
+    "RIPEMD160": {
+      "rust": "rust_stdlib_crypto::Hash::Ripemd160"
+    },
+    "RegisterHash": {
+      "rust": "rust_stdlib_crypto::register_hash"
+    },
+    "SHA1": {
+      "rust": "rust_stdlib_crypto::Hash::Sha1"
+    },
+    "SHA224": {
+      "rust": "rust_stdlib_crypto::Hash::Sha224"
+    },
+    "SHA256": {
+      "rust": "rust_stdlib_crypto::Hash::Sha256"
+    },
+    "SHA384": {
+      "rust": "rust_stdlib_crypto::Hash::Sha384"
+    },
+    "SHA3_224": {
+      "rust": "rust_stdlib_crypto::Hash::Sha3_224"
+    },
+    "SHA3_256": {
+      "rust": "rust_stdlib_crypto::Hash::Sha3_256"
+    },
+    "SHA3_384": {
+      "rust": "rust_stdlib_crypto::Hash::Sha3_384"
+    },
+    "SHA3_512": {
+      "rust": "rust_stdlib_crypto::Hash::Sha3_512"
+    },
+    "SHA512": {
+      "rust": "rust_stdlib_crypto::Hash::Sha512"
+    },
+    "SHA512_224": {
+      "rust": "rust_stdlib_crypto::Hash::Sha512_224"
+    },
+    "SHA512_256": {
+      "rust": "rust_stdlib_crypto::Hash::Sha512_256"
+    },
+    "SignMessage": {
+      "rust": "rust_stdlib_crypto::sign_message",
+      "note": "Go's interface upgrade signer.(MessageSigner) is Signer::as_message_signer; Go's reader argument becomes `sign_message_with_rng`, which takes the reader after the signer; the plain function uses the system source (ADR 0005)."
+    },
+    "Signer": {
+      "rust": "rust_stdlib_crypto::Signer"
+    },
+    "Signer.Public": {
+      "rust": "rust_stdlib_crypto::Signer::public"
+    },
+    "Signer.Sign": {
+      "rust": "rust_stdlib_crypto::Signer::sign",
+      "note": "rand is optional (Go passes nil); opts is a &dyn SignerOpts; sign is Sign(nil, ...); sign_with_rng is Sign(rng, ...) (ADR 0005)"
+    },
+    "SignerOpts": {
+      "rust": "rust_stdlib_crypto::SignerOpts"
+    },
+    "SignerOpts.HashFunc": {
+      "rust": "rust_stdlib_crypto::SignerOpts::hash_func",
+      "note": "None is Go's zero Hash (the message was not hashed)"
+    }
+  }
+}

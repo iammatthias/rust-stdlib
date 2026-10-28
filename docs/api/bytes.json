@@ -1,0 +1,320 @@
+{
+  "package": "bytes",
+  "notes": "`&[u8]` carries Go's possibly-invalid UTF-8: `rust_stdlib::text::BytesExt` adds the Go functions std lacks for byte slices (invalid bytes are U+FFFD of width 1; case mapping, title casing and folding use rust_stdlib::unicode's Go tables, exact on every rune and compared by tools/bytes_check.py), and std slice methods are used where semantics match. Buffer and Reader keep Go's unread rules and capacity growth. Go index -1 is None; nil-versus-empty slices are not distinguished.",
+  "symbols": {
+    "Buffer": {
+      "rust": "rust_stdlib::text::Buffer"
+    },
+    "Buffer.Available": {
+      "rust": "rust_stdlib::text::Buffer::available"
+    },
+    "Buffer.AvailableBuffer": {
+      "rust": "rust_stdlib::text::Buffer::available_buffer",
+      "note": "Go returns a zero-length slice aliasing spare capacity for append; safe Rust cannot express that aliasing, so the spare storage is returned as a slice of length available().",
+      "deviation": "slice-capacity-view"
+    },
+    "Buffer.Bytes": {
+      "rust": "rust_stdlib::text::Buffer::as_bytes"
+    },
+    "Buffer.Cap": {
+      "rust": "rust_stdlib::text::Buffer::cap"
+    },
+    "Buffer.Grow": {
+      "rust": "rust_stdlib::text::Buffer::grow"
+    },
+    "Buffer.Len": {
+      "rust": "rust_stdlib::text::Buffer::len"
+    },
+    "Buffer.Next": {
+      "rust": "rust_stdlib::text::Buffer::next"
+    },
+    "Buffer.Peek": {
+      "rust": "rust_stdlib::text::Buffer::peek"
+    },
+    "Buffer.Read": {
+      "rust": "std::io::Read::read",
+      "deviation": "io-read-contract",
+      "note": "Implemented by `impl Read for Buffer`. At end of data it returns Ok(0) (std convention) where Go returns io.EOF; the differential maps Ok(0) with a non-empty destination to EOF."
+    },
+    "Buffer.ReadByte": {
+      "rust": "rust_stdlib::text::Buffer::read_byte"
+    },
+    "Buffer.ReadBytes": {
+      "rust": "rust_stdlib::text::Buffer::read_bytes"
+    },
+    "Buffer.ReadFrom": {
+      "rust": "rust_stdlib::text::Buffer::read_from"
+    },
+    "Buffer.ReadRune": {
+      "rust": "rust_stdlib::text::Buffer::read_rune"
+    },
+    "Buffer.ReadString": {
+      "rust": "rust_stdlib::text::Buffer::read_string",
+      "deviation": "go-string-invalid-utf8",
+      "note": "invalid UTF-8 becomes U+FFFD; read_bytes is exact"
+    },
+    "Buffer.Reset": {
+      "rust": "rust_stdlib::text::Buffer::reset"
+    },
+    "Buffer.String": {
+      "rust": "std::fmt::Display::fmt",
+      "deviation": "go-string-invalid-utf8",
+      "note": "invalid UTF-8 becomes U+FFFD; as_bytes is exact"
+    },
+    "Buffer.Truncate": {
+      "rust": "rust_stdlib::text::Buffer::truncate"
+    },
+    "Buffer.UnreadByte": {
+      "rust": "rust_stdlib::text::Buffer::unread_byte"
+    },
+    "Buffer.UnreadRune": {
+      "rust": "rust_stdlib::text::Buffer::unread_rune"
+    },
+    "Buffer.Write": {
+      "rust": "std::io::Write::write",
+      "note": "Implemented by `impl Write for Buffer`."
+    },
+    "Buffer.WriteByte": {
+      "rust": "rust_stdlib::text::Buffer::write_byte"
+    },
+    "Buffer.WriteRune": {
+      "rust": "rust_stdlib::text::Buffer::write_rune"
+    },
+    "Buffer.WriteString": {
+      "rust": "rust_stdlib::text::Buffer::write_string"
+    },
+    "Buffer.WriteTo": {
+      "rust": "rust_stdlib::text::Buffer::write_to"
+    },
+    "Clone": {
+      "rust": "slice::to_vec"
+    },
+    "Compare": {
+      "rust": "std::cmp::Ord::cmp"
+    },
+    "Contains": {
+      "rust": "rust_stdlib::text::BytesExt::contains_bytes"
+    },
+    "ContainsAny": {
+      "rust": "rust_stdlib::text::BytesExt::contains_any"
+    },
+    "ContainsFunc": {
+      "rust": "rust_stdlib::text::BytesExt::contains_func"
+    },
+    "ContainsRune": {
+      "rust": "rust_stdlib::text::BytesExt::contains_rune"
+    },
+    "Count": {
+      "rust": "rust_stdlib::text::BytesExt::count_bytes"
+    },
+    "Cut": {
+      "rust": "rust_stdlib::text::BytesExt::cut"
+    },
+    "CutLast": {
+      "rust": "rust_stdlib::text::BytesExt::cut_last"
+    },
+    "CutPrefix": {
+      "rust": "slice::strip_prefix"
+    },
+    "CutSuffix": {
+      "rust": "slice::strip_suffix"
+    },
+    "Equal": {
+      "rust": "std::cmp::PartialEq::eq",
+      "note": "slice equality"
+    },
+    "EqualFold": {
+      "rust": "rust_stdlib::text::BytesExt::equal_fold"
+    },
+    "ErrTooLarge": {
+      "rust": "rust_stdlib::text::ErrTooLarge"
+    },
+    "Fields": {
+      "rust": "rust_stdlib::text::BytesExt::fields"
+    },
+    "FieldsFunc": {
+      "rust": "rust_stdlib::text::BytesExt::fields_func"
+    },
+    "FieldsFuncSeq": {
+      "rust": "rust_stdlib::text::BytesExt::fields_func"
+    },
+    "FieldsSeq": {
+      "rust": "rust_stdlib::text::BytesExt::fields"
+    },
+    "HasPrefix": {
+      "rust": "slice::starts_with"
+    },
+    "HasSuffix": {
+      "rust": "slice::ends_with"
+    },
+    "Index": {
+      "rust": "rust_stdlib::text::BytesExt::find_bytes"
+    },
+    "IndexAny": {
+      "rust": "rust_stdlib::text::BytesExt::find_any"
+    },
+    "IndexByte": {
+      "rust": "std::iter::Iterator::position"
+    },
+    "IndexFunc": {
+      "rust": "rust_stdlib::text::BytesExt::find_func"
+    },
+    "IndexRune": {
+      "rust": "rust_stdlib::text::BytesExt::find_rune"
+    },
+    "Join": {
+      "rust": "slice::join"
+    },
+    "LastIndex": {
+      "rust": "rust_stdlib::text::BytesExt::rfind_bytes"
+    },
+    "LastIndexAny": {
+      "rust": "rust_stdlib::text::BytesExt::rfind_any"
+    },
+    "LastIndexByte": {
+      "rust": "std::iter::Iterator::rposition"
+    },
+    "LastIndexFunc": {
+      "rust": "rust_stdlib::text::BytesExt::rfind_func"
+    },
+    "Lines": {
+      "rust": "rust_stdlib::text::BytesExt::split_lines"
+    },
+    "Map": {
+      "rust": "rust_stdlib::text::BytesExt::map_runes"
+    },
+    "MinRead": {
+      "rust": "rust_stdlib::text::MIN_READ"
+    },
+    "NewBuffer": {
+      "rust": "rust_stdlib::text::Buffer::from_vec"
+    },
+    "NewBufferString": {
+      "rust": "rust_stdlib::text::Buffer::from_str"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::text::Reader::new"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::text::Reader"
+    },
+    "Reader.Len": {
+      "rust": "rust_stdlib::text::Reader::len"
+    },
+    "Reader.Read": {
+      "rust": "std::io::Read::read",
+      "deviation": "io-read-contract",
+      "note": "Implemented by `impl Read for Reader`. At end of data it returns Ok(0) (std convention) where Go returns io.EOF; the differential maps that to EOF."
+    },
+    "Reader.ReadAt": {
+      "rust": "rust_stdlib::text::Reader::read_at"
+    },
+    "Reader.ReadByte": {
+      "rust": "rust_stdlib::text::Reader::read_byte"
+    },
+    "Reader.ReadRune": {
+      "rust": "rust_stdlib::text::Reader::read_rune"
+    },
+    "Reader.Reset": {
+      "rust": "rust_stdlib::text::Reader::reset"
+    },
+    "Reader.Seek": {
+      "rust": "std::io::Seek::seek",
+      "note": "Implemented by `impl Seek for Reader`; SeekFrom::Start cannot carry a negative offset."
+    },
+    "Reader.Size": {
+      "rust": "rust_stdlib::text::Reader::size"
+    },
+    "Reader.UnreadByte": {
+      "rust": "rust_stdlib::text::Reader::unread_byte"
+    },
+    "Reader.UnreadRune": {
+      "rust": "rust_stdlib::text::Reader::unread_rune"
+    },
+    "Reader.WriteTo": {
+      "rust": "rust_stdlib::text::Reader::write_to"
+    },
+    "Repeat": {
+      "rust": "slice::repeat",
+      "note": "count is usize, so Go's negative-count panic cannot occur"
+    },
+    "Replace": {
+      "rust": "rust_stdlib::text::BytesExt::replace"
+    },
+    "ReplaceAll": {
+      "rust": "rust_stdlib::text::BytesExt::replace_all"
+    },
+    "Runes": {
+      "rust": "rust_stdlib::text::BytesExt::runes"
+    },
+    "Split": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes"
+    },
+    "SplitAfter": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes_after"
+    },
+    "SplitAfterN": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes_after_n"
+    },
+    "SplitAfterSeq": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes_after"
+    },
+    "SplitN": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes_n"
+    },
+    "SplitSeq": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes"
+    },
+    "Title": {
+      "rust": "rust_stdlib::text::BytesExt::title"
+    },
+    "ToLower": {
+      "rust": "rust_stdlib::text::BytesExt::to_lower"
+    },
+    "ToLowerSpecial": {
+      "rust": "rust_stdlib::text::BytesExt::to_lower_special"
+    },
+    "ToTitle": {
+      "rust": "rust_stdlib::text::BytesExt::to_title"
+    },
+    "ToTitleSpecial": {
+      "rust": "rust_stdlib::text::BytesExt::to_title_special"
+    },
+    "ToUpper": {
+      "rust": "rust_stdlib::text::BytesExt::to_upper"
+    },
+    "ToUpperSpecial": {
+      "rust": "rust_stdlib::text::BytesExt::to_upper_special"
+    },
+    "ToValidUTF8": {
+      "rust": "rust_stdlib::text::BytesExt::to_valid_utf8"
+    },
+    "Trim": {
+      "rust": "rust_stdlib::text::BytesExt::trim_cutset"
+    },
+    "TrimFunc": {
+      "rust": "rust_stdlib::text::BytesExt::trim_func"
+    },
+    "TrimLeft": {
+      "rust": "rust_stdlib::text::BytesExt::trim_start_cutset"
+    },
+    "TrimLeftFunc": {
+      "rust": "rust_stdlib::text::BytesExt::trim_start_func"
+    },
+    "TrimPrefix": {
+      "rust": "slice::strip_prefix"
+    },
+    "TrimRight": {
+      "rust": "rust_stdlib::text::BytesExt::trim_end_cutset"
+    },
+    "TrimRightFunc": {
+      "rust": "rust_stdlib::text::BytesExt::trim_end_func"
+    },
+    "TrimSpace": {
+      "rust": "rust_stdlib::text::BytesExt::trim_space"
+    },
+    "TrimSuffix": {
+      "rust": "slice::strip_suffix"
+    }
+  }
+}

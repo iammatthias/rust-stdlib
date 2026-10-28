@@ -1,0 +1,24 @@
+{
+  "package": "hash/fnv",
+  "notes": "hash::fnv: FNV-1/FNV-1a 32/64/128-bit incremental digests; Go-compatible binary state serialization",
+  "symbols": {
+    "New128": {
+      "rust": "rust_stdlib::hash::fnv::new128"
+    },
+    "New128a": {
+      "rust": "rust_stdlib::hash::fnv::new128a"
+    },
+    "New32": {
+      "rust": "rust_stdlib::hash::fnv::new32"
+    },
+    "New32a": {
+      "rust": "rust_stdlib::hash::fnv::new32a"
+    },
+    "New64": {
+      "rust": "rust_stdlib::hash::fnv::new64"
+    },
+    "New64a": {
+      "rust": "rust_stdlib::hash::fnv::new64a"
+    }
+  }
+}

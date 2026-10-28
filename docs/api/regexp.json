@@ -1,0 +1,155 @@
+{
+  "package": "regexp",
+  "notes": "regexp: Go 1.27 semantics (leftmost-first; leftmost-longest for POSIX and Longest), linear time, on Go's three matchers chosen as Go's find does: one-pass, the bit-state backtracker, and the Pike VM. nil slices become Option or an empty Vec, unmatched groups are None (-1 in submatch index vectors), single matches are (start, end) tuples, readers take RuneReader/Utf8RuneReader over io::Read. patterns are &str, so invalid-UTF-8 patterns cannot be passed. Additions without a Go symbol: find_index_at and find_submatch_index_at expose the search from an offset that Go runs internally (FindAll), and find_anchored_index_at and find_anchored_submatch_index_at accept only a match beginning at the offset.",
+  "symbols": {
+    "Compile": {
+      "rust": "rust_stdlib::regexp::compile",
+      "note": "The pattern is &str, so a pattern that is not valid UTF-8 (which Go rejects with an invalid UTF-8 syntax error) cannot be passed."
+    },
+    "CompilePOSIX": {
+      "rust": "rust_stdlib::regexp::compile_posix"
+    },
+    "Match": {
+      "rust": "rust_stdlib::regexp::match_bytes"
+    },
+    "MatchReader": {
+      "rust": "rust_stdlib::regexp::match_reader"
+    },
+    "MatchString": {
+      "rust": "rust_stdlib::regexp::match_string"
+    },
+    "MustCompile": {
+      "rust": "rust_stdlib::regexp::must_compile"
+    },
+    "MustCompilePOSIX": {
+      "rust": "rust_stdlib::regexp::must_compile_posix"
+    },
+    "QuoteMeta": {
+      "rust": "rust_stdlib::regexp::quote_meta"
+    },
+    "Regexp": {
+      "rust": "rust_stdlib::regexp::Regexp"
+    },
+    "Regexp.AppendText": {
+      "rust": "rust_stdlib::regexp::Regexp::append_text"
+    },
+    "Regexp.Copy": {
+      "rust": "std::clone::Clone::clone",
+      "note": "Regexp is Clone; clones share the program and the machine pool"
+    },
+    "Regexp.Expand": {
+      "rust": "rust_stdlib::regexp::Regexp::expand"
+    },
+    "Regexp.ExpandString": {
+      "rust": "rust_stdlib::regexp::Regexp::expand_string"
+    },
+    "Regexp.Find": {
+      "rust": "rust_stdlib::regexp::Regexp::find"
+    },
+    "Regexp.FindAll": {
+      "rust": "rust_stdlib::regexp::Regexp::find_all"
+    },
+    "Regexp.FindAllIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_all_index"
+    },
+    "Regexp.FindAllString": {
+      "rust": "rust_stdlib::regexp::Regexp::find_all_string"
+    },
+    "Regexp.FindAllStringIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_all_string_index"
+    },
+    "Regexp.FindAllStringSubmatch": {
+      "rust": "rust_stdlib::regexp::Regexp::find_all_string_submatch"
+    },
+    "Regexp.FindAllStringSubmatchIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_all_string_submatch_index"
+    },
+    "Regexp.FindAllSubmatch": {
+      "rust": "rust_stdlib::regexp::Regexp::find_all_submatch"
+    },
+    "Regexp.FindAllSubmatchIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_all_submatch_index"
+    },
+    "Regexp.FindIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_index"
+    },
+    "Regexp.FindReaderIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_reader_index"
+    },
+    "Regexp.FindReaderSubmatchIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_reader_submatch_index"
+    },
+    "Regexp.FindString": {
+      "rust": "rust_stdlib::regexp::Regexp::find_string"
+    },
+    "Regexp.FindStringIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_string_index"
+    },
+    "Regexp.FindStringSubmatch": {
+      "rust": "rust_stdlib::regexp::Regexp::find_string_submatch"
+    },
+    "Regexp.FindStringSubmatchIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_string_submatch_index"
+    },
+    "Regexp.FindSubmatch": {
+      "rust": "rust_stdlib::regexp::Regexp::find_submatch"
+    },
+    "Regexp.FindSubmatchIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::find_submatch_index"
+    },
+    "Regexp.LiteralPrefix": {
+      "rust": "rust_stdlib::regexp::Regexp::literal_prefix"
+    },
+    "Regexp.Longest": {
+      "rust": "rust_stdlib::regexp::Regexp::longest"
+    },
+    "Regexp.MarshalText": {
+      "rust": "rust_stdlib::regexp::Regexp::marshal_text"
+    },
+    "Regexp.Match": {
+      "rust": "rust_stdlib::regexp::Regexp::match_bytes"
+    },
+    "Regexp.MatchReader": {
+      "rust": "rust_stdlib::regexp::Regexp::match_reader"
+    },
+    "Regexp.MatchString": {
+      "rust": "rust_stdlib::regexp::Regexp::match_string"
+    },
+    "Regexp.NumSubexp": {
+      "rust": "rust_stdlib::regexp::Regexp::num_subexp"
+    },
+    "Regexp.ReplaceAll": {
+      "rust": "rust_stdlib::regexp::Regexp::replace_all"
+    },
+    "Regexp.ReplaceAllFunc": {
+      "rust": "rust_stdlib::regexp::Regexp::replace_all_func"
+    },
+    "Regexp.ReplaceAllLiteral": {
+      "rust": "rust_stdlib::regexp::Regexp::replace_all_literal"
+    },
+    "Regexp.ReplaceAllLiteralString": {
+      "rust": "rust_stdlib::regexp::Regexp::replace_all_literal_string"
+    },
+    "Regexp.ReplaceAllString": {
+      "rust": "rust_stdlib::regexp::Regexp::replace_all_string"
+    },
+    "Regexp.ReplaceAllStringFunc": {
+      "rust": "rust_stdlib::regexp::Regexp::replace_all_string_func"
+    },
+    "Regexp.Split": {
+      "rust": "rust_stdlib::regexp::Regexp::split"
+    },
+    "Regexp.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "Regexp.SubexpIndex": {
+      "rust": "rust_stdlib::regexp::Regexp::subexp_index"
+    },
+    "Regexp.SubexpNames": {
+      "rust": "rust_stdlib::regexp::Regexp::subexp_names"
+    },
+    "Regexp.UnmarshalText": {
+      "rust": "rust_stdlib::regexp::Regexp::unmarshal_text"
+    }
+  }
+}

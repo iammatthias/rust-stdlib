@@ -1,0 +1,151 @@
+{
+  "package": "fmt",
+  "notes": "fmt: Rust's format!/print!/write!/Display/Debug achieve Printf and Stringer for formats known at compile time (mapped to std). The `printf` module keeps Go's verb engine only for runtime Go-format strings and the differential suite, over an explicit operand model. Go's reflection over `any` operands becomes the Value enum (Arg alias) with From impls for Rust primitives, strings, Vec/array/slice, Option/Box (pointers) and HashMap/BTreeMap; named Go types with methods are Value::Named carrying Display (Go's Stringer), Debug (Go's GoStringer), Formatter and error implementations. Printing is byte exact: every verb, flag, width, precision, `*` and [n] argument index, and the %!verb(type=value), EXTRA, MISSING, BADINDEX, BADWIDTH, BADPREC, NOVERB and PANIC error forms; digits and quoting come from strconv. Panicking String/Error/Format methods are caught with catch_unwind (the default panic hook still reports to stderr). Sprint* return String (invalid UTF-8 becomes U+FFFD; append* are byte exact; Fprint*/Print* are std::write!/print!); Errorf returns fmt::WrapError (std::error::Error; source() is the first %w operand, sources() is Go's Unwrap() []error). Scan* write into ScanArg destinations (typed &mut, `*[]byte` as Vec<u8>, custom Scanner); Fscan* take std::io::Read (one rune of lookahead is lost, as in Go) or, as fscan_runes/fscanln_runes/fscanf_runes, an io::RuneScanner. Not expressible: scanning into pointers to renamed (named) Go types via reflect (use the underlying type's destination), reflect.Value operands, and Printf of arbitrary Go values (build them as Value); %p and %v of pointers print the address carried by the Value. A Rust i32 operand is a Go int32 (use isize or Value::int for Go int) and char is a Go rune (int32).",
+  "symbols": {
+    "Append": {
+      "rust": "rust_stdlib::printf::append"
+    },
+    "Appendf": {
+      "rust": "rust_stdlib::printf::appendf"
+    },
+    "Appendln": {
+      "rust": "rust_stdlib::printf::appendln"
+    },
+    "Errorf": {
+      "rust": "rust_stdlib::printf::errorf",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns a Rust String: invalid UTF-8 in operands becomes U+FFFD; the append forms are byte exact."
+    },
+    "FormatString": {
+      "rust": "rust_stdlib::printf::format_string"
+    },
+    "Formatter": {
+      "rust": "rust_stdlib::printf::Formatter"
+    },
+    "Formatter.Format": {
+      "rust": "rust_stdlib::printf::Formatter::format"
+    },
+    "Fprint": {
+      "rust": "std::write",
+      "note": "Go adds spaces between non-string operands; printf::append gives those bytes"
+    },
+    "Fprintf": {
+      "rust": "std::write",
+      "note": "write!(w, ...) for formats known at compile time; printf::appendf for a runtime Go format"
+    },
+    "Fprintln": {
+      "rust": "std::writeln"
+    },
+    "Fscan": {
+      "rust": "rust_stdlib::printf::fscan"
+    },
+    "Fscanf": {
+      "rust": "rust_stdlib::printf::fscanf"
+    },
+    "Fscanln": {
+      "rust": "rust_stdlib::printf::fscanln"
+    },
+    "GoStringer": {
+      "rust": "std::fmt::Debug",
+      "note": "a value's Debug output is its %#v text (Value::with_debug)"
+    },
+    "GoStringer.GoString": {
+      "rust": "std::fmt::Debug::fmt"
+    },
+    "Print": {
+      "rust": "std::print",
+      "note": "Go adds spaces between non-string operands; printf::append gives those bytes"
+    },
+    "Printf": {
+      "rust": "std::print",
+      "note": "print!(...) for formats known at compile time; printf::appendf for a runtime Go format"
+    },
+    "Println": {
+      "rust": "std::println"
+    },
+    "Scan": {
+      "rust": "rust_stdlib::printf::scan"
+    },
+    "ScanState": {
+      "rust": "rust_stdlib::printf::ScanState"
+    },
+    "ScanState.Read": {
+      "rust": "std::io::Read::read",
+      "note": "ScanState: std::io::Read; like Go's, its read always fails (use read_rune)"
+    },
+    "ScanState.ReadRune": {
+      "rust": "rust_stdlib::printf::ScanState::read_rune"
+    },
+    "ScanState.SkipSpace": {
+      "rust": "rust_stdlib::printf::ScanState::skip_space"
+    },
+    "ScanState.Token": {
+      "rust": "rust_stdlib::printf::ScanState::token"
+    },
+    "ScanState.UnreadRune": {
+      "rust": "rust_stdlib::printf::ScanState::unread_rune"
+    },
+    "ScanState.Width": {
+      "rust": "rust_stdlib::printf::ScanState::width"
+    },
+    "Scanf": {
+      "rust": "rust_stdlib::printf::scanf"
+    },
+    "Scanln": {
+      "rust": "rust_stdlib::printf::scanln"
+    },
+    "Scanner": {
+      "rust": "rust_stdlib::printf::Scanner"
+    },
+    "Scanner.Scan": {
+      "rust": "rust_stdlib::printf::Scanner::scan"
+    },
+    "Sprint": {
+      "rust": "rust_stdlib::printf::sprint",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns a Rust String: invalid UTF-8 in operands becomes U+FFFD; the append forms are byte exact."
+    },
+    "Sprintf": {
+      "rust": "rust_stdlib::printf::sprintf",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns a Rust String: invalid UTF-8 in operands becomes U+FFFD; the append forms are byte exact."
+    },
+    "Sprintln": {
+      "rust": "rust_stdlib::printf::sprintln",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns a Rust String: invalid UTF-8 in operands becomes U+FFFD; the append forms are byte exact."
+    },
+    "Sscan": {
+      "rust": "rust_stdlib::printf::sscan"
+    },
+    "Sscanf": {
+      "rust": "rust_stdlib::printf::sscanf"
+    },
+    "Sscanln": {
+      "rust": "rust_stdlib::printf::sscanln"
+    },
+    "State": {
+      "rust": "rust_stdlib::printf::State"
+    },
+    "State.Flag": {
+      "rust": "rust_stdlib::printf::State::flag"
+    },
+    "State.Precision": {
+      "rust": "rust_stdlib::printf::State::precision"
+    },
+    "State.Width": {
+      "rust": "rust_stdlib::printf::State::width"
+    },
+    "State.Write": {
+      "rust": "std::io::Write::write",
+      "note": "State: std::io::Write"
+    },
+    "Stringer": {
+      "rust": "std::fmt::Display",
+      "note": "a value's Display output is its %v/%s text (Value::with_display)"
+    },
+    "Stringer.String": {
+      "rust": "std::fmt::Display::fmt"
+    }
+  }
+}

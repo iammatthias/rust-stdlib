@@ -1,0 +1,303 @@
+{
+  "package": "encoding/json",
+  "notes": "encoding::json follows Go 1.27's behaviour (v1 implemented on v2) byte for byte: Marshal/Unmarshal/Decoder/Encoder map to the Serialize/Deserialize traits (derive macros take Go struct tags), the scanner, Compact/Indent/HTMLEscape, token stream and error values (text, offsets, paths) are differential-tested against Go, and Value is the interface{} target. Rust-shaped differences: Unmarshal returns the decoded value rather than filling a pointer (unmarshal_into and Decoder::decode_into decode into an existing value with Go's merge rules), and nil versus empty slices/maps do not exist (Vec/BTreeMap are always empty, Option is nil); Value objects are insertion-ordered (struct fields in declaration order, map keys and decoded text sorted); reflect.Type fields are Go-style type name strings; Bytes is the []byte-as-base64 type; Value parses with FromStr and prints with Display.",
+  "symbols": {
+    "CallMethodsWithLegacySemantics": {
+      "rust": "rust_stdlib::encoding::json::call_methods_with_legacy_semantics",
+      "note": "Go's pointer-receiver rule depends on whether a reflected value is addressable; Rust has no such distinction (a Serialize impl is called on any value), so both settings call the same methods and the option is recorded only.",
+      "deviation": "method-addressability"
+    },
+    "Compact": {
+      "rust": "rust_stdlib::encoding::json::compact",
+      "note": "appends to a Vec<u8> instead of a bytes.Buffer; returns the SyntaxError, nothing is appended on error"
+    },
+    "Decoder": {
+      "rust": "rust_stdlib::encoding::json::Decoder"
+    },
+    "Decoder.Buffered": {
+      "rust": "rust_stdlib::encoding::json::Decoder::buffered",
+      "note": "returns the buffered bytes (a &[u8] is an io.Reader); the buffer fill pattern follows jsontext, so the bytes match Go's for any reader"
+    },
+    "Decoder.Decode": {
+      "rust": "rust_stdlib::encoding::json::Decoder::decode",
+      "note": "generic over the target type, returns the value; end of input is Error::Eof"
+    },
+    "Decoder.DisallowUnknownFields": {
+      "rust": "rust_stdlib::encoding::json::Decoder::disallow_unknown_fields"
+    },
+    "Decoder.InputOffset": {
+      "rust": "rust_stdlib::encoding::json::Decoder::input_offset"
+    },
+    "Decoder.More": {
+      "rust": "rust_stdlib::encoding::json::Decoder::more"
+    },
+    "Decoder.Token": {
+      "rust": "rust_stdlib::encoding::json::Decoder::token",
+      "note": "returns the Token enum; Error::Eof and the unexpected-EOF io error mark the end"
+    },
+    "Decoder.UseNumber": {
+      "rust": "rust_stdlib::encoding::json::Decoder::use_number"
+    },
+    "DefaultOptionsV1": {
+      "rust": "rust_stdlib::encoding::json::default_options_v1"
+    },
+    "Delim": {
+      "rust": "rust_stdlib::encoding::json::Delim"
+    },
+    "Delim.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Encoder": {
+      "rust": "rust_stdlib::encoding::json::Encoder"
+    },
+    "Encoder.Encode": {
+      "rust": "rust_stdlib::encoding::json::Encoder::encode"
+    },
+    "Encoder.SetEscapeHTML": {
+      "rust": "rust_stdlib::encoding::json::Encoder::set_escape_html"
+    },
+    "Encoder.SetIndent": {
+      "rust": "rust_stdlib::encoding::json::Encoder::set_indent"
+    },
+    "FormatByteArrayAsArray": {
+      "rust": "rust_stdlib::encoding::json::format_byte_array_as_array",
+      "note": "[u8; N] cannot get an encoding different from [T; N] without specialization, so byte arrays always encode as arrays of numbers (the v1 form).",
+      "deviation": "no-specialization"
+    },
+    "FormatBytesWithLegacySemantics": {
+      "rust": "rust_stdlib::encoding::json::format_bytes_with_legacy_semantics",
+      "deviation": "partial-option",
+      "note": "Implemented for the part Rust can express: with false, decoding a JSON array into Bytes is an error (differential-checked against Go's v2). Named byte types and marshal methods on bytes do not exist here, so the other effects have nothing to change."
+    },
+    "FormatDurationAsNano": {
+      "rust": "rust_stdlib::encoding::json::format_duration_as_nano",
+      "note": "With false, std::time::Duration has no JSON form: marshal fails with 'unsupported value: no default representation' and unmarshal with the matching UnmarshalTypeError, as Go's v2 default does (unit-tested; the Go typed registry has no Duration field)."
+    },
+    "HTMLEscape": {
+      "rust": "rust_stdlib::encoding::json::html_escape",
+      "note": "appends to a Vec<u8>"
+    },
+    "Indent": {
+      "rust": "rust_stdlib::encoding::json::indent",
+      "note": "appends to a Vec<u8>; returns the SyntaxError, nothing is appended on error"
+    },
+    "InvalidUTF8Error": {
+      "rust": "rust_stdlib::encoding::json::InvalidUTF8Error",
+      "note": "deprecated and never returned, as in Go: invalid UTF-8 is replaced with U+FFFD"
+    },
+    "InvalidUTF8Error.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "InvalidUTF8Error.S": {
+      "rust": "rust_stdlib::encoding::json::InvalidUTF8Error::s"
+    },
+    "InvalidUnmarshalError": {
+      "rust": "rust_stdlib::encoding::json::InvalidUnmarshalError",
+      "note": "the type and its text exist; the typed Rust API cannot be given a nil or non-pointer destination, so unmarshal never returns it"
+    },
+    "InvalidUnmarshalError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "InvalidUnmarshalError.Type": {
+      "rust": "rust_stdlib::encoding::json::InvalidUnmarshalError::type_name",
+      "note": "reflect.Type is a Go-style type name; None is Go's nil type"
+    },
+    "Marshal": {
+      "rust": "rust_stdlib::encoding::json::marshal"
+    },
+    "MarshalIndent": {
+      "rust": "rust_stdlib::encoding::json::marshal_indent"
+    },
+    "Marshaler": {
+      "rust": "rust_stdlib::encoding::json::Marshaler"
+    },
+    "MarshalerError": {
+      "rust": "rust_stdlib::encoding::json::MarshalerError"
+    },
+    "MarshalerError.Err": {
+      "rust": "rust_stdlib::encoding::json::MarshalerError::err"
+    },
+    "MarshalerError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "MarshalerError.Type": {
+      "rust": "rust_stdlib::encoding::json::MarshalerError::type_name",
+      "note": "reflect.Type is a Go-style type name; like Go 1.27 it is the pointer type"
+    },
+    "MarshalerError.Unwrap": {
+      "rust": "std::error::Error::source"
+    },
+    "MatchCaseSensitiveDelimiter": {
+      "rust": "rust_stdlib::encoding::json::match_case_sensitive_delimiter",
+      "note": "false makes decoding ignore - and _ when matching keys to fields; checked against jsonv2 by tools/json_check.py"
+    },
+    "MergeWithLegacySemantics": {
+      "rust": "rust_stdlib::encoding::json::merge_with_legacy_semantics",
+      "note": "Unmarshal returns a new value instead of filling a destination, so there is no existing value to merge into; the option is recorded only.",
+      "deviation": "decode-builds-value"
+    },
+    "NewDecoder": {
+      "rust": "rust_stdlib::encoding::json::Decoder::new"
+    },
+    "NewEncoder": {
+      "rust": "rust_stdlib::encoding::json::Encoder::new"
+    },
+    "Number": {
+      "rust": "rust_stdlib::encoding::json::Number",
+      "deviation": "error-at-construction",
+      "note": "Number::new and FromStr validate, so an invalid Number cannot exist: the error Go's Marshal returns for an invalid json.Number (MarshalerError for *json.Number, cannot parse as JSON number) is returned at construction; the empty text stays valid and marshals as 0"
+    },
+    "Number.Float64": {
+      "rust": "rust_stdlib::encoding::json::Number::float64"
+    },
+    "Number.Int64": {
+      "rust": "rust_stdlib::encoding::json::Number::int64"
+    },
+    "Number.MarshalJSONTo": {
+      "rust": "rust_stdlib::encoding::json::Serialize::serialize",
+      "note": "the jsontext streaming hook is the Serialize impl of Number: the literal was validated at construction (Go's MarshalerError text is the Number::new error), so serializing cannot fail"
+    },
+    "Number.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Number.UnmarshalJSONFrom": {
+      "rust": "rust_stdlib::encoding::json::Deserialize::unmarshal_json",
+      "note": "the jsontext streaming hook is the Deserialize impl of Number: numbers and quoted numbers decode, other values give Go's position-less UnmarshalTypeError"
+    },
+    "OmitEmptyWithLegacySemantics": {
+      "rust": "rust_stdlib::encoding::json::omit_empty_with_legacy_semantics",
+      "note": "false omits fields whose encoding is null, \"\", [] or {}; checked against jsonv2 by tools/json_check.py"
+    },
+    "Options": {
+      "rust": "rust_stdlib::encoding::json::Options",
+      "note": "a set of option settings with join; consumed by marshal_with_options and unmarshal_with_options"
+    },
+    "ParseBytesWithLooseRFC4648": {
+      "rust": "rust_stdlib::encoding::json::parse_bytes_with_loose_rfc4648",
+      "note": "With false, \\r and \\n in the base64 text of Bytes are errors ('illegal character ... at offset n') instead of ignored; differential-checked against Go."
+    },
+    "ParseTimeWithLooseRFC3339": {
+      "rust": "rust_stdlib::encoding::json::parse_time_with_loose_rfc3339",
+      "note": "Not implemented. time::Time has marshal_json/unmarshal_json, but this module provides no Serialize/Deserialize for it, so the option has nothing to select between (Go's loose time.Parse versus the strict RFC 3339 grammar). Recorded only; this is the one json entry whose deviation status is a scope call rather than an impossibility.",
+      "deviation": "no-time-codec"
+    },
+    "RawMessage": {
+      "rust": "rust_stdlib::encoding::json::RawMessage"
+    },
+    "ReportErrorsWithLegacySemantics": {
+      "rust": "rust_stdlib::encoding::json::report_errors_with_legacy_semantics",
+      "note": "The Error enum mirrors v1's error types and texts; the v2 error shapes (SemanticError and friends) belong to encoding/json/v2 and jsontext, which are outside this crate, so false is recorded only.",
+      "deviation": "v1-error-types"
+    },
+    "StringifyWithLegacySemantics": {
+      "rust": "rust_stdlib::encoding::json::stringify_with_legacy_semantics",
+      "note": "false makes the string tag option quote only numbers, for encoding and decoding; checked against jsonv2 by tools/json_check.py"
+    },
+    "SyntaxError": {
+      "rust": "rust_stdlib::encoding::json::SyntaxError"
+    },
+    "SyntaxError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "SyntaxError.Offset": {
+      "rust": "rust_stdlib::encoding::json::SyntaxError::offset"
+    },
+    "Token": {
+      "rust": "rust_stdlib::encoding::json::Token",
+      "note": "an enum of Delim, Bool, Float64, Number, String and Null instead of an interface{}"
+    },
+    "Unmarshal": {
+      "rust": "rust_stdlib::encoding::json::unmarshal",
+      "note": "Unmarshal returns the decoded value, or only the error after a type error: Go fills the destination as far as it can and returns the UnmarshalTypeError with it. Decoding into an existing value is unmarshal_into; there is no nil versus empty.",
+      "deviation": "decode-builds-value"
+    },
+    "UnmarshalArrayFromAnyLength": {
+      "rust": "rust_stdlib::encoding::json::unmarshal_array_from_any_length",
+      "note": "false requires JSON arrays to match the length of Rust arrays; checked against jsonv2 by tools/json_check.py"
+    },
+    "UnmarshalFieldError": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalFieldError",
+      "note": "deprecated and never returned, as in Go"
+    },
+    "UnmarshalFieldError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "UnmarshalFieldError.Field": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalFieldError::field",
+      "note": "reflect.StructField is the field name"
+    },
+    "UnmarshalFieldError.Key": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalFieldError::key"
+    },
+    "UnmarshalFieldError.Type": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalFieldError::type_name",
+      "note": "reflect.Type is a Go-style type name"
+    },
+    "UnmarshalTypeError": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalTypeError"
+    },
+    "UnmarshalTypeError.Err": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalTypeError::err"
+    },
+    "UnmarshalTypeError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "UnmarshalTypeError.Field": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalTypeError::field"
+    },
+    "UnmarshalTypeError.Offset": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalTypeError::offset"
+    },
+    "UnmarshalTypeError.Struct": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalTypeError::struct_name"
+    },
+    "UnmarshalTypeError.Type": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalTypeError::type_name",
+      "note": "reflect.Type is a Go-style type name"
+    },
+    "UnmarshalTypeError.Unwrap": {
+      "rust": "std::error::Error::source"
+    },
+    "UnmarshalTypeError.Value": {
+      "rust": "rust_stdlib::encoding::json::UnmarshalTypeError::value"
+    },
+    "Unmarshaler": {
+      "rust": "rust_stdlib::encoding::json::Unmarshaler"
+    },
+    "UnsupportedTypeError": {
+      "rust": "rust_stdlib::encoding::json::UnsupportedTypeError",
+      "note": "every Rust type with a Serialize impl is encodable, so marshal does not return it; the type and its text exist"
+    },
+    "UnsupportedTypeError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "UnsupportedTypeError.Type": {
+      "rust": "rust_stdlib::encoding::json::UnsupportedTypeError::type_name",
+      "note": "reflect.Type is a Go-style type name"
+    },
+    "UnsupportedValueError": {
+      "rust": "rust_stdlib::encoding::json::UnsupportedValueError"
+    },
+    "UnsupportedValueError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "UnsupportedValueError.Str": {
+      "rust": "rust_stdlib::encoding::json::UnsupportedValueError::str"
+    },
+    "UnsupportedValueError.Value": {
+      "rust": "rust_stdlib::encoding::json::UnsupportedValueError::value",
+      "note": "reflect.Value is a description of the value"
+    },
+    "Valid": {
+      "rust": "rust_stdlib::encoding::json::valid"
+    }
+  }
+}

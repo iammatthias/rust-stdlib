@@ -1,0 +1,58 @@
+{
+  "package": "image/draw",
+  "notes": "image::draw: Draw/DrawMask with Go's clipping, fast paths and generic RGBA64 arithmetic (Over/Src, any mask), FloydSteinberg, Drawer/Quantizer/RGBA64Image traits; self-draw via draw_within; Quantizer takes an explicit capacity; a paletted index outside the palette and FloydSteinberg on an empty palette panic as in Go",
+  "symbols": {
+    "Draw": {
+      "rust": "rust_stdlib::image::draw::draw",
+      "note": "A paletted pixel index outside the palette and a Floyd-Steinberg draw onto an empty palette panic, as in Go."
+    },
+    "DrawMask": {
+      "rust": "rust_stdlib::image::draw::draw_mask",
+      "note": "A paletted pixel index outside the palette and a Floyd-Steinberg draw onto an empty palette panic, as in Go."
+    },
+    "Drawer": {
+      "rust": "rust_stdlib::image::draw::Drawer"
+    },
+    "Drawer.Draw": {
+      "rust": "rust_stdlib::image::draw::Drawer::draw"
+    },
+    "FloydSteinberg": {
+      "rust": "rust_stdlib::image::draw::FloydSteinberg",
+      "note": "A paletted pixel index outside the palette and a Floyd-Steinberg draw onto an empty palette panic, as in Go."
+    },
+    "Image": {
+      "rust": "rust_stdlib::image::draw::Image"
+    },
+    "Image.Set": {
+      "rust": "rust_stdlib::image::draw::Image::set"
+    },
+    "Op": {
+      "rust": "rust_stdlib::image::draw::Op"
+    },
+    "Op.Draw": {
+      "rust": "rust_stdlib::image::draw::Op::draw"
+    },
+    "Over": {
+      "rust": "rust_stdlib::image::draw::Op::Over"
+    },
+    "Quantizer": {
+      "rust": "rust_stdlib::image::draw::Quantizer"
+    },
+    "Quantizer.Quantize": {
+      "rust": "rust_stdlib::image::draw::Quantizer::quantize",
+      "note": "The palette capacity is an explicit argument; Rust has no slice capacity (Rust shape)."
+    },
+    "RGBA64Image": {
+      "rust": "rust_stdlib::image::draw::RGBA64Image"
+    },
+    "RGBA64Image.Set": {
+      "rust": "rust_stdlib::image::draw::Image::set"
+    },
+    "RGBA64Image.SetRGBA64": {
+      "rust": "rust_stdlib::image::draw::Image::set_rgba64"
+    },
+    "Src": {
+      "rust": "rust_stdlib::image::draw::Op::Src"
+    }
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "package": "math",
+  "notes": "Rust std (f64/f32 methods, integer constants) where it matches Go; first-party ports of Go's algorithms (from FreeBSD msun, bit-identical to Go's portable code) for everything whose std result differs from Go's: trigonometry, inverse trigonometry, hyperbolics, exp/log families, pow, hypot, cbrt, erf, gamma and Bessel; NaN() is Go's bit pattern 0x7FF8000000000001. int is i64 and uint is usize (the surface is 64-bit). The differential compares bit patterns against an amd64 Go oracle where one can run (Go on arm64 fuses x*y+z, which changes the last bits of Go's own code; a native arm64 oracle is accepted with wider tolerances). Subnormal arguments of log-based functions and exp near overflow are skipped, because Go's amd64 assembly is inaccurate there. Every result is bit-identical except the symbols marked platform-float, which inherit the last-bit differences of Go's platform-specific assembly Exp. NaN payloads are not compared.",
+  "symbols": {
+    "Abs": {
+      "rust": "f64::abs"
+    },
+    "Acos": {
+      "rust": "rust_stdlib::math::acos"
+    },
+    "Acosh": {
+      "rust": "rust_stdlib::math::acosh"
+    },
+    "Asin": {
+      "rust": "rust_stdlib::math::asin"
+    },
+    "Asinh": {
+      "rust": "rust_stdlib::math::asinh"
+    },
+    "Atan": {
+      "rust": "rust_stdlib::math::atan"
+    },
+    "Atan2": {
+      "rust": "rust_stdlib::math::atan2"
+    },
+    "Atanh": {
+      "rust": "rust_stdlib::math::atanh"
+    },
+    "Cbrt": {
+      "rust": "rust_stdlib::math::cbrt"
+    },
+    "Ceil": {
+      "rust": "f64::ceil"
+    },
+    "Copysign": {
+      "rust": "f64::copysign"
+    },
+    "Cos": {
+      "rust": "rust_stdlib::math::cos"
+    },
+    "Cosh": {
+      "rust": "rust_stdlib::math::cosh",
+      "deviation": "platform-float",
+      "note": "Go's Exp is assembly on amd64 (with a different path on CPUs with FMA) and arm64, and its last bit differs between them and from Go's portable algorithm, which is what this crate ports (bit-identical to Go's math/exp.go). Against an amd64 Go without FMA the result differs by up to 2 ULP; it is Go's formula over Exp. Special values match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Dim": {
+      "rust": "rust_stdlib::math::dim"
+    },
+    "E": {
+      "rust": "std::f64::consts::E"
+    },
+    "Erf": {
+      "rust": "rust_stdlib::math::erf"
+    },
+    "Erfc": {
+      "rust": "rust_stdlib::math::erfc",
+      "deviation": "platform-float",
+      "note": "Go's Exp is assembly on amd64 (with a different path on CPUs with FMA) and arm64, and its last bit differs between them and from Go's portable algorithm, which is what this crate ports (bit-identical to Go's math/exp.go). Against an amd64 Go without FMA the result differs by up to 1 ULP; it is Go's algorithm over Exp. Special values match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Erfcinv": {
+      "rust": "rust_stdlib::math::erfcinv"
+    },
+    "Erfinv": {
+      "rust": "rust_stdlib::math::erfinv"
+    },
+    "Exp": {
+      "rust": "rust_stdlib::math::exp",
+      "deviation": "platform-float",
+      "note": "Go's Exp is assembly on amd64 (with a different path on CPUs with FMA) and arm64, and its last bit differs between them and from Go's portable algorithm, which is what this crate ports (bit-identical to Go's math/exp.go). Against an amd64 Go without FMA the result differs by up to 1 ULP. Special values match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Exp2": {
+      "rust": "rust_stdlib::math::exp2"
+    },
+    "Expm1": {
+      "rust": "rust_stdlib::math::expm1"
+    },
+    "FMA": {
+      "rust": "f64::mul_add"
+    },
+    "Float32bits": {
+      "rust": "f32::to_bits"
+    },
+    "Float32frombits": {
+      "rust": "f32::from_bits"
+    },
+    "Float64bits": {
+      "rust": "f64::to_bits"
+    },
+    "Float64frombits": {
+      "rust": "f64::from_bits"
+    },
+    "Floor": {
+      "rust": "f64::floor"
+    },
+    "Frexp": {
+      "rust": "rust_stdlib::math::frexp"
+    },
+    "Gamma": {
+      "rust": "rust_stdlib::math::gamma",
+      "deviation": "platform-float",
+      "note": "Go's Exp is assembly on amd64 (with a different path on CPUs with FMA) and arm64, and its last bit differs between them and from Go's portable algorithm, which is what this crate ports (bit-identical to Go's math/exp.go). Against an amd64 Go without FMA the result differs by up to 3 ULP; it is Go's algorithm over Exp and Pow. Special values match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Hypot": {
+      "rust": "rust_stdlib::math::hypot"
+    },
+    "Ilogb": {
+      "rust": "rust_stdlib::math::ilogb"
+    },
+    "Inf": {
+      "rust": "rust_stdlib::math::inf"
+    },
+    "IsInf": {
+      "rust": "rust_stdlib::math::is_inf"
+    },
+    "IsNaN": {
+      "rust": "f64::is_nan"
+    },
+    "J0": {
+      "rust": "rust_stdlib::math::j0"
+    },
+    "J1": {
+      "rust": "rust_stdlib::math::j1"
+    },
+    "Jn": {
+      "rust": "rust_stdlib::math::jn"
+    },
+    "Ldexp": {
+      "rust": "rust_stdlib::math::ldexp"
+    },
+    "Lgamma": {
+      "rust": "rust_stdlib::math::lgamma"
+    },
+    "Ln10": {
+      "rust": "std::f64::consts::LN_10"
+    },
+    "Ln2": {
+      "rust": "std::f64::consts::LN_2"
+    },
+    "Log": {
+      "rust": "rust_stdlib::math::log"
+    },
+    "Log10": {
+      "rust": "rust_stdlib::math::log10"
+    },
+    "Log10E": {
+      "rust": "std::f64::consts::LOG10_E"
+    },
+    "Log1p": {
+      "rust": "rust_stdlib::math::log1p"
+    },
+    "Log2": {
+      "rust": "rust_stdlib::math::log2"
+    },
+    "Log2E": {
+      "rust": "std::f64::consts::LOG2_E"
+    },
+    "Logb": {
+      "rust": "rust_stdlib::math::logb"
+    },
+    "Max": {
+      "rust": "rust_stdlib::math::max"
+    },
+    "MaxFloat32": {
+      "rust": "rust_stdlib::math::MAX_FLOAT32"
+    },
+    "MaxFloat64": {
+      "rust": "f64::MAX"
+    },
+    "MaxInt": {
+      "rust": "isize::MAX"
+    },
+    "MaxInt16": {
+      "rust": "i16::MAX"
+    },
+    "MaxInt32": {
+      "rust": "i32::MAX"
+    },
+    "MaxInt64": {
+      "rust": "i64::MAX"
+    },
+    "MaxInt8": {
+      "rust": "i8::MAX"
+    },
+    "MaxUint": {
+      "rust": "usize::MAX"
+    },
+    "MaxUint16": {
+      "rust": "u16::MAX"
+    },
+    "MaxUint32": {
+      "rust": "u32::MAX"
+    },
+    "MaxUint64": {
+      "rust": "u64::MAX"
+    },
+    "MaxUint8": {
+      "rust": "u8::MAX"
+    },
+    "Min": {
+      "rust": "rust_stdlib::math::min"
+    },
+    "MinInt": {
+      "rust": "isize::MIN"
+    },
+    "MinInt16": {
+      "rust": "i16::MIN"
+    },
+    "MinInt32": {
+      "rust": "i32::MIN"
+    },
+    "MinInt64": {
+      "rust": "i64::MIN"
+    },
+    "MinInt8": {
+      "rust": "i8::MIN"
+    },
+    "Mod": {
+      "rust": "std::ops::Rem::rem"
+    },
+    "Modf": {
+      "rust": "rust_stdlib::math::modf"
+    },
+    "NaN": {
+      "rust": "rust_stdlib::math::nan"
+    },
+    "Nextafter": {
+      "rust": "rust_stdlib::math::nextafter"
+    },
+    "Nextafter32": {
+      "rust": "rust_stdlib::math::nextafter32"
+    },
+    "Phi": {
+      "rust": "rust_stdlib::math::PHI"
+    },
+    "Pi": {
+      "rust": "std::f64::consts::PI"
+    },
+    "Pow": {
+      "rust": "rust_stdlib::math::pow",
+      "deviation": "platform-float",
+      "note": "Go's Exp is assembly on amd64 (with a different path on CPUs with FMA) and arm64, and its last bit differs between them and from Go's portable algorithm, which is what this crate ports (bit-identical to Go's math/exp.go). Against an amd64 Go without FMA the result differs by up to 3 ULP; it is Go's algorithm over Exp for the fractional part of the exponent. Special values match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Pow10": {
+      "rust": "rust_stdlib::math::pow10"
+    },
+    "Remainder": {
+      "rust": "rust_stdlib::math::remainder"
+    },
+    "Round": {
+      "rust": "f64::round"
+    },
+    "RoundToEven": {
+      "rust": "f64::round_ties_even"
+    },
+    "Signbit": {
+      "rust": "f64::is_sign_negative"
+    },
+    "Sin": {
+      "rust": "rust_stdlib::math::sin"
+    },
+    "Sincos": {
+      "rust": "rust_stdlib::math::sincos"
+    },
+    "Sinh": {
+      "rust": "rust_stdlib::math::sinh",
+      "deviation": "platform-float",
+      "note": "Go's Exp is assembly on amd64 (with a different path on CPUs with FMA) and arm64, and its last bit differs between them and from Go's portable algorithm, which is what this crate ports (bit-identical to Go's math/exp.go). Against an amd64 Go without FMA the result differs by up to 3 ULP; it is Go's formula over Exp. Special values match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "SmallestNonzeroFloat32": {
+      "rust": "rust_stdlib::math::SMALLEST_NONZERO_FLOAT32"
+    },
+    "SmallestNonzeroFloat64": {
+      "rust": "rust_stdlib::math::SMALLEST_NONZERO_FLOAT64"
+    },
+    "Sqrt": {
+      "rust": "f64::sqrt"
+    },
+    "Sqrt2": {
+      "rust": "std::f64::consts::SQRT_2"
+    },
+    "SqrtE": {
+      "rust": "rust_stdlib::math::SQRT_E"
+    },
+    "SqrtPhi": {
+      "rust": "rust_stdlib::math::SQRT_PHI"
+    },
+    "SqrtPi": {
+      "rust": "rust_stdlib::math::SQRT_PI"
+    },
+    "Tan": {
+      "rust": "rust_stdlib::math::tan"
+    },
+    "Tanh": {
+      "rust": "rust_stdlib::math::tanh",
+      "deviation": "platform-float",
+      "note": "Go's Exp is assembly on amd64 (with a different path on CPUs with FMA) and arm64, and its last bit differs between them and from Go's portable algorithm, which is what this crate ports (bit-identical to Go's math/exp.go). Against an amd64 Go without FMA the result differs by up to 1 ULP; it is Go's formula over Exp. Special values match. Go's own last bits differ between amd64 (with and without FMA) and arm64 assembly; results are within Go's documented accuracy and special values match exactly. Implementation-defined, like unstable sort order."
+    },
+    "Trunc": {
+      "rust": "f64::trunc"
+    },
+    "Y0": {
+      "rust": "rust_stdlib::math::y0"
+    },
+    "Y1": {
+      "rust": "rust_stdlib::math::y1"
+    },
+    "Yn": {
+      "rust": "rust_stdlib::math::yn"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "package": "path",
+  "notes": "path: Slash-only clean/join/base/dir/ext/split and Unicode shell patterns; UTF-8 paths only",
+  "symbols": {
+    "Base": {
+      "rust": "rust_stdlib::path::base"
+    },
+    "Clean": {
+      "rust": "rust_stdlib::path::clean",
+      "note": "Paths are &str, so byte paths that are not UTF-8 cannot be expressed; Go's path functions (Clean, Join, Base, Dir, Ext, Split, IsAbs, Match) accept any bytes.",
+      "deviation": "go-string-invalid-utf8"
+    },
+    "Dir": {
+      "rust": "rust_stdlib::path::dir"
+    },
+    "ErrBadPattern": {
+      "rust": "rust_stdlib::path::BadPattern"
+    },
+    "Ext": {
+      "rust": "rust_stdlib::path::ext"
+    },
+    "IsAbs": {
+      "rust": "rust_stdlib::path::is_abs"
+    },
+    "Join": {
+      "rust": "rust_stdlib::path::join"
+    },
+    "Match": {
+      "rust": "rust_stdlib::path::matches"
+    },
+    "Split": {
+      "rust": "rust_stdlib::path::split"
+    }
+  }
+}

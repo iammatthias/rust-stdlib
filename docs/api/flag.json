@@ -1,0 +1,279 @@
+{
+  "package": "flag",
+  "notes": "flag: Go's grammar, error texts and PrintDefaults layout on FlagSet and the command-line set. Flag variables are shared Ptr<T> handles instead of *T. Rust substitutions for reflection: Value has provided is_bool_flag/kind/zero_string/as_getter methods (a custom value without zero_string counts as zero when its default text is empty; a panicking String on a zero value is not caught), usage callbacks take &FlagSet (the package-level readers work from inside the command-line usage on a snapshot; modifying the set there panics), Set records the caller through #[track_caller].",
+  "symbols": {
+    "Arg": {
+      "rust": "rust_stdlib::flag::arg"
+    },
+    "Args": {
+      "rust": "rust_stdlib::flag::args"
+    },
+    "Bool": {
+      "rust": "rust_stdlib::flag::bool"
+    },
+    "BoolFunc": {
+      "rust": "rust_stdlib::flag::bool_func"
+    },
+    "BoolVar": {
+      "rust": "rust_stdlib::flag::bool_var"
+    },
+    "CommandLine": {
+      "rust": "rust_stdlib::flag::command_line",
+      "note": "returns a lock guard that derefs to the process-wide FlagSet; assign through it to replace the set"
+    },
+    "ContinueOnError": {
+      "rust": "rust_stdlib::flag::ErrorHandling::ContinueOnError"
+    },
+    "Duration": {
+      "rust": "rust_stdlib::flag::duration"
+    },
+    "DurationVar": {
+      "rust": "rust_stdlib::flag::duration_var"
+    },
+    "ErrHelp": {
+      "rust": "rust_stdlib::flag::ERR_HELP"
+    },
+    "ErrorHandling": {
+      "rust": "rust_stdlib::flag::ErrorHandling"
+    },
+    "ExitOnError": {
+      "rust": "rust_stdlib::flag::ErrorHandling::ExitOnError"
+    },
+    "Flag": {
+      "rust": "rust_stdlib::flag::Flag"
+    },
+    "Flag.DefValue": {
+      "rust": "rust_stdlib::flag::Flag::def_value"
+    },
+    "Flag.Name": {
+      "rust": "rust_stdlib::flag::Flag::name"
+    },
+    "Flag.Usage": {
+      "rust": "rust_stdlib::flag::Flag::usage"
+    },
+    "Flag.Value": {
+      "rust": "rust_stdlib::flag::Flag::value"
+    },
+    "FlagSet": {
+      "rust": "rust_stdlib::flag::FlagSet"
+    },
+    "FlagSet.Arg": {
+      "rust": "rust_stdlib::flag::FlagSet::arg"
+    },
+    "FlagSet.Args": {
+      "rust": "rust_stdlib::flag::FlagSet::args"
+    },
+    "FlagSet.Bool": {
+      "rust": "rust_stdlib::flag::FlagSet::bool"
+    },
+    "FlagSet.BoolFunc": {
+      "rust": "rust_stdlib::flag::FlagSet::bool_func"
+    },
+    "FlagSet.BoolVar": {
+      "rust": "rust_stdlib::flag::FlagSet::bool_var"
+    },
+    "FlagSet.Duration": {
+      "rust": "rust_stdlib::flag::FlagSet::duration"
+    },
+    "FlagSet.DurationVar": {
+      "rust": "rust_stdlib::flag::FlagSet::duration_var"
+    },
+    "FlagSet.ErrorHandling": {
+      "rust": "rust_stdlib::flag::FlagSet::error_handling"
+    },
+    "FlagSet.Float64": {
+      "rust": "rust_stdlib::flag::FlagSet::float64"
+    },
+    "FlagSet.Float64Var": {
+      "rust": "rust_stdlib::flag::FlagSet::float64_var"
+    },
+    "FlagSet.Func": {
+      "rust": "rust_stdlib::flag::FlagSet::func"
+    },
+    "FlagSet.Init": {
+      "rust": "rust_stdlib::flag::FlagSet::init"
+    },
+    "FlagSet.Int": {
+      "rust": "rust_stdlib::flag::FlagSet::int"
+    },
+    "FlagSet.Int64": {
+      "rust": "rust_stdlib::flag::FlagSet::int64"
+    },
+    "FlagSet.Int64Var": {
+      "rust": "rust_stdlib::flag::FlagSet::int64_var"
+    },
+    "FlagSet.IntVar": {
+      "rust": "rust_stdlib::flag::FlagSet::int_var"
+    },
+    "FlagSet.Lookup": {
+      "rust": "rust_stdlib::flag::FlagSet::lookup"
+    },
+    "FlagSet.NArg": {
+      "rust": "rust_stdlib::flag::FlagSet::narg"
+    },
+    "FlagSet.NFlag": {
+      "rust": "rust_stdlib::flag::FlagSet::nflag"
+    },
+    "FlagSet.Name": {
+      "rust": "rust_stdlib::flag::FlagSet::name"
+    },
+    "FlagSet.Output": {
+      "rust": "rust_stdlib::flag::FlagSet::output"
+    },
+    "FlagSet.Parse": {
+      "rust": "rust_stdlib::flag::FlagSet::parse"
+    },
+    "FlagSet.Parsed": {
+      "rust": "rust_stdlib::flag::FlagSet::parsed"
+    },
+    "FlagSet.PrintDefaults": {
+      "rust": "rust_stdlib::flag::FlagSet::print_defaults",
+      "deviation": "reflection+panic-hook-output",
+      "note": "Go decides whether a default is the zero value by reflecting a fresh zero of the Value's type and calling String on it. Built-in values answer through Value::zero_string; for a custom Value without it the default counts as zero when its text is empty. A panic in that call is caught and reported after the listing as Go does (panic calling String method on zero <type> for flag <name>: <message>); the type is Value::type_name, a Rust path instead of Go's package.Type. A panic from a zero value's String is recovered and reported as Go does, but Rust's panic hook still prints to stderr where Go's recover is silent."
+    },
+    "FlagSet.Set": {
+      "rust": "rust_stdlib::flag::FlagSet::set"
+    },
+    "FlagSet.SetOutput": {
+      "rust": "rust_stdlib::flag::FlagSet::set_output"
+    },
+    "FlagSet.String": {
+      "rust": "rust_stdlib::flag::FlagSet::string"
+    },
+    "FlagSet.StringVar": {
+      "rust": "rust_stdlib::flag::FlagSet::string_var"
+    },
+    "FlagSet.TextVar": {
+      "rust": "rust_stdlib::flag::FlagSet::text_var"
+    },
+    "FlagSet.Uint": {
+      "rust": "rust_stdlib::flag::FlagSet::uint"
+    },
+    "FlagSet.Uint64": {
+      "rust": "rust_stdlib::flag::FlagSet::uint64"
+    },
+    "FlagSet.Uint64Var": {
+      "rust": "rust_stdlib::flag::FlagSet::uint64_var"
+    },
+    "FlagSet.UintVar": {
+      "rust": "rust_stdlib::flag::FlagSet::uint_var"
+    },
+    "FlagSet.Usage": {
+      "rust": "rust_stdlib::flag::FlagSet::usage",
+      "note": "While the command-line set's usage message runs, the package-level readers (PrintDefaults, NFlag, Arg(s), Parsed, Lookup, Visit, VisitAll) work on a frozen snapshot, so the usual Usage = func(){ ...; flag.PrintDefaults() } works. Defining, setting or parsing flags from inside the callback is not possible (the set is exclusively borrowed by the running parse, and Rust forbids the aliasing); such calls panic with a message instead of deadlocking.",
+      "deviation": "reentrant-mutation"
+    },
+    "FlagSet.Var": {
+      "rust": "rust_stdlib::flag::FlagSet::var"
+    },
+    "FlagSet.Visit": {
+      "rust": "rust_stdlib::flag::FlagSet::visit"
+    },
+    "FlagSet.VisitAll": {
+      "rust": "rust_stdlib::flag::FlagSet::visit_all"
+    },
+    "Float64": {
+      "rust": "rust_stdlib::flag::float64"
+    },
+    "Float64Var": {
+      "rust": "rust_stdlib::flag::float64_var"
+    },
+    "Func": {
+      "rust": "rust_stdlib::flag::func"
+    },
+    "Getter": {
+      "rust": "rust_stdlib::flag::Getter"
+    },
+    "Getter.Get": {
+      "rust": "rust_stdlib::flag::Getter::get"
+    },
+    "Int": {
+      "rust": "rust_stdlib::flag::int"
+    },
+    "Int64": {
+      "rust": "rust_stdlib::flag::int64"
+    },
+    "Int64Var": {
+      "rust": "rust_stdlib::flag::int64_var"
+    },
+    "IntVar": {
+      "rust": "rust_stdlib::flag::int_var"
+    },
+    "Lookup": {
+      "rust": "rust_stdlib::flag::lookup",
+      "note": "runs a closure on the Flag instead of returning a pointer"
+    },
+    "NArg": {
+      "rust": "rust_stdlib::flag::narg"
+    },
+    "NFlag": {
+      "rust": "rust_stdlib::flag::nflag"
+    },
+    "NewFlagSet": {
+      "rust": "rust_stdlib::flag::FlagSet::new"
+    },
+    "PanicOnError": {
+      "rust": "rust_stdlib::flag::ErrorHandling::PanicOnError"
+    },
+    "Parse": {
+      "rust": "rust_stdlib::flag::parse"
+    },
+    "Parsed": {
+      "rust": "rust_stdlib::flag::parsed"
+    },
+    "PrintDefaults": {
+      "rust": "rust_stdlib::flag::print_defaults",
+      "deviation": "reflection+panic-hook-output",
+      "note": "A panic from a zero value's String is recovered and reported as Go does, but Rust's panic hook still prints to stderr where Go's recover is silent."
+    },
+    "Set": {
+      "rust": "rust_stdlib::flag::set"
+    },
+    "String": {
+      "rust": "rust_stdlib::flag::string"
+    },
+    "StringVar": {
+      "rust": "rust_stdlib::flag::string_var"
+    },
+    "TextVar": {
+      "rust": "rust_stdlib::flag::text_var"
+    },
+    "Uint": {
+      "rust": "rust_stdlib::flag::uint"
+    },
+    "Uint64": {
+      "rust": "rust_stdlib::flag::uint64"
+    },
+    "Uint64Var": {
+      "rust": "rust_stdlib::flag::uint64_var"
+    },
+    "UintVar": {
+      "rust": "rust_stdlib::flag::uint_var"
+    },
+    "UnquoteUsage": {
+      "rust": "rust_stdlib::flag::unquote_usage"
+    },
+    "Usage": {
+      "rust": "rust_stdlib::flag::usage",
+      "note": "calls the global usage; replace it with flag::set_usage (callbacks receive &FlagSet)"
+    },
+    "Value": {
+      "rust": "rust_stdlib::flag::Value"
+    },
+    "Value.Set": {
+      "rust": "rust_stdlib::flag::Value::set"
+    },
+    "Value.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Var": {
+      "rust": "rust_stdlib::flag::var"
+    },
+    "Visit": {
+      "rust": "rust_stdlib::flag::visit"
+    },
+    "VisitAll": {
+      "rust": "rust_stdlib::flag::visit_all"
+    }
+  }
+}

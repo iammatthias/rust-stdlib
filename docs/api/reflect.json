@@ -1,0 +1,756 @@
+{
+  "package": "reflect",
+  "notes": "Rust has no run-time reflection, so reflect is opt-in: the Reflect trait (derived by rust-stdlib-derive, implemented here for the standard types) gives each Rust type a Go type descriptor and copies values in and out of a dynamic, aliasing store. Type is an interned handle (equal exactly when Go types are identical), with Go's type strings, struct tags, method sets, assignability, convertibility and amd64 layout. Value implements Go's addressability and CanSet rules, calls, Convert (Go's numeric wraparound and string rules), maps, slices, channels and select. Methods panic where Go's do (ValueError payloads). Values are copies: reflect::edit is the idiom for ValueOf(&x).Elem().Set(...). Option maps to a pointer; Box/Rc/Arc are transparent; tuples map to structs. Float to integer Convert is exact where Go defines it (in range); out-of-range and NaN results are implementation-defined in Go and follow Rust saturation here. Interop: fmt::Value and text/template::Value are built from reflect::Value (From impls); encoding/json keeps its typed Serialize path and has no conversion.",
+  "symbols": {
+    "Append": {
+      "rust": "rust_stdlib::reflect::append",
+      "note": "Capacity growth follows Go's growslice including malloc size-class rounding (64-bit sizes)."
+    },
+    "AppendSlice": {
+      "rust": "rust_stdlib::reflect::append_slice"
+    },
+    "Array": {
+      "rust": "rust_stdlib::reflect::Kind::Array"
+    },
+    "ArrayOf": {
+      "rust": "rust_stdlib::reflect::array_of"
+    },
+    "Bool": {
+      "rust": "rust_stdlib::reflect::Kind::Bool"
+    },
+    "BothDir": {
+      "rust": "rust_stdlib::reflect::ChanDir::Both"
+    },
+    "Chan": {
+      "rust": "rust_stdlib::reflect::Kind::Chan"
+    },
+    "ChanDir": {
+      "rust": "rust_stdlib::reflect::ChanDir"
+    },
+    "ChanDir.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "ChanOf": {
+      "rust": "rust_stdlib::reflect::chan_of"
+    },
+    "Complex128": {
+      "rust": "rust_stdlib::reflect::Kind::Complex128"
+    },
+    "Complex64": {
+      "rust": "rust_stdlib::reflect::Kind::Complex64"
+    },
+    "Copy": {
+      "rust": "rust_stdlib::reflect::copy"
+    },
+    "DeepEqual": {
+      "rust": "rust_stdlib::reflect::deep_equal",
+      "note": "Go takes or returns `any`; Rust is generic over types that implement Reflect, so a type that has not opted in cannot be passed."
+    },
+    "Float32": {
+      "rust": "rust_stdlib::reflect::Kind::Float32"
+    },
+    "Float64": {
+      "rust": "rust_stdlib::reflect::Kind::Float64"
+    },
+    "Func": {
+      "rust": "rust_stdlib::reflect::Kind::Func"
+    },
+    "FuncOf": {
+      "rust": "rust_stdlib::reflect::func_of"
+    },
+    "Indirect": {
+      "rust": "rust_stdlib::reflect::indirect"
+    },
+    "Int": {
+      "rust": "rust_stdlib::reflect::Kind::Int"
+    },
+    "Int16": {
+      "rust": "rust_stdlib::reflect::Kind::Int16"
+    },
+    "Int32": {
+      "rust": "rust_stdlib::reflect::Kind::Int32"
+    },
+    "Int64": {
+      "rust": "rust_stdlib::reflect::Kind::Int64"
+    },
+    "Int8": {
+      "rust": "rust_stdlib::reflect::Kind::Int8"
+    },
+    "Interface": {
+      "rust": "rust_stdlib::reflect::Kind::Interface"
+    },
+    "Invalid": {
+      "rust": "rust_stdlib::reflect::Kind::Invalid"
+    },
+    "Kind": {
+      "rust": "rust_stdlib::reflect::Kind"
+    },
+    "Kind.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "MakeChan": {
+      "rust": "rust_stdlib::reflect::make_chan"
+    },
+    "MakeFunc": {
+      "rust": "rust_stdlib::reflect::make_func",
+      "deviation": "no-native-closure",
+      "note": "The function Value can be called with Value::call (and iterated by Value::seq) but, being built from a Rust closure over Values, cannot be converted back to a typed Rust fn with Value::interface."
+    },
+    "MakeMap": {
+      "rust": "rust_stdlib::reflect::make_map"
+    },
+    "MakeMapWithSize": {
+      "rust": "rust_stdlib::reflect::make_map_with_size"
+    },
+    "MakeSlice": {
+      "rust": "rust_stdlib::reflect::make_slice"
+    },
+    "Map": {
+      "rust": "rust_stdlib::reflect::Kind::Map"
+    },
+    "MapIter": {
+      "rust": "rust_stdlib::reflect::MapIter"
+    },
+    "MapIter.Key": {
+      "rust": "rust_stdlib::reflect::MapIter::key"
+    },
+    "MapIter.Next": {
+      "rust": "rust_stdlib::reflect::MapIter::next"
+    },
+    "MapIter.Reset": {
+      "rust": "rust_stdlib::reflect::MapIter::reset"
+    },
+    "MapIter.Value": {
+      "rust": "rust_stdlib::reflect::MapIter::value"
+    },
+    "MapOf": {
+      "rust": "rust_stdlib::reflect::map_of"
+    },
+    "Method": {
+      "rust": "rust_stdlib::reflect::Method"
+    },
+    "Method.Func": {
+      "rust": "rust_stdlib::reflect::Method::func"
+    },
+    "Method.Index": {
+      "rust": "rust_stdlib::reflect::Method::index"
+    },
+    "Method.IsExported": {
+      "rust": "rust_stdlib::reflect::Method::is_exported"
+    },
+    "Method.Name": {
+      "rust": "rust_stdlib::reflect::Method::name"
+    },
+    "Method.PkgPath": {
+      "rust": "rust_stdlib::reflect::Method::pkg_path"
+    },
+    "Method.Type": {
+      "rust": "rust_stdlib::reflect::Method::type_"
+    },
+    "New": {
+      "rust": "rust_stdlib::reflect::new"
+    },
+    "NewAt": {
+      "rust": "rust_stdlib::reflect::value_at",
+      "deviation": "no-raw-memory",
+      "note": "The UnsafePointer must come from Value::unsafe_pointer of a pointer to a value of the same type; arbitrary addresses cannot be dereferenced."
+    },
+    "Pointer": {
+      "rust": "rust_stdlib::reflect::Kind::Pointer"
+    },
+    "PointerTo": {
+      "rust": "rust_stdlib::reflect::pointer_to"
+    },
+    "Ptr": {
+      "rust": "rust_stdlib::reflect::Kind::Ptr"
+    },
+    "PtrTo": {
+      "rust": "rust_stdlib::reflect::ptr_to"
+    },
+    "RecvDir": {
+      "rust": "rust_stdlib::reflect::ChanDir::Recv"
+    },
+    "Select": {
+      "rust": "rust_stdlib::reflect::select"
+    },
+    "SelectCase": {
+      "rust": "rust_stdlib::reflect::SelectCase"
+    },
+    "SelectCase.Chan": {
+      "rust": "rust_stdlib::reflect::SelectCase::chan"
+    },
+    "SelectCase.Dir": {
+      "rust": "rust_stdlib::reflect::SelectCase::dir"
+    },
+    "SelectCase.Send": {
+      "rust": "rust_stdlib::reflect::SelectCase::send"
+    },
+    "SelectDefault": {
+      "rust": "rust_stdlib::reflect::SelectDir::Default"
+    },
+    "SelectDir": {
+      "rust": "rust_stdlib::reflect::SelectDir"
+    },
+    "SelectRecv": {
+      "rust": "rust_stdlib::reflect::SelectDir::Recv"
+    },
+    "SelectSend": {
+      "rust": "rust_stdlib::reflect::SelectDir::Send"
+    },
+    "SendDir": {
+      "rust": "rust_stdlib::reflect::ChanDir::Send"
+    },
+    "Slice": {
+      "rust": "rust_stdlib::reflect::Kind::Slice"
+    },
+    "SliceAt": {
+      "rust": "rust_stdlib::reflect::slice_at",
+      "deviation": "no-raw-memory",
+      "note": "The UnsafePointer must come from Value::unsafe_pointer of a pointer to an element of a slice or array."
+    },
+    "SliceHeader": {
+      "rust": "rust_stdlib::reflect::SliceHeader",
+      "deviation": "go-runtime-header",
+      "note": "Go runtime memory header; Rust slices and strings have no such layout, so the type exists for source compatibility only."
+    },
+    "SliceHeader.Cap": {
+      "rust": "rust_stdlib::reflect::SliceHeader::cap",
+      "deviation": "go-runtime-header",
+      "note": "Go runtime memory header; Rust slices and strings have no such layout, so the type exists for source compatibility only."
+    },
+    "SliceHeader.Data": {
+      "rust": "rust_stdlib::reflect::SliceHeader::data",
+      "deviation": "go-runtime-header",
+      "note": "Go runtime memory header; Rust slices and strings have no such layout, so the type exists for source compatibility only."
+    },
+    "SliceHeader.Len": {
+      "rust": "rust_stdlib::reflect::SliceHeader::len",
+      "deviation": "go-runtime-header",
+      "note": "Go runtime memory header; Rust slices and strings have no such layout, so the type exists for source compatibility only."
+    },
+    "SliceOf": {
+      "rust": "rust_stdlib::reflect::slice_of"
+    },
+    "String": {
+      "rust": "rust_stdlib::reflect::Kind::String"
+    },
+    "StringHeader": {
+      "rust": "rust_stdlib::reflect::StringHeader",
+      "deviation": "go-runtime-header",
+      "note": "Go runtime memory header; Rust slices and strings have no such layout, so the type exists for source compatibility only."
+    },
+    "StringHeader.Data": {
+      "rust": "rust_stdlib::reflect::StringHeader::data",
+      "deviation": "go-runtime-header",
+      "note": "Go runtime memory header; Rust slices and strings have no such layout, so the type exists for source compatibility only."
+    },
+    "StringHeader.Len": {
+      "rust": "rust_stdlib::reflect::StringHeader::len",
+      "deviation": "go-runtime-header",
+      "note": "Go runtime memory header; Rust slices and strings have no such layout, so the type exists for source compatibility only."
+    },
+    "Struct": {
+      "rust": "rust_stdlib::reflect::Kind::Struct"
+    },
+    "StructField": {
+      "rust": "rust_stdlib::reflect::StructField"
+    },
+    "StructField.Anonymous": {
+      "rust": "rust_stdlib::reflect::StructField::anonymous"
+    },
+    "StructField.Index": {
+      "rust": "rust_stdlib::reflect::StructField::index"
+    },
+    "StructField.IsExported": {
+      "rust": "rust_stdlib::reflect::StructField::is_exported"
+    },
+    "StructField.Name": {
+      "rust": "rust_stdlib::reflect::StructField::name"
+    },
+    "StructField.Offset": {
+      "rust": "rust_stdlib::reflect::StructField::offset",
+      "note": "Go layout (see Type.Size)."
+    },
+    "StructField.PkgPath": {
+      "rust": "rust_stdlib::reflect::StructField::pkg_path"
+    },
+    "StructField.Tag": {
+      "rust": "rust_stdlib::reflect::StructField::tag"
+    },
+    "StructField.Type": {
+      "rust": "rust_stdlib::reflect::StructField::type_"
+    },
+    "StructOf": {
+      "rust": "rust_stdlib::reflect::struct_of"
+    },
+    "StructTag": {
+      "rust": "rust_stdlib::reflect::StructTag"
+    },
+    "StructTag.Get": {
+      "rust": "rust_stdlib::reflect::StructTag::get",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Tag values are Rust Strings; a value with escapes that decode to invalid UTF-8 (such as \\xff) is lossy."
+    },
+    "StructTag.Lookup": {
+      "rust": "rust_stdlib::reflect::StructTag::lookup",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Tag values are Rust Strings; a value with escapes that decode to invalid UTF-8 (such as \\xff) is lossy."
+    },
+    "Swapper": {
+      "rust": "rust_stdlib::reflect::swapper",
+      "note": "Takes a slice Value instead of `any`; the returned function swaps elements in the Value's storage."
+    },
+    "Type": {
+      "rust": "rust_stdlib::reflect::Type"
+    },
+    "Type.Align": {
+      "rust": "rust_stdlib::reflect::Type::align",
+      "note": "Go layout (see Type.Size)."
+    },
+    "Type.AssignableTo": {
+      "rust": "rust_stdlib::reflect::Type::assignable_to"
+    },
+    "Type.Bits": {
+      "rust": "rust_stdlib::reflect::Type::bits"
+    },
+    "Type.CanSeq": {
+      "rust": "rust_stdlib::reflect::Type::can_seq"
+    },
+    "Type.CanSeq2": {
+      "rust": "rust_stdlib::reflect::Type::can_seq2"
+    },
+    "Type.ChanDir": {
+      "rust": "rust_stdlib::reflect::Type::chan_dir"
+    },
+    "Type.Comparable": {
+      "rust": "rust_stdlib::reflect::Type::comparable"
+    },
+    "Type.ConvertibleTo": {
+      "rust": "rust_stdlib::reflect::Type::convertible_to"
+    },
+    "Type.Elem": {
+      "rust": "rust_stdlib::reflect::Type::elem"
+    },
+    "Type.Field": {
+      "rust": "rust_stdlib::reflect::Type::field"
+    },
+    "Type.FieldAlign": {
+      "rust": "rust_stdlib::reflect::Type::field_align",
+      "note": "Go layout (see Type.Size)."
+    },
+    "Type.FieldByIndex": {
+      "rust": "rust_stdlib::reflect::Type::field_by_index"
+    },
+    "Type.FieldByName": {
+      "rust": "rust_stdlib::reflect::Type::field_by_name"
+    },
+    "Type.FieldByNameFunc": {
+      "rust": "rust_stdlib::reflect::Type::field_by_name_func"
+    },
+    "Type.Fields": {
+      "rust": "rust_stdlib::reflect::Type::fields",
+      "note": "Returns an iter::Seq (a boxed Rust iterator)."
+    },
+    "Type.Implements": {
+      "rust": "rust_stdlib::reflect::Type::implements",
+      "deviation": "registered-method-sets",
+      "note": "Method sets come from #[reflect_methods] registrations and interface types from #[reflect_trait] or interface_of."
+    },
+    "Type.In": {
+      "rust": "rust_stdlib::reflect::Type::in_"
+    },
+    "Type.Ins": {
+      "rust": "rust_stdlib::reflect::Type::ins",
+      "note": "Returns an iter::Seq (a boxed Rust iterator)."
+    },
+    "Type.IsVariadic": {
+      "rust": "rust_stdlib::reflect::Type::is_variadic"
+    },
+    "Type.Key": {
+      "rust": "rust_stdlib::reflect::Type::key"
+    },
+    "Type.Kind": {
+      "rust": "rust_stdlib::reflect::Type::kind"
+    },
+    "Type.Len": {
+      "rust": "rust_stdlib::reflect::Type::len"
+    },
+    "Type.Method": {
+      "rust": "rust_stdlib::reflect::Type::method"
+    },
+    "Type.MethodByName": {
+      "rust": "rust_stdlib::reflect::Type::method_by_name"
+    },
+    "Type.Methods": {
+      "rust": "rust_stdlib::reflect::Type::methods",
+      "note": "Returns an iter::Seq (a boxed Rust iterator)."
+    },
+    "Type.Name": {
+      "rust": "rust_stdlib::reflect::Type::name"
+    },
+    "Type.NumField": {
+      "rust": "rust_stdlib::reflect::Type::num_field"
+    },
+    "Type.NumIn": {
+      "rust": "rust_stdlib::reflect::Type::num_in"
+    },
+    "Type.NumMethod": {
+      "rust": "rust_stdlib::reflect::Type::num_method"
+    },
+    "Type.NumOut": {
+      "rust": "rust_stdlib::reflect::Type::num_out"
+    },
+    "Type.Out": {
+      "rust": "rust_stdlib::reflect::Type::out"
+    },
+    "Type.Outs": {
+      "rust": "rust_stdlib::reflect::Type::outs",
+      "note": "Returns an iter::Seq (a boxed Rust iterator)."
+    },
+    "Type.OverflowComplex": {
+      "rust": "rust_stdlib::reflect::Type::overflow_complex"
+    },
+    "Type.OverflowFloat": {
+      "rust": "rust_stdlib::reflect::Type::overflow_float"
+    },
+    "Type.OverflowInt": {
+      "rust": "rust_stdlib::reflect::Type::overflow_int"
+    },
+    "Type.OverflowUint": {
+      "rust": "rust_stdlib::reflect::Type::overflow_uint"
+    },
+    "Type.PkgPath": {
+      "rust": "rust_stdlib::reflect::Type::pkg_path"
+    },
+    "Type.Size": {
+      "rust": "rust_stdlib::reflect::Type::size",
+      "note": "Go layout of the corresponding Go type (amd64/arm64), not Rust size_of."
+    },
+    "Type.String": {
+      "rust": "rust_stdlib::reflect::Type (impl Display)"
+    },
+    "TypeAssert": {
+      "rust": "rust_stdlib::reflect::type_assert",
+      "note": "Generic over Reflect types; returns None where Go returns the zero value and false."
+    },
+    "TypeFor": {
+      "rust": "rust_stdlib::reflect::type_for",
+      "note": "Go takes or returns `any`; Rust is generic over types that implement Reflect, so a type that has not opted in cannot be passed."
+    },
+    "TypeOf": {
+      "rust": "rust_stdlib::reflect::type_of",
+      "note": "Go takes or returns `any`; Rust is generic over types that implement Reflect, so a type that has not opted in cannot be passed."
+    },
+    "Uint": {
+      "rust": "rust_stdlib::reflect::Kind::Uint"
+    },
+    "Uint16": {
+      "rust": "rust_stdlib::reflect::Kind::Uint16"
+    },
+    "Uint32": {
+      "rust": "rust_stdlib::reflect::Kind::Uint32"
+    },
+    "Uint64": {
+      "rust": "rust_stdlib::reflect::Kind::Uint64"
+    },
+    "Uint8": {
+      "rust": "rust_stdlib::reflect::Kind::Uint8"
+    },
+    "Uintptr": {
+      "rust": "rust_stdlib::reflect::Kind::Uintptr"
+    },
+    "UnsafePointer": {
+      "rust": "rust_stdlib::reflect::Kind::UnsafePointer"
+    },
+    "Value": {
+      "rust": "rust_stdlib::reflect::Value"
+    },
+    "Value.Addr": {
+      "rust": "rust_stdlib::reflect::Value::addr"
+    },
+    "Value.Bool": {
+      "rust": "rust_stdlib::reflect::Value::bool"
+    },
+    "Value.Bytes": {
+      "rust": "rust_stdlib::reflect::Value::bytes",
+      "deviation": "rust-ownership",
+      "note": "Returns a copy of the bytes; Go returns a slice aliasing the Value's storage."
+    },
+    "Value.Call": {
+      "rust": "rust_stdlib::reflect::Value::call",
+      "note": "Methods and functions are registered by #[reflect_methods] or built with reflect::func / make_func."
+    },
+    "Value.CallSlice": {
+      "rust": "rust_stdlib::reflect::Value::call_slice"
+    },
+    "Value.CanAddr": {
+      "rust": "rust_stdlib::reflect::Value::can_addr"
+    },
+    "Value.CanComplex": {
+      "rust": "rust_stdlib::reflect::Value::can_complex"
+    },
+    "Value.CanConvert": {
+      "rust": "rust_stdlib::reflect::Value::can_convert"
+    },
+    "Value.CanFloat": {
+      "rust": "rust_stdlib::reflect::Value::can_float"
+    },
+    "Value.CanInt": {
+      "rust": "rust_stdlib::reflect::Value::can_int"
+    },
+    "Value.CanInterface": {
+      "rust": "rust_stdlib::reflect::Value::can_interface"
+    },
+    "Value.CanSet": {
+      "rust": "rust_stdlib::reflect::Value::can_set"
+    },
+    "Value.CanUint": {
+      "rust": "rust_stdlib::reflect::Value::can_uint"
+    },
+    "Value.Cap": {
+      "rust": "rust_stdlib::reflect::Value::cap"
+    },
+    "Value.Clear": {
+      "rust": "rust_stdlib::reflect::Value::clear"
+    },
+    "Value.Close": {
+      "rust": "rust_stdlib::reflect::Value::close"
+    },
+    "Value.Comparable": {
+      "rust": "rust_stdlib::reflect::Value::comparable"
+    },
+    "Value.Complex": {
+      "rust": "rust_stdlib::reflect::Value::complex"
+    },
+    "Value.Convert": {
+      "rust": "rust_stdlib::reflect::Value::convert",
+      "deviation": "rust-ownership+platform-float",
+      "note": "Converting a slice to a pointer to an array copies the elements; Go aliases the slice's backing array. Float to integer conversion saturates (Rust `as`) where Go's result for out-of-range and NaN values is implementation-defined and platform-specific."
+    },
+    "Value.Elem": {
+      "rust": "rust_stdlib::reflect::Value::elem"
+    },
+    "Value.Equal": {
+      "rust": "rust_stdlib::reflect::Value::equal"
+    },
+    "Value.Field": {
+      "rust": "rust_stdlib::reflect::Value::field"
+    },
+    "Value.FieldByIndex": {
+      "rust": "rust_stdlib::reflect::Value::field_by_index"
+    },
+    "Value.FieldByIndexErr": {
+      "rust": "rust_stdlib::reflect::Value::field_by_index_err"
+    },
+    "Value.FieldByName": {
+      "rust": "rust_stdlib::reflect::Value::field_by_name"
+    },
+    "Value.FieldByNameFunc": {
+      "rust": "rust_stdlib::reflect::Value::field_by_name_func"
+    },
+    "Value.Fields": {
+      "rust": "rust_stdlib::reflect::Value::fields",
+      "note": "Returns an iter::Seq of (StructField, Value) pairs."
+    },
+    "Value.Float": {
+      "rust": "rust_stdlib::reflect::Value::float"
+    },
+    "Value.Grow": {
+      "rust": "rust_stdlib::reflect::Value::grow",
+      "note": "Capacity growth follows Go's growslice including malloc size-class rounding (64-bit sizes)."
+    },
+    "Value.Index": {
+      "rust": "rust_stdlib::reflect::Value::index"
+    },
+    "Value.Int": {
+      "rust": "rust_stdlib::reflect::Value::int"
+    },
+    "Value.Interface": {
+      "rust": "rust_stdlib::reflect::Value::interface",
+      "note": "Returns the value as a Rust type chosen by the caller (generic over Reflect); Go returns `any`."
+    },
+    "Value.InterfaceData": {
+      "rust": "rust_stdlib::reflect::Value::interface_data",
+      "deviation": "no-raw-memory",
+      "note": "Deprecated; returns the identities of the dynamic type and data, not machine words."
+    },
+    "Value.IsNil": {
+      "rust": "rust_stdlib::reflect::Value::is_nil"
+    },
+    "Value.IsValid": {
+      "rust": "rust_stdlib::reflect::Value::is_valid"
+    },
+    "Value.IsZero": {
+      "rust": "rust_stdlib::reflect::Value::is_zero"
+    },
+    "Value.Kind": {
+      "rust": "rust_stdlib::reflect::Value::kind"
+    },
+    "Value.Len": {
+      "rust": "rust_stdlib::reflect::Value::len"
+    },
+    "Value.MapIndex": {
+      "rust": "rust_stdlib::reflect::Value::map_index"
+    },
+    "Value.MapKeys": {
+      "rust": "rust_stdlib::reflect::Value::map_keys",
+      "note": "Keys come in insertion order; Go's order is unspecified."
+    },
+    "Value.MapRange": {
+      "rust": "rust_stdlib::reflect::Value::map_range"
+    },
+    "Value.Method": {
+      "rust": "rust_stdlib::reflect::Value::method"
+    },
+    "Value.MethodByName": {
+      "rust": "rust_stdlib::reflect::Value::method_by_name"
+    },
+    "Value.Methods": {
+      "rust": "rust_stdlib::reflect::Value::methods",
+      "note": "Returns an iter::Seq of (Method, Value) pairs."
+    },
+    "Value.NumField": {
+      "rust": "rust_stdlib::reflect::Value::num_field"
+    },
+    "Value.NumMethod": {
+      "rust": "rust_stdlib::reflect::Value::num_method"
+    },
+    "Value.OverflowComplex": {
+      "rust": "rust_stdlib::reflect::Value::overflow_complex"
+    },
+    "Value.OverflowFloat": {
+      "rust": "rust_stdlib::reflect::Value::overflow_float"
+    },
+    "Value.OverflowInt": {
+      "rust": "rust_stdlib::reflect::Value::overflow_int"
+    },
+    "Value.OverflowUint": {
+      "rust": "rust_stdlib::reflect::Value::overflow_uint"
+    },
+    "Value.Pointer": {
+      "rust": "rust_stdlib::reflect::Value::pointer",
+      "deviation": "no-raw-memory",
+      "note": "Returns an identity number (equal for aliasing values), not a machine address."
+    },
+    "Value.Recv": {
+      "rust": "rust_stdlib::reflect::Value::recv"
+    },
+    "Value.Send": {
+      "rust": "rust_stdlib::reflect::Value::send"
+    },
+    "Value.Seq": {
+      "rust": "rust_stdlib::reflect::Value::seq",
+      "deviation": "thread-not-goroutine",
+      "note": "Function-valued ranges run the iterator function on a helper thread so stopping early stops it, like Go's range-over-func."
+    },
+    "Value.Seq2": {
+      "rust": "rust_stdlib::reflect::Value::seq2",
+      "deviation": "thread-not-goroutine",
+      "note": "Function-valued ranges run the iterator function on a helper thread so stopping early stops it, like Go's range-over-func."
+    },
+    "Value.Set": {
+      "rust": "rust_stdlib::reflect::Value::set",
+      "deviation": "reflect-copy",
+      "note": "The Value is a copy of the Rust data; use reflect::edit to copy results back into a Rust variable."
+    },
+    "Value.SetBool": {
+      "rust": "rust_stdlib::reflect::Value::set_bool"
+    },
+    "Value.SetBytes": {
+      "rust": "rust_stdlib::reflect::Value::set_bytes"
+    },
+    "Value.SetCap": {
+      "rust": "rust_stdlib::reflect::Value::set_cap"
+    },
+    "Value.SetComplex": {
+      "rust": "rust_stdlib::reflect::Value::set_complex"
+    },
+    "Value.SetFloat": {
+      "rust": "rust_stdlib::reflect::Value::set_float"
+    },
+    "Value.SetInt": {
+      "rust": "rust_stdlib::reflect::Value::set_int"
+    },
+    "Value.SetIterKey": {
+      "rust": "rust_stdlib::reflect::Value::set_iter_key"
+    },
+    "Value.SetIterValue": {
+      "rust": "rust_stdlib::reflect::Value::set_iter_value"
+    },
+    "Value.SetLen": {
+      "rust": "rust_stdlib::reflect::Value::set_len"
+    },
+    "Value.SetMapIndex": {
+      "rust": "rust_stdlib::reflect::Value::set_map_index"
+    },
+    "Value.SetPointer": {
+      "rust": "rust_stdlib::reflect::Value::set_pointer",
+      "deviation": "no-raw-memory",
+      "note": "Takes an UnsafePointer handle."
+    },
+    "Value.SetString": {
+      "rust": "rust_stdlib::reflect::Value::set_string"
+    },
+    "Value.SetUint": {
+      "rust": "rust_stdlib::reflect::Value::set_uint"
+    },
+    "Value.SetZero": {
+      "rust": "rust_stdlib::reflect::Value::set_zero"
+    },
+    "Value.Slice": {
+      "rust": "rust_stdlib::reflect::Value::slice"
+    },
+    "Value.Slice3": {
+      "rust": "rust_stdlib::reflect::Value::slice3"
+    },
+    "Value.String": {
+      "rust": "rust_stdlib::reflect::Value::text",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Go strings are bytes and may be invalid UTF-8; the Rust String is lossy for such data (invalid bytes become U+FFFD). Value::string_bytes returns the exact bytes. Non-string kinds give <T Value> as in Go."
+    },
+    "Value.TryRecv": {
+      "rust": "rust_stdlib::reflect::Value::try_recv"
+    },
+    "Value.TrySend": {
+      "rust": "rust_stdlib::reflect::Value::try_send"
+    },
+    "Value.Type": {
+      "rust": "rust_stdlib::reflect::Value::type_"
+    },
+    "Value.Uint": {
+      "rust": "rust_stdlib::reflect::Value::uint"
+    },
+    "Value.UnsafeAddr": {
+      "rust": "rust_stdlib::reflect::Value::unsafe_addr",
+      "deviation": "no-raw-memory",
+      "note": "Returns an identity number, not a machine address."
+    },
+    "Value.UnsafePointer": {
+      "rust": "rust_stdlib::reflect::Value::unsafe_pointer",
+      "deviation": "no-raw-memory",
+      "note": "Returns an opaque UnsafePointer handle that can be compared and passed to new_at/slice_at."
+    },
+    "ValueError": {
+      "rust": "rust_stdlib::reflect::ValueError"
+    },
+    "ValueError.Error": {
+      "rust": "rust_stdlib::reflect::ValueError::error"
+    },
+    "ValueError.Kind": {
+      "rust": "rust_stdlib::reflect::ValueError::kind"
+    },
+    "ValueError.Method": {
+      "rust": "rust_stdlib::reflect::ValueError::method"
+    },
+    "ValueOf": {
+      "rust": "rust_stdlib::reflect::value_of",
+      "note": "Go takes or returns `any`; Rust is generic over types that implement Reflect, so a type that has not opted in cannot be passed."
+    },
+    "VisibleFields": {
+      "rust": "rust_stdlib::reflect::visible_fields"
+    },
+    "Zero": {
+      "rust": "rust_stdlib::reflect::zero"
+    }
+  }
+}

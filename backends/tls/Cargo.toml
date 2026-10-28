@@ -1,0 +1,15 @@
+[package]
+name = "rust-stdlib-tls"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.87"
+publish = false
+description = "Reviewed, explicit Rustls transport adapter for rust-stdlib"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+rust-stdlib = { path = "../.." }
+rustls = { version = "=0.23.46", default-features = false, features = ["std", "ring", "tls12"] }
+
+[lints.rust]
+unsafe_code = "forbid"

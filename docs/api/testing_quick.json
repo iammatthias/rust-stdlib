@@ -1,0 +1,83 @@
+{
+  "package": "testing/quick",
+  "notes": "Generator is a static trait (Rust has no zero value to call a method on); built-in impls follow quick.go's sizedValue draw for draw over math/rand (v1), so a seed gives Go's values (checked by tools/testing_check.py). The default count honours -quickchecks; Config.Rand is consumed by a check and restored afterwards.",
+  "symbols": {
+    "Check": {
+      "rust": "rust_stdlib::testing::quick::check",
+      "deviation": "reflection",
+      "note": "Go builds arguments for any function by reflection. Here the function is a closure with up to eight Generator arguments (Property/Function traits) and a failure reports Debug renderings instead of %#v. Generation, MaxCount handling, the Config.Rand sequence and the verdicts match Go."
+    },
+    "CheckEqual": {
+      "rust": "rust_stdlib::testing::quick::check_equal",
+      "deviation": "reflection",
+      "note": "Go builds arguments for any function by reflection. Here the function is a closure with up to eight Generator arguments (Property/Function traits) and a failure reports Debug renderings instead of %#v. Generation, MaxCount handling, the Config.Rand sequence and the verdicts match Go."
+    },
+    "CheckEqualError": {
+      "rust": "rust_stdlib::testing::quick::CheckEqualError"
+    },
+    "CheckEqualError.CheckError": {
+      "rust": "rust_stdlib::testing::quick::CheckEqualError::check_error"
+    },
+    "CheckEqualError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "CheckEqualError.Out1": {
+      "rust": "rust_stdlib::testing::quick::CheckEqualError::out1",
+      "deviation": "reflection",
+      "note": "Debug renderings of the results instead of []any."
+    },
+    "CheckEqualError.Out2": {
+      "rust": "rust_stdlib::testing::quick::CheckEqualError::out2",
+      "deviation": "reflection",
+      "note": "Debug renderings of the results instead of []any."
+    },
+    "CheckError": {
+      "rust": "rust_stdlib::testing::quick::CheckError"
+    },
+    "CheckError.Count": {
+      "rust": "rust_stdlib::testing::quick::CheckError::count"
+    },
+    "CheckError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "CheckError.In": {
+      "rust": "rust_stdlib::testing::quick::CheckError::in_",
+      "deviation": "reflection",
+      "note": "Debug renderings of the arguments (Vec<String>) instead of []any."
+    },
+    "Config": {
+      "rust": "rust_stdlib::testing::quick::Config"
+    },
+    "Config.MaxCount": {
+      "rust": "rust_stdlib::testing::quick::Config::max_count"
+    },
+    "Config.MaxCountScale": {
+      "rust": "rust_stdlib::testing::quick::Config::max_count_scale"
+    },
+    "Config.Rand": {
+      "rust": "rust_stdlib::testing::quick::Config::rand"
+    },
+    "Config.Values": {
+      "rust": "rust_stdlib::testing::quick::Config::values",
+      "deviation": "reflection",
+      "note": "Returns the arguments tuple as Box<dyn Any> (downcast to the property's argument type) instead of filling a []reflect.Value."
+    },
+    "Generator": {
+      "rust": "rust_stdlib::testing::quick::Generator"
+    },
+    "Generator.Generate": {
+      "rust": "rust_stdlib::testing::quick::Generator::generate"
+    },
+    "SetupError": {
+      "rust": "rust_stdlib::testing::quick::SetupError"
+    },
+    "SetupError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Value": {
+      "rust": "rust_stdlib::testing::quick::value",
+      "deviation": "reflection",
+      "note": "Takes the type as a type parameter (T: Generator) instead of a reflect.Type and cannot fail; the algorithm and size handling are Go's, so a seed yields Go's values for primitives, strings, slices, arrays, maps and options."
+    }
+  }
+}

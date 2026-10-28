@@ -1,0 +1,346 @@
+{
+  "package": "database/sql/driver",
+  "notes": "database/sql/driver: every interface is a trait; optional interfaces are as_* accessors on Conn, Stmt and Rows; Value is an enum, Arg is Go's any; ValueConverters, IsValue, RowsAffected, ResultNoRows ported from types.go and driver.go; Go's unexported decimalDecompose and decimalCompose are the Decompose and Compose traits over the Decimal parts, which drivers receive as Value::Decimal, and a uuid.UUID argument converts to its string",
+  "symbols": {
+    "Bool": {
+      "rust": "rust_stdlib::database::sql::driver::BOOL",
+      "note": "the BoolType unit value. A conversion error names a decimal argument driver.Decimal and a String conversion formats it with Decimal's General Decimal Arithmetic text, where Go uses the application type's %T and %v; Rust keeps only the decomposed parts.",
+      "deviation": "type-name-text"
+    },
+    "ColumnConverter": {
+      "rust": "rust_stdlib::database::sql::driver::ColumnConverter"
+    },
+    "ColumnConverter.ColumnConverter": {
+      "rust": "rust_stdlib::database::sql::driver::ColumnConverter::column_converter"
+    },
+    "Conn": {
+      "rust": "rust_stdlib::database::sql::driver::Conn",
+      "note": "optional interfaces are the as_* accessors; as_any replaces the assertion in Conn.Raw callers"
+    },
+    "Conn.Begin": {
+      "rust": "rust_stdlib::database::sql::driver::Conn::begin"
+    },
+    "Conn.Close": {
+      "rust": "rust_stdlib::database::sql::driver::Conn::close"
+    },
+    "Conn.Prepare": {
+      "rust": "rust_stdlib::database::sql::driver::Conn::prepare"
+    },
+    "ConnBeginTx": {
+      "rust": "rust_stdlib::database::sql::driver::ConnBeginTx"
+    },
+    "ConnBeginTx.BeginTx": {
+      "rust": "rust_stdlib::database::sql::driver::ConnBeginTx::begin_tx"
+    },
+    "ConnPrepareContext": {
+      "rust": "rust_stdlib::database::sql::driver::ConnPrepareContext"
+    },
+    "ConnPrepareContext.PrepareContext": {
+      "rust": "rust_stdlib::database::sql::driver::ConnPrepareContext::prepare_context"
+    },
+    "Connector": {
+      "rust": "rust_stdlib::database::sql::driver::Connector",
+      "note": "driver returns Arc<dyn Driver>; close replaces the optional io.Closer"
+    },
+    "Connector.Connect": {
+      "rust": "rust_stdlib::database::sql::driver::Connector::connect"
+    },
+    "Connector.Driver": {
+      "rust": "rust_stdlib::database::sql::driver::Connector::driver"
+    },
+    "DefaultParameterConverter": {
+      "rust": "rust_stdlib::database::sql::driver::DEFAULT_PARAMETER_CONVERTER",
+      "note": "the DefaultConverter unit value; a decimal passes through as Value::Decimal and a uuid.UUID becomes its string, as in types.go"
+    },
+    "Driver": {
+      "rust": "rust_stdlib::database::sql::driver::Driver",
+      "note": "as_driver_context replaces the DriverContext assertion"
+    },
+    "Driver.Open": {
+      "rust": "rust_stdlib::database::sql::driver::Driver::open"
+    },
+    "DriverContext": {
+      "rust": "rust_stdlib::database::sql::driver::DriverContext"
+    },
+    "DriverContext.OpenConnector": {
+      "rust": "rust_stdlib::database::sql::driver::DriverContext::open_connector"
+    },
+    "ErrBadConn": {
+      "rust": "rust_stdlib::database::sql::driver::ERR_BAD_CONN",
+      "note": "a sentinel Error compared by Error::is, like errors.Is"
+    },
+    "ErrRemoveArgument": {
+      "rust": "rust_stdlib::database::sql::driver::ERR_REMOVE_ARGUMENT",
+      "note": "a sentinel Error compared by equality"
+    },
+    "ErrSkip": {
+      "rust": "rust_stdlib::database::sql::driver::ERR_SKIP",
+      "note": "a sentinel Error compared by equality"
+    },
+    "Execer": {
+      "rust": "rust_stdlib::database::sql::driver::Execer"
+    },
+    "Execer.Exec": {
+      "rust": "rust_stdlib::database::sql::driver::Execer::exec"
+    },
+    "ExecerContext": {
+      "rust": "rust_stdlib::database::sql::driver::ExecerContext"
+    },
+    "ExecerContext.ExecContext": {
+      "rust": "rust_stdlib::database::sql::driver::ExecerContext::exec_context"
+    },
+    "Int32": {
+      "rust": "rust_stdlib::database::sql::driver::INT32",
+      "note": "the Int32Type unit value. A conversion error names a decimal argument driver.Decimal and a String conversion formats it with Decimal's General Decimal Arithmetic text, where Go uses the application type's %T and %v; Rust keeps only the decomposed parts.",
+      "deviation": "type-name-text"
+    },
+    "IsScanValue": {
+      "rust": "rust_stdlib::database::sql::driver::is_scan_value",
+      "note": "takes &Arg, Go's any"
+    },
+    "IsValue": {
+      "rust": "rust_stdlib::database::sql::driver::is_value",
+      "note": "takes &Arg, Go's any"
+    },
+    "IsolationLevel": {
+      "rust": "rust_stdlib::database::sql::driver::IsolationLevel",
+      "note": "newtype over i64"
+    },
+    "NamedValue": {
+      "rust": "rust_stdlib::database::sql::driver::NamedValue"
+    },
+    "NamedValue.Name": {
+      "rust": "rust_stdlib::database::sql::driver::NamedValue::name"
+    },
+    "NamedValue.Ordinal": {
+      "rust": "rust_stdlib::database::sql::driver::NamedValue::ordinal"
+    },
+    "NamedValue.Value": {
+      "rust": "rust_stdlib::database::sql::driver::NamedValue::value",
+      "note": "Value; the raw argument reaches a NamedValueChecker as its second parameter"
+    },
+    "NamedValueChecker": {
+      "rust": "rust_stdlib::database::sql::driver::NamedValueChecker",
+      "note": "check_named_value(nv, arg): Go passes the raw argument in nv.Value, which a Value cannot hold"
+    },
+    "NamedValueChecker.CheckNamedValue": {
+      "rust": "rust_stdlib::database::sql::driver::NamedValueChecker::check_named_value",
+      "note": "the raw argument is the second parameter"
+    },
+    "NotNull": {
+      "rust": "rust_stdlib::database::sql::driver::NotNull"
+    },
+    "NotNull.ConvertValue": {
+      "rust": "rust_stdlib::database::sql::driver::ValueConverter::convert_value",
+      "note": "NotNull implements ValueConverter"
+    },
+    "NotNull.Converter": {
+      "rust": "rust_stdlib::database::sql::driver::NotNull::converter"
+    },
+    "Null": {
+      "rust": "rust_stdlib::database::sql::driver::Null"
+    },
+    "Null.ConvertValue": {
+      "rust": "rust_stdlib::database::sql::driver::ValueConverter::convert_value",
+      "note": "Null implements ValueConverter"
+    },
+    "Null.Converter": {
+      "rust": "rust_stdlib::database::sql::driver::Null::converter"
+    },
+    "Pinger": {
+      "rust": "rust_stdlib::database::sql::driver::Pinger"
+    },
+    "Pinger.Ping": {
+      "rust": "rust_stdlib::database::sql::driver::Pinger::ping"
+    },
+    "Queryer": {
+      "rust": "rust_stdlib::database::sql::driver::Queryer"
+    },
+    "Queryer.Query": {
+      "rust": "rust_stdlib::database::sql::driver::Queryer::query"
+    },
+    "QueryerContext": {
+      "rust": "rust_stdlib::database::sql::driver::QueryerContext"
+    },
+    "QueryerContext.QueryContext": {
+      "rust": "rust_stdlib::database::sql::driver::QueryerContext::query_context"
+    },
+    "Result": {
+      "rust": "rust_stdlib::database::sql::driver::Result"
+    },
+    "Result.LastInsertId": {
+      "rust": "rust_stdlib::database::sql::driver::Result::last_insert_id"
+    },
+    "Result.RowsAffected": {
+      "rust": "rust_stdlib::database::sql::driver::Result::rows_affected"
+    },
+    "ResultNoRows": {
+      "rust": "rust_stdlib::database::sql::driver::RESULT_NO_ROWS",
+      "note": "the NoRows unit value"
+    },
+    "Rows": {
+      "rust": "rust_stdlib::database::sql::driver::Rows",
+      "note": "optional interfaces are the as_* accessors"
+    },
+    "Rows.Close": {
+      "rust": "rust_stdlib::database::sql::driver::Rows::close"
+    },
+    "Rows.Columns": {
+      "rust": "rust_stdlib::database::sql::driver::Rows::columns"
+    },
+    "Rows.Next": {
+      "rust": "rust_stdlib::database::sql::driver::Rows::next"
+    },
+    "RowsAffected": {
+      "rust": "rust_stdlib::database::sql::driver::RowsAffected"
+    },
+    "RowsAffected.LastInsertId": {
+      "rust": "rust_stdlib::database::sql::driver::Result::last_insert_id",
+      "note": "RowsAffected implements driver::Result"
+    },
+    "RowsAffected.RowsAffected": {
+      "rust": "rust_stdlib::database::sql::driver::Result::rows_affected",
+      "note": "RowsAffected implements driver::Result"
+    },
+    "RowsColumnScanner": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnScanner"
+    },
+    "RowsColumnScanner.NextRow": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnScanner::next_row"
+    },
+    "RowsColumnScanner.ScanColumn": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnScanner::scan_column",
+      "note": "dest is &mut dyn sql::Scanner"
+    },
+    "RowsColumnTypeDatabaseTypeName": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypeDatabaseTypeName"
+    },
+    "RowsColumnTypeDatabaseTypeName.ColumnTypeDatabaseTypeName": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypeDatabaseTypeName::column_type_database_type_name"
+    },
+    "RowsColumnTypeLength": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypeLength"
+    },
+    "RowsColumnTypeLength.ColumnTypeLength": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypeLength::column_type_length",
+      "note": "(length, ok) is Option<i64>"
+    },
+    "RowsColumnTypeNullable": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypeNullable"
+    },
+    "RowsColumnTypeNullable.ColumnTypeNullable": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypeNullable::column_type_nullable",
+      "note": "(nullable, ok) is Option<bool>"
+    },
+    "RowsColumnTypePrecisionScale": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypePrecisionScale"
+    },
+    "RowsColumnTypePrecisionScale.ColumnTypePrecisionScale": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypePrecisionScale::column_type_precision_scale",
+      "note": "(precision, scale, ok) is Option<(i64, i64)>"
+    },
+    "RowsColumnTypeScanType": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypeScanType"
+    },
+    "RowsColumnTypeScanType.ColumnTypeScanType": {
+      "rust": "rust_stdlib::database::sql::driver::RowsColumnTypeScanType::column_type_scan_type",
+      "note": "returns ScanType, a name for the Go reflect.Type"
+    },
+    "RowsNextResultSet": {
+      "rust": "rust_stdlib::database::sql::driver::RowsNextResultSet"
+    },
+    "RowsNextResultSet.HasNextResultSet": {
+      "rust": "rust_stdlib::database::sql::driver::RowsNextResultSet::has_next_result_set"
+    },
+    "RowsNextResultSet.NextResultSet": {
+      "rust": "rust_stdlib::database::sql::driver::RowsNextResultSet::next_result_set"
+    },
+    "ScanContext": {
+      "rust": "rust_stdlib::database::sql::driver::ScanContext",
+      "note": "opaque; only passed through to sql::convert_assign"
+    },
+    "SessionResetter": {
+      "rust": "rust_stdlib::database::sql::driver::SessionResetter"
+    },
+    "SessionResetter.ResetSession": {
+      "rust": "rust_stdlib::database::sql::driver::SessionResetter::reset_session"
+    },
+    "Stmt": {
+      "rust": "rust_stdlib::database::sql::driver::Stmt",
+      "note": "optional interfaces are the as_* accessors"
+    },
+    "Stmt.Close": {
+      "rust": "rust_stdlib::database::sql::driver::Stmt::close"
+    },
+    "Stmt.Exec": {
+      "rust": "rust_stdlib::database::sql::driver::Stmt::exec"
+    },
+    "Stmt.NumInput": {
+      "rust": "rust_stdlib::database::sql::driver::Stmt::num_input",
+      "note": "takes &mut self; -1 means unknown"
+    },
+    "Stmt.Query": {
+      "rust": "rust_stdlib::database::sql::driver::Stmt::query"
+    },
+    "StmtExecContext": {
+      "rust": "rust_stdlib::database::sql::driver::StmtExecContext"
+    },
+    "StmtExecContext.ExecContext": {
+      "rust": "rust_stdlib::database::sql::driver::StmtExecContext::exec_context"
+    },
+    "StmtQueryContext": {
+      "rust": "rust_stdlib::database::sql::driver::StmtQueryContext"
+    },
+    "StmtQueryContext.QueryContext": {
+      "rust": "rust_stdlib::database::sql::driver::StmtQueryContext::query_context"
+    },
+    "String": {
+      "rust": "rust_stdlib::database::sql::driver::STRING",
+      "note": "the StringType unit value. A conversion error names a decimal argument driver.Decimal and a String conversion formats it with Decimal's General Decimal Arithmetic text, where Go uses the application type's %T and %v; Rust keeps only the decomposed parts.",
+      "deviation": "type-name-text"
+    },
+    "Tx": {
+      "rust": "rust_stdlib::database::sql::driver::Tx"
+    },
+    "Tx.Commit": {
+      "rust": "rust_stdlib::database::sql::driver::Tx::commit"
+    },
+    "Tx.Rollback": {
+      "rust": "rust_stdlib::database::sql::driver::Tx::rollback"
+    },
+    "TxOptions": {
+      "rust": "rust_stdlib::database::sql::driver::TxOptions"
+    },
+    "TxOptions.Isolation": {
+      "rust": "rust_stdlib::database::sql::driver::TxOptions::isolation"
+    },
+    "TxOptions.ReadOnly": {
+      "rust": "rust_stdlib::database::sql::driver::TxOptions::read_only"
+    },
+    "Validator": {
+      "rust": "rust_stdlib::database::sql::driver::Validator"
+    },
+    "Validator.IsValid": {
+      "rust": "rust_stdlib::database::sql::driver::Validator::is_valid"
+    },
+    "Value": {
+      "rust": "rust_stdlib::database::sql::driver::Value",
+      "note": "enum of the seven driver value types; Go's any"
+    },
+    "ValueConverter": {
+      "rust": "rust_stdlib::database::sql::driver::ValueConverter",
+      "note": "convert_value takes &driver::Arg (Go's any) and returns a Value"
+    },
+    "ValueConverter.ConvertValue": {
+      "rust": "rust_stdlib::database::sql::driver::ValueConverter::convert_value",
+      "note": "argument is Arg, Go's any"
+    },
+    "Valuer": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer",
+      "note": "value returns a Value; wrap a Valuer in an Arg with Arg::valuer"
+    },
+    "Valuer.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value"
+    }
+  }
+}

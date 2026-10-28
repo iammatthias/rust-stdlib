@@ -1,0 +1,31 @@
+{
+  "package": "container/heap",
+  "notes": "container/heap: collections::heap::Heap keeps Go's sift algorithms, so the backing array order matches Go after any operation sequence; BinaryHeap is a max-heap with different sift order and has no remove or fix",
+  "symbols": {
+    "Fix": {
+      "rust": "rust_stdlib::collections::heap::Heap::update",
+      "note": "mutates through a closure, then restores the order"
+    },
+    "Init": {
+      "rust": "rust_stdlib::collections::heap::Heap::from_vec"
+    },
+    "Pop": {
+      "rust": "rust_stdlib::collections::heap::Heap::pop"
+    },
+    "Push": {
+      "rust": "rust_stdlib::collections::heap::Heap::push"
+    },
+    "Remove": {
+      "rust": "rust_stdlib::collections::heap::Heap::remove"
+    },
+    "Interface": {
+      "rust": "rust_stdlib::collections::heap::Heap"
+    },
+    "Interface.Push": {
+      "rust": "rust_stdlib::collections::heap::Heap::push"
+    },
+    "Interface.Pop": {
+      "rust": "rust_stdlib::collections::heap::Heap::pop"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "package": "uuid",
+  "notes": "rust_stdlib::uuid: RFC 9562 UUIDs as a [u8; 16] newtype with Go's parsing rules (the four accepted forms, error text 'invalid uuid'), lowercase formatting, Compare and the NewV7 monotonic clock state (a process-wide mutex, as Go). Random bits come from /dev/urandom on Unix, the operating-system source that rust_stdlib::math::rand's seeding reads; the root crate has no dependencies, so platforms other than Unix have no std-only source and New, NewV4 and NewV7 panic there with Go's crypto/rand failure text (never a weaker source). tests/uuid.rs ports uuid_test.go (the synctest clock checks use the wall clock with a one-millisecond tolerance); tools/uuid_check.py compares 10,640 parse, format, compare and MustParse vectors with Go and checks 6,000 NewV4/NewV7 values by property on both sides.",
+  "symbols": {
+    "Max": {
+      "rust": "rust_stdlib::uuid::max"
+    },
+    "MustParse": {
+      "rust": "rust_stdlib::uuid::must_parse",
+      "note": "Panics with the ParseError text, like Go's panic(err)."
+    },
+    "New": {
+      "rust": "rust_stdlib::uuid::new",
+      "note": "Equivalent to new_v4."
+    },
+    "NewV4": {
+      "rust": "rust_stdlib::uuid::new_v4",
+      "note": "Reads 16 bytes from the operating system (/dev/urandom); a failed read panics, as Go's crypto/rand crashes the program. On non-Unix targets there is no OS randomness source yet, so it panics where Go succeeds (outside the linux/amd64 API surface)."
+    },
+    "NewV7": {
+      "rust": "rust_stdlib::uuid::new_v7",
+      "note": "Same timestamp, sub-millisecond and monotonic rules as Go; the 8 random bytes come from /dev/urandom and a failed read panics, as Go's crypto/rand crashes the program. On non-Unix targets there is no OS randomness source yet, so it panics where Go succeeds (outside the linux/amd64 API surface)."
+    },
+    "Nil": {
+      "rust": "rust_stdlib::uuid::nil"
+    },
+    "Parse": {
+      "rust": "rust_stdlib::uuid::parse",
+      "note": "Returns Result<UUID, ParseError>; ParseError displays Go's 'invalid uuid'."
+    },
+    "UUID": {
+      "rust": "rust_stdlib::uuid::UUID",
+      "note": "A tuple struct over [u8; 16] (the field is public); it derives Ord, which is the RFC 9562 big-endian order."
+    },
+    "UUID.AppendText": {
+      "rust": "rust_stdlib::uuid::UUID::append_text",
+      "note": "Appends to a Vec<u8>. Go's error result is always nil and is omitted."
+    },
+    "UUID.Compare": {
+      "rust": "rust_stdlib::uuid::UUID::compare",
+      "note": "Returns -1, 0 or +1 as an isize, as Go's int does."
+    },
+    "UUID.MarshalText": {
+      "rust": "rust_stdlib::uuid::UUID::marshal_text",
+      "note": "Returns the text as Vec<u8>. Go's error result is always nil and is omitted."
+    },
+    "UUID.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "UUID implements Display with the lowercase hyphenated form."
+    },
+    "UUID.UnmarshalText": {
+      "rust": "rust_stdlib::uuid::UUID::unmarshal_text",
+      "note": "Returns Result<(), ParseError>; on error the UUID is unchanged, as in Go."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "package": "io/ioutil",
+  "notes": "Deprecated package: every function is std (std::fs, std::io) or its os replacement (os::create_temp, os::mkdir_temp).",
+  "symbols": {
+    "Discard": {
+      "rust": "std::io::sink"
+    },
+    "NopCloser": {
+      "rust": "std::io::Read",
+      "note": "A reader needs no Close in Rust: use it as is."
+    },
+    "ReadAll": {
+      "rust": "std::io::Read::read_to_end"
+    },
+    "ReadDir": {
+      "rust": "rust_stdlib::os::read_dir_info",
+      "note": "FileInfo entries sorted by filename, as Go (std::fs::read_dir is unsorted)."
+    },
+    "ReadFile": {
+      "rust": "std::fs::read"
+    },
+    "TempDir": {
+      "rust": "rust_stdlib::os::mkdir_temp"
+    },
+    "TempFile": {
+      "rust": "rust_stdlib::os::create_temp"
+    },
+    "WriteFile": {
+      "rust": "rust_stdlib::os::write_file",
+      "note": "Takes the permission bits Go's WriteFile creates the file with; std::fs::write cannot set them."
+    }
+  }
+}

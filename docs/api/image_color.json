@@ -1,0 +1,245 @@
+{
+  "package": "image/color",
+  "notes": "image::color: every Go color type (RGBA/RGBA64/NRGBA/NRGBA64/Gray/Gray16/Alpha/Alpha16/YCbCr/NYCbCrA/CMYK) and model with Go-exact conversion arithmetic, Palette, and ModelFunc; Color is a closed enum of those types, so user-defined colors are not expressible; Palette.Convert returns None where Go returns nil; ModelFunc accepts capturing closures and compares by identity",
+  "symbols": {
+    "Alpha": {
+      "rust": "rust_stdlib::image::color::Alpha"
+    },
+    "Alpha.A": {
+      "rust": "rust_stdlib::image::color::Alpha::a"
+    },
+    "Alpha.RGBA": {
+      "rust": "rust_stdlib::image::color::Alpha::rgba"
+    },
+    "Alpha16": {
+      "rust": "rust_stdlib::image::color::Alpha16"
+    },
+    "Alpha16.A": {
+      "rust": "rust_stdlib::image::color::Alpha16::a"
+    },
+    "Alpha16.RGBA": {
+      "rust": "rust_stdlib::image::color::Alpha16::rgba"
+    },
+    "Alpha16Model": {
+      "rust": "rust_stdlib::image::color::Model::Alpha16"
+    },
+    "AlphaModel": {
+      "rust": "rust_stdlib::image::color::Model::Alpha"
+    },
+    "Black": {
+      "rust": "rust_stdlib::image::color::BLACK"
+    },
+    "CMYK": {
+      "rust": "rust_stdlib::image::color::Cmyk"
+    },
+    "CMYK.C": {
+      "rust": "rust_stdlib::image::color::Cmyk::c"
+    },
+    "CMYK.K": {
+      "rust": "rust_stdlib::image::color::Cmyk::k"
+    },
+    "CMYK.M": {
+      "rust": "rust_stdlib::image::color::Cmyk::m"
+    },
+    "CMYK.RGBA": {
+      "rust": "rust_stdlib::image::color::Cmyk::rgba"
+    },
+    "CMYK.Y": {
+      "rust": "rust_stdlib::image::color::Cmyk::y"
+    },
+    "CMYKModel": {
+      "rust": "rust_stdlib::image::color::Model::Cmyk"
+    },
+    "CMYKToRGB": {
+      "rust": "rust_stdlib::image::color::cmyk_to_rgb"
+    },
+    "Color": {
+      "rust": "rust_stdlib::image::color::Color",
+      "deviation": "closed-interface",
+      "note": "A closed enum of the crate's color types: every Go implementation of color.Color in the package is a variant, but a user-defined color.Color implementation cannot be passed where Go accepts one."
+    },
+    "Color.RGBA": {
+      "rust": "rust_stdlib::image::color::Color::rgba"
+    },
+    "Gray": {
+      "rust": "rust_stdlib::image::color::Gray"
+    },
+    "Gray.RGBA": {
+      "rust": "rust_stdlib::image::color::Gray::rgba"
+    },
+    "Gray.Y": {
+      "rust": "rust_stdlib::image::color::Gray::y"
+    },
+    "Gray16": {
+      "rust": "rust_stdlib::image::color::Gray16"
+    },
+    "Gray16.RGBA": {
+      "rust": "rust_stdlib::image::color::Gray16::rgba"
+    },
+    "Gray16.Y": {
+      "rust": "rust_stdlib::image::color::Gray16::y"
+    },
+    "Gray16Model": {
+      "rust": "rust_stdlib::image::color::Model::Gray16"
+    },
+    "GrayModel": {
+      "rust": "rust_stdlib::image::color::Model::Gray"
+    },
+    "Model": {
+      "rust": "rust_stdlib::image::color::Model",
+      "note": "closed enum of the predefined models, palettes and model functions"
+    },
+    "Model.Convert": {
+      "rust": "rust_stdlib::image::color::Model::convert"
+    },
+    "ModelFunc": {
+      "rust": "rust_stdlib::image::color::model_func",
+      "note": "Models compare by function identity (Arc pointer); Go cannot compare function values at all, and capturing closures are accepted in both."
+    },
+    "NRGBA": {
+      "rust": "rust_stdlib::image::color::Nrgba"
+    },
+    "NRGBA.A": {
+      "rust": "rust_stdlib::image::color::Nrgba::a"
+    },
+    "NRGBA.B": {
+      "rust": "rust_stdlib::image::color::Nrgba::b"
+    },
+    "NRGBA.G": {
+      "rust": "rust_stdlib::image::color::Nrgba::g"
+    },
+    "NRGBA.R": {
+      "rust": "rust_stdlib::image::color::Nrgba::r"
+    },
+    "NRGBA.RGBA": {
+      "rust": "rust_stdlib::image::color::Nrgba::rgba"
+    },
+    "NRGBA64": {
+      "rust": "rust_stdlib::image::color::Nrgba64"
+    },
+    "NRGBA64.A": {
+      "rust": "rust_stdlib::image::color::Nrgba64::a"
+    },
+    "NRGBA64.B": {
+      "rust": "rust_stdlib::image::color::Nrgba64::b"
+    },
+    "NRGBA64.G": {
+      "rust": "rust_stdlib::image::color::Nrgba64::g"
+    },
+    "NRGBA64.R": {
+      "rust": "rust_stdlib::image::color::Nrgba64::r"
+    },
+    "NRGBA64.RGBA": {
+      "rust": "rust_stdlib::image::color::Nrgba64::rgba"
+    },
+    "NRGBA64Model": {
+      "rust": "rust_stdlib::image::color::Model::Nrgba64"
+    },
+    "NRGBAModel": {
+      "rust": "rust_stdlib::image::color::Model::Nrgba"
+    },
+    "NYCbCrA": {
+      "rust": "rust_stdlib::image::color::Nycbcra"
+    },
+    "NYCbCrA.A": {
+      "rust": "rust_stdlib::image::color::Nycbcra::a"
+    },
+    "NYCbCrA.RGBA": {
+      "rust": "rust_stdlib::image::color::Nycbcra::rgba"
+    },
+    "NYCbCrA.YCbCr": {
+      "rust": "rust_stdlib::image::color::Nycbcra::ycbcr"
+    },
+    "NYCbCrAModel": {
+      "rust": "rust_stdlib::image::color::Model::Nycbcra"
+    },
+    "Opaque": {
+      "rust": "rust_stdlib::image::color::OPAQUE"
+    },
+    "Palette": {
+      "rust": "rust_stdlib::image::color::Palette"
+    },
+    "Palette.Convert": {
+      "rust": "rust_stdlib::image::color::Palette::convert",
+      "note": "Option<Color>: None is Go's nil color for an empty palette"
+    },
+    "Palette.Index": {
+      "rust": "rust_stdlib::image::color::Palette::index"
+    },
+    "RGBA": {
+      "rust": "rust_stdlib::image::color::Rgba"
+    },
+    "RGBA.A": {
+      "rust": "rust_stdlib::image::color::Rgba::a"
+    },
+    "RGBA.B": {
+      "rust": "rust_stdlib::image::color::Rgba::b"
+    },
+    "RGBA.G": {
+      "rust": "rust_stdlib::image::color::Rgba::g"
+    },
+    "RGBA.R": {
+      "rust": "rust_stdlib::image::color::Rgba::r"
+    },
+    "RGBA.RGBA": {
+      "rust": "rust_stdlib::image::color::Rgba::rgba"
+    },
+    "RGBA64": {
+      "rust": "rust_stdlib::image::color::Rgba64"
+    },
+    "RGBA64.A": {
+      "rust": "rust_stdlib::image::color::Rgba64::a"
+    },
+    "RGBA64.B": {
+      "rust": "rust_stdlib::image::color::Rgba64::b"
+    },
+    "RGBA64.G": {
+      "rust": "rust_stdlib::image::color::Rgba64::g"
+    },
+    "RGBA64.R": {
+      "rust": "rust_stdlib::image::color::Rgba64::r"
+    },
+    "RGBA64.RGBA": {
+      "rust": "rust_stdlib::image::color::Rgba64::rgba"
+    },
+    "RGBA64Model": {
+      "rust": "rust_stdlib::image::color::Model::Rgba64"
+    },
+    "RGBAModel": {
+      "rust": "rust_stdlib::image::color::Model::Rgba"
+    },
+    "RGBToCMYK": {
+      "rust": "rust_stdlib::image::color::rgb_to_cmyk"
+    },
+    "RGBToYCbCr": {
+      "rust": "rust_stdlib::image::color::rgb_to_ycbcr"
+    },
+    "Transparent": {
+      "rust": "rust_stdlib::image::color::TRANSPARENT"
+    },
+    "White": {
+      "rust": "rust_stdlib::image::color::WHITE"
+    },
+    "YCbCr": {
+      "rust": "rust_stdlib::image::color::Ycbcr"
+    },
+    "YCbCr.Cb": {
+      "rust": "rust_stdlib::image::color::Ycbcr::cb"
+    },
+    "YCbCr.Cr": {
+      "rust": "rust_stdlib::image::color::Ycbcr::cr"
+    },
+    "YCbCr.RGBA": {
+      "rust": "rust_stdlib::image::color::Ycbcr::rgba"
+    },
+    "YCbCr.Y": {
+      "rust": "rust_stdlib::image::color::Ycbcr::y"
+    },
+    "YCbCrModel": {
+      "rust": "rust_stdlib::image::color::Model::Ycbcr"
+    },
+    "YCbCrToRGB": {
+      "rust": "rust_stdlib::image::color::ycbcr_to_rgb"
+    }
+  }
+}

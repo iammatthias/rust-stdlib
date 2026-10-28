@@ -1,0 +1,470 @@
+{
+  "package": "time",
+  "notes": "time: Go Time/Duration/Location with TZif zones (system, ZONEINFO, embedded tzdata feature), Format/Parse, timers and tickers on std threads; TZif versions 1 to 3 as Go 1.27 (version 4 is malformed)",
+  "symbols": {
+    "ANSIC": {
+      "rust": "rust_stdlib::time::ANSIC"
+    },
+    "After": {
+      "rust": "rust_stdlib::time::after"
+    },
+    "AfterFunc": {
+      "rust": "rust_stdlib::time::after_func",
+      "deviation": "thread-not-goroutine",
+      "note": "f runs on a new thread each time the timer fires (Go starts a goroutine); f must be Fn + Send + Sync"
+    },
+    "April": {
+      "rust": "rust_stdlib::time::APRIL"
+    },
+    "August": {
+      "rust": "rust_stdlib::time::AUGUST"
+    },
+    "Date": {
+      "rust": "rust_stdlib::time::date",
+      "note": "Go panics on a nil *Location; Rust references cannot be nil"
+    },
+    "DateOnly": {
+      "rust": "rust_stdlib::time::DATE_ONLY"
+    },
+    "DateTime": {
+      "rust": "rust_stdlib::time::DATE_TIME"
+    },
+    "December": {
+      "rust": "rust_stdlib::time::DECEMBER"
+    },
+    "Duration": {
+      "rust": "rust_stdlib::time::Duration"
+    },
+    "Duration.Abs": {
+      "rust": "rust_stdlib::time::Duration::abs"
+    },
+    "Duration.Hours": {
+      "rust": "rust_stdlib::time::Duration::hours"
+    },
+    "Duration.Microseconds": {
+      "rust": "rust_stdlib::time::Duration::microseconds"
+    },
+    "Duration.Milliseconds": {
+      "rust": "rust_stdlib::time::Duration::milliseconds"
+    },
+    "Duration.Minutes": {
+      "rust": "rust_stdlib::time::Duration::minutes"
+    },
+    "Duration.Nanoseconds": {
+      "rust": "rust_stdlib::time::Duration::nanoseconds"
+    },
+    "Duration.Round": {
+      "rust": "rust_stdlib::time::Duration::round"
+    },
+    "Duration.Seconds": {
+      "rust": "rust_stdlib::time::Duration::seconds"
+    },
+    "Duration.String": {
+      "rust": "rust_stdlib::time::Duration (impl Display)"
+    },
+    "Duration.Truncate": {
+      "rust": "rust_stdlib::time::Duration::truncate"
+    },
+    "February": {
+      "rust": "rust_stdlib::time::FEBRUARY"
+    },
+    "FixedZone": {
+      "rust": "rust_stdlib::time::Location::fixed"
+    },
+    "Friday": {
+      "rust": "rust_stdlib::time::FRIDAY"
+    },
+    "Hour": {
+      "rust": "rust_stdlib::time::HOUR"
+    },
+    "January": {
+      "rust": "rust_stdlib::time::JANUARY"
+    },
+    "July": {
+      "rust": "rust_stdlib::time::JULY"
+    },
+    "June": {
+      "rust": "rust_stdlib::time::JUNE"
+    },
+    "Kitchen": {
+      "rust": "rust_stdlib::time::KITCHEN"
+    },
+    "Layout": {
+      "rust": "rust_stdlib::time::LAYOUT"
+    },
+    "LoadLocation": {
+      "rust": "rust_stdlib::time::load_location",
+      "deviation": "no-goroot-fallback",
+      "note": "ZONEINFO read per call; no $GOROOT fallback; embedded data with the tzdata feature"
+    },
+    "LoadLocationFromTZData": {
+      "rust": "rust_stdlib::time::Location::from_tzdata",
+      "note": "Versions 1 to 3 only, as Go (version 4 is malformed). Zone abbreviations are Strings, so non-UTF-8 abbreviation bytes decode lossily where Go keeps them.",
+      "deviation": "go-string-invalid-utf8"
+    },
+    "Local": {
+      "rust": "rust_stdlib::time::local",
+      "deviation": "local-not-reassignable",
+      "note": "resolved once from TZ like Go's initLocal (Unix rules on all platforms); cannot be reassigned"
+    },
+    "Location": {
+      "rust": "rust_stdlib::time::Location"
+    },
+    "Location.String": {
+      "rust": "rust_stdlib::time::Location::name",
+      "note": "Display also prints the name."
+    },
+    "March": {
+      "rust": "rust_stdlib::time::MARCH"
+    },
+    "May": {
+      "rust": "rust_stdlib::time::MAY"
+    },
+    "Microsecond": {
+      "rust": "rust_stdlib::time::MICROSECOND"
+    },
+    "Millisecond": {
+      "rust": "rust_stdlib::time::MILLISECOND"
+    },
+    "Minute": {
+      "rust": "rust_stdlib::time::MINUTE"
+    },
+    "Monday": {
+      "rust": "rust_stdlib::time::MONDAY"
+    },
+    "Month": {
+      "rust": "rust_stdlib::time::Month"
+    },
+    "Month.String": {
+      "rust": "rust_stdlib::time::Month (impl Display)"
+    },
+    "Nanosecond": {
+      "rust": "rust_stdlib::time::NANOSECOND"
+    },
+    "NewTicker": {
+      "rust": "rust_stdlib::time::Ticker::new",
+      "note": "panics on a non-positive duration, like Go"
+    },
+    "NewTimer": {
+      "rust": "rust_stdlib::time::Timer::new"
+    },
+    "November": {
+      "rust": "rust_stdlib::time::NOVEMBER"
+    },
+    "Now": {
+      "rust": "rust_stdlib::time::now"
+    },
+    "October": {
+      "rust": "rust_stdlib::time::OCTOBER"
+    },
+    "Parse": {
+      "rust": "rust_stdlib::time::Time::parse"
+    },
+    "ParseDuration": {
+      "rust": "rust_stdlib::time::Duration (impl FromStr)"
+    },
+    "ParseError": {
+      "rust": "rust_stdlib::time::ParseError"
+    },
+    "ParseError.Error": {
+      "rust": "rust_stdlib::time::ParseError (impl Display)"
+    },
+    "ParseError.Layout": {
+      "rust": "rust_stdlib::time::ParseError::layout"
+    },
+    "ParseError.LayoutElem": {
+      "rust": "rust_stdlib::time::ParseError::layout_elem"
+    },
+    "ParseError.Message": {
+      "rust": "rust_stdlib::time::ParseError::message"
+    },
+    "ParseError.Value": {
+      "rust": "rust_stdlib::time::ParseError::value"
+    },
+    "ParseError.ValueElem": {
+      "rust": "rust_stdlib::time::ParseError::value_elem",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns a String: when Go's element splits a UTF-8 sequence the bytes are decoded lossily (U+FFFD) instead of returned exactly."
+    },
+    "ParseInLocation": {
+      "rust": "rust_stdlib::time::Time::parse_in_location"
+    },
+    "RFC1123": {
+      "rust": "rust_stdlib::time::RFC1123"
+    },
+    "RFC1123Z": {
+      "rust": "rust_stdlib::time::RFC1123Z"
+    },
+    "RFC3339": {
+      "rust": "rust_stdlib::time::RFC3339"
+    },
+    "RFC3339Nano": {
+      "rust": "rust_stdlib::time::RFC3339_NANO"
+    },
+    "RFC822": {
+      "rust": "rust_stdlib::time::RFC822"
+    },
+    "RFC822Z": {
+      "rust": "rust_stdlib::time::RFC822Z"
+    },
+    "RFC850": {
+      "rust": "rust_stdlib::time::RFC850"
+    },
+    "RubyDate": {
+      "rust": "rust_stdlib::time::RUBY_DATE"
+    },
+    "Saturday": {
+      "rust": "rust_stdlib::time::SATURDAY"
+    },
+    "Second": {
+      "rust": "rust_stdlib::time::SECOND"
+    },
+    "September": {
+      "rust": "rust_stdlib::time::SEPTEMBER"
+    },
+    "Since": {
+      "rust": "rust_stdlib::time::since"
+    },
+    "Sleep": {
+      "rust": "rust_stdlib::time::sleep"
+    },
+    "Stamp": {
+      "rust": "rust_stdlib::time::STAMP"
+    },
+    "StampMicro": {
+      "rust": "rust_stdlib::time::STAMP_MICRO"
+    },
+    "StampMilli": {
+      "rust": "rust_stdlib::time::STAMP_MILLI"
+    },
+    "StampNano": {
+      "rust": "rust_stdlib::time::STAMP_NANO"
+    },
+    "Sunday": {
+      "rust": "rust_stdlib::time::SUNDAY"
+    },
+    "Thursday": {
+      "rust": "rust_stdlib::time::THURSDAY"
+    },
+    "Tick": {
+      "rust": "rust_stdlib::time::tick",
+      "note": "returns Option<Channel>; None is Go's nil channel for non-positive durations"
+    },
+    "Ticker": {
+      "rust": "rust_stdlib::time::Ticker"
+    },
+    "Ticker.C": {
+      "rust": "rust_stdlib::time::Ticker::c",
+      "note": "time::Channel (a Sync wrapper over a one-slot mpsc receiver with recv/try_recv/recv_timeout); ticks a slow receiver cannot take are dropped, as in Go"
+    },
+    "Ticker.Reset": {
+      "rust": "rust_stdlib::time::Ticker::reset",
+      "note": "panics on a non-positive duration, like Go"
+    },
+    "Ticker.Stop": {
+      "rust": "rust_stdlib::time::Ticker::stop",
+      "note": "also stops on drop (Go 1.23 collects unreferenced tickers)"
+    },
+    "Time": {
+      "rust": "rust_stdlib::time::Time"
+    },
+    "Time.Add": {
+      "rust": "rust_stdlib::time::Time::add"
+    },
+    "Time.AddDate": {
+      "rust": "rust_stdlib::time::Time::add_date"
+    },
+    "Time.After": {
+      "rust": "rust_stdlib::time::Time::after"
+    },
+    "Time.AppendBinary": {
+      "rust": "rust_stdlib::time::Time::append_binary",
+      "note": "appends to &mut Vec<u8>"
+    },
+    "Time.AppendFormat": {
+      "rust": "rust_stdlib::time::Time::append_format",
+      "note": "appends to &mut Vec<u8> instead of returning a new slice"
+    },
+    "Time.AppendText": {
+      "rust": "rust_stdlib::time::Time::append_text",
+      "note": "appends to &mut Vec<u8>; on error the buffer is left unchanged"
+    },
+    "Time.Before": {
+      "rust": "rust_stdlib::time::Time::before"
+    },
+    "Time.Clock": {
+      "rust": "rust_stdlib::time::Time::clock"
+    },
+    "Time.Compare": {
+      "rust": "rust_stdlib::time::Time::compare (also PartialOrd)"
+    },
+    "Time.Date": {
+      "rust": "rust_stdlib::time::Time::date"
+    },
+    "Time.Day": {
+      "rust": "rust_stdlib::time::Time::day"
+    },
+    "Time.Equal": {
+      "rust": "rust_stdlib::time::Time::equal (also PartialEq)"
+    },
+    "Time.Format": {
+      "rust": "rust_stdlib::time::Time::format"
+    },
+    "Time.GoString": {
+      "rust": "rust_stdlib::time::Time::literal"
+    },
+    "Time.GobDecode": {
+      "rust": "rust_stdlib::time::Time::gob_decode"
+    },
+    "Time.GobEncode": {
+      "rust": "rust_stdlib::time::Time::gob_encode"
+    },
+    "Time.Hour": {
+      "rust": "rust_stdlib::time::Time::hour"
+    },
+    "Time.ISOWeek": {
+      "rust": "rust_stdlib::time::Time::iso_week"
+    },
+    "Time.In": {
+      "rust": "rust_stdlib::time::Time::in_location",
+      "note": "Go panics on a nil *Location; Rust references cannot be nil"
+    },
+    "Time.IsDST": {
+      "rust": "rust_stdlib::time::Time::is_dst"
+    },
+    "Time.IsZero": {
+      "rust": "rust_stdlib::time::Time::is_zero"
+    },
+    "Time.Local": {
+      "rust": "rust_stdlib::time::Time::local"
+    },
+    "Time.Location": {
+      "rust": "rust_stdlib::time::Time::location"
+    },
+    "Time.MarshalBinary": {
+      "rust": "rust_stdlib::time::Time::marshal_binary"
+    },
+    "Time.MarshalJSON": {
+      "rust": "rust_stdlib::time::Time::marshal_json"
+    },
+    "Time.MarshalText": {
+      "rust": "rust_stdlib::time::Time::marshal_text"
+    },
+    "Time.Minute": {
+      "rust": "rust_stdlib::time::Time::minute"
+    },
+    "Time.Month": {
+      "rust": "rust_stdlib::time::Time::month"
+    },
+    "Time.Nanosecond": {
+      "rust": "rust_stdlib::time::Time::nanosecond"
+    },
+    "Time.Round": {
+      "rust": "rust_stdlib::time::Time::round"
+    },
+    "Time.Second": {
+      "rust": "rust_stdlib::time::Time::second"
+    },
+    "Time.String": {
+      "rust": "rust_stdlib::time::Time (impl Display)",
+      "note": "to_string(); includes Go's m=±value monotonic suffix"
+    },
+    "Time.Sub": {
+      "rust": "rust_stdlib::time::Time::sub"
+    },
+    "Time.Truncate": {
+      "rust": "rust_stdlib::time::Time::truncate"
+    },
+    "Time.UTC": {
+      "rust": "rust_stdlib::time::Time::utc"
+    },
+    "Time.Unix": {
+      "rust": "rust_stdlib::time::Time::unix"
+    },
+    "Time.UnixMicro": {
+      "rust": "rust_stdlib::time::Time::unix_micro"
+    },
+    "Time.UnixMilli": {
+      "rust": "rust_stdlib::time::Time::unix_milli"
+    },
+    "Time.UnixNano": {
+      "rust": "rust_stdlib::time::Time::unix_nano"
+    },
+    "Time.UnmarshalBinary": {
+      "rust": "rust_stdlib::time::Time::unmarshal_binary"
+    },
+    "Time.UnmarshalJSON": {
+      "rust": "rust_stdlib::time::Time::unmarshal_json",
+      "note": "error type UnmarshalError"
+    },
+    "Time.UnmarshalText": {
+      "rust": "rust_stdlib::time::Time::unmarshal_text",
+      "note": "error type UnmarshalError"
+    },
+    "Time.Weekday": {
+      "rust": "rust_stdlib::time::Time::weekday"
+    },
+    "Time.Year": {
+      "rust": "rust_stdlib::time::Time::year"
+    },
+    "Time.YearDay": {
+      "rust": "rust_stdlib::time::Time::year_day"
+    },
+    "Time.Zone": {
+      "rust": "rust_stdlib::time::Time::zone"
+    },
+    "Time.ZoneBounds": {
+      "rust": "rust_stdlib::time::Time::zone_bounds"
+    },
+    "TimeOnly": {
+      "rust": "rust_stdlib::time::TIME_ONLY"
+    },
+    "Timer": {
+      "rust": "rust_stdlib::time::Timer"
+    },
+    "Timer.C": {
+      "rust": "rust_stdlib::time::Timer::c",
+      "note": "time::Channel (a Sync wrapper over a one-slot mpsc receiver with recv/try_recv/recv_timeout) instead of a Go channel; AfterFunc timers get a Channel that never yields, like Go's nil channel"
+    },
+    "Timer.Reset": {
+      "rust": "rust_stdlib::time::Timer::reset",
+      "note": "Go 1.23 semantics; Go's panic on a zero Timer cannot occur"
+    },
+    "Timer.Stop": {
+      "rust": "rust_stdlib::time::Timer::stop",
+      "note": "Go 1.23 semantics: discards a fired but unreceived value; Go's panic on a zero Timer cannot occur because Timer has no zero value"
+    },
+    "Tuesday": {
+      "rust": "rust_stdlib::time::TUESDAY"
+    },
+    "UTC": {
+      "rust": "rust_stdlib::time::Location::utc",
+      "note": "Go's package variable is a function returning the shared UTC location"
+    },
+    "Unix": {
+      "rust": "rust_stdlib::time::unix"
+    },
+    "UnixDate": {
+      "rust": "rust_stdlib::time::UNIX_DATE"
+    },
+    "UnixMicro": {
+      "rust": "rust_stdlib::time::unix_micro"
+    },
+    "UnixMilli": {
+      "rust": "rust_stdlib::time::unix_milli"
+    },
+    "Until": {
+      "rust": "rust_stdlib::time::until"
+    },
+    "Wednesday": {
+      "rust": "rust_stdlib::time::WEDNESDAY"
+    },
+    "Weekday": {
+      "rust": "rust_stdlib::time::Weekday"
+    },
+    "Weekday.String": {
+      "rust": "rust_stdlib::time::Weekday (impl Display)"
+    }
+  },
+  "go_version": "go1.27"
+}

@@ -1,0 +1,23 @@
+{
+  "package": "encoding/gob",
+  "notes": "encoding::gob follows Go's gob byte for byte: type ids (predefined 1..23, user ids from 64 in first-sent order), wire types, field-number deltas, zero omission, pointer flattening, interface values by registered name with inline type definitions, GobEncoder/BinaryMarshaler types, and the decoder's compile step (compatibility checks, ignored fields, overflow and corrupt-data error texts, including Go's behaviour of reading type ids). Values come from rust_stdlib::reflect, so any #[derive(Reflect)] type works. Verified by tools/gob_check.py, a differential against Go over generated typed values (equal bytes, cross-decoding, merges, schema evolution, corrupted streams). Rust-shaped differences: Encode and Decode take any Reflect type (Decode copies in and out through reflect::edit); Decode(nil) is decode_discard; errors are std::io::Error with the io sentinels for EOF; a GobEncoder or BinaryMarshaler is a type with #[reflect_methods] methods of those Go names; a Rust map built from a Rust value is never nil, so an empty map field is sent where Go omits a nil map (values built with reflect::zero/new keep Go's nil maps).",
+  "symbols": {
+    "CommonType": {"rust": "rust_stdlib::encoding::gob::CommonType"},
+    "CommonType.Id": {"rust": "rust_stdlib::encoding::gob::CommonType::id", "note": "typeId is i32"},
+    "CommonType.Name": {"rust": "rust_stdlib::encoding::gob::CommonType::name"},
+    "Decoder": {"rust": "rust_stdlib::encoding::gob::Decoder"},
+    "Decoder.Decode": {"rust": "rust_stdlib::encoding::gob::Decoder::decode", "note": "generic over Reflect types; Decode(nil) is Decoder::decode_discard"},
+    "Decoder.DecodeValue": {"rust": "rust_stdlib::encoding::gob::Decoder::decode_value"},
+    "Encoder": {"rust": "rust_stdlib::encoding::gob::Encoder"},
+    "Encoder.Encode": {"rust": "rust_stdlib::encoding::gob::Encoder::encode", "deviation": "nil-map", "note": "a map built from a Rust value is never nil, so an empty map field is sent where Go omits a nil map; reflect values keep nil maps"},
+    "Encoder.EncodeValue": {"rust": "rust_stdlib::encoding::gob::Encoder::encode_value"},
+    "GobDecoder": {"rust": "rust_stdlib::encoding::gob::GobDecoder"},
+    "GobDecoder.GobDecode": {"rust": "rust_stdlib::encoding::gob::GobDecoder::GobDecode"},
+    "GobEncoder": {"rust": "rust_stdlib::encoding::gob::GobEncoder"},
+    "GobEncoder.GobEncode": {"rust": "rust_stdlib::encoding::gob::GobEncoder::GobEncode"},
+    "NewDecoder": {"rust": "rust_stdlib::encoding::gob::Decoder::new", "note": "buffers the reader; Decoder::from_byte_reader is Go's unwrapped io.ByteReader case"},
+    "NewEncoder": {"rust": "rust_stdlib::encoding::gob::Encoder::new"},
+    "Register": {"rust": "rust_stdlib::encoding::gob::register", "note": "register_value takes a reflect::Value; a pointer type is an Option"},
+    "RegisterName": {"rust": "rust_stdlib::encoding::gob::register_name"}
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "package": "sync",
+  "notes": "sync: std::sync (Mutex, RwLock, Condvar, Once, OnceLock). Go's lock/unlock become holding and dropping a guard. sync.Map is Mutex<HashMap>, sync.Pool is Mutex<Vec> with a constructor, and only WaitGroup (a counter shared with detached threads) is first-party, in rust_stdlib::concurrent.",
+  "symbols": {
+    "Cond": {
+      "rust": "std::sync::Condvar"
+    },
+    "Cond.Broadcast": {
+      "rust": "std::sync::Condvar::notify_all"
+    },
+    "Cond.L": {
+      "rust": "std::sync::Mutex"
+    },
+    "Cond.Signal": {
+      "rust": "std::sync::Condvar::notify_one"
+    },
+    "Cond.Wait": {
+      "rust": "std::sync::Condvar::wait"
+    },
+    "Locker": {
+      "rust": "std::sync::Mutex::lock",
+      "note": "a guard; dropping it unlocks"
+    },
+    "Locker.Lock": {
+      "rust": "std::sync::Mutex::lock"
+    },
+    "Locker.Unlock": {
+      "rust": "std::mem::drop",
+      "note": "drop the guard"
+    },
+    "Map": {
+      "rust": "std::sync::Mutex",
+      "note": "Mutex<HashMap<K, V>>"
+    },
+    "Map.Clear": {
+      "rust": "std::collections::HashMap::clear"
+    },
+    "Map.CompareAndDelete": {
+      "rust": "std::collections::HashMap::remove",
+      "note": "after comparing the value"
+    },
+    "Map.CompareAndSwap": {
+      "rust": "std::collections::HashMap::get_mut",
+      "note": "after comparing the value"
+    },
+    "Map.Delete": {
+      "rust": "std::collections::HashMap::remove"
+    },
+    "Map.Load": {
+      "rust": "std::collections::HashMap::get"
+    },
+    "Map.LoadAndDelete": {
+      "rust": "std::collections::HashMap::remove"
+    },
+    "Map.LoadOrStore": {
+      "rust": "std::collections::HashMap::entry"
+    },
+    "Map.Range": {
+      "rust": "std::collections::HashMap::iter"
+    },
+    "Map.Store": {
+      "rust": "std::collections::HashMap::insert"
+    },
+    "Map.Swap": {
+      "rust": "std::collections::HashMap::insert"
+    },
+    "Mutex": {
+      "rust": "std::sync::Mutex"
+    },
+    "Mutex.Lock": {
+      "rust": "std::sync::Mutex::lock"
+    },
+    "Mutex.TryLock": {
+      "rust": "std::sync::Mutex::try_lock"
+    },
+    "Mutex.Unlock": {
+      "rust": "std::mem::drop",
+      "note": "drop the guard; unlocking an unlocked mutex cannot be written"
+    },
+    "NewCond": {
+      "rust": "std::sync::Condvar::new"
+    },
+    "Once": {
+      "rust": "std::sync::Once"
+    },
+    "Once.Do": {
+      "rust": "std::sync::Once::call_once",
+      "deviation": "panic-poisons",
+      "note": "a panicking f poisons the Once (later calls panic); Go counts it as done and later calls return. call_once_force recovers a poisoned Once"
+    },
+    "OnceFunc": {
+      "rust": "std::sync::OnceLock::get_or_init",
+      "deviation": "panic-payload-clone",
+      "note": "Go re-panics with the first panic's value on every call; OnceLock runs the initializer again after a panic. Wrapping the initializer in catch_unwind and storing the payload reproduces Go (examples/stdsync_probe.rs does)."
+    },
+    "OnceValue": {
+      "rust": "std::sync::OnceLock::get_or_init",
+      "deviation": "panic-payload-clone",
+      "note": "Go re-panics with the first panic's value on every call; OnceLock runs the initializer again after a panic. Wrapping the initializer in catch_unwind and storing the payload reproduces Go (examples/stdsync_probe.rs does)."
+    },
+    "OnceValues": {
+      "rust": "std::sync::OnceLock::get_or_init",
+      "deviation": "panic-payload-clone",
+      "note": "Go re-panics with the first panic's value on every call; OnceLock runs the initializer again after a panic. Wrapping the initializer in catch_unwind and storing the payload reproduces Go (examples/stdsync_probe.rs does)."
+    },
+    "Pool": {
+      "rust": "std::sync::Mutex",
+      "note": "Mutex<Vec<T>>"
+    },
+    "Pool.Get": {
+      "rust": "std::vec::Vec::pop",
+      "note": "then the New function if empty"
+    },
+    "Pool.New": {
+      "rust": "std::option::Option::unwrap_or_else"
+    },
+    "Pool.Put": {
+      "rust": "std::vec::Vec::push"
+    },
+    "RWMutex": {
+      "rust": "std::sync::RwLock"
+    },
+    "RWMutex.Lock": {
+      "rust": "std::sync::RwLock::write"
+    },
+    "RWMutex.RLock": {
+      "rust": "std::sync::RwLock::read"
+    },
+    "RWMutex.RLocker": {
+      "rust": "std::sync::RwLock::read"
+    },
+    "RWMutex.RUnlock": {
+      "rust": "std::mem::drop",
+      "note": "drop the read guard"
+    },
+    "RWMutex.TryLock": {
+      "rust": "std::sync::RwLock::try_write"
+    },
+    "RWMutex.TryRLock": {
+      "rust": "std::sync::RwLock::try_read"
+    },
+    "RWMutex.Unlock": {
+      "rust": "std::mem::drop",
+      "note": "drop the write guard"
+    },
+    "WaitGroup": {
+      "rust": "rust_stdlib::concurrent::WaitGroup",
+      "note": "std::thread::scope covers the scoped case"
+    },
+    "WaitGroup.Add": {
+      "rust": "rust_stdlib::concurrent::WaitGroup::add"
+    },
+    "WaitGroup.Done": {
+      "rust": "rust_stdlib::concurrent::WaitGroup::done"
+    },
+    "WaitGroup.Go": {
+      "rust": "rust_stdlib::concurrent::WaitGroup::spawn"
+    },
+    "WaitGroup.Wait": {
+      "rust": "rust_stdlib::concurrent::WaitGroup::wait"
+    }
+  }
+}

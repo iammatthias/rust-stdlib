@@ -1,0 +1,27 @@
+{
+  "package": "crypto/rc4",
+  "notes": "rust-stdlib-crypto over RustCrypto rc4. Cipher also implements cipher::Stream. XORKeyStream returns an Err where Go indexes out of range (dst shorter than src); Reset leaves a cipher whose key stream is all zeros, as in Go.",
+  "symbols": {
+    "Cipher": {
+      "rust": "rust_stdlib_crypto::rc4::Cipher"
+    },
+    "Cipher.Reset": {
+      "rust": "rust_stdlib_crypto::rc4::Cipher::reset",
+      "note": "deprecated in Go, implemented"
+    },
+    "Cipher.XORKeyStream": {
+      "rust": "rust_stdlib_crypto::rc4::Cipher::xor_key_stream",
+      "note": "xor_key_stream_in_place covers dst equal to src"
+    },
+    "KeySizeError": {
+      "rust": "rust_stdlib_crypto::rc4::KeySizeError"
+    },
+    "KeySizeError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display for KeySizeError"
+    },
+    "NewCipher": {
+      "rust": "rust_stdlib_crypto::rc4::Cipher::new"
+    }
+  }
+}

@@ -1,0 +1,602 @@
+{
+  "package": "text/template/parse",
+  "notes": "text/template/parse: lexer, parser and AST are a port of Go's. Nodes own their children, so Copy is Clone and Tree.Parse fills in the receiver instead of returning it; nodes record their tree for delimiters and error context in a shared TreeInfo. String methods are the Display impls.",
+  "symbols": {
+    "ActionNode": {
+      "rust": "rust_stdlib::text::template::parse::ActionNode"
+    },
+    "ActionNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::ActionNode::copy"
+    },
+    "ActionNode.Line": {
+      "rust": "rust_stdlib::text::template::parse::ActionNode::line"
+    },
+    "ActionNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::ActionNode::node_type()"
+    },
+    "ActionNode.Pipe": {
+      "rust": "rust_stdlib::text::template::parse::ActionNode::pipe"
+    },
+    "ActionNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::ActionNode::pos"
+    },
+    "ActionNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "ActionNode implements Display"
+    },
+    "BoolNode": {
+      "rust": "rust_stdlib::text::template::parse::BoolNode"
+    },
+    "BoolNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::BoolNode::copy"
+    },
+    "BoolNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::BoolNode::node_type()"
+    },
+    "BoolNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::BoolNode::pos"
+    },
+    "BoolNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "BoolNode implements Display"
+    },
+    "BoolNode.True": {
+      "rust": "rust_stdlib::text::template::parse::BoolNode::true_"
+    },
+    "BranchNode": {
+      "rust": "rust_stdlib::text::template::parse::BranchNode"
+    },
+    "BranchNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::BranchNode::copy"
+    },
+    "BranchNode.ElseList": {
+      "rust": "rust_stdlib::text::template::parse::BranchNode::else_list"
+    },
+    "BranchNode.Line": {
+      "rust": "rust_stdlib::text::template::parse::BranchNode::line"
+    },
+    "BranchNode.List": {
+      "rust": "rust_stdlib::text::template::parse::BranchNode::list"
+    },
+    "BranchNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::BranchNode::node_type()"
+    },
+    "BranchNode.Pipe": {
+      "rust": "rust_stdlib::text::template::parse::BranchNode::pipe"
+    },
+    "BranchNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::BranchNode::pos"
+    },
+    "BranchNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "BranchNode implements Display"
+    },
+    "BreakNode": {
+      "rust": "rust_stdlib::text::template::parse::BreakNode"
+    },
+    "BreakNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::BreakNode::copy"
+    },
+    "BreakNode.Line": {
+      "rust": "rust_stdlib::text::template::parse::BreakNode::line"
+    },
+    "BreakNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::BreakNode::node_type()"
+    },
+    "BreakNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::BreakNode::pos"
+    },
+    "BreakNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "BreakNode implements Display"
+    },
+    "ChainNode": {
+      "rust": "rust_stdlib::text::template::parse::ChainNode"
+    },
+    "ChainNode.Add": {
+      "rust": "rust_stdlib::text::template::parse::ChainNode::add"
+    },
+    "ChainNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::ChainNode::copy"
+    },
+    "ChainNode.Field": {
+      "rust": "rust_stdlib::text::template::parse::ChainNode::field"
+    },
+    "ChainNode.Node": {
+      "rust": "rust_stdlib::text::template::parse::ChainNode::node"
+    },
+    "ChainNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::ChainNode::node_type()"
+    },
+    "ChainNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::ChainNode::pos"
+    },
+    "ChainNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "ChainNode implements Display"
+    },
+    "CommandNode": {
+      "rust": "rust_stdlib::text::template::parse::CommandNode"
+    },
+    "CommandNode.Args": {
+      "rust": "rust_stdlib::text::template::parse::CommandNode::args"
+    },
+    "CommandNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::CommandNode::copy"
+    },
+    "CommandNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::CommandNode::node_type()"
+    },
+    "CommandNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::CommandNode::pos"
+    },
+    "CommandNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "CommandNode implements Display"
+    },
+    "CommentNode": {
+      "rust": "rust_stdlib::text::template::parse::CommentNode"
+    },
+    "CommentNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::CommentNode::copy"
+    },
+    "CommentNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::CommentNode::node_type()"
+    },
+    "CommentNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::CommentNode::pos"
+    },
+    "CommentNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "CommentNode implements Display"
+    },
+    "CommentNode.Text": {
+      "rust": "rust_stdlib::text::template::parse::CommentNode::text"
+    },
+    "ContinueNode": {
+      "rust": "rust_stdlib::text::template::parse::ContinueNode"
+    },
+    "ContinueNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::ContinueNode::copy"
+    },
+    "ContinueNode.Line": {
+      "rust": "rust_stdlib::text::template::parse::ContinueNode::line"
+    },
+    "ContinueNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::ContinueNode::node_type()"
+    },
+    "ContinueNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::ContinueNode::pos"
+    },
+    "ContinueNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "ContinueNode implements Display"
+    },
+    "DotNode": {
+      "rust": "rust_stdlib::text::template::parse::DotNode"
+    },
+    "DotNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::DotNode::copy"
+    },
+    "DotNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::DotNode::node_type()"
+    },
+    "DotNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::DotNode::pos"
+    },
+    "DotNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "DotNode implements Display"
+    },
+    "DotNode.Type": {
+      "rust": "rust_stdlib::text::template::parse::DotNode::type_"
+    },
+    "FieldNode": {
+      "rust": "rust_stdlib::text::template::parse::FieldNode"
+    },
+    "FieldNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::FieldNode::copy"
+    },
+    "FieldNode.Ident": {
+      "rust": "rust_stdlib::text::template::parse::FieldNode::ident"
+    },
+    "FieldNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::FieldNode::node_type()"
+    },
+    "FieldNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::FieldNode::pos"
+    },
+    "FieldNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "FieldNode implements Display"
+    },
+    "IdentifierNode": {
+      "rust": "rust_stdlib::text::template::parse::IdentifierNode"
+    },
+    "IdentifierNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::IdentifierNode::copy"
+    },
+    "IdentifierNode.Ident": {
+      "rust": "rust_stdlib::text::template::parse::IdentifierNode::ident"
+    },
+    "IdentifierNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::IdentifierNode::node_type()"
+    },
+    "IdentifierNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::IdentifierNode::pos"
+    },
+    "IdentifierNode.SetPos": {
+      "rust": "rust_stdlib::text::template::parse::IdentifierNode::set_pos"
+    },
+    "IdentifierNode.SetTree": {
+      "rust": "rust_stdlib::text::template::parse::IdentifierNode::set_tree"
+    },
+    "IdentifierNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "IdentifierNode implements Display"
+    },
+    "IfNode": {
+      "rust": "rust_stdlib::text::template::parse::IfNode"
+    },
+    "IfNode.BranchNode": {
+      "rust": "rust_stdlib::text::template::parse::IfNode::branch_node"
+    },
+    "IfNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::IfNode::copy"
+    },
+    "IsEmptyTree": {
+      "rust": "rust_stdlib::text::template::parse::is_empty_tree"
+    },
+    "ListNode": {
+      "rust": "rust_stdlib::text::template::parse::ListNode"
+    },
+    "ListNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::ListNode::copy"
+    },
+    "ListNode.CopyList": {
+      "rust": "rust_stdlib::text::template::parse::ListNode::copy_list"
+    },
+    "ListNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::ListNode::node_type()"
+    },
+    "ListNode.Nodes": {
+      "rust": "rust_stdlib::text::template::parse::ListNode::nodes"
+    },
+    "ListNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::ListNode::pos"
+    },
+    "ListNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "ListNode implements Display"
+    },
+    "Mode": {
+      "rust": "rust_stdlib::text::template::parse::Mode"
+    },
+    "New": {
+      "rust": "rust_stdlib::text::template::parse::new"
+    },
+    "NewIdentifier": {
+      "rust": "rust_stdlib::text::template::parse::IdentifierNode::new"
+    },
+    "NilNode": {
+      "rust": "rust_stdlib::text::template::parse::NilNode"
+    },
+    "NilNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::NilNode::copy"
+    },
+    "NilNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::NilNode::node_type()"
+    },
+    "NilNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::NilNode::pos"
+    },
+    "NilNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "NilNode implements Display"
+    },
+    "NilNode.Type": {
+      "rust": "rust_stdlib::text::template::parse::NilNode::type_"
+    },
+    "Node": {
+      "rust": "rust_stdlib::text::template::parse::Node"
+    },
+    "Node.Copy": {
+      "rust": "rust_stdlib::text::template::parse::Node::copy"
+    },
+    "Node.Position": {
+      "rust": "rust_stdlib::text::template::parse::Node::position"
+    },
+    "Node.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Node implements Display"
+    },
+    "Node.Type": {
+      "rust": "rust_stdlib::text::template::parse::Node::node_type"
+    },
+    "NodeAction": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Action"
+    },
+    "NodeBool": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Bool"
+    },
+    "NodeBreak": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Break"
+    },
+    "NodeChain": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Chain"
+    },
+    "NodeCommand": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Command"
+    },
+    "NodeComment": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Comment"
+    },
+    "NodeContinue": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Continue"
+    },
+    "NodeDot": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Dot"
+    },
+    "NodeField": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Field"
+    },
+    "NodeIdentifier": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Identifier"
+    },
+    "NodeIf": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::If"
+    },
+    "NodeList": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::List"
+    },
+    "NodeNil": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Nil"
+    },
+    "NodeNumber": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Number"
+    },
+    "NodePipe": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Pipe"
+    },
+    "NodeRange": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Range"
+    },
+    "NodeString": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::String"
+    },
+    "NodeTemplate": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Template"
+    },
+    "NodeText": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Text"
+    },
+    "NodeType": {
+      "rust": "rust_stdlib::text::template::parse::NodeType"
+    },
+    "NodeType.Type": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::node_type"
+    },
+    "NodeVariable": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::Variable"
+    },
+    "NodeWith": {
+      "rust": "rust_stdlib::text::template::parse::NodeType::With"
+    },
+    "NumberNode": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode"
+    },
+    "NumberNode.Complex128": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::complex128"
+    },
+    "NumberNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::copy"
+    },
+    "NumberNode.Float64": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::float64"
+    },
+    "NumberNode.Int64": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::int64"
+    },
+    "NumberNode.IsComplex": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::is_complex"
+    },
+    "NumberNode.IsFloat": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::is_float"
+    },
+    "NumberNode.IsInt": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::is_int"
+    },
+    "NumberNode.IsUint": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::is_uint"
+    },
+    "NumberNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::node_type()"
+    },
+    "NumberNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::pos"
+    },
+    "NumberNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "NumberNode implements Display"
+    },
+    "NumberNode.Text": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::text"
+    },
+    "NumberNode.Uint64": {
+      "rust": "rust_stdlib::text::template::parse::NumberNode::uint64"
+    },
+    "Parse": {
+      "rust": "rust_stdlib::text::template::parse::parse"
+    },
+    "ParseComments": {
+      "rust": "rust_stdlib::text::template::parse::PARSE_COMMENTS"
+    },
+    "PipeNode": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode"
+    },
+    "PipeNode.Cmds": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode::cmds"
+    },
+    "PipeNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode::copy"
+    },
+    "PipeNode.CopyPipe": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode::copy_pipe"
+    },
+    "PipeNode.Decl": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode::decl"
+    },
+    "PipeNode.IsAssign": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode::is_assign"
+    },
+    "PipeNode.Line": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode::line"
+    },
+    "PipeNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode::node_type()"
+    },
+    "PipeNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::PipeNode::pos"
+    },
+    "PipeNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "PipeNode implements Display"
+    },
+    "Pos": {
+      "rust": "rust_stdlib::text::template::parse::Pos"
+    },
+    "Pos.Position": {
+      "rust": "rust_stdlib::text::template::parse::Pos::position"
+    },
+    "RangeNode": {
+      "rust": "rust_stdlib::text::template::parse::RangeNode"
+    },
+    "RangeNode.BranchNode": {
+      "rust": "rust_stdlib::text::template::parse::RangeNode::branch_node"
+    },
+    "RangeNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::RangeNode::copy"
+    },
+    "SkipFuncCheck": {
+      "rust": "rust_stdlib::text::template::parse::SKIP_FUNC_CHECK"
+    },
+    "StringNode": {
+      "rust": "rust_stdlib::text::template::parse::StringNode"
+    },
+    "StringNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::StringNode::copy"
+    },
+    "StringNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::StringNode::node_type()"
+    },
+    "StringNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::StringNode::pos"
+    },
+    "StringNode.Quoted": {
+      "rust": "rust_stdlib::text::template::parse::StringNode::quoted"
+    },
+    "StringNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "StringNode implements Display"
+    },
+    "StringNode.Text": {
+      "rust": "rust_stdlib::text::template::parse::StringNode::text"
+    },
+    "TemplateNode": {
+      "rust": "rust_stdlib::text::template::parse::TemplateNode"
+    },
+    "TemplateNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::TemplateNode::copy"
+    },
+    "TemplateNode.Line": {
+      "rust": "rust_stdlib::text::template::parse::TemplateNode::line"
+    },
+    "TemplateNode.Name": {
+      "rust": "rust_stdlib::text::template::parse::TemplateNode::name"
+    },
+    "TemplateNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::TemplateNode::node_type()"
+    },
+    "TemplateNode.Pipe": {
+      "rust": "rust_stdlib::text::template::parse::TemplateNode::pipe"
+    },
+    "TemplateNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::TemplateNode::pos"
+    },
+    "TemplateNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "TemplateNode implements Display"
+    },
+    "TextNode": {
+      "rust": "rust_stdlib::text::template::parse::TextNode"
+    },
+    "TextNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::TextNode::copy"
+    },
+    "TextNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::TextNode::node_type()"
+    },
+    "TextNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::TextNode::pos"
+    },
+    "TextNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "TextNode implements Display"
+    },
+    "TextNode.Text": {
+      "rust": "rust_stdlib::text::template::parse::TextNode::text"
+    },
+    "Tree": {
+      "rust": "rust_stdlib::text::template::parse::Tree"
+    },
+    "Tree.Copy": {
+      "rust": "rust_stdlib::text::template::parse::Tree::copy"
+    },
+    "Tree.ErrorContext": {
+      "rust": "rust_stdlib::text::template::parse::Tree::error_context"
+    },
+    "Tree.Mode": {
+      "rust": "rust_stdlib::text::template::parse::Tree::mode"
+    },
+    "Tree.Name": {
+      "rust": "rust_stdlib::text::template::parse::Tree::name"
+    },
+    "Tree.Parse": {
+      "rust": "rust_stdlib::text::template::parse::Tree::parse"
+    },
+    "Tree.ParseName": {
+      "rust": "rust_stdlib::text::template::parse::Tree::parse_name"
+    },
+    "Tree.Root": {
+      "rust": "rust_stdlib::text::template::parse::Tree::root"
+    },
+    "VariableNode": {
+      "rust": "rust_stdlib::text::template::parse::VariableNode"
+    },
+    "VariableNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::VariableNode::copy"
+    },
+    "VariableNode.Ident": {
+      "rust": "rust_stdlib::text::template::parse::VariableNode::ident"
+    },
+    "VariableNode.NodeType": {
+      "rust": "rust_stdlib::text::template::parse::VariableNode::node_type()"
+    },
+    "VariableNode.Pos": {
+      "rust": "rust_stdlib::text::template::parse::VariableNode::pos"
+    },
+    "VariableNode.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "VariableNode implements Display"
+    },
+    "WithNode": {
+      "rust": "rust_stdlib::text::template::parse::WithNode"
+    },
+    "WithNode.BranchNode": {
+      "rust": "rust_stdlib::text::template::parse::WithNode::branch_node"
+    },
+    "WithNode.Copy": {
+      "rust": "rust_stdlib::text::template::parse::WithNode::copy"
+    }
+  }
+}

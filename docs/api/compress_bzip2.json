@@ -1,0 +1,14 @@
+{
+  "package": "compress/bzip2",
+  "notes": "compress::bzip2: Streaming Reader with multi-stream, block/stream CRCs and Go's Huffman/StructuralError semantics; opt-in output and block-size Limits (unlimited output by default); truncation delivers Go's zero-filled partial output, checked against Go; decompression only, as in Go",
+  "symbols": {
+    "NewReader": {"rust": "rust_stdlib::compress::bzip2::Reader::new", "deviation": "read-n-err", "note": "on truncated input the reader keeps decoding zero bits as Go does and delivers the same bytes Go returns with io.ErrUnexpectedEOF; a Rust Read cannot return bytes and an error together, so the error follows on the next read"},
+    "StructuralError": {
+      "rust": "rust_stdlib::compress::bzip2::StructuralError"
+    },
+    "StructuralError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl of StructuralError gives the same 'bzip2 data invalid: ' message; checked by tools/bzip2_check.py"
+    }
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "package": "sync/atomic",
+  "notes": "sync/atomic: std::sync::atomic. Go's Add returns the new value (fetch_add returns the old one, so add the delta back with wrapping_add); And and Or return the old value like fetch_and and fetch_or; CompareAndSwap is compare_exchange(..).is_ok(). Pointer[T] is AtomicPtr<T>; Value is an RwLock around the stored value; Rust types are static, so Go's inconsistent-type panic cannot happen in typed code (examples/stdsync_probe.rs simulates Go's dynamic slot only to match the oracle).",
+  "symbols": {
+    "AddInt32": {
+      "rust": "std::sync::atomic::AtomicI32::fetch_add",
+      "note": "returns the old value; Go returns the new one: add the delta back with wrapping_add"
+    },
+    "AddInt64": {
+      "rust": "std::sync::atomic::AtomicI64::fetch_add",
+      "note": "returns the old value; Go returns the new one: add the delta back with wrapping_add"
+    },
+    "AddUint32": {
+      "rust": "std::sync::atomic::AtomicU32::fetch_add",
+      "note": "returns the old value; Go returns the new one: add the delta back with wrapping_add"
+    },
+    "AddUint64": {
+      "rust": "std::sync::atomic::AtomicU64::fetch_add",
+      "note": "returns the old value; Go returns the new one: add the delta back with wrapping_add"
+    },
+    "AddUintptr": {
+      "rust": "std::sync::atomic::AtomicUsize::fetch_add",
+      "note": "returns the old value; Go returns the new one: add the delta back with wrapping_add"
+    },
+    "AndInt32": {
+      "rust": "std::sync::atomic::AtomicI32::fetch_and"
+    },
+    "AndInt64": {
+      "rust": "std::sync::atomic::AtomicI64::fetch_and"
+    },
+    "AndUint32": {
+      "rust": "std::sync::atomic::AtomicU32::fetch_and"
+    },
+    "AndUint64": {
+      "rust": "std::sync::atomic::AtomicU64::fetch_and"
+    },
+    "AndUintptr": {
+      "rust": "std::sync::atomic::AtomicUsize::fetch_and"
+    },
+    "Bool": {
+      "rust": "std::sync::atomic::AtomicBool"
+    },
+    "Bool.CompareAndSwap": {
+      "rust": "std::sync::atomic::AtomicBool::compare_exchange"
+    },
+    "Bool.Load": {
+      "rust": "std::sync::atomic::AtomicBool::load"
+    },
+    "Bool.Store": {
+      "rust": "std::sync::atomic::AtomicBool::store"
+    },
+    "Bool.Swap": {
+      "rust": "std::sync::atomic::AtomicBool::swap"
+    },
+    "CompareAndSwapInt32": {
+      "rust": "std::sync::atomic::AtomicI32::compare_exchange"
+    },
+    "CompareAndSwapInt64": {
+      "rust": "std::sync::atomic::AtomicI64::compare_exchange"
+    },
+    "CompareAndSwapPointer": {
+      "rust": "std::sync::atomic::AtomicPtr::compare_exchange"
+    },
+    "CompareAndSwapUint32": {
+      "rust": "std::sync::atomic::AtomicU32::compare_exchange"
+    },
+    "CompareAndSwapUint64": {
+      "rust": "std::sync::atomic::AtomicU64::compare_exchange"
+    },
+    "CompareAndSwapUintptr": {
+      "rust": "std::sync::atomic::AtomicUsize::compare_exchange"
+    },
+    "Int32": {
+      "rust": "std::sync::atomic::AtomicI32"
+    },
+    "Int32.Add": {
+      "rust": "std::sync::atomic::AtomicI32::fetch_add"
+    },
+    "Int32.And": {
+      "rust": "std::sync::atomic::AtomicI32::fetch_and"
+    },
+    "Int32.CompareAndSwap": {
+      "rust": "std::sync::atomic::AtomicI32::compare_exchange"
+    },
+    "Int32.Load": {
+      "rust": "std::sync::atomic::AtomicI32::load"
+    },
+    "Int32.Or": {
+      "rust": "std::sync::atomic::AtomicI32::fetch_or"
+    },
+    "Int32.Store": {
+      "rust": "std::sync::atomic::AtomicI32::store"
+    },
+    "Int32.Swap": {
+      "rust": "std::sync::atomic::AtomicI32::swap"
+    },
+    "Int64": {
+      "rust": "std::sync::atomic::AtomicI64"
+    },
+    "Int64.Add": {
+      "rust": "std::sync::atomic::AtomicI64::fetch_add"
+    },
+    "Int64.And": {
+      "rust": "std::sync::atomic::AtomicI64::fetch_and"
+    },
+    "Int64.CompareAndSwap": {
+      "rust": "std::sync::atomic::AtomicI64::compare_exchange"
+    },
+    "Int64.Load": {
+      "rust": "std::sync::atomic::AtomicI64::load"
+    },
+    "Int64.Or": {
+      "rust": "std::sync::atomic::AtomicI64::fetch_or"
+    },
+    "Int64.Store": {
+      "rust": "std::sync::atomic::AtomicI64::store"
+    },
+    "Int64.Swap": {
+      "rust": "std::sync::atomic::AtomicI64::swap"
+    },
+    "LoadInt32": {
+      "rust": "std::sync::atomic::AtomicI32::load"
+    },
+    "LoadInt64": {
+      "rust": "std::sync::atomic::AtomicI64::load"
+    },
+    "LoadPointer": {
+      "rust": "std::sync::atomic::AtomicPtr::load"
+    },
+    "LoadUint32": {
+      "rust": "std::sync::atomic::AtomicU32::load"
+    },
+    "LoadUint64": {
+      "rust": "std::sync::atomic::AtomicU64::load"
+    },
+    "LoadUintptr": {
+      "rust": "std::sync::atomic::AtomicUsize::load"
+    },
+    "OrInt32": {
+      "rust": "std::sync::atomic::AtomicI32::fetch_or"
+    },
+    "OrInt64": {
+      "rust": "std::sync::atomic::AtomicI64::fetch_or"
+    },
+    "OrUint32": {
+      "rust": "std::sync::atomic::AtomicU32::fetch_or"
+    },
+    "OrUint64": {
+      "rust": "std::sync::atomic::AtomicU64::fetch_or"
+    },
+    "OrUintptr": {
+      "rust": "std::sync::atomic::AtomicUsize::fetch_or"
+    },
+    "Pointer": {
+      "rust": "std::sync::atomic::AtomicPtr"
+    },
+    "Pointer.CompareAndSwap": {
+      "rust": "std::sync::atomic::AtomicPtr::compare_exchange"
+    },
+    "Pointer.Load": {
+      "rust": "std::sync::atomic::AtomicPtr::load"
+    },
+    "Pointer.Store": {
+      "rust": "std::sync::atomic::AtomicPtr::store"
+    },
+    "Pointer.Swap": {
+      "rust": "std::sync::atomic::AtomicPtr::swap"
+    },
+    "StoreInt32": {
+      "rust": "std::sync::atomic::AtomicI32::store"
+    },
+    "StoreInt64": {
+      "rust": "std::sync::atomic::AtomicI64::store"
+    },
+    "StorePointer": {
+      "rust": "std::sync::atomic::AtomicPtr::store"
+    },
+    "StoreUint32": {
+      "rust": "std::sync::atomic::AtomicU32::store"
+    },
+    "StoreUint64": {
+      "rust": "std::sync::atomic::AtomicU64::store"
+    },
+    "StoreUintptr": {
+      "rust": "std::sync::atomic::AtomicUsize::store"
+    },
+    "SwapInt32": {
+      "rust": "std::sync::atomic::AtomicI32::swap"
+    },
+    "SwapInt64": {
+      "rust": "std::sync::atomic::AtomicI64::swap"
+    },
+    "SwapPointer": {
+      "rust": "std::sync::atomic::AtomicPtr::swap"
+    },
+    "SwapUint32": {
+      "rust": "std::sync::atomic::AtomicU32::swap"
+    },
+    "SwapUint64": {
+      "rust": "std::sync::atomic::AtomicU64::swap"
+    },
+    "SwapUintptr": {
+      "rust": "std::sync::atomic::AtomicUsize::swap"
+    },
+    "Uint32": {
+      "rust": "std::sync::atomic::AtomicU32"
+    },
+    "Uint32.Add": {
+      "rust": "std::sync::atomic::AtomicU32::fetch_add"
+    },
+    "Uint32.And": {
+      "rust": "std::sync::atomic::AtomicU32::fetch_and"
+    },
+    "Uint32.CompareAndSwap": {
+      "rust": "std::sync::atomic::AtomicU32::compare_exchange"
+    },
+    "Uint32.Load": {
+      "rust": "std::sync::atomic::AtomicU32::load"
+    },
+    "Uint32.Or": {
+      "rust": "std::sync::atomic::AtomicU32::fetch_or"
+    },
+    "Uint32.Store": {
+      "rust": "std::sync::atomic::AtomicU32::store"
+    },
+    "Uint32.Swap": {
+      "rust": "std::sync::atomic::AtomicU32::swap"
+    },
+    "Uint64": {
+      "rust": "std::sync::atomic::AtomicU64"
+    },
+    "Uint64.Add": {
+      "rust": "std::sync::atomic::AtomicU64::fetch_add"
+    },
+    "Uint64.And": {
+      "rust": "std::sync::atomic::AtomicU64::fetch_and"
+    },
+    "Uint64.CompareAndSwap": {
+      "rust": "std::sync::atomic::AtomicU64::compare_exchange"
+    },
+    "Uint64.Load": {
+      "rust": "std::sync::atomic::AtomicU64::load"
+    },
+    "Uint64.Or": {
+      "rust": "std::sync::atomic::AtomicU64::fetch_or"
+    },
+    "Uint64.Store": {
+      "rust": "std::sync::atomic::AtomicU64::store"
+    },
+    "Uint64.Swap": {
+      "rust": "std::sync::atomic::AtomicU64::swap"
+    },
+    "Uintptr": {
+      "rust": "std::sync::atomic::AtomicUsize"
+    },
+    "Uintptr.Add": {
+      "rust": "std::sync::atomic::AtomicUsize::fetch_add"
+    },
+    "Uintptr.And": {
+      "rust": "std::sync::atomic::AtomicUsize::fetch_and"
+    },
+    "Uintptr.CompareAndSwap": {
+      "rust": "std::sync::atomic::AtomicUsize::compare_exchange"
+    },
+    "Uintptr.Load": {
+      "rust": "std::sync::atomic::AtomicUsize::load"
+    },
+    "Uintptr.Or": {
+      "rust": "std::sync::atomic::AtomicUsize::fetch_or"
+    },
+    "Uintptr.Store": {
+      "rust": "std::sync::atomic::AtomicUsize::store"
+    },
+    "Uintptr.Swap": {
+      "rust": "std::sync::atomic::AtomicUsize::swap"
+    },
+    "Value": {
+      "rust": "std::sync::RwLock"
+    },
+    "Value.CompareAndSwap": {
+      "rust": "std::sync::RwLock::write"
+    },
+    "Value.Load": {
+      "rust": "std::sync::RwLock::read"
+    },
+    "Value.Store": {
+      "rust": "std::sync::RwLock::write"
+    },
+    "Value.Swap": {
+      "rust": "std::mem::replace"
+    }
+  }
+}

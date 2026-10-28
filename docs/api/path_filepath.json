@@ -1,0 +1,90 @@
+{
+  "package": "path/filepath",
+  "notes": "Unix rules (separator /, list separator :, no volumes); Windows volume and UNC rules are not implemented and the module is Unix only. UTF-8 &str paths. Clean, Split, Join, Base, Dir, Ext and IsAbs are shared with the path package; Match, Rel, IsLocal, Localize, EvalSymlinks, Glob and WalkDir (an iterator; Walk is WalkDir::list_first) are ports of Go's algorithms over os.",
+  "symbols": {
+    "Abs": {
+      "rust": "rust_stdlib::path::filepath::abs"
+    },
+    "Base": {
+      "rust": "rust_stdlib::path::filepath::base"
+    },
+    "Clean": {
+      "rust": "rust_stdlib::path::filepath::clean"
+    },
+    "Dir": {
+      "rust": "rust_stdlib::path::filepath::dir"
+    },
+    "ErrBadPattern": {
+      "rust": "rust_stdlib::path::BadPattern"
+    },
+    "EvalSymlinks": {
+      "rust": "rust_stdlib::path::filepath::eval_symlinks"
+    },
+    "Ext": {
+      "rust": "rust_stdlib::path::filepath::ext"
+    },
+    "FromSlash": {
+      "rust": "rust_stdlib::path::filepath::from_slash"
+    },
+    "Glob": {
+      "rust": "rust_stdlib::path::filepath::glob"
+    },
+    "HasPrefix": {
+      "rust": "rust_stdlib::path::filepath::has_prefix"
+    },
+    "IsAbs": {
+      "rust": "rust_stdlib::path::filepath::is_abs"
+    },
+    "IsLocal": {
+      "rust": "rust_stdlib::path::filepath::is_local"
+    },
+    "Join": {
+      "rust": "rust_stdlib::path::filepath::join"
+    },
+    "ListSeparator": {
+      "rust": "rust_stdlib::path::filepath::LIST_SEPARATOR"
+    },
+    "Localize": {
+      "rust": "rust_stdlib::path::filepath::localize"
+    },
+    "Match": {
+      "rust": "rust_stdlib::path::filepath::matches"
+    },
+    "Rel": {
+      "rust": "rust_stdlib::path::filepath::rel"
+    },
+    "Separator": {
+      "rust": "rust_stdlib::path::filepath::SEPARATOR"
+    },
+    "SkipAll": {
+      "rust": "rust_stdlib::path::filepath::WalkDir",
+      "note": "Stop iterating."
+    },
+    "SkipDir": {
+      "rust": "rust_stdlib::path::filepath::WalkDir::skip_current_dir"
+    },
+    "Split": {
+      "rust": "rust_stdlib::path::filepath::split"
+    },
+    "SplitList": {
+      "rust": "rust_stdlib::path::filepath::split_list"
+    },
+    "ToSlash": {
+      "rust": "rust_stdlib::path::filepath::to_slash"
+    },
+    "VolumeName": {
+      "rust": "rust_stdlib::path::filepath::volume_name"
+    },
+    "Walk": {
+      "rust": "rust_stdlib::path::filepath::WalkDir::list_first",
+      "note": "WalkDir::new(root).list_first() lists each directory before visiting it, as Walk does."
+    },
+    "WalkDir": {
+      "rust": "rust_stdlib::path::filepath::WalkDir"
+    },
+    "WalkFunc": {
+      "rust": "rust_stdlib::path::filepath::WalkDir",
+      "note": "An Iterator of Result<WalkEntry, WalkError> replaces the callback; the error argument is the Err item."
+    }
+  }
+}

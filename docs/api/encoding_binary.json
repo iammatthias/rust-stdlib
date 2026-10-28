@@ -1,0 +1,128 @@
+{
+  "package": "encoding/binary",
+  "notes": "encoding::binary: Go's ByteOrder and AppendByteOrder traits with BigEndian, LittleEndian and NativeEndian; fixed-size values through the FixedSize trait; Go-compatible varints, differential-checked by tools/encoding_conformance.py. Deviations forced by Rust: Go's reflection-based Read, Write, Size, Encode, Decode and Append accept only FixedSize types (bool, 8 to 64-bit integers, floats, slices and arrays of them), and structs are rejected at compile time instead of at run time; ByteOrder covers the 16, 32 and 64-bit operations that Go defines. Fallible calls return io::Result where Go panics on short buffers (put and buffer-form calls report UnexpectedEof; overflow reports InvalidData). Read and ReadUvarint report io.EOF and io.ErrUnexpectedEOF as io::Error values of kind UnexpectedEof carrying crate::io::Error::Eof or crate::io::Error::UnexpectedEof. Append and AppendUvarint return () and extend the Vec in place",
+  "symbols": {
+    "Append": {
+      "rust": "rust_stdlib::encoding::binary::append",
+      "note": "extends the Vec in place and returns (); the encoding itself cannot fail"
+    },
+    "AppendByteOrder": {
+      "rust": "rust_stdlib::encoding::binary::AppendByteOrder"
+    },
+    "AppendByteOrder.AppendUint16": {
+      "rust": "rust_stdlib::encoding::binary::AppendByteOrder::append_uint16"
+    },
+    "AppendByteOrder.AppendUint32": {
+      "rust": "rust_stdlib::encoding::binary::AppendByteOrder::append_uint32"
+    },
+    "AppendByteOrder.AppendUint64": {
+      "rust": "rust_stdlib::encoding::binary::AppendByteOrder::append_uint64"
+    },
+    "AppendByteOrder.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "AppendUvarint": {
+      "rust": "rust_stdlib::encoding::binary::append_uvarint",
+      "note": "extends the Vec in place and returns ()"
+    },
+    "AppendVarint": {
+      "rust": "rust_stdlib::encoding::binary::append_varint",
+      "note": "extends the Vec in place and returns ()"
+    },
+    "BigEndian": {
+      "rust": "rust_stdlib::encoding::binary::BIG_ENDIAN"
+    },
+    "ByteOrder": {
+      "rust": "rust_stdlib::encoding::binary::ByteOrder"
+    },
+    "ByteOrder.PutUint16": {
+      "rust": "rust_stdlib::encoding::binary::ByteOrder::put_uint16",
+      "note": "panics on a short slice, as Go does"
+    },
+    "ByteOrder.PutUint32": {
+      "rust": "rust_stdlib::encoding::binary::ByteOrder::put_uint32",
+      "note": "panics on a short slice, as Go does"
+    },
+    "ByteOrder.PutUint64": {
+      "rust": "rust_stdlib::encoding::binary::ByteOrder::put_uint64",
+      "note": "panics on a short slice, as Go does"
+    },
+    "ByteOrder.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "ByteOrder.Uint16": {
+      "rust": "rust_stdlib::encoding::binary::ByteOrder::uint16",
+      "note": "panics on a short slice, as Go does"
+    },
+    "ByteOrder.Uint32": {
+      "rust": "rust_stdlib::encoding::binary::ByteOrder::uint32",
+      "note": "panics on a short slice, as Go does"
+    },
+    "ByteOrder.Uint64": {
+      "rust": "rust_stdlib::encoding::binary::ByteOrder::uint64",
+      "note": "panics on a short slice, as Go does"
+    },
+    "Decode": {
+      "rust": "rust_stdlib::encoding::binary::decode",
+      "note": "a short buffer is an io::Error of kind UnexpectedEof with Go's 'buffer too small' text; Go's sentinel value has no Rust equivalent"
+    },
+    "Encode": {
+      "rust": "rust_stdlib::encoding::binary::encode",
+      "note": "a short buffer is an io::Error of kind UnexpectedEof with Go's 'buffer too small' text; Go's sentinel value has no Rust equivalent"
+    },
+    "LittleEndian": {
+      "rust": "rust_stdlib::encoding::binary::LITTLE_ENDIAN"
+    },
+    "MaxVarintLen16": {
+      "rust": "rust_stdlib::encoding::binary::MAX_VARINT_LEN16"
+    },
+    "MaxVarintLen32": {
+      "rust": "rust_stdlib::encoding::binary::MAX_VARINT_LEN32"
+    },
+    "MaxVarintLen64": {
+      "rust": "rust_stdlib::encoding::binary::MAX_VARINT_LEN64"
+    },
+    "NativeEndian": {
+      "rust": "rust_stdlib::encoding::binary::NATIVE_ENDIAN"
+    },
+    "PutUvarint": {
+      "rust": "rust_stdlib::encoding::binary::put_uvarint",
+      "note": "Returns io::Result<usize>: an error where Go panics on a short buffer."
+    },
+    "PutVarint": {
+      "rust": "rust_stdlib::encoding::binary::put_varint",
+      "note": "Returns io::Result<usize>: an error where Go panics on a short buffer."
+    },
+    "Read": {
+      "rust": "rust_stdlib::encoding::binary::read",
+      "note": "Go's Read reflects over any fixed-size value including structs; Rust has no reflection, so the FixedSize trait names the accepted types (integers, floats, bool, arrays and slices of them) and a struct implements it by hand",
+      "deviation": "reflection"
+    },
+    "ReadUvarint": {
+      "rust": "rust_stdlib::encoding::binary::read_uvarint",
+      "note": "takes an io::Read instead of io.ByteReader"
+    },
+    "ReadVarint": {
+      "rust": "rust_stdlib::encoding::binary::read_varint",
+      "note": "takes an io::Read instead of io.ByteReader"
+    },
+    "Size": {
+      "rust": "rust_stdlib::encoding::binary::size",
+      "note": "Go's Size reflects over any fixed-size value including structs; Rust has no reflection, so the FixedSize trait names the accepted types (integers, floats, bool, arrays and slices of them) and a struct implements it by hand",
+      "deviation": "reflection"
+    },
+    "Uvarint": {
+      "rust": "rust_stdlib::encoding::binary::uvarint",
+      "note": "returns io::Result<(u64, usize)>: Go's n <= 0 becomes UnexpectedEof (incomplete) or InvalidData (overflow)"
+    },
+    "Varint": {
+      "rust": "rust_stdlib::encoding::binary::varint",
+      "note": "returns io::Result<(i64, usize)>: Go's n <= 0 becomes UnexpectedEof (incomplete) or InvalidData (overflow)"
+    },
+    "Write": {
+      "rust": "rust_stdlib::encoding::binary::write",
+      "note": "Go's Write reflects over any fixed-size value including structs; Rust has no reflection, so the FixedSize trait names the accepted types (integers, floats, bool, arrays and slices of them) and a struct implements it by hand",
+      "deviation": "reflection"
+    }
+  }
+}

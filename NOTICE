@@ -1,0 +1,417 @@
+rust-stdlib is licensed under the MIT License (see LICENSE). It includes
+material ported from the Go project, distributed under the BSD license below.
+
+Go-derived material
+-------------------
+
+src/net/http/{servemux,fs,transfer,cookie,client,transport,server,middleware,
+request,response,header,util,handler}.rs and src/net/http/httputil/{reverseproxy,persist}.rs
+port the logic of Go's src/net/http/{pattern,routing_tree,fs,transfer,cookie,client,
+transport,clientconn,filetransport,server,csrf,request,response,header,responsecontroller}.go
+and src/net/http/httputil/{reverseproxy,persist}.go; src/net/http/httptest/mod.rs
+ports httptest/{recorder,httptest}.go; vendored golang.org/x/net/http/httpproxy supplies the
+proxy-environment rules in transport.rs. tools/http_oracle.go drives the same packages in
+Go for tools/http_check.py.
+
+src/image/jpeg ports Go's src/image/jpeg/{reader,scan,huffman,dct,writer}.go: the decoder
+state machine, marker handling and leniencies, the Huffman look-up decoder, the fixed-point
+DCT/IDCT, and the encoder with its quantization and Huffman tables. tests/image_jpeg.rs ports
+reader_test.go and writer_test.go; tests/fixtures/jpeg holds copies of the JPEG and PNG files
+of Go's src/image/testdata that they read. tools/jpeg_oracle.go drives Go's image/jpeg for
+tools/jpeg_check.py.
+
+src/net/smtp ports Go's src/net/smtp/{smtp,auth}.go; tests/smtp.rs ports the auth tables of
+smtp_test.go; tools/smtp_oracle.go drives Go's net/smtp for tools/smtp_check.py.
+
+src/net/http/httptrace.rs ports Go's net/http/httptrace/trace.go (hook set and composition);
+src/net/nettrace.rs ports internal/nettrace; tools/httptrace_oracle.go drives Go's transport for
+tools/httptrace_check.py.
+
+src/net/http/cgi and src/net/http/fcgi port Go's net/http/cgi/{child,host}.go and
+net/http/fcgi/{child,fcgi}.go; tests/cgi.rs ports child_test.go; tools/cgi_oracle.go drives Go's
+packages for tools/cgi_check.py.
+
+src/net/http/pprof.rs ports Go's net/http/pprof/pprof.go (the index template, cmdline, symbol and error
+responses); src/plugin.rs follows plugin/plugin_stubs.go; tools/pprof_oracle.go drives Go's package for
+tools/pprof_check.py.
+
+crates/sys/src/os_signal.rs ports Go's os/signal/signal.go and the signal state of runtime/sigqueue.go and
+runtime/signal_unix.go (with the sigtable flags of sigtab_linux_generic.go and signal_darwin.go);
+tools/signal_oracle.go drives Go's package for tools/signal_check.py.
+
+src/reflect ports rules of Go's src/reflect: StructTag.Lookup, FieldByNameFunc,
+StructOf validation, funcStr and the layout rules (type.go), convertOp and the
+conversions, growslice capacity rule and Select/Copy/Append semantics (value.go),
+DeepEqual (deepequal.go), VisibleFields (visiblefields.go), Swapper (swapper.go)
+and Seq/Seq2 (iter.go). tests/reflect.rs and tools/derive-check/tests/reflect.rs
+port tables and assertions from all_test.go, visiblefields_test.go and
+iter_test.go; tools/reflect_oracle.go and tools/reflect_typed_oracle.go run
+Go's reflect for the differential.
+
+src/math/rand/mod.rs, src/math/rand/v1.rs, src/math/rand/pcg.rs,
+src/math/rand/chacha8.rs, src/math/rand/gomath.rs and src/math/rand/zipf.rs
+port algorithms from
+Go's src/math/rand, src/math/rand/v2, src/internal/chacha8rand and
+src/math/{log,exp,frexp,ldexp}.go and exp_arm64.s.
+
+src/bytes ports the algorithms and Buffer/Reader state rules of Go's
+src/bytes/{bytes,buffer,reader,iter}.go and the Rabin-Karp search from
+internal/bytealg; src/bytes/tables.rs (malloc size classes) is generated from
+Go's runtime by tools/bytes_tables_gen.go, and tests/bytes.rs ports tables from
+bytes_test.go, buffer_test.go and reader_test.go.
+
+src/image/draw.rs and src/image/gif.rs port Go's src/image/draw/draw.go and
+src/image/gif/{reader,writer}.go; src/image/color/palette.rs is generated from
+Go's image/color/palette package by tools/palette_gen.go.
+
+src/encoding/json/scanner.rs ports Go's src/encoding/json/scanner.go (the
+syntax state machine and its errors); src/encoding/json/indent.rs ports
+indent.go and its HTML escaping; src/encoding/json/stream.rs ports the buffer
+handling, token reader and error offsets of Go's src/encoding/json/jsontext
+decoder and the v1 Decoder wrapper in v2_stream.go; src/encoding/json/fields.rs
+ports the field resolution of encode.go and v2 tag parsing; the float and
+string encoders follow encode.go. tests/json.rs ports tables from Go's
+scanner, stream and encode tests; tests/fixtures/json_golden.txt is generated
+by Go via tools/json_oracle.go.
+
+src/multipart/reader.rs ports Go's src/mime/multipart/multipart.go (the boundary
+scanner, part reader and NextPart state machine) and src/multipart/form.rs the
+memory accounting of formdata.go; tests/multipart_reader.rs follows their cases.
+
+src/encoding/json/jsontext/ ports Go's src/encoding/json/jsontext and the
+internal packages it uses: decode.go, encode.go, state.go, token.go, value.go,
+errors.go, options.go and quote.go, internal/jsonwire (wire.go, decode.go,
+encode.go), internal/jsonflags and internal/jsonopts. src/encoding/json/v2/
+ports Go's src/encoding/json/v2: arshal.go, arshal_default.go, arshal_any.go,
+arshal_embedded.go, arshal_funcs.go, arshal_methods.go, errors.go, fields.go,
+fold.go and options.go, with reflection replaced by the MarshalTo and
+UnmarshalFrom traits (crates/derive/src/v2.rs generates them). tests/jsontext.rs
+and tools/derive-check/tests/jsonv2.rs port tables and examples from Go's
+state_test.go, value_test.go, token_test.go, example_test.go and
+example_marshaljson_test.go; tests/fixtures/jsontext_golden.txt and
+tests/fixtures/jsonv2_golden.txt are generated by Go via
+tools/jsontext_oracle.go and tools/jsonv2_oracle.go.
+
+src/encoding/ascii85.rs ports the chunked Decoder.Read buffering and sticky
+error handling of Go's src/encoding/ascii85/ascii85.go.
+src/text/scanner.rs ports Go's src/text/scanner/scanner.go (the buffering,
+token and error rules); tests/text_scanner.rs tables are generated from scanner_test.go
+and tools/text_scanner_oracle.go is the Go differential oracle.
+src/index/suffixarray.rs ports the serialized layout of Go's src/index/suffixarray/
+suffixarray.go (writeInt, writeSlice, readInt, readSlice, Read and Write); the suffix
+array itself is built differently. tools/suffixarray_oracle.go is the Go oracle.
+src/uuid.rs ports the parsing rules, error values, formatting and NewV7 clock state of
+Go's uuid/uuid.go; tests/uuid.rs ports uuid_test.go. tools/uuid_oracle.go is the Go oracle.
+src/expvar.rs ports the JSON rendering of Go's expvar.go (Int, Float, Map and String
+String/appendJSON rules, appendJSONQuote and the expanded handler layout); tests/expvar.rs
+ports expvar_test.go and tools/expvar_oracle.go is the Go oracle.
+src/container/heap.rs, src/container/list.rs and src/container/ring.rs port the
+algorithms of Go's src/container/{heap,list,ring}; src/sort.rs ports Go's
+src/sort/search.go and the Interface API of src/sort/sort.go. tests/sort.rs,
+tests/slices.rs, tests/cmp_maps_iter.rs and tests/container.rs port tables from
+Go's sort, slices, cmp, maps and container tests.
+src/strings ports the algorithms of Go's src/strings (strings.go, replace.go,
+reader.go, iter.go, builder.go) and src/unicode/utf8; case mapping, folding and
+classification come from src/unicode.
+
+src/bufio ports the buffering rules and scanner state machine of Go's
+src/bufio/{bufio,scan}.go; src/io ports the Copy/ReadAtLeast loops,
+SectionReader, OffsetWriter, MultiReader/MultiWriter, TeeReader and the pipe
+close semantics of Go's src/io/{io,multi,pipe}.go; src/io/fs ports
+src/io/fs/{fs,glob,readdir,readfile,stat,sub,walk,format,readlink}.go and
+src/testing/fstest/mapfs.go (src/io/fs/mapfs.rs); src/embed.rs ports the
+lookup and error rules of src/embed/embed.go; src/io/ioutil.rs follows
+src/os/tempfile.go. tests/bufio.rs, tests/io.rs and tests/io_fs.rs port tables
+from bufio_test.go, scan_test.go, io_test.go, multi_test.go, pipe_test.go and
+the io/fs *_test.go files.
+
+src/math/rand/tables.rs (rngCooked, ziggurat tables and float constants) and
+tests/fixtures/rand_golden.rs (golden vectors from Go's regress, PCG and
+ChaCha8 tests) are generated from the Go sources by tools/rand_tables.go.
+
+src/compress/flate/inflate.rs ports Go's src/compress/flate/{inflate,dict_decoder}.go
+(Huffman table layout, validity rules, step machine and byte-exact input
+consumption); src/compress/{gzip,zlib}.rs and src/compress/flate/mod.rs follow
+the behaviour of Go's src/compress/{gzip,zlib,flate}. tests/flate.rs and
+tests/fixtures/compress/{gunzip_tests,zlib_tests,flate_streams}.tsv port tables
+from Go's flate_test.go, gunzip_test.go and zlib/reader_test.go
+(tools/gen_flate_fixtures.py extracts them); tools/flate_check.py reads Go's
+src/compress/testdata and src/testdata files at run time.
+
+src/unicode/mod.rs ports Go's src/unicode/{letter,graphic,digit}.go;
+src/unicode/tables.rs (range tables, case ranges and fold data) is generated
+from Go's unicode package by tools/unicode_gen.go. tests/unicode.rs ports cases
+from Go's unicode, unicode/utf8 and unicode/utf16 tests.
+
+src/encoding/asn1 ports the DER parsing and encoding rules of Go's
+src/encoding/asn1. tests/fixtures/asn1_golden.rs (test vectors and DER
+certificates from Go's asn1_test.go) is generated by tools/asn1_vectors.go,
+and tests/asn1.rs ports further cases from asn1_test.go and marshal_test.go.
+
+src/encoding/base32.rs ports the quantum decoder of Go's src/encoding/base32/base32.go
+(decode, the CorruptInputError offsets and partial output). src/encoding/csv.rs
+ports the line-based readLine and readRecord and the Write and fieldNeedsQuotes
+rules of Go's src/encoding/csv/{reader,writer}.go. tests/csv.rs ports cases from
+Go's csv reader_test.go and writer_test.go.
+
+src/math/big ports Go's src/math/big (arith.go, nat.go, natconv.go,
+natdiv.go, natmul.go, int.go, intconv.go, intmarsh.go, prime.go, rat.go,
+ratconv.go, ratmarsh.go, float.go, floatconv.go, floatmarsh.go, ftoa.go,
+decimal.go and sqrt.go). tests/fixtures/big_golden.rs (the table-driven
+vectors of Go's math/big *_test.go files) is generated by
+tools/big_vectors.go, and tests/big.rs ports the checks of those Go tests.
+src/strconv ports the syntax, error and formatting rules of Go's src/strconv
+and src/internal/strconv. IsPrint and IsGraphic use src/unicode;
+tests/fixtures/strconv/{testfp,
+atof1k,ftoa1k}.txt are copied from internal/strconv/testdata and the *_cases.txt
+fixtures are extracted from Go's atoi/atof/ftoa tests by tools/strconv_fixtures.py.
+crates/crypto/tests/fixtures/*.tsv (known-answer tables, including Go's
+marshaled hash states, from the test files of crypto/md5, sha1, sha256, sha512,
+hmac, hkdf and pbkdf2) are generated by tools/crypto_vectors_gen.go, and
+crates/crypto/tests/primitives.rs ports cases from the tests of crypto/sha3
+(including the cSHAKE accumulated digests) and crypto/subtle.
+The cipher fixtures in the same directory (aes, des, tdes, des_a1..a4, rc4,
+cbc_aes, cfb, ctr_aes, ofb and gcm .tsv, plus the shared inputs) are the tables
+of the test files of crypto/aes, crypto/des, crypto/rc4 and crypto/cipher,
+generated by tools/crypto_cipher_vectors_gen.go; crates/crypto/tests/cipher.rs
+ports the checks of those tests (including the GCM counter-wrap, tag-size and
+tag-failure tests), and tools/crypto_cipher_oracle.go defines the Go reference
+for the differential in tools/crypto_cipher_check.py.
+
+backends/tls/src/tls/system_roots.rs ports the system root loader of Go's
+src/crypto/x509/root.go, root_unix.go, root_linux.go and root_darwin.go: the
+SSL_CERT_FILE / SSL_CERT_DIR rules, the Unix certificate file and directory
+lists and the directory-entry rules.
+src/time/gotime.rs, src/time/format.rs and src/time/duration.rs port Go's
+src/time/time.go, format.go and format_rfc3339.go (the Time representation,
+absolute-date calendar algorithms, rounding, encodings, layout formatting and
+parsing, Duration and ParseDuration). tests/time_go.rs ports test tables from
+Go's src/time/format_test.go and time_test.go, tests/time_timers.rs ports
+timer and ticker tests from sleep_test.go and tick_test.go, and tools/go_api_symbols.go
+uses go/doc to list Go's exported API.
+
+src/time/location.rs ports TZif parsing, zone lookup (lookupFirstZone and
+the load-time cache), POSIX TZ string evaluation (tzset), the stored-zip
+zoneinfo lookup and LoadLocation/initLocal search order from Go's
+src/time/zoneinfo.go, zoneinfo_read.go and zoneinfo_unix.go; src/time/mod.rs
+ports Date normalization from src/time/time.go.
+
+src/log/mod.rs, src/log/slog and src/log/syslog.rs port the behaviour of Go's
+src/log/log.go, src/log/slog/{handler,json_handler,text_handler,level,record,
+value,attr,logger,multi_handler}.go (the commonHandler preformatted-attribute,
+group-prefix and separator state machine, quoting rules and key constants) and
+src/log/syslog/syslog.go (message formats and priority constants).
+tests/log.rs ports tables from log_test.go, slog's level, handler, text/json
+handler and logger tests, and syslog_test.go.
+src/archive/tar/{header,reader,writer,strconv,sparse}.rs and
+src/archive/zip/{header,reader,writer,register}.rs port the format logic of
+Go's src/archive/tar/{common,format,reader,writer,strconv}.go and
+src/archive/zip/{struct,reader,writer,register}.go (header format selection,
+base-256 and PAX encodings, GNU/PAX sparse maps, directory and ZIP64 record
+layouts, DOS time and mode conversion). src/archive/iofs.rs ports FileMode,
+WalkDir and the MapFS behaviour of Go's io/fs and testing/fstest.
+src/archive/tar/api_tests.rs, tests/archive_tar.rs and tests/archive_zip.rs
+port tables from Go's archive/tar and archive/zip *_test.go files, and
+tests/fixtures/archive/{tar,zip}/ copies Go's archive/{tar,zip}/testdata
+fixtures. tools/archive_api_oracle.go and examples/archive_api_probe.rs port
+the .zsparse reader of Go's archive/zip/zip64_sparse_test.go.
+
+src/encoding/xml (decoder.rs, encoder.rs, typeinfo.rs, unmarshal.rs, conv.rs)
+ports the tokenizer, namespace stack, printer, struct-tag processing and
+unmarshal logic of Go's src/encoding/xml (xml.go, marshal.go, typeinfo.go,
+read.go); src/encoding/xml/tables.rs (the name-character range tables, HTMLEntity
+and HTMLAutoClose) is generated from xml.go by tools/xml_tables_gen.py.
+tests/xml.rs, tools/derive-check/tests/xml.rs and the Go oracle tools/xml_typed.go
+port cases from Go's xml_test.go, marshal_test.go, read_test.go and
+example_test.go.
+src/text/template/parse ports Go's src/text/template/parse/{lex,node,parse}.go;
+src/text/template ports exec.go, funcs.go, template.go, helper.go and option.go
+of Go's src/text/template onto the typed value model in value.rs, and gofmt.rs
+ports the verb handling of src/fmt/{print,format}.go and the map-key order of
+internal/fmtsort. src/html/template ports Go's src/html/template (attr, content,
+context, css, error, escape, html, js, transition, url, template) and jsonscan.rs
+ports the scanner of src/encoding/json/scanner.go; jsonenc.rs follows
+encoding/json's encode.go. The Go oracles (tools/template_oracle*.go) copy the
+data types and helper functions of text/template/exec_test.go and
+html/template/escape_test.go; tools/template_fixtures.py extracts the tables of
+Go's parse, lex, exec, escape, content, js, css, url and html tests into
+tests/fixtures/template/*.jsonl, and tests/fixtures/template/testdata is copied
+from text/template/testdata.
+
+Copyright 2009 The Go Authors.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+   * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+   * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+   * Neither the name of Google LLC nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+src/database/sql ports the pool, transaction, statement, rows and Scan
+conversion logic of Go's src/database/sql/{sql,convert,ctxutil,closemu}.go and
+src/database/sql/driver/{driver,types}.go. tests/support/fakedb.rs and
+tools/database_fakedb.go are derived from Go's src/database/sql/fakedb_test.go;
+tests/database_sql.rs ports tables and tests from convert_test.go,
+driver/types_test.go and sql_test.go; tools/database_check.py and
+tools/database_oracle.go compare the Rust port with Go's package.
+
+IANA time zone data
+-------------------
+
+src/time/tzdata/zoneinfo.zip is a verbatim copy of Go's lib/time/zoneinfo.zip,
+compiled from the IANA Time Zone Database (tzdata/tzcode 2026c). The IANA
+asserts that the database is in the public domain; see
+https://www.iana.org/time-zones and src/time/tzdata/PROVENANCE.md.
+src/regexp ports Go's src/regexp (regexp.go, exec.go, onepass.go) and
+src/regexp/syntax (parse.go, simplify.go, compile.go, prog.go, regexp.go,
+perl_groups.go). tests/fixtures/regexp_tables.rs is generated from Go's regexp
+tests by tools/regexp/gen_fixtures.py; tests/fixtures/regexp/ holds Go's
+regexp/testdata (re2-search.txt from RE2, Copyright The RE2 Authors, and the
+AT&T/Glenn Fowler testregex .dat files) under their original licenses.
+
+tests/context.rs ports cases from Go's src/context/x_test.go (TestCause,
+TestDeadline, TestAfterFunc*, TestWithoutCancel, TestSimultaneousCancels and
+others); src/context.rs follows the propagation rules of Go's
+src/context/context.go.
+src/net/url.rs ports Go's src/net/url/url.go (including the netip.ParseAddr
+error texts); tests/url.rs ports tables from url_test.go, dumped to
+tests/fixtures/url_go_tables.json by tools/gen_url_fixtures.py. src/flag.rs
+ports Go's src/flag/flag.go and tests/flag.rs ports flag_test.go and the
+package examples.
+
+src/math/{erf,gamma,bessel,exp,trig,cmplx}.rs and the mod.rs functions
+atan/asin/atan2/sinh/cosh/tanh/hypot/log/pow/frexp/ldexp/remainder/nextafter
+port Go's src/math (erf.go, erfinv.go, gamma.go, lgamma.go, j0.go, j1.go,
+jn.go, exp.go, expm1.go, log1p.go, log.go, cbrt.go, asinh.go, acosh.go,
+atanh.go, sin.go, tan.go, sincos.go, trig_reduce.go, atan.go, asin.go,
+atan2.go, sinh.go, tanh.go, hypot.go, pow.go, frexp.go, ldexp.go,
+remainder.go, nextafter.go, logb.go, pow10.go) and src/math/cmplx, whose
+numerical kernels derive from FreeBSD's msun (Copyright (C) 1993 by Sun
+Microsystems, Inc., preserved permission notice) and the Cephes library
+(Stephen L. Moshier). tests/math.rs and tests/cmplx.rs port cases from Go's
+all_test.go, bits_test.go and cmplx tests. tests/sync.rs, tests/sync_atomic.rs
+and tests/errors.rs port ideas from Go's sync, sync/atomic and errors tests.
+src/net/netip.rs ports Go's src/net/netip/netip.go (the ParseAddr grammar, formatting,
+Prefix and AddrPort rules); tests/netip.rs follows netip_test.go. src/net/ip.rs,
+src/net/addr.rs, src/net/error.rs and src/net/interface.rs port src/net/{ip,mac,ipsock,
+tcpsock,udpsock,unixsock,iprawsock,net,interface}.go; src/net/dial.rs ports dial.go;
+src/net/resolver.rs, src/net/dnsconf.rs and src/net/dnsmsg.rs port lookup.go,
+dnsclient.go, dnsclient_unix.go, dnsconfig_unix.go, hosts.go, port_unix.go, conf.go,
+addrselect.go and the used subset of golang.org/x/net/dns/dnsmessage; src/net/pipe.rs
+ports pipe.go; tests/net.rs follows ip_test.go, mac_test.go and ipsock_test.go.
+
+src/path.rs ports Match from Go's src/path/match.go (the matcher is shared with
+src/path/filepath.rs); src/path/filepath.rs ports Rel, IsLocal, EvalSymlinks,
+Glob, Walk and WalkDir from Go's src/path/filepath; src/os ports Expand, MkdirAll, RemoveAll,
+the Root path resolution (doInRoot) and the CopyFS, CreateTemp and Getwd logic
+of Go's src/os, src/os/exec ports dedupEnv, LookPath, Cmd.Wait/watchCtx and the
+stderr prefix/suffix saver of src/os/exec, and crates/sys/src/os_user.rs
+ports the cgo lookup loop of src/os/user. tests/filepath.rs,
+tests/os.rs and tests/os_exec.rs port tables from the
+corresponding *_test.go files; tools/gen_filepath_tables.py extracts the
+path/filepath tables into tests/fixtures/filepath_tables.rs.
+
+crates/sys/src/errno_table.rs is generated by tools/gen_sys_errno.py from the
+errno and signal message tables of Go's src/syscall/zerrors_linux_amd64.go and
+zerrors_darwin_arm64.go, and the numeric constants in crates/sys/src/errno.rs
+and crates/sys/src/ffi follow the same files. crates/sys/src/net ports the
+logic of Go's src/net/{dial,ipsock,ipsock_posix,sock_posix,sockopt_*,
+sockoptip*,tcpsock,tcpsockopt_*,udpsock*,unixsock*,iprawsock*,rawconn,
+file_unix,interface*,lookup,port,mptcpsock_*}.go and
+src/internal/routebsd/address.go (KAME scope stripping); crates/sys/src/poll.rs
+and os_file.rs follow src/internal/poll and the newFile/pollability rules of
+src/os/file_unix.go; crates/sys/src/os.rs ports Chtimes and the Process.Signal
+errors of src/os. crates/sys/tests/net.rs ports tables from ip_test.go.
+
+src/fmt ports the verb engine and scanner of Go's src/fmt/{format,print,scan,
+errors}.go (flag, padding, integer, float, string, pointer and error-form rules;
+doPrintf/doPrint/printValue; the ss scanner, advance/doScanf and the number and
+string token scanners). tests/fixtures/fmt_tests.rs is generated from Go's
+fmt_test.go and scan_test.go (the fmtTests, reorderTests, startests, scanTests,
+scanfTests, overflowTests, multiTests and eofTests tables) by
+tools/gen_fmt_fixtures.py, and tests/fmt.rs ports further tests from
+fmt_test.go, scan_test.go, errors_test.go, stringer_test.go and state_test.go.
+
+
+src/testing/matcher.rs ports Go's src/testing/match.go (name filtering and
+uniquifying); src/testing/{common,t,benchmark,fuzz,mod}.rs port the reporting
+(flushToParent, the output writer, tRunner, T.Run/Parallel), benchmark ramp-up,
+B.Loop, BenchmarkResult formatting, the examples runner and the go test fuzz v1
+corpus parser of src/testing/{testing,benchmark,example,fuzz}.go and
+internal/fuzz/encoding.go. src/testing/iotest.rs, fstest.rs, quick.rs and
+slogtest.rs port src/testing/{iotest,fstest,quick,slogtest}; src/testing/synctest.rs
+follows the semantics documented in testing/synctest. tests/testing.rs,
+tests/testing_pkgs.rs and src/testing/matcher_tests.rs port tables and cases from
+Go's sub_test.go, match_test.go, testing_test.go, benchmark_test.go, loop_test.go,
+helper_test.go and the iotest, fstest and quick tests; tools/testing_oracle.go
+drives the same packages in Go for tools/testing_check.py.
+
+src/math/rand/chacha8.rs and src/math/rand/gomath.rs port algorithms from
+src/path/filepath.rs ports Match, Rel, IsLocal, EvalSymlinks, Glob, Walk and
+WalkDir from Go's src/path/filepath; src/os ports Expand, MkdirAll, RemoveAll,
+
+crates/crypto/tests/fixtures/{ed25519,ecdh,ecdsa,elliptic,rsa,mlkem,mldsa,dsa,hpke}_*.tsv
+are generated by tools/crypto_asym_vectors_gen.py from Go's test files and
+testdata (crypto/ed25519, ecdsa, elliptic, rsa, hpke) and from the Wycheproof
+test vectors that Go pins (C2SP/wycheproof, Apache License 2.0, commit
+ee7b4f7e6119), sampled so that every flag of every vector file is covered.
+crates/crypto/tests/{ed25519,ecdh,ecdsa,elliptic,rsa,rsa_small_keys,mlkem,mldsa,dsa,hpke,rand_int}.rs
+port the tables and cases of the corresponding Go test files, and
+tools/crypto_asym_oracle.go defines the Go reference for the differential in
+tools/crypto_asym_check.py.
+
+src/net/http/h2 ports logic and tables from Go's net/http/internal/http2 and
+vendored golang.org/x/net/http2/hpack (frame.go, errors.go, flow.go, pipe.go,
+server.go, transport.go, write.go, writesched*.go, hpack, ciphers.go) and
+net/http/internal/{httpsfv,httpcommon} (BSD-3-Clause, Copyright The Go
+Authors). src/net/http/h2/{hpack_tables,cipher_tables}.rs are generated from
+those sources by tools/gen_hpack_tables.py; tools/h2_check.py compiles copies of
+the Go packages into a scratch module as its oracle.
+
+crates/sys/src/syscall ports Go's src/syscall: consts.rs, types.rs, zsyscall.rs and
+the expected tables are generated by tools/gen_syscall.go from zerrors_linux_amd64.go,
+zsysnum_linux_amd64.go, ztypes_linux_amd64.go and zsyscall_linux_amd64.go; errno.rs,
+misc.rs, files.rs, sock.rs, cmsg.rs and proc.rs port the logic of syscall_linux.go,
+syscall_linux_amd64.go, syscall_unix.go, dirent.go, env_unix.go, exec_unix.go,
+exec_linux.go, lsf_linux.go, netlink_linux.go, sockcmsg_unix.go, sockcmsg_linux.go and
+timestruct.go; crates/sys/src/ffi/spawn.rs follows forkAndExecInChild.
+backends/tls/src/tls ports tables and logic from Go's crypto/tls
+(BSD-3-Clause, Copyright The Go Authors): the cipher suite tables
+(tables.rs, generated by backends/tls/tools/gotls_tables.go from
+cipher_suites.go), the alert texts (alert.go), VersionName and the String
+methods of CurveID, SignatureScheme and ClientAuthType (common.go,
+common_string.go), SessionState.Bytes and ParseSessionState (ticket.go), the
+X509KeyPair error handling (tls.go), the LRU client session cache (cache.go),
+the certificate selection rules (common.go, handshake_server.go) and, in
+x509.rs, the host name matching and HostnameError text of crypto/x509
+(verify.go, x509.go). backends/tls/tests/crypto_tls.rs follows tls_test.go and
+handshake_client_test.go; tools/gotls_oracle.go is the reference for
+tools/gotls_check.py.
+
+src/encoding/gob ports the type-id allocation, wire format, encoder and
+decoder rules of Go's src/encoding/gob, and src/net/rpc ports the server and
+client logic and the debug page template of Go's src/net/rpc and
+src/net/rpc/jsonrpc. tests/gob.rs and tools/derive-check/tests/{gob,rpc,jsonrpc}.rs
+port tables and cases from Go's codec_test.go, encoder_test.go, type_test.go,
+gobencdec_test.go and server_test.go, and tools/gob_oracle.go and
+tools/rpc_interop.go drive the same packages in Go for tools/gob_check.py and
+tools/rpc_check.py.

@@ -1,0 +1,23 @@
+{"package": "encoding/base32",
+ "notes": "encoding::base32: one Engine type with Go's behaviour (CR/LF skipped, Go's CorruptInputError offsets and partial output on error via decode_into), differential-checked by tools/base32_check.py. Decoding is a port of Go's quantum state machine. Engine::new and with_padding return Result where Go panics; Engine::new takes a 32-byte array, so a wrong alphabet length cannot be expressed. with_padding takes Option<u8>, so padding above 0xff, which Go rejects, cannot be expressed. encode returns a String (U+FFFD for a non-UTF-8 byte of a custom alphabet); encode_to_vec returns the raw bytes. Decoder is a port of Go's stream decoder (1024-byte buffer, per-read newline filtering), so data after padding is an error only when it arrives in a later chunk and corrupt offsets are chunk-relative, as Go; where Go returns data with an error, Decoder returns the data and then the error on the next read. The differential also compares chunked-read schedules (caller buffer size and source bytes per read) record by record",
+ "symbols": {
+  "CorruptInputError": {"rust": "rust_stdlib::encoding::base32::Error"},
+  "CorruptInputError.Error": {"rust": "std::string::ToString::to_string", "note": "Display gives Go's 'illegal base32 data at input byte N'"},
+  "Encoding": {"rust": "rust_stdlib::encoding::base32::Engine"},
+  "Encoding.AppendDecode": {"rust": "rust_stdlib::encoding::base32::Engine::decode_into", "note": "bytes decoded before a corrupt byte stay in the Vec"},
+  "Encoding.AppendEncode": {"rust": "rust_stdlib::encoding::base32::Engine::encode_into"},
+  "Encoding.Decode": {"rust": "rust_stdlib::encoding::base32::Engine::decode_into", "note": "appends to a Vec instead of filling a sized slice; bytes before a corrupt byte are kept, as in Go"},
+  "Encoding.DecodeString": {"rust": "rust_stdlib::encoding::base32::Engine::decode"},
+  "Encoding.DecodedLen": {"rust": "rust_stdlib::encoding::base32::Engine::decoded_len"},
+  "Encoding.Encode": {"rust": "rust_stdlib::encoding::base32::Engine::encode_into", "note": "appends to a Vec instead of filling a sized slice"},
+  "Encoding.EncodeToString": {"rust": "rust_stdlib::encoding::base32::Engine::encode", "deviation": "go-string-invalid-utf8", "note": "encode_to_vec returns raw bytes when a custom alphabet or padding is not ASCII"},
+  "Encoding.EncodedLen": {"rust": "rust_stdlib::encoding::base32::Engine::encoded_len"},
+  "Encoding.WithPadding": {"rust": "rust_stdlib::encoding::base32::Engine::with_padding", "note": "Takes Option<u8> (None is NoPadding) and returns an error where Go panics on an invalid padding byte."},
+  "HexEncoding": {"rust": "rust_stdlib::encoding::base32::HEX"},
+  "NewDecoder": {"rust": "rust_stdlib::encoding::base32::Engine::decoder", "note": "io::Read adapter; Go's (n, err) pair is returned as data first, then the error"},
+  "NewEncoder": {"rust": "rust_stdlib::encoding::base32::Engine::encoder", "note": "io::Write adapter; Go's Close is Encoder::finish, which flushes the final quantum and returns the inner writer"},
+  "NewEncoding": {"rust": "rust_stdlib::encoding::base32::Engine::new", "note": "Returns Result<Self, AlphabetError> (an error where Go panics on an invalid alphabet)."},
+  "NoPadding": {"rust": "std::option::Option::None", "note": "with_padding(None)"},
+  "StdEncoding": {"rust": "rust_stdlib::encoding::base32::STANDARD"},
+  "StdPadding": {"rust": "rust_stdlib::encoding::base32::PAD"}
+ }}

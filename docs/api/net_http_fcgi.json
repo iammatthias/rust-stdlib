@@ -1,0 +1,22 @@
+{
+  "package": "net/http/fcgi",
+  "notes": "net::http::fcgi: the responder role over a Listener, byte-identical records (including Go's buffering of the response stream), GetValues, aborts and unknown record types, verified against Go with scripted record streams",
+  "symbols": {
+    "ErrConnClosed": {
+      "rust": "rust_stdlib::net::http::fcgi::ERR_CONN_CLOSED",
+      "note": "an ErrorString const carried inside the io::Error a body read returns"
+    },
+    "ErrRequestAborted": {
+      "rust": "rust_stdlib::net::http::fcgi::ERR_REQUEST_ABORTED",
+      "note": "an ErrorString const carried inside the io::Error a body read returns"
+    },
+    "ProcessEnv": {
+      "rust": "rust_stdlib::net::http::fcgi::process_env",
+      "note": "returns Option<HashMap>; None is Go's nil map"
+    },
+    "Serve": {
+      "rust": "rust_stdlib::net::http::fcgi::serve",
+      "note": "a None listener (Go's nil) serves the listening TCP or Unix socket on standard input, as net.FileListener(os.Stdin) does; verified against Go with inherited sockets"
+    }
+  }
+}

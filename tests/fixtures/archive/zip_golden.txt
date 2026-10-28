@@ -1,0 +1,269 @@
+@@ comment-truncated.zip
+END err
+@@ crc32-not-streamed.zip
+Z comment= count=2
+F name=666f6f2e747874 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=34661 mdate=16488 modified=1331254750.0 crc=2117232040 csize=4 usize=4 csize64=4 usize64=4 extra=5554050003de55594f75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=65 offerr=0
+D len=4 fnv=dd1276790c25c367 trunc=0 err=0
+R len=4 fnv=dd1276790c25c367 trunc=0 err=0
+F name=6261722e747874 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=34662 mdate=16488 modified=1331254752.0 crc=77771753 csize=4 usize=4 csize64=4 usize64=4 extra=5554050003e055594f75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=134 offerr=0
+D len=4 fnv=9a79969baa520d30 trunc=0 err=0
+R len=4 fnv=9a79969baa520d30 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 6261722e747874:dir=0:size=4:mode=420:D,len=4,fnv=9a79969baa520d30,trunc=0,err=0 666f6f2e747874:dir=0:size=4:mode=420:D,len=4,fnv=dd1276790c25c367,trunc=0,err=0
+END ok
+@@ dd.zip
+Z comment= count=1
+F name=66696c656e616d65 comment= nonutf8=0 creator=20 reader=20 flags=8 method=8 mtime=26826 mdate=15938 modified=1296651980.0 crc=2732840659 csize=24 usize=25 csize64=24 usize64=25 extra= attrs=0 mode=438 offset=38 offerr=0
+D len=25 fnv=3573b0327cd3473d trunc=0 err=0
+R len=24 fnv=c5acae72b1a2b082 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 66696c656e616d65:dir=0:size=25:mode=438:D,len=25,fnv=3573b0327cd3473d,trunc=0,err=0
+END ok
+@@ dupdir.zip
+Z comment= count=4
+F name=612f comment= nonutf8=0 creator=20 reader=20 flags=0 method=0 mtime=0 mdate=21405 modified=1640736000.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000100a5cb61 attrs=0 mode=2147484086 offset=41 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+F name=612f62 comment= nonutf8=0 creator=20 reader=20 flags=8 method=0 mtime=0 mdate=21405 modified=1640736000.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000100a5cb61 attrs=0 mode=438 offset=83 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+F name=612f622f comment= nonutf8=0 creator=20 reader=20 flags=0 method=0 mtime=0 mdate=21405 modified=1640736000.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000100a5cb61 attrs=0 mode=2147484086 offset=142 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+F name=612f622f63 comment= nonutf8=0 creator=20 reader=20 flags=8 method=0 mtime=0 mdate=21405 modified=1640736000.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000100a5cb61 attrs=0 mode=438 offset=186 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 61:dir=1:size=0:mode=2147484013 walkerr:61
+END ok
+@@ go-no-datadesc-sig.zip
+Z comment= count=2
+F name=666f6f2e747874 comment= nonutf8=0 creator=788 reader=20 flags=8 method=0 mtime=34661 mdate=16488 modified=1331254750.0 crc=2117232040 csize=4 usize=4 csize64=4 usize64=4 extra=5554050003de55594f75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=61 offerr=0
+D len=4 fnv=dd1276790c25c367 trunc=0 err=0
+R len=4 fnv=dd1276790c25c367 trunc=0 err=0
+F name=6261722e747874 comment= nonutf8=0 creator=788 reader=20 flags=8 method=0 mtime=34662 mdate=16488 modified=1331254752.0 crc=77771753 csize=4 usize=4 csize64=4 usize64=4 extra=5554050003e055594f75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=138 offerr=0
+D len=4 fnv=9a79969baa520d30 trunc=0 err=0
+R len=4 fnv=9a79969baa520d30 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 6261722e747874:dir=0:size=4:mode=420:D,len=4,fnv=9a79969baa520d30,trunc=0,err=0 666f6f2e747874:dir=0:size=4:mode=420:D,len=4,fnv=dd1276790c25c367,trunc=0,err=0
+END ok
+@@ go-with-datadesc-sig.zip
+Z comment= count=2
+F name=666f6f2e747874 comment= nonutf8=0 creator=20 reader=20 flags=8 method=0 mtime=0 mdate=0 modified=312768000.0 crc=2117232040 csize=4 usize=4 csize64=4 usize64=4 extra= attrs=0 mode=438 offset=37 offerr=0
+D len=4 fnv=dd1276790c25c367 trunc=0 err=0
+R len=4 fnv=dd1276790c25c367 trunc=0 err=0
+F name=6261722e747874 comment= nonutf8=0 creator=20 reader=20 flags=8 method=0 mtime=0 mdate=0 modified=312768000.0 crc=77771753 csize=4 usize=4 csize64=4 usize64=4 extra= attrs=0 mode=438 offset=94 offerr=0
+D len=4 fnv=9a79969baa520d30 trunc=0 err=0
+R len=4 fnv=9a79969baa520d30 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 6261722e747874:dir=0:size=4:mode=438:D,len=4,fnv=9a79969baa520d30,trunc=0,err=0 666f6f2e747874:dir=0:size=4:mode=438:D,len=4,fnv=dd1276790c25c367,trunc=0,err=0
+END ok
+@@ readme.zip
+Z comment=546869732069732074686520736f7572636520636f6465207265706f7369746f727920666f722074686520476f2070726f6772616d6d696e67206c616e67756167652e20200d0a0d0a466f7220646f63756d656e746174696f6e2061626f757420686f7720746f20696e7374616c6c20616e642075736520476f2c0d0a76697369742068747470733a2f2f676f6c616e672e6f72672f206f72206c6f616420646f632f696e7374616c6c2e68746d6c20696e20796f7572207765622062726f777365722e0d0a0d0a416674657220696e7374616c6c696e6720476f2c20796f752063616e20766965772061206e6963656c7920666f726d61747465640d0a646f632f696e7374616c6c2e68746d6c2062792072756e6e696e6720676f646f63202d2d687474703d3a363036300d0a616e64207468656e207669736974696e6720687474703a2f2f6c6f63616c686f73743a363036302f646f632f696e7374616c6c2e68746d6c2e0d0a0d0a556e6c657373206f7468657277697365206e6f7465642c2074686520476f20736f757263652066696c6573206172652064697374726962757465640d0a756e64657220746865204253442d7374796c65206c6963656e736520666f756e6420696e20746865204c4943454e53452066696c652e0d0a0d0a2d2d0d0a0d0a42696e61727920446973747269627574696f6e204e6f7465730d0a0d0a496620796f752068617665206a75737420756e74617272656420612062696e61727920476f20646973747269627574696f6e2c20796f75206e65656420746f207365740d0a74686520656e7669726f6e6d656e74207661726961626c652024474f524f4f5420746f207468652066756c6c2070617468206f662074686520676f0d0a6469726563746f72792028746865206f6e6520636f6e7461696e696e67207468697320524541444d45292e2020596f752063616e206f6d6974207468650d0a7661726961626c6520696620796f7520756e7061636b20697420696e746f202f7573722f6c6f63616c2f676f2c206f7220696620796f752072656275696c640d0a66726f6d20736f75726365732062792072756e6e696e6720616c6c2e62617368202873656520646f632f696e7374616c6c2e68746d6c292e0d0a596f752073686f756c6420616c736f206164642074686520476f2062696e617279206469726563746f72792024474f524f4f542f62696e0d0a746f20796f7572207368656c6c277320706174682e0d0a0d0a466f72206578616d706c652c20696620796f752065787472616374656420746865207461722066696c6520696e746f2024484f4d452f676f2c20796f75206d696768740d0a7075742074686520666f6c6c6f77696e6720696e20796f7572202e70726f66696c653a0d0a0d0a202020206578706f727420474f524f4f543d24484f4d452f676f0d0a202020206578706f727420504154483d24504154483a24474f524f4f542f62696e0d0a0d0a53656520646f632f696e7374616c6c2e68746d6c20666f72206d6f72652064657461696c73 count=1
+F name=524541444d45 comment= nonutf8=0 creator=798 reader=20 flags=0 method=8 mtime=24352 mdate=15650 modified=1283443019.0 crc=2181565152 csize=598 usize=1096 csize64=598 usize64=1096 extra=55540500034bc97f4c75780b000104e803000004e8030000 attrs=2175008768 mode=420 offset=64 offerr=0
+D len=1096 fnv=ca627eb2dd4287e6 trunc=0 err=0
+R len=598 fnv=5a874af0ddeb86db trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 524541444d45:dir=0:size=1096:mode=420:D,len=1096,fnv=ca627eb2dd4287e6,trunc=0,err=0
+END ok
+@@ subdir.zip
+Z comment= count=3
+F name=612f comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=25532 mdate=21139 modified=1618860596.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000334da7d6075780b0001041445000004535f0100 attrs=1105723408 mode=2147484136 offset=60 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+F name=612f622f comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=25536 mdate=21139 modified=1618860599.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000337da7d6075780b0001041445000004535f0100 attrs=1105723408 mode=2147484136 offset=122 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+F name=612f622f63 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=25536 mdate=21139 modified=1618860599.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000337da7d6075780b0001041445000004535f0100 attrs=2174746624 mode=416 offset=185 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 61:dir=1:size=0:mode=2147484013 612f62:dir=1:size=0:mode=2147484013 612f622f63:dir=0:size=0:mode=416:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ symlink.zip
+Z comment= count=1
+F name=73796d6c696e6b comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=40728 mdate=16451 modified=1328306208.0 crc=2392783569 csize=9 usize=9 csize64=9 usize64=9 extra=555405000320582c4f75780b000104e803000004e8030000 attrs=2717843456 mode=134218239 offset=65 offerr=0
+D len=9 fnv=42dbb3d48f905bf7 trunc=0 err=0
+R len=9 fnv=42dbb3d48f905bf7 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 73796d6c696e6b:dir=0:size=9:mode=134218239:D,len=9,fnv=42dbb3d48f905bf7,trunc=0,err=0
+END ok
+@@ test-badbase.zip
+Z comment=546869732069732061207a697066696c6520636f6d6d656e742e count=2
+F name=746573742e747874 comment= nonutf8=0 creator=798 reader=20 flags=0 method=8 mtime=24961 mdate=15653 modified=1283652721.0 crc=3287144384 csize=25 usize=26 csize64=25 usize64=26 extra=555405000371fc824c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=66 offerr=0
+D len=26 fnv=93386907076cc6d7 trunc=0 err=0
+R len=25 fnv=71dc46eafdec9ae6 trunc=0 err=0
+F name=676f70686572636f6c6f7231367831362e706e67 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=32413 mdate=15653 modified=1283665978.0 crc=1423258110 csize=785 usize=785 csize64=785 usize64=785 extra=55540500033a30834c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=169 offerr=0
+D len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+R len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 676f70686572636f6c6f7231367831362e706e67:dir=0:size=785:mode=420:D,len=785,fnv=d2c4d13d90ebf718,trunc=0,err=0 746573742e747874:dir=0:size=26:mode=420:D,len=26,fnv=93386907076cc6d7,trunc=0,err=0
+END ok
+@@ test-baddirsz.zip
+Z comment=546869732069732061207a697066696c6520636f6d6d656e742e count=2
+F name=746573742e747874 comment= nonutf8=0 creator=798 reader=20 flags=0 method=8 mtime=24961 mdate=15653 modified=1283652721.0 crc=3287144384 csize=25 usize=26 csize64=25 usize64=26 extra=555405000371fc824c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=66 offerr=0
+D len=26 fnv=93386907076cc6d7 trunc=0 err=0
+R len=25 fnv=71dc46eafdec9ae6 trunc=0 err=0
+F name=676f70686572636f6c6f7231367831362e706e67 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=32413 mdate=15653 modified=1283665978.0 crc=1423258110 csize=785 usize=785 csize64=785 usize64=785 extra=55540500033a30834c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=169 offerr=0
+D len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+R len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 676f70686572636f6c6f7231367831362e706e67:dir=0:size=785:mode=420:D,len=785,fnv=d2c4d13d90ebf718,trunc=0,err=0 746573742e747874:dir=0:size=26:mode=420:D,len=26,fnv=93386907076cc6d7,trunc=0,err=0
+END ok
+@@ test-prefix.zip
+Z comment=546869732069732061207a697066696c6520636f6d6d656e742e count=2
+F name=746573742e747874 comment= nonutf8=0 creator=798 reader=20 flags=0 method=8 mtime=24961 mdate=15653 modified=1283652721.0 crc=3287144384 csize=25 usize=26 csize64=25 usize64=26 extra=555405000371fc824c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=109 offerr=0
+D len=26 fnv=93386907076cc6d7 trunc=0 err=0
+R len=25 fnv=71dc46eafdec9ae6 trunc=0 err=0
+F name=676f70686572636f6c6f7231367831362e706e67 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=32413 mdate=15653 modified=1283665978.0 crc=1423258110 csize=785 usize=785 csize64=785 usize64=785 extra=55540500033a30834c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=212 offerr=0
+D len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+R len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 676f70686572636f6c6f7231367831362e706e67:dir=0:size=785:mode=420:D,len=785,fnv=d2c4d13d90ebf718,trunc=0,err=0 746573742e747874:dir=0:size=26:mode=420:D,len=26,fnv=93386907076cc6d7,trunc=0,err=0
+END ok
+@@ test-trailing-junk.zip
+Z comment=546869732069732061207a697066696c6520636f6d6d656e742e count=2
+F name=746573742e747874 comment= nonutf8=0 creator=798 reader=20 flags=0 method=8 mtime=24961 mdate=15653 modified=1283652721.0 crc=3287144384 csize=25 usize=26 csize64=25 usize64=26 extra=555405000371fc824c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=66 offerr=0
+D len=26 fnv=93386907076cc6d7 trunc=0 err=0
+R len=25 fnv=71dc46eafdec9ae6 trunc=0 err=0
+F name=676f70686572636f6c6f7231367831362e706e67 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=32413 mdate=15653 modified=1283665978.0 crc=1423258110 csize=785 usize=785 csize64=785 usize64=785 extra=55540500033a30834c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=169 offerr=0
+D len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+R len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 676f70686572636f6c6f7231367831362e706e67:dir=0:size=785:mode=420:D,len=785,fnv=d2c4d13d90ebf718,trunc=0,err=0 746573742e747874:dir=0:size=26:mode=420:D,len=26,fnv=93386907076cc6d7,trunc=0,err=0
+END ok
+@@ test.zip
+Z comment=546869732069732061207a697066696c6520636f6d6d656e742e count=2
+F name=746573742e747874 comment= nonutf8=0 creator=798 reader=20 flags=0 method=8 mtime=24961 mdate=15653 modified=1283652721.0 crc=3287144384 csize=25 usize=26 csize64=25 usize64=26 extra=555405000371fc824c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=66 offerr=0
+D len=26 fnv=93386907076cc6d7 trunc=0 err=0
+R len=25 fnv=71dc46eafdec9ae6 trunc=0 err=0
+F name=676f70686572636f6c6f7231367831362e706e67 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=32413 mdate=15653 modified=1283665978.0 crc=1423258110 csize=785 usize=785 csize64=785 usize64=785 extra=55540500033a30834c75780b000104f50100000414000000 attrs=2175008768 mode=420 offset=169 offerr=0
+D len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+R len=785 fnv=d2c4d13d90ebf718 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 676f70686572636f6c6f7231367831362e706e67:dir=0:size=785:mode=420:D,len=785,fnv=d2c4d13d90ebf718,trunc=0,err=0 746573742e747874:dir=0:size=26:mode=420:D,len=26,fnv=93386907076cc6d7,trunc=0,err=0
+END ok
+@@ time-22738.zip
+Z comment= count=1
+F name=66696c65 comment= nonutf8=0 creator=20 reader=20 flags=8 method=0 mtime=38912 mdate=10143 modified=946684800.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000180436d38 attrs=0 mode=438 offset=43 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 66696c65:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ time-7zip.zip
+Z comment= count=1
+F name=746573742e747874 comment= nonutf8=0 creator=63 reader=10 flags=0 method=0 mtime=43389 mdate=19295 modified=1509509517.244817900 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=0a0020000000000001001800b33fd98ec752d301fe47f3bfc752d301b33fd98ec752d301 attrs=128 mode=438 offset=38 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 746573742e747874:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ time-go.zip
+Z comment= count=1
+F name=746573742e747874 comment= nonutf8=0 creator=20 reader=20 flags=8 method=0 mtime=43388 mdate=19295 modified=1509509517.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=55540500018d49f959 attrs=0 mode=438 offset=47 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 746573742e747874:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ time-infozip.zip
+Z comment= count=1
+F name=746573742e747874 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=43389 mdate=19295 modified=1509509517.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=55540500038d49f95975780b000104e803000004e8030000 attrs=2175008768 mode=420 offset=66 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 746573742e747874:dir=0:size=0:mode=420:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ time-osx.zip
+Z comment= count=1
+F name=746573742e747874 comment= nonutf8=0 creator=789 reader=10 flags=0 method=0 mtime=43389 mdate=19295 modified=1509509517.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=55580800d74af9598d49f959 attrs=2175025152 mode=420 offset=54 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 746573742e747874:dir=0:size=0:mode=420:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ time-win7.zip
+Z comment= count=1
+F name=746573742e747874 comment= nonutf8=0 creator=20 reader=20 flags=0 method=0 mtime=43389 mdate=19295 modified=1509484318.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra= attrs=0 mode=438 offset=38 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 746573742e747874:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ time-winrar.zip
+Z comment= count=1
+F name=746573742e747874 comment= nonutf8=0 creator=31 reader=10 flags=0 method=0 mtime=43388 mdate=19295 modified=1509509517.244817900 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=0a0020000000000001001800b33fd98ec752d301fe47f3bfc752d301b33fd98ec752d301 attrs=128 mode=438 offset=38 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 746573742e747874:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ time-winzip.zip
+Z comment= count=1
+F name=746573742e747874 comment= nonutf8=0 creator=20 reader=10 flags=0 method=0 mtime=43389 mdate=19295 modified=1509509517.244000000 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=0a0020000000000001001800c01fd98ec752d3017029f3bfc752d301c01fd98ec752d301 attrs=0 mode=438 offset=38 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 746573742e747874:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ unix.zip
+Z comment= count=4
+F name=68656c6c6f comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=20620 mdate=16264 modified=1323338664.0 crc=2098461837 csize=8 usize=8 csize64=8 usize64=8 extra=5554050003a88be04e75780b000104e803000004e8030000 attrs=2176188416 mode=438 offset=63 offerr=0
+D len=8 fnv=7870a9b9db749af2 trunc=0 err=0
+R len=8 fnv=7870a9b9db749af2 trunc=0 err=0
+F name=6469722f626172 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=20633 mdate=16264 modified=1323338690.0 crc=2055117726 csize=6 usize=6 csize64=6 usize64=6 extra=5554050003c28be04e75780b000104e803000004e8030000 attrs=2176188416 mode=438 offset=136 offerr=0
+D len=6 fnv=c0e65b733ab77266 trunc=0 err=0
+R len=6 fnv=c0e65b733ab77266 trunc=0 err=0
+F name=6469722f656d7074792f comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=20739 mdate=16264 modified=1323338886.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=5554050003868ce04e75780b000104e803000004e8030000 attrs=1107230736 mode=2147484159 offset=210 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+F name=726561646f6e6c79 comment= nonutf8=0 creator=798 reader=10 flags=0 method=0 mtime=20676 mdate=16264 modified=1323338768.0 crc=3127775578 csize=12 usize=12 csize64=12 usize64=12 extra=5554050003108ce04e75780b000104e803000004e8030000 attrs=2166620161 mode=292 offset=276 offerr=0
+D len=12 fnv=922fd4b6a718c2b4 trunc=0 err=0
+R len=12 fnv=922fd4b6a718c2b4 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 646972:dir=1:size=0:mode=2147484013 6469722f626172:dir=0:size=6:mode=438:D,len=6,fnv=c0e65b733ab77266,trunc=0,err=0 6469722f656d707479:dir=1:size=0:mode=2147484013 68656c6c6f:dir=0:size=8:mode=438:D,len=8,fnv=7870a9b9db749af2,trunc=0,err=0 726561646f6e6c79:dir=0:size=12:mode=292:D,len=12,fnv=922fd4b6a718c2b4,trunc=0,err=0
+END ok
+@@ utf8-7zip.zip
+Z comment= count=1
+F name=e4b896e7958c comment= nonutf8=0 creator=63 reader=10 flags=2048 method=0 mtime=26926 mdate=19302 modified=1510002567.867862500 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=0a002000000000000100180061caeb874357d3016fbbf0de4357d30161caeb874357d301 attrs=128 mode=438 offset=36 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 e4b896e7958c:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ utf8-infozip.zip
+Z comment= count=1
+F name=e4b896e7958c comment= nonutf8=0 creator=798 reader=10 flags=2048 method=0 mtime=26926 mdate=19302 modified=1510002567.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=555405000387cf005a75780b000104e803000004e8030000 attrs=2175008768 mode=420 offset=64 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 e4b896e7958c:dir=0:size=0:mode=420:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ utf8-osx.zip
+Z comment= count=1
+F name=e4b896e7958c comment= nonutf8=1 creator=789 reader=10 flags=0 method=0 mtime=26926 mdate=19302 modified=1510002567.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=5558080087cf005a87cf005a attrs=2175025152 mode=420 offset=52 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 e4b896e7958c:dir=0:size=0:mode=420:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ utf8-winrar.zip
+Z comment= count=1
+F name=e4b896e7958c comment= nonutf8=0 creator=31 reader=10 flags=2048 method=0 mtime=26925 mdate=19302 modified=1510002567.867862500 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=0a002000000000000100180061caeb874357d3016fbbf0de4357d30161caeb874357d301 attrs=128 mode=438 offset=36 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 e4b896e7958c:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ utf8-winzip.zip
+Z comment= count=1
+F name=e4b896e7958c comment= nonutf8=0 creator=20 reader=10 flags=2048 method=0 mtime=26926 mdate=19302 modified=1510002567.867000000 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra=0a0020000000000001001800b0a8eb874357d30160baf0de4357d301b0a8eb874357d301 attrs=0 mode=438 offset=36 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 e4b896e7958c:dir=0:size=0:mode=438:D,len=0,fnv=cbf29ce484222325,trunc=0,err=0
+END ok
+@@ winxp.zip
+Z comment= count=4
+F name=68656c6c6f comment= nonutf8=0 creator=2836 reader=10 flags=0 method=0 mtime=20620 mdate=16264 modified=1323338664.0 crc=2098461837 csize=8 usize=8 csize64=8 usize64=8 extra= attrs=32 mode=438 offset=35 offerr=0
+D len=8 fnv=7870a9b9db749af2 trunc=0 err=0
+R len=8 fnv=7870a9b9db749af2 trunc=0 err=0
+F name=6469722f626172 comment= nonutf8=0 creator=2836 reader=10 flags=0 method=0 mtime=20633 mdate=16264 modified=1323338690.0 crc=2055117726 csize=6 usize=6 csize64=6 usize64=6 extra= attrs=32 mode=438 offset=80 offerr=0
+D len=6 fnv=c0e65b733ab77266 trunc=0 err=0
+R len=6 fnv=c0e65b733ab77266 trunc=0 err=0
+F name=6469722f656d7074792f comment= nonutf8=0 creator=2836 reader=10 flags=0 method=0 mtime=20739 mdate=16264 modified=1323338886.0 crc=0 csize=0 usize=0 csize64=0 usize64=0 extra= attrs=16 mode=2147484159 offset=126 offerr=0
+D len=0 fnv=cbf29ce484222325 trunc=0 err=0
+R len=0 fnv=cbf29ce484222325 trunc=0 err=0
+F name=726561646f6e6c79 comment= nonutf8=0 creator=2836 reader=10 flags=0 method=0 mtime=20676 mdate=16264 modified=1323338768.0 crc=3127775578 csize=12 usize=12 csize64=12 usize64=12 extra= attrs=33 mode=292 offset=164 offerr=0
+D len=12 fnv=922fd4b6a718c2b4 trunc=0 err=0
+R len=12 fnv=922fd4b6a718c2b4 trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 646972:dir=1:size=0:mode=2147484013 6469722f626172:dir=0:size=6:mode=438:D,len=6,fnv=c0e65b733ab77266,trunc=0,err=0 6469722f656d707479:dir=1:size=0:mode=2147484013 68656c6c6f:dir=0:size=8:mode=438:D,len=8,fnv=7870a9b9db749af2,trunc=0,err=0 726561646f6e6c79:dir=0:size=12:mode=292:D,len=12,fnv=922fd4b6a718c2b4,trunc=0,err=0
+END ok
+@@ zip64-2.zip
+Z comment= count=1
+F name=524541444d45 comment= nonutf8=0 creator=813 reader=45 flags=0 method=8 mtime=29744 mdate=16650 modified=1344623612.0 crc=1778378622 csize=4294967295 usize=4294967295 csize64=36 usize64=36 extra=01001000240000000000000024000000000000005554050003fc53255075780b000104ba2102000488130000 attrs=2175008768 mode=420 offset=36 offerr=0
+D len=36 fnv=71f82758155930d5 trunc=0 err=0
+R len=36 fnv=f3ef2487e071c1ce trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 524541444d45:dir=0:size=36:mode=420:D,len=36,fnv=71f82758155930d5,trunc=0,err=0
+END ok
+@@ zip64.zip
+Z comment= count=1
+F name=524541444d45 comment= nonutf8=0 creator=813 reader=45 flags=0 method=8 mtime=29744 mdate=16650 modified=1344609212.0 crc=1778378622 csize=4294967295 usize=4294967295 csize64=36 usize64=36 extra=0100100024000000000000002400000000000000 attrs=2175008768 mode=420 offset=36 offerr=0
+D len=36 fnv=71f82758155930d5 trunc=0 err=0
+R len=36 fnv=f3ef2487e071c1ce trunc=0 err=0
+FS 2e:dir=1:size=0:mode=2147484013 524541444d45:dir=0:size=36:mode=420:D,len=36,fnv=71f82758155930d5,trunc=0,err=0
+END ok

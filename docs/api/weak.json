@@ -1,0 +1,15 @@
+{
+  "package": "weak",
+  "notes": "weak: std::sync::Weak; Make is Arc::downgrade, Value is Weak::upgrade, equality is Weak::ptr_eq",
+  "symbols": {
+    "Make": {
+      "rust": "std::sync::Arc::downgrade"
+    },
+    "Pointer": {
+      "rust": "std::sync::Weak"
+    },
+    "Pointer.Value": {
+      "rust": "std::sync::Weak::upgrade"
+    }
+  }
+}

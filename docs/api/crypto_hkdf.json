@@ -1,0 +1,15 @@
+{
+  "package": "crypto/hkdf",
+  "notes": "rust-stdlib-crypto over RustCrypto hkdf (SimpleHkdf). Hash constructors as for crypto/hmac. Info is any AsRef<[u8]>, a superset of Go's string. Like Go, Expand accepts pseudorandom keys shorter than the hash size (zero-padded, which HMAC makes equivalent) and errors above 255*HashLen.",
+  "symbols": {
+    "Expand": {
+      "rust": "rust_stdlib_crypto::hkdf::expand"
+    },
+    "Extract": {
+      "rust": "rust_stdlib_crypto::hkdf::extract"
+    },
+    "Key": {
+      "rust": "rust_stdlib_crypto::hkdf::key"
+    }
+  }
+}

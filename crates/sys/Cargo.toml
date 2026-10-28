@@ -1,0 +1,19 @@
+[package]
+name = "rust-stdlib-sys"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.87"
+publish = false
+description = "Go-shaped operating-system interfaces for rust-stdlib, declared against the platform C library"
+license = "MIT"
+
+[lib]
+name = "rust_stdlib_sys"
+path = "src/lib.rs"
+
+[dependencies]
+
+# The only manifest allowed to use FFI (docs/adr/0004-system-interface-crate.md):
+# unsafe is denied crate-wide and allowed only on the modules in src/ffi.
+[lints.rust]
+unsafe_code = "deny"

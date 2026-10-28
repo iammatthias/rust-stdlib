@@ -1,0 +1,627 @@
+{
+  "package": "os",
+  "notes": "std::fs / std::env / std::process behind Go's API (Unix only). Errors are io::Error values carrying PathError, LinkError, SyscallError, the io/fs and os sentinels and Errno, printed with Go's messages; is_exist/is_not_exist/is_permission/is_timeout and Error::is(&err) classify them. Root (OpenRoot, OpenInRoot and every Root method), ProcAttr.Files and Process.WithHandle are rust_stdlib_sys::os, built on openat/unlinkat/... and fork/execve with Go's traversal rules; the root crate's own os::Root and os::start_process remain the std-only versions. Root results are differentially tested against Go in tools/os_check.py (root_probe) and the exec pieces in tools/exec_check.py. Getuid/Geteuid/Getgid/Getegid/Getppid/Getgroups/Hostname, Process.Pipe (a real pipe(2)/pipe2(O_CLOEXEC) pair of Files with deadlines), Signal, Chtimes, Link and the File deadline methods (pipes, terminals and sockets; ErrNoDeadline otherwise) are rust_stdlib_sys::os, the system-interface crate of ADR 0004, which calls the C library directly and is differentially tested against Go in tools/sys_check.py.",
+  "symbols": {
+    "Args": {
+      "rust": "std::env::args_os",
+      "note": "args_os, because std::env::args panics on an argument that is not UTF-8 where Go keeps the bytes"
+    },
+    "Chdir": {
+      "rust": "rust_stdlib::os::chdir"
+    },
+    "Chmod": {
+      "rust": "rust_stdlib::os::chmod"
+    },
+    "Chown": {
+      "rust": "rust_stdlib::os::chown"
+    },
+    "Chtimes": {
+      "rust": "rust_stdlib_sys::os::chtimes"
+    },
+    "Clearenv": {
+      "rust": "rust_stdlib::os::clearenv"
+    },
+    "CopyFS": {
+      "rust": "rust_stdlib::os::copy_fs"
+    },
+    "Create": {
+      "rust": "rust_stdlib::os::create"
+    },
+    "CreateTemp": {
+      "rust": "rust_stdlib::os::create_temp"
+    },
+    "DevNull": {
+      "rust": "rust_stdlib::os::DEV_NULL"
+    },
+    "DirEntry": {
+      "rust": "rust_stdlib::io::fs::DirEntry"
+    },
+    "DirFS": {
+      "rust": "rust_stdlib::os::dir_fs"
+    },
+    "Environ": {
+      "rust": "std::env::vars_os",
+      "note": "vars_os, because std::env::vars panics on a variable that is not UTF-8 where Go keeps the bytes"
+    },
+    "ErrClosed": {
+      "rust": "rust_stdlib::os::ERR_CLOSED"
+    },
+    "ErrDeadlineExceeded": {
+      "rust": "rust_stdlib::os::Error::DeadlineExceeded"
+    },
+    "ErrExist": {
+      "rust": "rust_stdlib::os::ERR_EXIST"
+    },
+    "ErrInvalid": {
+      "rust": "rust_stdlib::os::ERR_INVALID"
+    },
+    "ErrNoDeadline": {
+      "rust": "rust_stdlib::os::Error::NoDeadline"
+    },
+    "ErrNoHandle": {
+      "rust": "rust_stdlib::os::Error::NoHandle"
+    },
+    "ErrNotExist": {
+      "rust": "rust_stdlib::os::ERR_NOT_EXIST"
+    },
+    "ErrPermission": {
+      "rust": "rust_stdlib::os::ERR_PERMISSION"
+    },
+    "ErrProcessDone": {
+      "rust": "rust_stdlib::os::Error::ProcessDone"
+    },
+    "Executable": {
+      "rust": "std::env::current_exe"
+    },
+    "Exit": {
+      "rust": "std::process::exit"
+    },
+    "Expand": {
+      "rust": "rust_stdlib::os::expand"
+    },
+    "ExpandEnv": {
+      "rust": "rust_stdlib::os::expand_env"
+    },
+    "File": {
+      "rust": "rust_stdlib::os::File"
+    },
+    "File.Chdir": {
+      "rust": "rust_stdlib::os::File::chdir"
+    },
+    "File.Chmod": {
+      "rust": "rust_stdlib::os::File::chmod"
+    },
+    "File.Chown": {
+      "rust": "rust_stdlib::os::File::chown"
+    },
+    "File.Close": {
+      "rust": "rust_stdlib::os::File::close"
+    },
+    "File.Fd": {
+      "rust": "rust_stdlib::os::File::fd"
+    },
+    "File.Name": {
+      "rust": "rust_stdlib::os::File::name"
+    },
+    "File.Read": {
+      "rust": "std::io::Read::read",
+      "deviation": "io-read-contract",
+      "note": "`impl Read for File` and `for &File`. At end of file it returns `Ok(0)` (std convention) where Go returns io.EOF."
+    },
+    "File.ReadAt": {
+      "rust": "rust_stdlib::io::ReadAt::read_at",
+      "note": "`impl ReadAt for File`; a short read is an error carrying the count (ReadError::read) and io.EOF."
+    },
+    "File.ReadDir": {
+      "rust": "rust_stdlib::os::File::read_dir"
+    },
+    "File.ReadFrom": {
+      "rust": "rust_stdlib::os::File::read_from"
+    },
+    "File.Readdir": {
+      "rust": "rust_stdlib::os::File::readdir"
+    },
+    "File.Readdirnames": {
+      "rust": "rust_stdlib::os::File::readdirnames"
+    },
+    "File.Seek": {
+      "rust": "std::io::Seek::seek",
+      "note": "`impl Seek for File`; whence is a `SeekFrom`, so an invalid whence cannot be expressed."
+    },
+    "File.SetDeadline": {
+      "rust": "rust_stdlib_sys::os::File::set_deadline"
+    },
+    "File.SetReadDeadline": {
+      "rust": "rust_stdlib_sys::os::File::set_read_deadline"
+    },
+    "File.SetWriteDeadline": {
+      "rust": "rust_stdlib_sys::os::File::set_write_deadline"
+    },
+    "File.Stat": {
+      "rust": "rust_stdlib::os::File::stat"
+    },
+    "File.Sync": {
+      "rust": "rust_stdlib::os::File::sync"
+    },
+    "File.SyscallConn": {
+      "deviation": "raw-syscall-conn",
+      "note": "syscall.RawConn needs raw descriptor control; use AsRawFd::as_raw_fd (implemented for File) for read-only access to the descriptor."
+    },
+    "File.Truncate": {
+      "rust": "rust_stdlib::os::File::truncate"
+    },
+    "File.Write": {
+      "rust": "std::io::Write::write",
+      "note": "`impl Write for File` and `for &File`; writes the whole buffer, like Go."
+    },
+    "File.WriteAt": {
+      "rust": "rust_stdlib::io::WriteAt::write_at"
+    },
+    "File.WriteString": {
+      "rust": "std::io::Write::write_all"
+    },
+    "File.WriteTo": {
+      "rust": "rust_stdlib::os::File::write_to"
+    },
+    "FileInfo": {
+      "rust": "rust_stdlib::io::fs::FileInfo"
+    },
+    "FileMode": {
+      "rust": "rust_stdlib::io::fs::FileMode"
+    },
+    "FindProcess": {
+      "rust": "rust_stdlib::os::find_process"
+    },
+    "Getegid": {
+      "rust": "rust_stdlib_sys::os::getegid"
+    },
+    "Getenv": {
+      "rust": "std::env::var_os",
+      "note": "var_os: None is Go's empty string for an unset variable, and a non-UTF-8 value is kept (std::env::var fails on it)"
+    },
+    "Geteuid": {
+      "rust": "rust_stdlib_sys::os::geteuid"
+    },
+    "Getgid": {
+      "rust": "rust_stdlib_sys::os::getgid"
+    },
+    "Getgroups": {
+      "rust": "rust_stdlib_sys::os::getgroups"
+    },
+    "Getpagesize": {
+      "rust": "rust_stdlib::os::getpagesize",
+      "deviation": "per-target-constant",
+      "note": "AT_PAGESZ from /proc/self/auxv where available, otherwise a per-target constant."
+    },
+    "Getpid": {
+      "rust": "std::process::id"
+    },
+    "Getppid": {
+      "rust": "rust_stdlib_sys::os::getppid"
+    },
+    "Getuid": {
+      "rust": "rust_stdlib_sys::os::getuid"
+    },
+    "Getwd": {
+      "rust": "rust_stdlib::os::getwd"
+    },
+    "Hostname": {
+      "rust": "rust_stdlib_sys::os::hostname"
+    },
+    "Interrupt": {
+      "rust": "rust_stdlib::os::INTERRUPT"
+    },
+    "IsExist": {
+      "rust": "rust_stdlib::os::is_exist"
+    },
+    "IsNotExist": {
+      "rust": "rust_stdlib::os::is_not_exist"
+    },
+    "IsPathSeparator": {
+      "rust": "std::path::is_separator"
+    },
+    "IsPermission": {
+      "rust": "rust_stdlib::os::is_permission"
+    },
+    "IsTimeout": {
+      "rust": "rust_stdlib::os::is_timeout"
+    },
+    "Kill": {
+      "rust": "rust_stdlib::os::KILL"
+    },
+    "Lchown": {
+      "rust": "rust_stdlib::os::lchown"
+    },
+    "Link": {
+      "rust": "rust_stdlib_sys::os::link"
+    },
+    "LinkError": {
+      "rust": "rust_stdlib::os::LinkError"
+    },
+    "LinkError.Err": {
+      "rust": "rust_stdlib::os::LinkError::err"
+    },
+    "LinkError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "LinkError.New": {
+      "rust": "rust_stdlib::os::LinkError::new"
+    },
+    "LinkError.Old": {
+      "rust": "rust_stdlib::os::LinkError::old"
+    },
+    "LinkError.Op": {
+      "rust": "rust_stdlib::os::LinkError::op"
+    },
+    "LinkError.Unwrap": {
+      "rust": "rust_stdlib::os::LinkError::unwrap"
+    },
+    "LookupEnv": {
+      "rust": "std::env::var_os"
+    },
+    "Lstat": {
+      "rust": "rust_stdlib::os::lstat"
+    },
+    "Mkdir": {
+      "rust": "rust_stdlib::os::mkdir"
+    },
+    "MkdirAll": {
+      "rust": "rust_stdlib::os::mkdir_all"
+    },
+    "MkdirTemp": {
+      "rust": "rust_stdlib::os::mkdir_temp"
+    },
+    "NewFile": {
+      "rust": "rust_stdlib::os::File::from_fd",
+      "note": "Takes an owned descriptor (`OwnedFd`) instead of a bare integer, since adopting an arbitrary integer needs `unsafe`."
+    },
+    "NewSyscallError": {
+      "rust": "rust_stdlib::os::SyscallError::new"
+    },
+    "Open": {
+      "rust": "rust_stdlib::os::open"
+    },
+    "OpenFile": {
+      "rust": "rust_stdlib::os::open_file"
+    },
+    "OpenInRoot": {
+      "rust": "rust_stdlib_sys::os::open_in_root"
+    },
+    "OpenRoot": {
+      "rust": "rust_stdlib_sys::os::open_root"
+    },
+    "PathError": {
+      "rust": "rust_stdlib::os::PathError"
+    },
+    "PathListSeparator": {
+      "rust": "std::env::split_paths"
+    },
+    "PathSeparator": {
+      "rust": "std::path::MAIN_SEPARATOR"
+    },
+    "Pipe": {
+      "rust": "rust_stdlib_sys::os::pipe"
+    },
+    "ProcAttr": {
+      "rust": "rust_stdlib::os::ProcAttr"
+    },
+    "ProcAttr.Dir": {
+      "rust": "rust_stdlib::os::ProcAttr::dir"
+    },
+    "ProcAttr.Env": {
+      "rust": "rust_stdlib::os::ProcAttr::env"
+    },
+    "ProcAttr.Files": {
+      "rust": "rust_stdlib_sys::os::ProcAttr::files",
+      "note": "Raw descriptors owned by the caller (the sys crate has no root-crate File type); any number of entries, a None entry closes that descriptor in the child."
+    },
+    "ProcAttr.Sys": {
+      "deviation": "syscall-sysprocattr",
+      "note": "syscall.SysProcAttr is a platform-specific struct of the syscall package; use std::os::unix::process::CommandExt for the equivalents (uid, gid, process_group)."
+    },
+    "Process": {
+      "rust": "rust_stdlib::os::Process"
+    },
+    "Process.Kill": {
+      "rust": "rust_stdlib::os::Process::kill"
+    },
+    "Process.Pid": {
+      "rust": "rust_stdlib::os::Process::pid"
+    },
+    "Process.Release": {
+      "rust": "rust_stdlib::os::Process::release"
+    },
+    "Process.Signal": {
+      "rust": "rust_stdlib_sys::os::Process::signal"
+    },
+    "Process.Wait": {
+      "rust": "rust_stdlib::os::Process::wait",
+      "deviation": "no-wait-by-pid",
+      "note": "Waits only for processes this Process value started. A Process from FindProcess fails with ECHILD even when the pid is this program's child (EINVAL for pid -1), and FindProcess(0), a negative pid, or Wait after Wait then Release never waits for a process group or any child, where Go's pid path calls wait4 and reaps them: std's Child is the only safe wait handle, and reaping by pid can collect a child another handle owns."
+    },
+    "Process.WithHandle": {
+      "rust": "rust_stdlib_sys::os::Process::with_handle",
+      "note": "Passes a pidfd as a RawFd on Linux 5.3+; ProcessError::NoHandle (os.ErrNoHandle) elsewhere, as Go."
+    },
+    "ProcessState": {
+      "rust": "rust_stdlib::os::ProcessState"
+    },
+    "ProcessState.ExitCode": {
+      "rust": "rust_stdlib::os::ProcessState::exit_code"
+    },
+    "ProcessState.Exited": {
+      "rust": "rust_stdlib::os::ProcessState::exited"
+    },
+    "ProcessState.Pid": {
+      "rust": "rust_stdlib::os::ProcessState::pid"
+    },
+    "ProcessState.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "ProcessState.Success": {
+      "rust": "rust_stdlib::os::ProcessState::success"
+    },
+    "ProcessState.Sys": {
+      "rust": "rust_stdlib::os::ProcessState::sys",
+      "note": "Returns `std::process::ExitStatus` in place of syscall.WaitStatus."
+    },
+    "ProcessState.SysUsage": {
+      "deviation": "rusage-unavailable",
+      "note": "Resource usage (getrusage/wait4) is not exposed by std."
+    },
+    "ProcessState.SystemTime": {
+      "deviation": "rusage-unavailable",
+      "note": "Resource usage (getrusage/wait4) is not exposed by std."
+    },
+    "ProcessState.UserTime": {
+      "deviation": "rusage-unavailable",
+      "note": "Resource usage (getrusage/wait4) is not exposed by std."
+    },
+    "ReadDir": {
+      "rust": "rust_stdlib::os::read_dir"
+    },
+    "ReadFile": {
+      "rust": "rust_stdlib::os::read_file"
+    },
+    "Readlink": {
+      "rust": "rust_stdlib::os::readlink"
+    },
+    "Remove": {
+      "rust": "rust_stdlib::os::remove"
+    },
+    "RemoveAll": {
+      "rust": "rust_stdlib::os::remove_all"
+    },
+    "Rename": {
+      "rust": "rust_stdlib::os::rename"
+    },
+    "Root": {
+      "rust": "rust_stdlib_sys::os::Root"
+    },
+    "SEEK_CUR": {
+      "rust": "std::io::SeekFrom"
+    },
+    "SEEK_END": {
+      "rust": "std::io::SeekFrom"
+    },
+    "SEEK_SET": {
+      "rust": "std::io::SeekFrom"
+    },
+    "SameFile": {
+      "rust": "rust_stdlib::os::same_file"
+    },
+    "Setenv": {
+      "rust": "rust_stdlib::os::setenv"
+    },
+    "Signal": {
+      "rust": "rust_stdlib::os::Signal"
+    },
+    "Signal.Signal": {
+      "rust": "rust_stdlib::os::Signal",
+      "note": "The trait is the marker."
+    },
+    "Signal.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "StartProcess": {
+      "rust": "rust_stdlib::os::start_process"
+    },
+    "Stat": {
+      "rust": "rust_stdlib::os::stat"
+    },
+    "Stderr": {
+      "rust": "rust_stdlib::os::stderr",
+      "note": "A function returning a `File` for a duplicate of descriptor 2."
+    },
+    "Stdin": {
+      "rust": "rust_stdlib::os::stdin",
+      "note": "A function returning a `File` for a duplicate of descriptor 0."
+    },
+    "Stdout": {
+      "rust": "rust_stdlib::os::stdout",
+      "note": "A function returning a `File` for a duplicate of descriptor 1."
+    },
+    "Symlink": {
+      "rust": "rust_stdlib::os::symlink"
+    },
+    "SyscallError": {
+      "rust": "rust_stdlib::os::SyscallError"
+    },
+    "SyscallError.Err": {
+      "rust": "rust_stdlib::os::SyscallError::err"
+    },
+    "SyscallError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "SyscallError.Syscall": {
+      "rust": "rust_stdlib::os::SyscallError::syscall"
+    },
+    "SyscallError.Timeout": {
+      "rust": "rust_stdlib::os::SyscallError::timeout"
+    },
+    "SyscallError.Unwrap": {
+      "rust": "rust_stdlib::os::SyscallError::unwrap"
+    },
+    "TempDir": {
+      "rust": "rust_stdlib::os::temp_dir"
+    },
+    "Truncate": {
+      "rust": "rust_stdlib::os::truncate"
+    },
+    "Unsetenv": {
+      "rust": "rust_stdlib::os::unsetenv"
+    },
+    "UserCacheDir": {
+      "rust": "rust_stdlib::os::user_cache_dir"
+    },
+    "UserConfigDir": {
+      "rust": "rust_stdlib::os::user_config_dir"
+    },
+    "UserHomeDir": {
+      "rust": "rust_stdlib::os::user_home_dir"
+    },
+    "WriteFile": {
+      "rust": "rust_stdlib::os::write_file"
+    },
+    "ModeAppend": {
+      "rust": "rust_stdlib::os::MODE_APPEND"
+    },
+    "ModeCharDevice": {
+      "rust": "rust_stdlib::os::MODE_CHAR_DEVICE"
+    },
+    "ModeDevice": {
+      "rust": "rust_stdlib::os::MODE_DEVICE"
+    },
+    "ModeDir": {
+      "rust": "rust_stdlib::os::MODE_DIR"
+    },
+    "ModeExclusive": {
+      "rust": "rust_stdlib::os::MODE_EXCLUSIVE"
+    },
+    "ModeIrregular": {
+      "rust": "rust_stdlib::os::MODE_IRREGULAR"
+    },
+    "ModeNamedPipe": {
+      "rust": "rust_stdlib::os::MODE_NAMED_PIPE"
+    },
+    "ModePerm": {
+      "rust": "rust_stdlib::os::MODE_PERM"
+    },
+    "ModeSetgid": {
+      "rust": "rust_stdlib::os::MODE_SETGID"
+    },
+    "ModeSetuid": {
+      "rust": "rust_stdlib::os::MODE_SETUID"
+    },
+    "ModeSocket": {
+      "rust": "rust_stdlib::os::MODE_SOCKET"
+    },
+    "ModeSticky": {
+      "rust": "rust_stdlib::os::MODE_STICKY"
+    },
+    "ModeSymlink": {
+      "rust": "rust_stdlib::os::MODE_SYMLINK"
+    },
+    "ModeTemporary": {
+      "rust": "rust_stdlib::os::MODE_TEMPORARY"
+    },
+    "ModeType": {
+      "rust": "rust_stdlib::os::MODE_TYPE"
+    },
+    "O_APPEND": {
+      "rust": "rust_stdlib::os::O_APPEND"
+    },
+    "O_CREATE": {
+      "rust": "rust_stdlib::os::O_CREATE"
+    },
+    "O_EXCL": {
+      "rust": "rust_stdlib::os::O_EXCL"
+    },
+    "O_RDONLY": {
+      "rust": "rust_stdlib::os::O_RDONLY"
+    },
+    "O_RDWR": {
+      "rust": "rust_stdlib::os::O_RDWR"
+    },
+    "O_SYNC": {
+      "rust": "rust_stdlib::os::O_SYNC"
+    },
+    "O_TRUNC": {
+      "rust": "rust_stdlib::os::O_TRUNC"
+    },
+    "O_WRONLY": {
+      "rust": "rust_stdlib::os::O_WRONLY"
+    },
+    "Root.Chmod": {
+      "rust": "rust_stdlib_sys::os::Root::chmod"
+    },
+    "Root.Chown": {
+      "rust": "rust_stdlib_sys::os::Root::chown"
+    },
+    "Root.Chtimes": {
+      "rust": "rust_stdlib_sys::os::Root::chtimes"
+    },
+    "Root.Close": {
+      "rust": "rust_stdlib_sys::os::Root::close"
+    },
+    "Root.Create": {
+      "rust": "rust_stdlib_sys::os::Root::create"
+    },
+    "Root.Lchown": {
+      "rust": "rust_stdlib_sys::os::Root::lchown"
+    },
+    "Root.Link": {
+      "rust": "rust_stdlib_sys::os::Root::link"
+    },
+    "Root.Lstat": {
+      "rust": "rust_stdlib_sys::os::Root::lstat"
+    },
+    "Root.Mkdir": {
+      "rust": "rust_stdlib_sys::os::Root::mkdir"
+    },
+    "Root.MkdirAll": {
+      "rust": "rust_stdlib_sys::os::Root::mkdir_all"
+    },
+    "Root.Name": {
+      "rust": "rust_stdlib_sys::os::Root::name"
+    },
+    "Root.Open": {
+      "rust": "rust_stdlib_sys::os::Root::open"
+    },
+    "Root.OpenFile": {
+      "rust": "rust_stdlib_sys::os::Root::open_file",
+      "note": "Returns rust_stdlib_sys::os::File, which has Read, Write, Stat, Close and the deadline methods."
+    },
+    "Root.OpenRoot": {
+      "rust": "rust_stdlib_sys::os::Root::open_root"
+    },
+    "Root.ReadFile": {
+      "rust": "rust_stdlib_sys::os::Root::read_file"
+    },
+    "Root.Readlink": {
+      "rust": "rust_stdlib_sys::os::Root::readlink"
+    },
+    "Root.Remove": {
+      "rust": "rust_stdlib_sys::os::Root::remove"
+    },
+    "Root.RemoveAll": {
+      "rust": "rust_stdlib_sys::os::Root::remove_all"
+    },
+    "Root.Rename": {
+      "rust": "rust_stdlib_sys::os::Root::rename"
+    },
+    "Root.Stat": {
+      "rust": "rust_stdlib_sys::os::Root::stat"
+    },
+    "Root.Symlink": {
+      "rust": "rust_stdlib_sys::os::Root::symlink"
+    },
+    "Root.WriteFile": {
+      "rust": "rust_stdlib_sys::os::Root::write_file"
+    },
+    "Root.FS": {
+      "rust": "rust_stdlib_sys::os::Root::fs",
+      "note": "Returns rust_stdlib_sys::os::RootFS with the io/fs method names (open, read_dir, read_file, read_link, stat, lstat); the sys crate cannot implement the root crate's FS trait."
+    }
+  }
+}

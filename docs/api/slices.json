@@ -1,0 +1,153 @@
+{
+  "package": "slices",
+  "notes": "slices: std slice, Vec and Iterator methods. Go's BinarySearch is the leftmost position (partition_point), CompactFunc compares with the original predecessor (rust_stdlib::collections::compact_by), and float ordering and Min/Max follow Go's NaN rules through rust_stdlib::math::{compare, minimum, maximum}. SortFunc and SortedFunc are rust_stdlib::collections::sort_unstable_by, Go's own algorithm, so equal elements are ordered as in Go; the stable sorts are std's, whose order is unique; MaxFunc needs .rev() to return Go's first maximum and CompareFunc/EqualFunc are zip expressions (see each note).",
+  "symbols": {
+    "All": {
+      "rust": "std::iter::Iterator::enumerate"
+    },
+    "AppendSeq": {
+      "rust": "std::iter::Extend::extend"
+    },
+    "Backward": {
+      "rust": "std::iter::Iterator::rev",
+      "note": "enumerate().rev()"
+    },
+    "BinarySearch": {
+      "rust": "slice::partition_point",
+      "note": "leftmost position; found is a comparison at that index"
+    },
+    "BinarySearchFunc": {
+      "rust": "slice::partition_point",
+      "note": "leftmost position; found is a comparison at that index"
+    },
+    "Chunk": {
+      "rust": "slice::chunks"
+    },
+    "Clip": {
+      "rust": "std::vec::Vec::shrink_to_fit",
+      "deviation": "vec-capacity",
+      "note": "shrink_to_fit removes unused capacity; the allocator may keep more than len, where Go's Clip sets cap exactly to len."
+    },
+    "Clone": {
+      "rust": "slice::to_vec"
+    },
+    "Collect": {
+      "rust": "std::iter::Iterator::collect"
+    },
+    "Compact": {
+      "rust": "std::vec::Vec::dedup"
+    },
+    "CompactFunc": {
+      "rust": "rust_stdlib::collections::compact_by",
+      "note": "compares each element with its original predecessor; Vec::dedup_by compares with the last kept element"
+    },
+    "Compare": {
+      "rust": "std::cmp::Ord::cmp",
+      "note": "slices of floats: fold math::compare"
+    },
+    "CompareFunc": {
+      "rust": "std::iter::Iterator::zip",
+      "note": "Iterator::cmp takes no comparison function: a.iter().zip(b).map(|(x, y)| cmp(x, y)).find(|o| o.is_ne()).unwrap_or_else(|| a.len().cmp(&b.len())), which is Go's order (checked by tests/std_mapping_ties.rs); the result is an Ordering where Go returns the cmp value."
+    },
+    "Concat": {
+      "rust": "slice::concat"
+    },
+    "Contains": {
+      "rust": "slice::contains"
+    },
+    "ContainsFunc": {
+      "rust": "std::iter::Iterator::any"
+    },
+    "Delete": {
+      "rust": "std::vec::Vec::drain"
+    },
+    "DeleteFunc": {
+      "rust": "std::vec::Vec::retain",
+      "note": "retain the negation; the predicate runs once per element in order"
+    },
+    "Equal": {
+      "rust": "std::cmp::PartialEq::eq"
+    },
+    "EqualFunc": {
+      "rust": "std::iter::Iterator::zip",
+      "note": "Iterator::eq takes no equality function: a.len() == b.len() && a.iter().zip(b).all(|(x, y)| eq(x, y))."
+    },
+    "Grow": {
+      "rust": "std::vec::Vec::reserve",
+      "deviation": "vec-capacity",
+      "note": "Vec::reserve grows to at least the requested capacity, but the resulting cap() follows std's allocator growth, not Go's growslice size classes (reflect ports those for its own values)."
+    },
+    "Index": {
+      "rust": "std::iter::Iterator::position",
+      "note": "Option<usize> instead of -1"
+    },
+    "IndexFunc": {
+      "rust": "std::iter::Iterator::position",
+      "note": "Option<usize> instead of -1"
+    },
+    "Insert": {
+      "rust": "std::vec::Vec::splice",
+      "note": "splice(i..i, v)"
+    },
+    "IsSorted": {
+      "rust": "slice::is_sorted",
+      "note": "floats: is_sorted_by(|a, b| math::compare(a, b).is_le()), because slice::is_sorted rejects NaN where Go sorts NaN first"
+    },
+    "IsSortedFunc": {
+      "rust": "slice::is_sorted_by",
+      "note": "Go reports false when cmp(s[i], s[i-1]) < 0: is_sorted_by(|a, b| cmp(b, a).is_ge())"
+    },
+    "Max": {
+      "rust": "std::iter::Iterator::max",
+      "note": "floats: fold with rust_stdlib::math::maximum (NaN propagates, +0 above -0)"
+    },
+    "MaxFunc": {
+      "rust": "std::iter::Iterator::max_by",
+      "note": "Iterator::max_by returns the last maximal element and Go the first, so iterate in reverse: s.iter().rev().max_by(|a, b| cmp(a, b))."
+    },
+    "Min": {
+      "rust": "std::iter::Iterator::min",
+      "note": "floats: fold with rust_stdlib::math::minimum (NaN propagates, -0 below +0)"
+    },
+    "MinFunc": {
+      "rust": "std::iter::Iterator::min_by",
+      "note": "Iterator::min_by returns the first minimal element, as Go does: s.iter().min_by(|a, b| cmp(a, b)); do not reverse it."
+    },
+    "Repeat": {
+      "rust": "slice::repeat"
+    },
+    "Replace": {
+      "rust": "std::vec::Vec::splice"
+    },
+    "Reverse": {
+      "rust": "slice::reverse"
+    },
+    "Sort": {
+      "rust": "slice::sort_unstable",
+      "note": "Exact for integers and strings, whose equal elements are indistinguishable; floats (NaN first, -0 equal to +0) go through rust_stdlib::collections::sort_unstable_by with math::compare so equal elements end up where Go puts them."
+    },
+    "SortFunc": {
+      "rust": "rust_stdlib::collections::sort_unstable_by",
+      "note": "Go's pdqsort ported, so elements that compare equal come out in Go's order (slice::sort_unstable_by orders them differently); checked against Go in tests/collections_sort.rs."
+    },
+    "SortStableFunc": {
+      "rust": "slice::sort_by",
+      "note": "The stable order is unique, so sort_by matches Go."
+    },
+    "Sorted": {
+      "rust": "slice::sort_unstable",
+      "note": "collect, then sort (see Sort)"
+    },
+    "SortedFunc": {
+      "rust": "rust_stdlib::collections::sort_unstable_by",
+      "note": "collect, then rust_stdlib::collections::sort_unstable_by (Go's tie order)"
+    },
+    "SortedStableFunc": {
+      "rust": "slice::sort_by",
+      "note": "collect, then sort_by; the stable order is unique, so it matches Go."
+    },
+    "Values": {
+      "rust": "slice::iter"
+    }
+  }
+}

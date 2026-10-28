@@ -1,0 +1,26 @@
+{
+  "package": "index/suffixarray",
+  "notes": "rust_stdlib::index::suffixarray: suffix array built by prefix doubling (the array of a text is unique, so lookups and the serialized form match Go's SA-IS); Write reproduces Go's byte layout, including the stale bytes in its 10-byte size slots (tools/suffixarray_check.py compares 33k write, read, lookup and FindAllIndex vectors with Go). Index owns a copy of the data where Go keeps the caller's slice. tests/suffixarray.rs ports the test cases, the lookup and FindAllIndex checks, the corrupt-stream tests and a construction check through the serialized suffix array.",
+  "symbols": {
+    "Index": {"rust": "rust_stdlib::index::suffixarray::Index"},
+    "Index.Bytes": {"rust": "rust_stdlib::index::suffixarray::Index::bytes"},
+    "Index.FindAllIndex": {
+      "rust": "rust_stdlib::index::suffixarray::Index::find_all_index",
+      "note": "Go returns nil when there are no matches or n == 0; the Rust result is an empty Vec. Matches are (start, end) tuples like rust_stdlib::regexp::Regexp::find_all_index."
+    },
+    "Index.Lookup": {
+      "rust": "rust_stdlib::index::suffixarray::Index::lookup",
+      "note": "Go returns nil when s is empty, s is not found or n == 0; the Rust result is an empty Vec. Go's order is unspecified; the port returns suffix array order, as Go does."
+    },
+    "Index.Read": {
+      "rust": "rust_stdlib::index::suffixarray::Index::read",
+      "deviation": "read-corrupt-state",
+      "note": "Reads from std::io::Read (a reference to any reader, which is Go's io.Reader). Go panics when a chunk size is outside the 16 KiB buffer (corrupt input) and, after a failed read, keeps the buffers it already filled; the port returns an error for corrupt chunks and leaves the index unchanged on any error. Successful reads and their errors (io.EOF, io.ErrUnexpectedEOF, 'suffixarray: data corrupted') match Go."
+    },
+    "Index.Write": {"rust": "rust_stdlib::index::suffixarray::Index::write"},
+    "New": {
+      "rust": "rust_stdlib::index::suffixarray::Index::new",
+      "note": "Takes ownership of the data (anything convertible to Vec<u8>); Go keeps the caller's slice without copying."
+    }
+  }
+}

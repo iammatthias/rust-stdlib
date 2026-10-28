@@ -1,0 +1,19 @@
+{"package": "encoding/hex",
+ "notes": "encoding::hex: Go's Encode/Decode/Append*/Dump/Dumper and error values, differential-checked by tools/hex_check.py",
+ "symbols": {
+  "AppendDecode": {"rust": "rust_stdlib::encoding::hex::decode_into"},
+  "AppendEncode": {"rust": "rust_stdlib::encoding::hex::encode_into"},
+  "Decode": {"rust": "rust_stdlib::encoding::hex::decode_into", "note": "appends to a Vec instead of filling a sized slice; bytes before a malformed byte are kept, as in Go"},
+  "DecodeString": {"rust": "rust_stdlib::encoding::hex::decode", "note": "decode_into keeps the bytes decoded before an invalid byte, as Go returns them"},
+  "DecodedLen": {"rust": "rust_stdlib::encoding::hex::decoded_len"},
+  "Dump": {"rust": "rust_stdlib::encoding::hex::dump"},
+  "Dumper": {"rust": "rust_stdlib::encoding::hex::Dumper"},
+  "Encode": {"rust": "rust_stdlib::encoding::hex::encode_into", "note": "appends to a Vec instead of filling a sized slice"},
+  "EncodeToString": {"rust": "rust_stdlib::encoding::hex::encode"},
+  "EncodedLen": {"rust": "rust_stdlib::encoding::hex::encoded_len"},
+  "ErrLength": {"rust": "rust_stdlib::encoding::hex::Error::Length"},
+  "InvalidByteError": {"rust": "rust_stdlib::encoding::hex::InvalidByteError"},
+  "InvalidByteError.Error": {"rust": "std::string::ToString::to_string", "note": "the Display impl gives Go's 'encoding/hex: invalid byte: U+XXXX' message; checked by tools/hex_check.py"},
+  "NewDecoder": {"rust": "rust_stdlib::encoding::hex::decoder"},
+  "NewEncoder": {"rust": "rust_stdlib::encoding::hex::encoder"}
+ }}

@@ -1,0 +1,176 @@
+{
+  "package": "encoding/asn1",
+  "notes": "encoding::asn1: DER parse/marshal with Go's strictness rules via typed Marshal/Unmarshal traits, Decoder/Encoder SEQUENCE mapping and Params (Go tag syntax); Go's reflection-based Marshal/Unmarshal are deviations; explicit tag wrapper length is ignored as in Go unless Options::strict_explicit; default depth 256 (Go 10000, stack safety); year 0000 and +/-24h offsets rejected; negative OID arcs rejected on marshal",
+  "symbols": {
+    "BitString": {
+      "rust": "rust_stdlib::encoding::asn1::BitString"
+    },
+    "BitString.At": {
+      "rust": "rust_stdlib::encoding::asn1::BitString::at"
+    },
+    "BitString.BitLength": {
+      "rust": "rust_stdlib::encoding::asn1::BitString::bit_length"
+    },
+    "BitString.Bytes": {
+      "rust": "rust_stdlib::encoding::asn1::BitString::bytes"
+    },
+    "BitString.RightAlign": {
+      "rust": "rust_stdlib::encoding::asn1::BitString::right_align"
+    },
+    "ClassApplication": {
+      "rust": "rust_stdlib::encoding::asn1::Class::Application"
+    },
+    "ClassContextSpecific": {
+      "rust": "rust_stdlib::encoding::asn1::Class::ContextSpecific"
+    },
+    "ClassPrivate": {
+      "rust": "rust_stdlib::encoding::asn1::Class::Private"
+    },
+    "ClassUniversal": {
+      "rust": "rust_stdlib::encoding::asn1::Class::Universal"
+    },
+    "Enumerated": {
+      "rust": "rust_stdlib::encoding::asn1::Enumerated"
+    },
+    "Flag": {
+      "rust": "rust_stdlib::encoding::asn1::Flag"
+    },
+    "Marshal": {
+      "rust": "rust_stdlib::encoding::asn1::marshal",
+      "deviation": "reflection",
+      "note": "Go takes any Go values through reflection; Rust uses the typed Marshal/Unmarshal traits and Params instead"
+    },
+    "MarshalWithParams": {
+      "rust": "rust_stdlib::encoding::asn1::marshal_with_params",
+      "deviation": "reflection",
+      "note": "Go takes any Go values through reflection; Rust uses the typed Marshal/Unmarshal traits and Params instead"
+    },
+    "NullBytes": {
+      "rust": "rust_stdlib::encoding::asn1::NULL_BYTES"
+    },
+    "NullRawValue": {
+      "rust": "rust_stdlib::encoding::asn1::RawValue::null"
+    },
+    "ObjectIdentifier": {
+      "rust": "rust_stdlib::encoding::asn1::ObjectIdentifier"
+    },
+    "ObjectIdentifier.Equal": {
+      "rust": "std::cmp::PartialEq::eq",
+      "note": "derived equality compares the arcs, as slices.Equal does"
+    },
+    "ObjectIdentifier.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl writes Go's dotted decimal form"
+    },
+    "RawContent": {
+      "deviation": "reflection",
+      "note": "Go's struct field that captures content bytes; use RawValue with a hand-written Unmarshal impl"
+    },
+    "RawValue": {
+      "rust": "rust_stdlib::encoding::asn1::RawValue"
+    },
+    "RawValue.Bytes": {
+      "rust": "rust_stdlib::encoding::asn1::RawValue::bytes"
+    },
+    "RawValue.Class": {
+      "rust": "rust_stdlib::encoding::asn1::RawValue::class"
+    },
+    "RawValue.FullBytes": {
+      "rust": "rust_stdlib::encoding::asn1::RawValue::full_bytes"
+    },
+    "RawValue.IsCompound": {
+      "rust": "rust_stdlib::encoding::asn1::RawValue::is_compound"
+    },
+    "RawValue.Tag": {
+      "rust": "rust_stdlib::encoding::asn1::RawValue::tag"
+    },
+    "StructuralError": {
+      "rust": "rust_stdlib::encoding::asn1::Error",
+      "note": "Go's StructuralError is this Error whose kind() is ErrorKind::Structural"
+    },
+    "StructuralError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl"
+    },
+    "StructuralError.Msg": {
+      "rust": "rust_stdlib::encoding::asn1::Error::message",
+      "note": "the message() accessor"
+    },
+    "SyntaxError": {
+      "rust": "rust_stdlib::encoding::asn1::Error",
+      "note": "Go's SyntaxError is this Error whose kind() is ErrorKind::Syntax"
+    },
+    "SyntaxError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl"
+    },
+    "SyntaxError.Msg": {
+      "rust": "rust_stdlib::encoding::asn1::Error::message",
+      "note": "the message() accessor"
+    },
+    "TagBMPString": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_BMP_STRING"
+    },
+    "TagBitString": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_BIT_STRING"
+    },
+    "TagBoolean": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_BOOLEAN"
+    },
+    "TagEnum": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_ENUM"
+    },
+    "TagGeneralString": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_GENERAL_STRING"
+    },
+    "TagGeneralizedTime": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_GENERALIZED_TIME"
+    },
+    "TagIA5String": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_IA5_STRING"
+    },
+    "TagInteger": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_INTEGER"
+    },
+    "TagNull": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_NULL"
+    },
+    "TagNumericString": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_NUMERIC_STRING"
+    },
+    "TagOID": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_OID"
+    },
+    "TagOctetString": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_OCTET_STRING"
+    },
+    "TagPrintableString": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_PRINTABLE_STRING"
+    },
+    "TagSequence": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_SEQUENCE"
+    },
+    "TagSet": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_SET"
+    },
+    "TagT61String": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_T61_STRING"
+    },
+    "TagUTCTime": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_UTC_TIME"
+    },
+    "TagUTF8String": {
+      "rust": "rust_stdlib::encoding::asn1::TAG_UTF8_STRING"
+    },
+    "Unmarshal": {
+      "rust": "rust_stdlib::encoding::asn1::unmarshal",
+      "deviation": "reflection+native-stack-recursion",
+      "note": "Go takes any Go values through reflection; Rust uses the typed Marshal/Unmarshal traits and Params instead. Nested fields decode by recursion through the caller's Unmarshal impls on the native thread stack, which is fixed-size in Rust (Go's grows on demand), so Options::max_depth defaults to 256 where Go allows 10000 (10000 levels overflow a 2 MiB thread stack); raise it together with the thread's stack size"
+    },
+    "UnmarshalWithParams": {
+      "rust": "rust_stdlib::encoding::asn1::unmarshal_with_params",
+      "deviation": "reflection+native-stack-recursion",
+      "note": "Go takes any Go values through reflection; Rust uses the typed Marshal/Unmarshal traits and Params instead. Nested fields decode by recursion through the caller's Unmarshal impls on the native thread stack, which is fixed-size in Rust (Go's grows on demand), so Options::max_depth defaults to 256 where Go allows 10000 (10000 levels overflow a 2 MiB thread stack); raise it together with the thread's stack size"
+    }
+  }
+}

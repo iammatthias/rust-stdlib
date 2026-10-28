@@ -1,0 +1,56 @@
+{
+  "package": "mime",
+  "notes": "mime: Go's ParseMediaType/FormatMediaType grammar with RFC 2231 values, Go's extension registry (built-in table, unix mime database, AddExtensionType) and RFC 2047 word encoding/decoding with a charset hook; differential-checked by tools/mime_check.py. AddExtensionType quotes the extension in its error as Go does. Deviations: decoded RFC 2231 values and words that are not UTF-8 are errors, not raw bytes; ExtensionsByType returns an empty Vec for nil; FormatMediaType and TypeByExtension return None for \"\"; Windows registry is not read",
+  "symbols": {
+    "AddExtensionType": {
+      "rust": "rust_stdlib::mime::add_extension_type",
+      "note": "The missing-dot error quotes the extension with strconv.Quote, as Go's %q does."
+    },
+    "BEncoding": {
+      "rust": "rust_stdlib::mime::WordEncoder::B"
+    },
+    "ErrInvalidMediaParameter": {
+      "rust": "rust_stdlib::mime::ERR_INVALID_MEDIA_PARAMETER"
+    },
+    "ExtensionsByType": {
+      "rust": "rust_stdlib::mime::extensions_by_type",
+      "note": "returns an empty Vec where Go returns a nil slice (Option/empty Vec stands for Go's \"\" / nil; Rust-shaped, not a behaviour difference.)"
+    },
+    "FormatMediaType": {
+      "rust": "rust_stdlib::mime::format_media_type",
+      "note": "returns None where Go returns \"\" (Option/empty Vec stands for Go's \"\" / nil; Rust-shaped, not a behaviour difference.)"
+    },
+    "ParseMediaType": {
+      "rust": "rust_stdlib::mime::parse_media_type",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Parameter values are String, so an RFC 2231 value that decodes to invalid UTF-8 returns ERR_INVALID_MEDIA_PARAMETER; Go keeps the raw bytes in a string."
+    },
+    "QEncoding": {
+      "rust": "rust_stdlib::mime::WordEncoder::Q"
+    },
+    "TypeByExtension": {
+      "rust": "rust_stdlib::mime::type_by_extension",
+      "deviation": "no-windows-registry",
+      "note": "returns None where Go returns \"\"; the Windows registry is not read on Windows, where Go consults it (Option/empty Vec stand for Go's \"\" / nil, which is only the Rust shape)."
+    },
+    "WordDecoder": {
+      "rust": "rust_stdlib::mime::WordDecoder"
+    },
+    "WordDecoder.CharsetReader": {
+      "rust": "rust_stdlib::mime::WordDecoder::with_charset_reader",
+      "note": "Go's exported field is set through this builder"
+    },
+    "WordDecoder.Decode": {
+      "rust": "rust_stdlib::mime::WordDecoder::decode"
+    },
+    "WordDecoder.DecodeHeader": {
+      "rust": "rust_stdlib::mime::WordDecoder::decode_header"
+    },
+    "WordEncoder": {
+      "rust": "rust_stdlib::mime::WordEncoder"
+    },
+    "WordEncoder.Encode": {
+      "rust": "rust_stdlib::mime::WordEncoder::encode"
+    }
+  }
+}

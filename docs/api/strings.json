@@ -1,0 +1,271 @@
+{
+  "package": "strings",
+  "notes": "Go's strings are byte strings that may hold invalid UTF-8. For valid text the symbol is std (`str` methods, `String`, `slice::join`); `tools/strings_check.py` runs both std and `BytesExt` against Go on valid UTF-8 and checks they agree. Where std differs (empty separators, Go's simple case mapping, EqualFold, cutset-free predicates on invalid bytes) it is `rust_stdlib::text::BytesExt` on `&[u8]`, with Go's U+FFFD-of-width-1 rule. Reader and Replacer are `rust_stdlib::text`. Go index -1 is Option<usize>; runes are char.",
+  "symbols": {
+    "Builder": {
+      "rust": "std::string::String",
+      "note": "Go string building is `String` (valid UTF-8) or `Vec<u8>` (arbitrary bytes)"
+    },
+    "Builder.Cap": {
+      "rust": "std::string::String::capacity"
+    },
+    "Builder.Grow": {
+      "rust": "std::string::String::reserve"
+    },
+    "Builder.Len": {
+      "rust": "std::string::String::len"
+    },
+    "Builder.Reset": {
+      "rust": "std::string::String::clear"
+    },
+    "Builder.String": {
+      "rust": "std::string::String::as_str"
+    },
+    "Builder.Write": {
+      "rust": "std::io::Write::write",
+      "note": "`impl Write for Vec<u8>`"
+    },
+    "Builder.WriteByte": {
+      "rust": "std::vec::Vec::push"
+    },
+    "Builder.WriteRune": {
+      "rust": "std::string::String::push"
+    },
+    "Builder.WriteString": {
+      "rust": "std::string::String::push_str"
+    },
+    "Clone": {
+      "rust": "str::to_owned"
+    },
+    "Compare": {
+      "rust": "std::cmp::Ord::cmp"
+    },
+    "Contains": {
+      "rust": "str::contains"
+    },
+    "ContainsAny": {
+      "rust": "rust_stdlib::text::BytesExt::contains_any"
+    },
+    "ContainsFunc": {
+      "rust": "rust_stdlib::text::BytesExt::contains_func"
+    },
+    "ContainsRune": {
+      "rust": "str::contains"
+    },
+    "Count": {
+      "rust": "str::matches",
+      "note": "`s.matches(sep).count()`; `BytesExt::count_bytes` for invalid UTF-8"
+    },
+    "Cut": {
+      "rust": "str::split_once"
+    },
+    "CutLast": {
+      "rust": "str::rsplit_once"
+    },
+    "CutPrefix": {
+      "rust": "str::strip_prefix"
+    },
+    "CutSuffix": {
+      "rust": "str::strip_suffix"
+    },
+    "EqualFold": {
+      "rust": "rust_stdlib::text::BytesExt::equal_fold"
+    },
+    "Fields": {
+      "rust": "str::split_whitespace"
+    },
+    "FieldsFunc": {
+      "rust": "rust_stdlib::text::BytesExt::fields_func"
+    },
+    "FieldsFuncSeq": {
+      "rust": "rust_stdlib::text::BytesExt::fields_func"
+    },
+    "FieldsSeq": {
+      "rust": "str::split_whitespace"
+    },
+    "HasPrefix": {
+      "rust": "str::starts_with"
+    },
+    "HasSuffix": {
+      "rust": "str::ends_with"
+    },
+    "Index": {
+      "rust": "str::find"
+    },
+    "IndexAny": {
+      "rust": "str::find",
+      "note": "`s.find(&chars[..])` with the chars of the set; `BytesExt::find_any` for invalid UTF-8"
+    },
+    "IndexByte": {
+      "rust": "std::iter::Iterator::position"
+    },
+    "IndexFunc": {
+      "rust": "str::find"
+    },
+    "IndexRune": {
+      "rust": "str::find"
+    },
+    "Join": {
+      "rust": "slice::join"
+    },
+    "LastIndex": {
+      "rust": "str::rfind"
+    },
+    "LastIndexAny": {
+      "rust": "str::rfind"
+    },
+    "LastIndexByte": {
+      "rust": "std::iter::Iterator::rposition"
+    },
+    "LastIndexFunc": {
+      "rust": "str::rfind"
+    },
+    "Lines": {
+      "rust": "str::split_inclusive",
+      "note": "`s.split_inclusive('\\n')`, which is Go's `Lines` (not `str::lines`)"
+    },
+    "Map": {
+      "rust": "rust_stdlib::text::BytesExt::map_runes",
+      "note": "mapping returns Option<char>; None drops the rune (Go: negative rune)"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::text::Reader::new"
+    },
+    "NewReplacer": {
+      "rust": "rust_stdlib::text::Replacer::new",
+      "note": "takes pairs; Go's odd-argument panic cannot occur"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::text::Reader"
+    },
+    "Reader.Len": {
+      "rust": "rust_stdlib::text::Reader::len"
+    },
+    "Reader.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "Reader.ReadAt": {
+      "rust": "rust_stdlib::text::Reader::read_at"
+    },
+    "Reader.ReadByte": {
+      "rust": "rust_stdlib::text::Reader::read_byte"
+    },
+    "Reader.ReadRune": {
+      "rust": "rust_stdlib::text::Reader::read_rune"
+    },
+    "Reader.Reset": {
+      "rust": "rust_stdlib::text::Reader::reset"
+    },
+    "Reader.Seek": {
+      "rust": "std::io::Seek::seek"
+    },
+    "Reader.Size": {
+      "rust": "rust_stdlib::text::Reader::size"
+    },
+    "Reader.UnreadByte": {
+      "rust": "rust_stdlib::text::Reader::unread_byte"
+    },
+    "Reader.UnreadRune": {
+      "rust": "rust_stdlib::text::Reader::unread_rune"
+    },
+    "Reader.WriteTo": {
+      "rust": "rust_stdlib::text::Reader::write_to"
+    },
+    "Repeat": {
+      "rust": "str::repeat",
+      "note": "count is usize, so Go's negative-count panic cannot occur; length overflow panics as in Go"
+    },
+    "Replace": {
+      "rust": "str::replacen",
+      "note": "`replacen` for n >= 0, `str::replace` for n < 0; `BytesExt::replace` for invalid UTF-8"
+    },
+    "ReplaceAll": {
+      "rust": "str::replace"
+    },
+    "Replacer": {
+      "rust": "rust_stdlib::text::Replacer"
+    },
+    "Replacer.Replace": {
+      "rust": "rust_stdlib::text::Replacer::replace",
+      "note": "byte-oriented like Go"
+    },
+    "Replacer.WriteString": {
+      "rust": "rust_stdlib::text::Replacer::write_to"
+    },
+    "Split": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes",
+      "note": "an empty separator splits into runes, unlike `str::split`"
+    },
+    "SplitAfter": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes_after",
+      "note": "an empty separator splits into runes, unlike `str::split`"
+    },
+    "SplitAfterN": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes_after_n",
+      "note": "an empty separator splits into runes, unlike `str::split`"
+    },
+    "SplitAfterSeq": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes_after",
+      "note": "an empty separator splits into runes, unlike `str::split`"
+    },
+    "SplitN": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes_n",
+      "note": "an empty separator splits into runes, unlike `str::split`"
+    },
+    "SplitSeq": {
+      "rust": "rust_stdlib::text::BytesExt::split_bytes",
+      "note": "an empty separator splits into runes, unlike `str::split`"
+    },
+    "Title": {
+      "rust": "rust_stdlib::text::BytesExt::title"
+    },
+    "ToLower": {
+      "rust": "rust_stdlib::text::BytesExt::to_lower"
+    },
+    "ToLowerSpecial": {
+      "rust": "rust_stdlib::text::BytesExt::to_lower_special"
+    },
+    "ToTitle": {
+      "rust": "rust_stdlib::text::BytesExt::to_title"
+    },
+    "ToTitleSpecial": {
+      "rust": "rust_stdlib::text::BytesExt::to_title_special"
+    },
+    "ToUpper": {
+      "rust": "rust_stdlib::text::BytesExt::to_upper"
+    },
+    "ToUpperSpecial": {
+      "rust": "rust_stdlib::text::BytesExt::to_upper_special"
+    },
+    "ToValidUTF8": {
+      "rust": "rust_stdlib::text::BytesExt::to_valid_utf8"
+    },
+    "Trim": {
+      "rust": "str::trim_matches"
+    },
+    "TrimFunc": {
+      "rust": "str::trim_matches"
+    },
+    "TrimLeft": {
+      "rust": "str::trim_start_matches"
+    },
+    "TrimLeftFunc": {
+      "rust": "str::trim_start_matches"
+    },
+    "TrimPrefix": {
+      "rust": "str::strip_prefix"
+    },
+    "TrimRight": {
+      "rust": "str::trim_end_matches"
+    },
+    "TrimRightFunc": {
+      "rust": "str::trim_end_matches"
+    },
+    "TrimSpace": {
+      "rust": "str::trim"
+    },
+    "TrimSuffix": {
+      "rust": "str::strip_suffix"
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "package": "sort",
+  "notes": "sort: std slice methods. Go's unstable sort is pdqsort and its order of equal elements is deterministic; where equal elements are distinguishable (Sort, Slice, Float64s) the mapping is rust_stdlib::collections::sort_unstable_by[_less], a port that reproduces it (tests/collections_sort.rs); for integers and strings std's sort_unstable is exact. Go's NaN-first float order is rust_stdlib::math::compare; sort.Interface (Len/Less/Swap over any type) is a slice plus Ord, so the Interface-based entry points collapse into the slice methods.",
+  "symbols": {
+    "Find": {
+      "rust": "slice::partition_point",
+      "note": "Find(n, cmp) is partition_point over cmp(i) > 0, then an equality check on the found index"
+    },
+    "Float64s": {
+      "rust": "rust_stdlib::collections::sort_unstable_by",
+      "note": "pass rust_stdlib::math::compare for Go's NaN-first order; Go's tie order for -0 and +0"
+    },
+    "Float64sAreSorted": {
+      "rust": "slice::is_sorted_by",
+      "note": "with rust_stdlib::math::compare"
+    },
+    "Ints": {
+      "rust": "slice::sort_unstable",
+      "note": "equal integers or strings are indistinguishable, so the order matches Go"
+    },
+    "IntsAreSorted": {
+      "rust": "slice::is_sorted"
+    },
+    "IsSorted": {
+      "rust": "slice::is_sorted"
+    },
+    "Reverse": {
+      "rust": "std::cmp::Reverse"
+    },
+    "Search": {
+      "rust": "slice::partition_point"
+    },
+    "SearchFloat64s": {
+      "rust": "slice::partition_point",
+      "note": "predicate !(e >= x): NaN never matches"
+    },
+    "SearchInts": {
+      "rust": "slice::partition_point"
+    },
+    "SearchStrings": {
+      "rust": "slice::partition_point"
+    },
+    "Slice": {
+      "rust": "rust_stdlib::collections::sort_unstable_by_less",
+      "note": "less(a, b) on the elements instead of indices; Go's tie order"
+    },
+    "SliceIsSorted": {
+      "rust": "slice::is_sorted_by"
+    },
+    "SliceStable": {
+      "rust": "slice::sort_by",
+      "note": "the stable order is unique, so sort_by matches Go"
+    },
+    "Sort": {
+      "rust": "rust_stdlib::collections::sort_unstable_by_less",
+      "note": "a slice plus a less closure; Go's tie order (the same algorithm as sort.Slice and slices.SortFunc)"
+    },
+    "Stable": {
+      "rust": "slice::sort_by",
+      "note": "the stable order is unique, so sort_by matches Go"
+    },
+    "Strings": {
+      "rust": "slice::sort_unstable",
+      "note": "equal integers or strings are indistinguishable, so the order matches Go"
+    },
+    "StringsAreSorted": {
+      "rust": "slice::is_sorted"
+    },
+    "Interface": {
+      "rust": "std::cmp::Ord"
+    },
+    "Interface.Len": {
+      "rust": "slice::len"
+    },
+    "Interface.Less": {
+      "rust": "std::cmp::PartialOrd::lt"
+    },
+    "Interface.Swap": {
+      "rust": "slice::swap"
+    },
+    "IntSlice": {
+      "rust": "slice"
+    },
+    "IntSlice.Len": {
+      "rust": "slice::len"
+    },
+    "IntSlice.Less": {
+      "rust": "std::cmp::PartialOrd::lt"
+    },
+    "IntSlice.Swap": {
+      "rust": "slice::swap"
+    },
+    "IntSlice.Sort": {
+      "rust": "slice::sort_unstable",
+      "note": "equal integers or strings are indistinguishable, so the order matches Go"
+    },
+    "IntSlice.Search": {
+      "rust": "slice::partition_point"
+    },
+    "Float64Slice": {
+      "rust": "slice"
+    },
+    "Float64Slice.Len": {
+      "rust": "slice::len"
+    },
+    "Float64Slice.Less": {
+      "rust": "std::cmp::PartialOrd::lt"
+    },
+    "Float64Slice.Swap": {
+      "rust": "slice::swap"
+    },
+    "Float64Slice.Sort": {
+      "rust": "rust_stdlib::collections::sort_unstable_by",
+      "note": "with rust_stdlib::math::compare"
+    },
+    "Float64Slice.Search": {
+      "rust": "slice::partition_point"
+    },
+    "StringSlice": {
+      "rust": "slice"
+    },
+    "StringSlice.Len": {
+      "rust": "slice::len"
+    },
+    "StringSlice.Less": {
+      "rust": "std::cmp::PartialOrd::lt"
+    },
+    "StringSlice.Swap": {
+      "rust": "slice::swap"
+    },
+    "StringSlice.Sort": {
+      "rust": "slice::sort_unstable",
+      "note": "equal integers or strings are indistinguishable, so the order matches Go"
+    },
+    "StringSlice.Search": {
+      "rust": "slice::partition_point"
+    }
+  }
+}

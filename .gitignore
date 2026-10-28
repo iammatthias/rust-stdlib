@@ -1,0 +1,28 @@
+# Cargo build output (every crate has its own target/)
+/target/
+**/target/
+
+# Fuzzing
+/fuzz/runs/
+/fuzz/artifacts/
+/fuzz/coverage/
+*.profraw
+*.profdata
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Go oracle binaries built by tools/
+/tools/*_oracle
+/tools/*/oracle
+
+# Agent and editor state
+/.claude/
+.idea/
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store

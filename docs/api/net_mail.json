@@ -1,0 +1,75 @@
+{
+  "package": "net/mail",
+  "notes": "net::mail: Addresses/lists/groups, Go address formatting, RFC 2047 names with charset hook, lenient message headers and Go date layouts (dates are time::Time parsed with Go's layouts); text is UTF-8 only",
+  "symbols": {
+    "Address": {
+      "rust": "rust_stdlib::net::mail::Address"
+    },
+    "Address.Address": {
+      "rust": "rust_stdlib::net::mail::Address::address"
+    },
+    "Address.Name": {
+      "rust": "rust_stdlib::net::mail::Address::name"
+    },
+    "Address.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl gives Go's Address.String formatting; checked by tools/mail_check.py"
+    },
+    "AddressParser": {
+      "rust": "rust_stdlib::net::mail::AddressParser"
+    },
+    "AddressParser.Parse": {
+      "rust": "rust_stdlib::net::mail::AddressParser::parse"
+    },
+    "AddressParser.ParseList": {
+      "rust": "rust_stdlib::net::mail::AddressParser::parse_list"
+    },
+    "AddressParser.WordDecoder": {
+      "rust": "rust_stdlib::net::mail::AddressParser::word_decoder"
+    },
+    "ErrHeaderNotPresent": {
+      "rust": "rust_stdlib::net::mail::Error::HeaderNotPresent"
+    },
+    "Header": {
+      "rust": "rust_stdlib::net::mail::Header"
+    },
+    "Header.AddressList": {
+      "rust": "rust_stdlib::net::mail::Header::address_list"
+    },
+    "Header.Date": {
+      "rust": "rust_stdlib::net::mail::Header::date"
+    },
+    "Header.Get": {
+      "rust": "rust_stdlib::net::mail::Header::get",
+      "note": "returns None where Go returns \"\" for an absent or empty field"
+    },
+    "Message": {
+      "rust": "rust_stdlib::net::mail::Message"
+    },
+    "Message.Body": {
+      "rust": "rust_stdlib::net::mail::Message::body"
+    },
+    "Message.Header": {
+      "rust": "rust_stdlib::net::mail::Message::header"
+    },
+    "ParseAddress": {
+      "rust": "rust_stdlib::net::mail::parse_address",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Names, addresses, header keys and values and decoded encoded words are String, so non-UTF-8 bytes are reported as errors; Go keeps them in strings."
+    },
+    "ParseAddressList": {
+      "rust": "rust_stdlib::net::mail::parse_address_list",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Names, addresses, header keys and values and decoded encoded words are String, so non-UTF-8 bytes are reported as errors; Go keeps them in strings."
+    },
+    "ParseDate": {
+      "rust": "rust_stdlib::net::mail::parse_date",
+      "note": "Returns time::Time parsed with Go's own layouts through time::parse, so every date Go accepts is held (year 0, offsets of 24 hours or more)."
+    },
+    "ReadMessage": {
+      "rust": "rust_stdlib::net::mail::read_message",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Names, addresses, header keys and values and decoded encoded words are String, so non-UTF-8 bytes are reported as errors; Go keeps them in strings."
+    }
+  }
+}

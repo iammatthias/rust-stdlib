@@ -1,0 +1,185 @@
+{
+  "package": "net/textproto",
+  "notes": "net::textproto: Lines, continued lines, response codes, dot reader/writer, MIME headers with Go validation and explicit budgets; Pipeline, Conn (full duplex over one stream), NewConn, Dial and Go's error texts; UTF-8 text only (byte variants exist for lines); tools/textproto_check.py compares framing, error text and loopback Cmd/ReadResponse transcripts with Go",
+  "symbols": {
+    "CanonicalMIMEHeaderKey": {
+      "rust": "rust_stdlib::net::textproto::canonical_mime_header_key",
+      "note": "Go's exact rules (invalid keys are returned unchanged); compared with Go by tools/textproto_check.py (K)."
+    },
+    "Conn": {
+      "rust": "rust_stdlib::net::textproto::Conn",
+      "note": "A Reader, a Writer and a Pipeline over one Stream (TcpStream, UnixStream or a boxed net::Conn) whose reads and writes take &self, so the halves work from different threads (Conn::into_parts); transcripts compared with Go by tools/textproto_check.py (X)."
+    },
+    "Conn.Close": {
+      "rust": "rust_stdlib::net::textproto::Conn::close",
+      "note": "Closes the stream (shutdown for TcpStream/UnixStream); buffered writes are not flushed, as in Go."
+    },
+    "Conn.Cmd": {
+      "rust": "rust_stdlib::net::textproto::Conn::cmd",
+      "note": "Takes the line to send (pass format_args!) and returns the id as u64; sequencing as Go."
+    },
+    "Conn.Pipeline": {
+      "rust": "rust_stdlib::net::textproto::Conn::pipeline",
+      "note": "Go embeds Pipeline; its methods are on this public field."
+    },
+    "Conn.Reader": {
+      "rust": "rust_stdlib::net::textproto::Conn::reader",
+      "note": "Go embeds Reader; its methods are on this public field."
+    },
+    "Conn.Writer": {
+      "rust": "rust_stdlib::net::textproto::Conn::writer",
+      "note": "Go embeds Writer; its methods are on this public field."
+    },
+    "Dial": {
+      "rust": "rust_stdlib::net::textproto::dial",
+      "note": "Over rust_stdlib::net::dial; returns Conn<Box<dyn net::Conn>> and the net error unchanged."
+    },
+    "Error": {
+      "rust": "rust_stdlib::net::textproto::ResponseError",
+      "note": "Go's *Error is ResponseError (textproto::Error is this module's error enum); Error::Response holds it. Text is %03d %q, compared with Go by tools/textproto_check.py (X)."
+    },
+    "Error.Code": {
+      "rust": "rust_stdlib::net::textproto::ResponseError::code"
+    },
+    "Error.Error": {
+      "rust": "rust_stdlib::net::textproto::ResponseError",
+      "note": "impl Display for ResponseError gives Go's text."
+    },
+    "Error.Msg": {
+      "rust": "rust_stdlib::net::textproto::ResponseError::msg"
+    },
+    "MIMEHeader": {
+      "rust": "rust_stdlib::net::textproto::MIMEHeader",
+      "note": "Ordered map of canonical keys to value lists. Go's plain map also allows direct access with non-canonical keys; use raw_values, iter and into_map."
+    },
+    "MIMEHeader.Add": {
+      "rust": "rust_stdlib::net::textproto::MIMEHeader::add"
+    },
+    "MIMEHeader.Del": {
+      "rust": "rust_stdlib::net::textproto::MIMEHeader::del"
+    },
+    "MIMEHeader.Get": {
+      "rust": "rust_stdlib::net::textproto::MIMEHeader::get",
+      "note": "Returns None where Go returns the empty string for a missing key or an empty value list; an existing empty value is Some(\"\"). Option stands for Go's \"\" (Rust-shaped)."
+    },
+    "MIMEHeader.Set": {
+      "rust": "rust_stdlib::net::textproto::MIMEHeader::set"
+    },
+    "MIMEHeader.Values": {
+      "rust": "rust_stdlib::net::textproto::MIMEHeader::values",
+      "note": "A missing key gives an empty slice; Go returns a nil slice, which Rust cannot tell from an empty one."
+    },
+    "NewConn": {
+      "rust": "rust_stdlib::net::textproto::Conn::new",
+      "note": "Takes a Stream instead of an io.ReadWriteCloser."
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::net::textproto::Reader::new",
+      "note": "Takes any BufRead instead of a *bufio.Reader."
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::net::textproto::Writer::new",
+      "note": "Takes any Write instead of a *bufio.Writer; print_line and the dot writer flush where Go flushes."
+    },
+    "Pipeline": {
+      "rust": "rust_stdlib::net::textproto::Pipeline",
+      "note": "Shareable between threads (all methods take &self); ids are u64."
+    },
+    "Pipeline.EndRequest": {
+      "rust": "rust_stdlib::net::textproto::Pipeline::end_request",
+      "note": "Panics with 'out of sync' for the wrong id, as Go does."
+    },
+    "Pipeline.EndResponse": {
+      "rust": "rust_stdlib::net::textproto::Pipeline::end_response",
+      "note": "Panics with 'out of sync' for the wrong id, as Go does."
+    },
+    "Pipeline.Next": {
+      "rust": "rust_stdlib::net::textproto::Pipeline::next"
+    },
+    "Pipeline.StartRequest": {
+      "rust": "rust_stdlib::net::textproto::Pipeline::start_request"
+    },
+    "Pipeline.StartResponse": {
+      "rust": "rust_stdlib::net::textproto::Pipeline::start_response"
+    },
+    "ProtocolError": {
+      "rust": "rust_stdlib::net::textproto::ProtocolError",
+      "note": "Newtype over String; Error::Protocol holds it."
+    },
+    "ProtocolError.Error": {
+      "rust": "rust_stdlib::net::textproto::ProtocolError",
+      "note": "impl Display for ProtocolError gives the message."
+    },
+    "Reader": {
+      "rust": "rust_stdlib::net::textproto::Reader",
+      "deviation": "default-budget",
+      "note": "Generic over BufRead; every accumulating read is bounded by Limits. Defaults: line 1 MiB, header block 1 MiB, 10,000 headers, dot-encoded body 16 MiB, response 1 MiB. Go has no such bounds; the defaults are far above Go's own test inputs and the differential harness raises them."
+    },
+    "Reader.DotReader": {
+      "rust": "rust_stdlib::net::textproto::Reader::dot_reader"
+    },
+    "Reader.R": {
+      "rust": "rust_stdlib::net::textproto::Reader::get_ref",
+      "note": "Also get_mut and into_inner."
+    },
+    "Reader.ReadCodeLine": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_code_line",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns Rust Strings: a message that is not valid UTF-8 is Error::InvalidUtf8 where Go returns the bytes."
+    },
+    "Reader.ReadContinuedLine": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_continued_line",
+      "deviation": "go-string-invalid-utf8",
+      "note": "A line that is not valid UTF-8 is Error::InvalidUtf8 where Go returns the bytes; read_continued_line_bytes has no such limit."
+    },
+    "Reader.ReadContinuedLineBytes": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_continued_line_bytes"
+    },
+    "Reader.ReadDotBytes": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_dot_bytes"
+    },
+    "Reader.ReadDotLines": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_dot_lines",
+      "deviation": "go-string-invalid-utf8",
+      "note": "A line that is not valid UTF-8 is Error::InvalidUtf8 where Go returns the bytes; read_dot_bytes has no such limit."
+    },
+    "Reader.ReadLine": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_line",
+      "deviation": "go-string-invalid-utf8",
+      "note": "A line that is not valid UTF-8 is Error::InvalidUtf8 where Go returns the bytes; read_line_bytes has no such limit."
+    },
+    "Reader.ReadLineBytes": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_line_bytes"
+    },
+    "Reader.ReadMIMEHeader": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_mime_header",
+      "deviation": "go-string-invalid-utf8+default-budget",
+      "note": "Header values are Strings, so non-UTF-8 bytes are Error::InvalidUtf8. Charged against Limits (default 1 MiB per header block, 10,000 headers) as Go's limited variant does, where Go's public method is unbounded."
+    },
+    "Reader.ReadResponse": {
+      "rust": "rust_stdlib::net::textproto::Reader::read_response",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Returns a Rust String: a message that is not valid UTF-8 is Error::InvalidUtf8 where Go returns the bytes."
+    },
+    "TrimBytes": {
+      "rust": "rust_stdlib::net::textproto::trim_bytes"
+    },
+    "TrimString": {
+      "rust": "rust_stdlib::net::textproto::trim_string"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::net::textproto::Writer"
+    },
+    "Writer.DotWriter": {
+      "rust": "rust_stdlib::net::textproto::Writer::dot_writer"
+    },
+    "Writer.PrintfLine": {
+      "rust": "rust_stdlib::net::textproto::Writer::print_line",
+      "note": "Takes the line as impl Display; pass format_args! for Go's format and arguments."
+    },
+    "Writer.W": {
+      "rust": "rust_stdlib::net::textproto::Writer::get_ref",
+      "note": "Also get_mut and into_inner."
+    }
+  }
+}

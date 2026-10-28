@@ -1,0 +1,163 @@
+{
+  "package": "log",
+  "notes": "log: Go's text logger with Go's exact line format over std::io::Write. Local time is Go's time.Local: TZ and ZONEINFO are read as in Go (rust_stdlib::time::local), and LUTC prints UTC; checked by tools/log_check.py under America/New_York. Deviations forced by Rust std: ...any operands are std::fmt::Arguments; Output's calldepth is ignored (the #[track_caller] chain picks the reported call site); Fatal exits the process and Panic panics with the message String payload as in Go. The earlier JSON-line logger moved to log::json.",
+  "symbols": {
+    "Default": {
+      "rust": "rust_stdlib::log::default"
+    },
+    "Fatal": {
+      "rust": "rust_stdlib::log::fatal",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Fatalf": {
+      "rust": "rust_stdlib::log::fatalf",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Fatalln": {
+      "rust": "rust_stdlib::log::fatalln",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Flags": {
+      "rust": "rust_stdlib::log::flags"
+    },
+    "LUTC": {
+      "rust": "rust_stdlib::log::LUTC"
+    },
+    "Ldate": {
+      "rust": "rust_stdlib::log::LDATE"
+    },
+    "Llongfile": {
+      "rust": "rust_stdlib::log::LLONGFILE",
+      "note": "Reports the path rustc was given for the source file, which is relative to the build directory for workspace crates; Go reports the absolute path, and Rust cannot recover the build directory at run time.",
+      "deviation": "relative-source-path"
+    },
+    "Lmicroseconds": {
+      "rust": "rust_stdlib::log::LMICROSECONDS"
+    },
+    "Lmsgprefix": {
+      "rust": "rust_stdlib::log::LMSGPREFIX"
+    },
+    "Logger": {
+      "rust": "rust_stdlib::log::Logger"
+    },
+    "Logger.Fatal": {
+      "rust": "rust_stdlib::log::Logger::fatal",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.Fatalf": {
+      "rust": "rust_stdlib::log::Logger::fatalf",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.Fatalln": {
+      "rust": "rust_stdlib::log::Logger::fatalln",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.Flags": {
+      "rust": "rust_stdlib::log::Logger::flags"
+    },
+    "Logger.Output": {
+      "rust": "rust_stdlib::log::Logger::output",
+      "note": "Rust cannot walk the call stack, so calldepth is accepted but ignored. The #[track_caller] chain gives the same choice Go's value does: the reported location is the call site of the outermost #[track_caller] function in the chain, so a wrapper marked #[track_caller] reports its own caller (Go's calldepth 2) and an unmarked one reports itself (calldepth 1).",
+      "deviation": "call-stack"
+    },
+    "Logger.Panic": {
+      "rust": "rust_stdlib::log::Logger::panic",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.Panicf": {
+      "rust": "rust_stdlib::log::Logger::panicf",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.Panicln": {
+      "rust": "rust_stdlib::log::Logger::panicln",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.Prefix": {
+      "rust": "rust_stdlib::log::Logger::prefix"
+    },
+    "Logger.Print": {
+      "rust": "rust_stdlib::log::Logger::print",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.Printf": {
+      "rust": "rust_stdlib::log::Logger::printf",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.Println": {
+      "rust": "rust_stdlib::log::Logger::println",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Logger.SetFlags": {
+      "rust": "rust_stdlib::log::Logger::set_flags"
+    },
+    "Logger.SetOutput": {
+      "rust": "rust_stdlib::log::Logger::set_output",
+      "note": "takes any std::io::Write + Send; there is no io.Discard identity shortcut"
+    },
+    "Logger.SetPrefix": {
+      "rust": "rust_stdlib::log::Logger::set_prefix"
+    },
+    "Logger.Writer": {
+      "rust": "rust_stdlib::log::Logger::writer",
+      "note": "returns a handle (log::OutputWriter) that writes to the logger's current destination"
+    },
+    "Lshortfile": {
+      "rust": "rust_stdlib::log::LSHORTFILE"
+    },
+    "LstdFlags": {
+      "rust": "rust_stdlib::log::LSTD_FLAGS"
+    },
+    "Ltime": {
+      "rust": "rust_stdlib::log::LTIME"
+    },
+    "New": {
+      "rust": "rust_stdlib::log::Logger::new"
+    },
+    "Output": {
+      "rust": "rust_stdlib::log::output",
+      "note": "Rust cannot walk the call stack, so calldepth is accepted but ignored. The #[track_caller] chain gives the same choice Go's value does: the reported location is the call site of the outermost #[track_caller] function in the chain, so a wrapper marked #[track_caller] reports its own caller (Go's calldepth 2) and an unmarked one reports itself (calldepth 1).",
+      "deviation": "call-stack"
+    },
+    "Panic": {
+      "rust": "rust_stdlib::log::panic",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Panicf": {
+      "rust": "rust_stdlib::log::panicf",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Panicln": {
+      "rust": "rust_stdlib::log::panicln",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Prefix": {
+      "rust": "rust_stdlib::log::prefix"
+    },
+    "Print": {
+      "rust": "rust_stdlib::log::print",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Printf": {
+      "rust": "rust_stdlib::log::printf",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "Println": {
+      "rust": "rust_stdlib::log::println",
+      "note": "Go's ...any operands are std::fmt::Arguments (format_args!); the text is formatted with Display instead of fmt.Sprint's operand spacing"
+    },
+    "SetFlags": {
+      "rust": "rust_stdlib::log::set_flags"
+    },
+    "SetOutput": {
+      "rust": "rust_stdlib::log::set_output",
+      "note": "takes any std::io::Write + Send; there is no io.Discard identity shortcut"
+    },
+    "SetPrefix": {
+      "rust": "rust_stdlib::log::set_prefix"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::log::writer",
+      "note": "returns a handle (log::OutputWriter) that writes to the logger's current destination"
+    }
+  }
+}

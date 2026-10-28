@@ -1,0 +1,11 @@
+{
+  "package": "testing/cryptotest",
+  "notes": "Lives in rust-stdlib-crypto because it replaces the generator of crypto/rand (rust_stdlib cannot depend on the crypto crate). The stream is SHA-256 in counter mode over the seed, not ChaCha8, so bytes differ from Go's for a given seed (the way algorithms consume randomness is unspecified in Go as well).",
+  "symbols": {
+    "SetGlobalRandom": {
+      "rust": "rust_stdlib_crypto::rand::set_global_random",
+      "deviation": "crypto-test-guard+seed-stream",
+      "note": "The crypto crate cannot see testing::T, so the function returns a GlobalRandom guard to hand to t.cleanup(move || drop(guard)) instead of registering the cleanup itself, and it does not check for parallel tests. The stream for a seed is SHA-256 in counter mode, not Go's ChaCha8, so the bytes differ from Go's."
+    }
+  }
+}

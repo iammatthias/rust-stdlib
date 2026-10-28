@@ -1,0 +1,78 @@
+{
+  "package": "crypto/ed25519",
+  "notes": "rust-stdlib-crypto over the reviewed ed25519-dalek and sha2 crates. PublicKey and PrivateKey are newtypes over Go's byte slices (a private key is the seed followed by the public key); Go's panics on bad key lengths are errors with Go's messages, and Verify returns Result<bool>. Signing rejects a private key whose public half does not match its seed, where Go signs with whatever half the key carries (deviation mismatched-public-half-rejected). The key types implement crypto::Signer (PrivateKey) and add PKIX/PKCS#8 DER hooks for x509. ed25519-dalek has no Ed25519ctx (a context without prehashing), so Options with a context and no hash return an error. The crate pulls the proc-macro crate curve25519-dalek-derive on x86-64 (ADR 0003).",
+  "symbols": {
+    "GenerateKey": {
+      "rust": "rust_stdlib_crypto::ed25519::generate_key",
+      "note": "None is Go's nil reader (crypto/rand.Reader); Go's reader argument becomes `ed25519::generate_key_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go always honours the reader."
+    },
+    "NewKeyFromSeed": {
+      "rust": "rust_stdlib_crypto::ed25519::PrivateKey::from_seed"
+    },
+    "Options": {
+      "rust": "rust_stdlib_crypto::ed25519::Options"
+    },
+    "Options.Context": {
+      "rust": "rust_stdlib_crypto::ed25519::Options::context",
+      "deviation": "dependency-no-ed25519ctx",
+      "note": "Ed25519ph contexts work; Ed25519ctx (context without a hash) is not exposed by ed25519-dalek and the project does not build signature schemes itself (ADR 0003), so signing and verifying with it return an error"
+    },
+    "Options.Hash": {
+      "rust": "rust_stdlib_crypto::ed25519::Options::hash",
+      "note": "None is Go's zero crypto.Hash"
+    },
+    "Options.HashFunc": {
+      "rust": "rust_stdlib_crypto::SignerOpts::hash_func"
+    },
+    "PrivateKey": {
+      "rust": "rust_stdlib_crypto::ed25519::PrivateKey"
+    },
+    "PrivateKey.Equal": {
+      "rust": "rust_stdlib_crypto::ed25519::PrivateKey::equal",
+      "note": "takes &dyn Any in place of crypto.PrivateKey"
+    },
+    "PrivateKey.Public": {
+      "rust": "rust_stdlib_crypto::ed25519::PrivateKey::public_key",
+      "note": "the crypto::Signer trait method public returns a reference to the same key"
+    },
+    "PrivateKey.Seed": {
+      "rust": "rust_stdlib_crypto::ed25519::PrivateKey::seed"
+    },
+    "PrivateKey.Sign": {
+      "rust": "rust_stdlib_crypto::ed25519::PrivateKey::sign",
+      "note": "Go signs with whatever public half the 64-byte key carries, even one that does not match the seed (crypto/internal/fips140/ed25519.newPrivateKey). That is the double-public-key hazard: signatures over one message under two public halves can reveal the private key. This crate deliberately rejects a key whose public half does not match its seed (security over parity; AGENTS.md: never weaken a check). Go ignores the reader argument, so there is no rng parameter.",
+      "deviation": "mismatched-public-half-rejected"
+    },
+    "PrivateKeySize": {
+      "rust": "rust_stdlib_crypto::ed25519::PRIVATE_KEY_SIZE"
+    },
+    "PublicKey": {
+      "rust": "rust_stdlib_crypto::ed25519::PublicKey"
+    },
+    "PublicKey.Equal": {
+      "rust": "rust_stdlib_crypto::ed25519::PublicKey::equal",
+      "note": "takes &dyn Any in place of crypto.PublicKey"
+    },
+    "PublicKeySize": {
+      "rust": "rust_stdlib_crypto::ed25519::PUBLIC_KEY_SIZE"
+    },
+    "SeedSize": {
+      "rust": "rust_stdlib_crypto::ed25519::SEED_SIZE"
+    },
+    "Sign": {
+      "rust": "rust_stdlib_crypto::ed25519::sign",
+      "note": "Go signs with whatever public half the 64-byte key carries, even one that does not match the seed (crypto/internal/fips140/ed25519.newPrivateKey). That is the double-public-key hazard: signatures over one message under two public halves can reveal the private key. This crate deliberately rejects a key whose public half does not match its seed (security over parity; AGENTS.md: never weaken a check).",
+      "deviation": "mismatched-public-half-rejected"
+    },
+    "SignatureSize": {
+      "rust": "rust_stdlib_crypto::ed25519::SIGNATURE_SIZE"
+    },
+    "Verify": {
+      "rust": "rust_stdlib_crypto::ed25519::verify",
+      "note": "Returns an error where Go panics on a bad public key length."
+    },
+    "VerifyWithOptions": {
+      "rust": "rust_stdlib_crypto::ed25519::verify_with_options"
+    }
+  }
+}

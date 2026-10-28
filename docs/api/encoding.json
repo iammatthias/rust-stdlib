@@ -1,0 +1,16 @@
+{"package": "encoding",
+ "notes": "encoding: Go's marshal/unmarshal/append interfaces as traits; errors are Box<dyn Error> and AppendX writes into a caller Vec<u8>",
+ "symbols": {
+  "BinaryAppender": {"rust": "rust_stdlib::encoding::BinaryAppender"},
+  "BinaryAppender.AppendBinary": {"rust": "rust_stdlib::encoding::BinaryAppender::append_binary"},
+  "BinaryMarshaler": {"rust": "rust_stdlib::encoding::BinaryMarshaler"},
+  "BinaryMarshaler.MarshalBinary": {"rust": "rust_stdlib::encoding::BinaryMarshaler::marshal_binary"},
+  "BinaryUnmarshaler": {"rust": "rust_stdlib::encoding::BinaryUnmarshaler"},
+  "BinaryUnmarshaler.UnmarshalBinary": {"rust": "rust_stdlib::encoding::BinaryUnmarshaler::unmarshal_binary"},
+  "TextAppender": {"rust": "rust_stdlib::encoding::TextAppender"},
+  "TextAppender.AppendText": {"rust": "rust_stdlib::encoding::TextAppender::append_text"},
+  "TextMarshaler": {"rust": "rust_stdlib::encoding::TextMarshaler"},
+  "TextMarshaler.MarshalText": {"rust": "rust_stdlib::encoding::TextMarshaler::marshal_text"},
+  "TextUnmarshaler": {"rust": "rust_stdlib::encoding::TextUnmarshaler"},
+  "TextUnmarshaler.UnmarshalText": {"rust": "rust_stdlib::encoding::TextUnmarshaler::unmarshal_text"}
+ }}

@@ -1,0 +1,23 @@
+{
+  "package": "crypto/rand",
+  "notes": "rust-stdlib-crypto over getrandom (operating-system generator). Read panics where Go crashes on failure; Reader implements std::io::Read and reports system errors. Int and Prime use bigint::Int (this crate's non-negative integer) and crypto-primes' Baillie-PSW test; Int consumes the reader exactly as Go does, Prime follows Go's candidate shaping and honours the reader only with GODEBUG=cryptocustomrand=1 like Go 1.26+.",
+  "symbols": {
+    "Int": {
+      "rust": "rust_stdlib_crypto::rand::int",
+      "note": "None is Go's nil reader (the system source); a zero max panics; Go's reader argument becomes `rand::int_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go always honours the reader."
+    },
+    "Prime": {
+      "rust": "rust_stdlib_crypto::rand::prime",
+      "note": "Go's reader argument becomes `rand::prime_with_rng`, which takes the reader first; the plain function uses the system source (ADR 0005). Go 1.26+ ignores the reader unless GODEBUG=cryptocustomrand=1."
+    },
+    "Read": {
+      "rust": "rust_stdlib_crypto::rand::read"
+    },
+    "Reader": {
+      "rust": "rust_stdlib_crypto::rand::Reader"
+    },
+    "Text": {
+      "rust": "rust_stdlib_crypto::rand::text"
+    }
+  }
+}

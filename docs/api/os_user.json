@@ -1,0 +1,75 @@
+{
+  "package": "os/user",
+  "notes": "Go's cgo build (the default on Linux and macOS): rust_stdlib_sys::os::user looks accounts up through the C library (getpwuid_r, getpwnam_r, getgrgid_r, getgrnam_r, getgrouplist), so NSS, LDAP and Open Directory users resolve, with Go's buffer-growth loop and error texts. Go's pure osusergo build (an /etc/passwd and /etc/group parser) is not provided. Differential in tools/os_user_check.py against Go's cgo build.",
+  "symbols": {
+    "Current": {
+      "rust": "rust_stdlib_sys::os::user::current"
+    },
+    "Group": {
+      "rust": "rust_stdlib_sys::os::user::Group"
+    },
+    "Group.Gid": {
+      "rust": "rust_stdlib_sys::os::user::Group::gid"
+    },
+    "Group.Name": {
+      "rust": "rust_stdlib_sys::os::user::Group::name"
+    },
+    "Lookup": {
+      "rust": "rust_stdlib_sys::os::user::lookup"
+    },
+    "LookupGroup": {
+      "rust": "rust_stdlib_sys::os::user::lookup_group"
+    },
+    "LookupGroupId": {
+      "rust": "rust_stdlib_sys::os::user::lookup_group_id"
+    },
+    "LookupId": {
+      "rust": "rust_stdlib_sys::os::user::lookup_id"
+    },
+    "UnknownGroupError": {
+      "rust": "rust_stdlib_sys::os::user::UnknownGroupError"
+    },
+    "UnknownGroupError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "UnknownGroupIdError": {
+      "rust": "rust_stdlib_sys::os::user::UnknownGroupIdError"
+    },
+    "UnknownGroupIdError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "UnknownUserError": {
+      "rust": "rust_stdlib_sys::os::user::UnknownUserError"
+    },
+    "UnknownUserError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "UnknownUserIdError": {
+      "rust": "rust_stdlib_sys::os::user::UnknownUserIdError"
+    },
+    "UnknownUserIdError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "User": {
+      "rust": "rust_stdlib_sys::os::user::User"
+    },
+    "User.Gid": {
+      "rust": "rust_stdlib_sys::os::user::User::gid"
+    },
+    "User.GroupIds": {
+      "rust": "rust_stdlib_sys::os::user::User::group_ids"
+    },
+    "User.HomeDir": {
+      "rust": "rust_stdlib_sys::os::user::User::home_dir"
+    },
+    "User.Name": {
+      "rust": "rust_stdlib_sys::os::user::User::name"
+    },
+    "User.Uid": {
+      "rust": "rust_stdlib_sys::os::user::User::uid"
+    },
+    "User.Username": {
+      "rust": "rust_stdlib_sys::os::user::User::username"
+    }
+  }
+}

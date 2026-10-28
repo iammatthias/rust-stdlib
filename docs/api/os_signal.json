@@ -1,0 +1,32 @@
+{
+  "package": "os/signal",
+  "notes": "rust_stdlib_sys::os::signal over sigaction and a self-pipe read by one thread, as Go's runtime queues signals for its signal loop: per-channel masks, reference counts, non-blocking delivery that drops for full channels, Stop waiting for queued signals, Go's Ignore/Reset/Ignored state machine, and NotifyContext. Real-signal differential in tools/signal_check.py; SIGURG is relayed like any other signal, and SIGPROF is swallowed by the profiler handler as in Go (Notify keeps the process alive and delivers nothing)",
+  "symbols": {
+    "Ignore": {
+      "rust": "rust_stdlib_sys::os::signal::ignore",
+      "note": "takes &[Signal]; an empty slice ignores all signals"
+    },
+    "Ignored": {
+      "rust": "rust_stdlib_sys::os::signal::ignored"
+    },
+    "Notify": {
+      "rust": "rust_stdlib_sys::os::signal::notify",
+      "note": "takes the sending half of a std::sync::mpsc::sync_channel wrapped as Chan (made by channel(); std's SyncSender::same_channel is unstable, so Chan carries the identity Stop and repeated Notify need); a Chan cannot be nil, so Go's panic for a nil channel has no counterpart"
+    },
+    "NotifyContext": {
+      "rust": "rust_stdlib_sys::os::signal::notify_context",
+      "deviation": "context-crate-boundary",
+      "note": "rust_stdlib_sys cannot depend on the root crate (ADR 0004), so the parent is a Parent (its String() text plus the std mpsc::Receiver<()> from Context::done().receiver()) and the result is (NotifyContext, Stop): wait, cause, Display as Go's String, and a guard whose stop()/drop is Go's stop function; on_cancel links the context to a rust_stdlib::context cancel function. A Parent reports only that it ended (Cause::Parent), not Canceled versus DeadlineExceeded"
+    },
+    "Reset": {
+      "rust": "rust_stdlib_sys::os::signal::reset",
+      "deviation": "go-runtime-signal-defaults",
+      "note": "Go's runtime installs a handler for every signal at program start, so a signal nobody asked about is caught and ignored (or ends the program for SIGHUP, SIGINT, SIGTERM, ...); a Rust program has no start-up hook, so an unregistered signal keeps its system default until the package first handles it, and after the call it returns to what Go's runtime would do"
+    },
+    "Stop": {
+      "rust": "rust_stdlib_sys::os::signal::stop",
+      "deviation": "go-runtime-signal-defaults",
+      "note": "Go's runtime installs a handler for every signal at program start, so a signal nobody asked about is caught and ignored (or ends the program for SIGHUP, SIGINT, SIGTERM, ...); a Rust program has no start-up hook, so an unregistered signal keeps its system default until the package first handles it, and after the call it returns to what Go's runtime would do"
+    }
+  }
+}

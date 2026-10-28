@@ -1,0 +1,25 @@
+[package]
+name = "rust-stdlib-sysnet"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.87"
+publish = false
+description = "Adapter that runs rust-stdlib's net/http Transport over rust-stdlib-sys sockets (TCP keep-alive, Go's DefaultTransport)"
+license = "MIT"
+
+[lib]
+name = "rust_stdlib_sysnet"
+path = "src/lib.rs"
+
+[dependencies]
+rust-stdlib = { path = "../.." }
+rust-stdlib-sys = { path = "../../crates/sys" }
+rust-stdlib-tls = { path = "../tls", optional = true }
+
+[features]
+# Go's DefaultTransport does HTTPS; ADR 0006. Disable for a zero-third-party, http-only build.
+default = ["tls"]
+tls = ["dep:rust-stdlib-tls"]
+
+[lints.rust]
+unsafe_code = "forbid"

@@ -1,0 +1,18 @@
+{
+  "package": "embed",
+  "notes": "embed::FS is a read-only fs over (name, bytes) pairs built from include_bytes!. Go's //go:embed directive has no Rust equivalent: rust_stdlib::embed_files! lists files by path (declarative), and the first-party proc macro rust_stdlib_derive::embed! (crates/derive) walks directories and wildcard patterns with Go's rules ('.'/'_' names skipped in directories unless 'all:', no matches is a compile error). FS::open/read_dir/read_file are also the io::fs FS, ReadDirFS and ReadFileFS impls; files are 0444, directories ModeDir|0555, mod times zero, and error values match Go's.",
+  "symbols": {
+    "FS": {
+      "rust": "rust_stdlib::embed::FS"
+    },
+    "FS.Open": {
+      "rust": "rust_stdlib::embed::FS::open"
+    },
+    "FS.ReadDir": {
+      "rust": "rust_stdlib::embed::FS::read_dir"
+    },
+    "FS.ReadFile": {
+      "rust": "rust_stdlib::embed::FS::read_file"
+    }
+  }
+}

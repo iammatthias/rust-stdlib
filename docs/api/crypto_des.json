@@ -1,0 +1,22 @@
+{
+  "package": "crypto/des",
+  "notes": "rust-stdlib-crypto over RustCrypto des. NewCipher and NewTripleDESCipher return des::Cipher and des::TripleDesCipher, which implement cipher::Block; neither rejects weak keys, as in Go.",
+  "symbols": {
+    "BlockSize": {
+      "rust": "rust_stdlib_crypto::des::BLOCK_SIZE"
+    },
+    "KeySizeError": {
+      "rust": "rust_stdlib_crypto::des::KeySizeError"
+    },
+    "KeySizeError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display for KeySizeError"
+    },
+    "NewCipher": {
+      "rust": "rust_stdlib_crypto::des::Cipher::new"
+    },
+    "NewTripleDESCipher": {
+      "rust": "rust_stdlib_crypto::des::TripleDesCipher::new"
+    }
+  }
+}

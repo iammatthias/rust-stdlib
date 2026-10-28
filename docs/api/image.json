@@ -1,0 +1,812 @@
+{
+  "package": "image",
+  "notes": "image: Point/Rectangle geometry and the Image/PalettedImage/RGBA64Image traits; RGBA/RGBA64/NRGBA/NRGBA64/Gray/Gray16/Alpha/Alpha16/CMYK/Paletted/Uniform and YCbCr/NYCbCrA with Go's accessors and Set semantics; Pix/Y/Cb/Cr/A are Pix windows onto shared buffers so SubImage shares pixels like Go slices (Clone copies); Uniform is its own color model; format registry over the crate's PNG and GIF codecs; Decode returns a Box<dyn Image> and the format name, errors are DecodeError (io::Error plus the format name)",
+  "symbols": {
+    "Alpha": {
+      "rust": "rust_stdlib::image::Alpha"
+    },
+    "Alpha.AlphaAt": {
+      "rust": "rust_stdlib::image::Alpha::pixel_at"
+    },
+    "Alpha.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "Alpha.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "Alpha.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "Alpha.Opaque": {
+      "rust": "rust_stdlib::image::Alpha::opaque"
+    },
+    "Alpha.Pix": {
+      "rust": "rust_stdlib::image::Alpha::pix"
+    },
+    "Alpha.PixOffset": {
+      "rust": "rust_stdlib::image::Alpha::pix_offset"
+    },
+    "Alpha.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "Alpha.Rect": {
+      "rust": "rust_stdlib::image::Alpha::rect"
+    },
+    "Alpha.Set": {
+      "rust": "rust_stdlib::image::Alpha::set"
+    },
+    "Alpha.SetAlpha": {
+      "rust": "rust_stdlib::image::Alpha::set_pixel"
+    },
+    "Alpha.SetRGBA64": {
+      "rust": "rust_stdlib::image::Alpha::set_rgba64"
+    },
+    "Alpha.Stride": {
+      "rust": "rust_stdlib::image::Alpha::stride"
+    },
+    "Alpha.SubImage": {
+      "rust": "rust_stdlib::image::Alpha::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "Alpha16": {
+      "rust": "rust_stdlib::image::Alpha16"
+    },
+    "Alpha16.Alpha16At": {
+      "rust": "rust_stdlib::image::Alpha16::pixel_at"
+    },
+    "Alpha16.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "Alpha16.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "Alpha16.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "Alpha16.Opaque": {
+      "rust": "rust_stdlib::image::Alpha16::opaque"
+    },
+    "Alpha16.Pix": {
+      "rust": "rust_stdlib::image::Alpha16::pix"
+    },
+    "Alpha16.PixOffset": {
+      "rust": "rust_stdlib::image::Alpha16::pix_offset"
+    },
+    "Alpha16.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "Alpha16.Rect": {
+      "rust": "rust_stdlib::image::Alpha16::rect"
+    },
+    "Alpha16.Set": {
+      "rust": "rust_stdlib::image::Alpha16::set"
+    },
+    "Alpha16.SetAlpha16": {
+      "rust": "rust_stdlib::image::Alpha16::set_pixel"
+    },
+    "Alpha16.SetRGBA64": {
+      "rust": "rust_stdlib::image::Alpha16::set_rgba64"
+    },
+    "Alpha16.Stride": {
+      "rust": "rust_stdlib::image::Alpha16::stride"
+    },
+    "Alpha16.SubImage": {
+      "rust": "rust_stdlib::image::Alpha16::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "Black": {
+      "rust": "rust_stdlib::image::BLACK"
+    },
+    "CMYK": {
+      "rust": "rust_stdlib::image::Cmyk"
+    },
+    "CMYK.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "CMYK.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "CMYK.CMYKAt": {
+      "rust": "rust_stdlib::image::Cmyk::pixel_at"
+    },
+    "CMYK.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "CMYK.Opaque": {
+      "rust": "rust_stdlib::image::Cmyk::opaque"
+    },
+    "CMYK.Pix": {
+      "rust": "rust_stdlib::image::Cmyk::pix"
+    },
+    "CMYK.PixOffset": {
+      "rust": "rust_stdlib::image::Cmyk::pix_offset"
+    },
+    "CMYK.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "CMYK.Rect": {
+      "rust": "rust_stdlib::image::Cmyk::rect"
+    },
+    "CMYK.Set": {
+      "rust": "rust_stdlib::image::Cmyk::set"
+    },
+    "CMYK.SetCMYK": {
+      "rust": "rust_stdlib::image::Cmyk::set_pixel"
+    },
+    "CMYK.SetRGBA64": {
+      "rust": "rust_stdlib::image::Cmyk::set_rgba64"
+    },
+    "CMYK.Stride": {
+      "rust": "rust_stdlib::image::Cmyk::stride"
+    },
+    "CMYK.SubImage": {
+      "rust": "rust_stdlib::image::Cmyk::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "Config": {
+      "rust": "rust_stdlib::image::Config"
+    },
+    "Config.ColorModel": {
+      "rust": "rust_stdlib::image::Config::color_model"
+    },
+    "Config.Height": {
+      "rust": "rust_stdlib::image::Config::height"
+    },
+    "Config.Width": {
+      "rust": "rust_stdlib::image::Config::width"
+    },
+    "Decode": {
+      "rust": "rust_stdlib::image::decode",
+      "note": "The error is a DecodeError carrying the format name (empty when no format matched), as Go returns the name with the error; it converts into io::Error."
+    },
+    "DecodeConfig": {
+      "rust": "rust_stdlib::image::decode_config",
+      "note": "The error is a DecodeError carrying the format name (empty when no format matched), as Go returns the name with the error; it converts into io::Error."
+    },
+    "ErrFormat": {
+      "rust": "rust_stdlib::image::ERR_FORMAT"
+    },
+    "Gray": {
+      "rust": "rust_stdlib::image::Gray"
+    },
+    "Gray.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "Gray.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "Gray.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "Gray.GrayAt": {
+      "rust": "rust_stdlib::image::Gray::pixel_at"
+    },
+    "Gray.Opaque": {
+      "rust": "rust_stdlib::image::Gray::opaque"
+    },
+    "Gray.Pix": {
+      "rust": "rust_stdlib::image::Gray::pix"
+    },
+    "Gray.PixOffset": {
+      "rust": "rust_stdlib::image::Gray::pix_offset"
+    },
+    "Gray.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "Gray.Rect": {
+      "rust": "rust_stdlib::image::Gray::rect"
+    },
+    "Gray.Set": {
+      "rust": "rust_stdlib::image::Gray::set"
+    },
+    "Gray.SetGray": {
+      "rust": "rust_stdlib::image::Gray::set_pixel"
+    },
+    "Gray.SetRGBA64": {
+      "rust": "rust_stdlib::image::Gray::set_rgba64"
+    },
+    "Gray.Stride": {
+      "rust": "rust_stdlib::image::Gray::stride"
+    },
+    "Gray.SubImage": {
+      "rust": "rust_stdlib::image::Gray::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "Gray16": {
+      "rust": "rust_stdlib::image::Gray16"
+    },
+    "Gray16.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "Gray16.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "Gray16.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "Gray16.Gray16At": {
+      "rust": "rust_stdlib::image::Gray16::pixel_at"
+    },
+    "Gray16.Opaque": {
+      "rust": "rust_stdlib::image::Gray16::opaque"
+    },
+    "Gray16.Pix": {
+      "rust": "rust_stdlib::image::Gray16::pix"
+    },
+    "Gray16.PixOffset": {
+      "rust": "rust_stdlib::image::Gray16::pix_offset"
+    },
+    "Gray16.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "Gray16.Rect": {
+      "rust": "rust_stdlib::image::Gray16::rect"
+    },
+    "Gray16.Set": {
+      "rust": "rust_stdlib::image::Gray16::set"
+    },
+    "Gray16.SetGray16": {
+      "rust": "rust_stdlib::image::Gray16::set_pixel"
+    },
+    "Gray16.SetRGBA64": {
+      "rust": "rust_stdlib::image::Gray16::set_rgba64"
+    },
+    "Gray16.Stride": {
+      "rust": "rust_stdlib::image::Gray16::stride"
+    },
+    "Gray16.SubImage": {
+      "rust": "rust_stdlib::image::Gray16::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "Image": {
+      "rust": "rust_stdlib::image::Image"
+    },
+    "Image.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "Image.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "Image.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "NRGBA": {
+      "rust": "rust_stdlib::image::Nrgba"
+    },
+    "NRGBA.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "NRGBA.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "NRGBA.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "NRGBA.NRGBAAt": {
+      "rust": "rust_stdlib::image::Nrgba::pixel_at"
+    },
+    "NRGBA.Opaque": {
+      "rust": "rust_stdlib::image::Nrgba::opaque"
+    },
+    "NRGBA.Pix": {
+      "rust": "rust_stdlib::image::Nrgba::pix"
+    },
+    "NRGBA.PixOffset": {
+      "rust": "rust_stdlib::image::Nrgba::pix_offset"
+    },
+    "NRGBA.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "NRGBA.Rect": {
+      "rust": "rust_stdlib::image::Nrgba::rect"
+    },
+    "NRGBA.Set": {
+      "rust": "rust_stdlib::image::Nrgba::set"
+    },
+    "NRGBA.SetNRGBA": {
+      "rust": "rust_stdlib::image::Nrgba::set_pixel"
+    },
+    "NRGBA.SetRGBA64": {
+      "rust": "rust_stdlib::image::Nrgba::set_rgba64"
+    },
+    "NRGBA.Stride": {
+      "rust": "rust_stdlib::image::Nrgba::stride"
+    },
+    "NRGBA.SubImage": {
+      "rust": "rust_stdlib::image::Nrgba::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "NRGBA64": {
+      "rust": "rust_stdlib::image::Nrgba64"
+    },
+    "NRGBA64.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "NRGBA64.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "NRGBA64.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "NRGBA64.NRGBA64At": {
+      "rust": "rust_stdlib::image::Nrgba64::pixel_at"
+    },
+    "NRGBA64.Opaque": {
+      "rust": "rust_stdlib::image::Nrgba64::opaque"
+    },
+    "NRGBA64.Pix": {
+      "rust": "rust_stdlib::image::Nrgba64::pix"
+    },
+    "NRGBA64.PixOffset": {
+      "rust": "rust_stdlib::image::Nrgba64::pix_offset"
+    },
+    "NRGBA64.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "NRGBA64.Rect": {
+      "rust": "rust_stdlib::image::Nrgba64::rect"
+    },
+    "NRGBA64.Set": {
+      "rust": "rust_stdlib::image::Nrgba64::set"
+    },
+    "NRGBA64.SetNRGBA64": {
+      "rust": "rust_stdlib::image::Nrgba64::set_pixel"
+    },
+    "NRGBA64.SetRGBA64": {
+      "rust": "rust_stdlib::image::Nrgba64::set_rgba64"
+    },
+    "NRGBA64.Stride": {
+      "rust": "rust_stdlib::image::Nrgba64::stride"
+    },
+    "NRGBA64.SubImage": {
+      "rust": "rust_stdlib::image::Nrgba64::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "NYCbCrA": {
+      "rust": "rust_stdlib::image::Nycbcra"
+    },
+    "NYCbCrA.A": {
+      "rust": "rust_stdlib::image::Nycbcra::a"
+    },
+    "NYCbCrA.AOffset": {
+      "rust": "rust_stdlib::image::Nycbcra::a_offset"
+    },
+    "NYCbCrA.AStride": {
+      "rust": "rust_stdlib::image::Nycbcra::a_stride"
+    },
+    "NYCbCrA.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "NYCbCrA.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "NYCbCrA.NYCbCrAAt": {
+      "rust": "rust_stdlib::image::Nycbcra::nycbcra_at"
+    },
+    "NYCbCrA.Opaque": {
+      "rust": "rust_stdlib::image::Image::opaque"
+    },
+    "NYCbCrA.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "NYCbCrA.SubImage": {
+      "rust": "rust_stdlib::image::Nycbcra::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "NYCbCrA.YCbCr": {
+      "rust": "rust_stdlib::image::Nycbcra::ycbcr"
+    },
+    "NewAlpha": {
+      "rust": "rust_stdlib::image::Alpha::new"
+    },
+    "NewAlpha16": {
+      "rust": "rust_stdlib::image::Alpha16::new"
+    },
+    "NewCMYK": {
+      "rust": "rust_stdlib::image::Cmyk::new"
+    },
+    "NewGray": {
+      "rust": "rust_stdlib::image::Gray::new"
+    },
+    "NewGray16": {
+      "rust": "rust_stdlib::image::Gray16::new"
+    },
+    "NewNRGBA": {
+      "rust": "rust_stdlib::image::Nrgba::new"
+    },
+    "NewNRGBA64": {
+      "rust": "rust_stdlib::image::Nrgba64::new"
+    },
+    "NewNYCbCrA": {
+      "rust": "rust_stdlib::image::Nycbcra::new"
+    },
+    "NewPaletted": {
+      "rust": "rust_stdlib::image::Paletted::new"
+    },
+    "NewRGBA": {
+      "rust": "rust_stdlib::image::Rgba::new"
+    },
+    "NewRGBA64": {
+      "rust": "rust_stdlib::image::Rgba64::new"
+    },
+    "NewUniform": {
+      "rust": "rust_stdlib::image::Uniform::new"
+    },
+    "NewYCbCr": {
+      "rust": "rust_stdlib::image::Ycbcr::new"
+    },
+    "Opaque": {
+      "rust": "rust_stdlib::image::OPAQUE"
+    },
+    "Paletted": {
+      "rust": "rust_stdlib::image::Paletted"
+    },
+    "Paletted.At": {
+      "rust": "rust_stdlib::image::Image::at",
+      "note": "Panics on an index outside the palette, as Go does; an empty palette returns transparent black where Go returns a nil color.",
+      "deviation": "nil-color"
+    },
+    "Paletted.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "Paletted.ColorIndexAt": {
+      "rust": "rust_stdlib::image::Paletted::color_index_at"
+    },
+    "Paletted.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "Paletted.Opaque": {
+      "rust": "rust_stdlib::image::Paletted::opaque"
+    },
+    "Paletted.Palette": {
+      "rust": "rust_stdlib::image::Paletted::palette"
+    },
+    "Paletted.Pix": {
+      "rust": "rust_stdlib::image::Paletted::pix"
+    },
+    "Paletted.PixOffset": {
+      "rust": "rust_stdlib::image::Paletted::pix_offset"
+    },
+    "Paletted.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "Paletted.Rect": {
+      "rust": "rust_stdlib::image::Paletted::rect"
+    },
+    "Paletted.Set": {
+      "rust": "rust_stdlib::image::Paletted::set"
+    },
+    "Paletted.SetColorIndex": {
+      "rust": "rust_stdlib::image::Paletted::set_color_index"
+    },
+    "Paletted.SetRGBA64": {
+      "rust": "rust_stdlib::image::Paletted::set_rgba64"
+    },
+    "Paletted.Stride": {
+      "rust": "rust_stdlib::image::Paletted::stride"
+    },
+    "Paletted.SubImage": {
+      "rust": "rust_stdlib::image::Paletted::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "PalettedImage": {
+      "rust": "rust_stdlib::image::PalettedImage"
+    },
+    "PalettedImage.ColorIndexAt": {
+      "rust": "rust_stdlib::image::PalettedImage::color_index_at"
+    },
+    "Point": {
+      "rust": "rust_stdlib::image::Point"
+    },
+    "Point.Add": {
+      "rust": "std::ops::Add::add"
+    },
+    "Point.Div": {
+      "rust": "std::ops::Div::div"
+    },
+    "Point.Eq": {
+      "rust": "rust_stdlib::image::Point::eq"
+    },
+    "Point.In": {
+      "rust": "rust_stdlib::image::Point::is_in"
+    },
+    "Point.Mod": {
+      "rust": "rust_stdlib::image::Point::modulo"
+    },
+    "Point.Mul": {
+      "rust": "std::ops::Mul::mul"
+    },
+    "Point.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Point.Sub": {
+      "rust": "std::ops::Sub::sub"
+    },
+    "Point.X": {
+      "rust": "rust_stdlib::image::Point::x"
+    },
+    "Point.Y": {
+      "rust": "rust_stdlib::image::Point::y"
+    },
+    "Pt": {
+      "rust": "rust_stdlib::image::pt"
+    },
+    "RGBA": {
+      "rust": "rust_stdlib::image::Rgba"
+    },
+    "RGBA.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "RGBA.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "RGBA.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "RGBA.Opaque": {
+      "rust": "rust_stdlib::image::Rgba::opaque"
+    },
+    "RGBA.Pix": {
+      "rust": "rust_stdlib::image::Rgba::pix"
+    },
+    "RGBA.PixOffset": {
+      "rust": "rust_stdlib::image::Rgba::pix_offset"
+    },
+    "RGBA.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "RGBA.RGBAAt": {
+      "rust": "rust_stdlib::image::Rgba::pixel_at"
+    },
+    "RGBA.Rect": {
+      "rust": "rust_stdlib::image::Rgba::rect"
+    },
+    "RGBA.Set": {
+      "rust": "rust_stdlib::image::Rgba::set"
+    },
+    "RGBA.SetRGBA": {
+      "rust": "rust_stdlib::image::Rgba::set_pixel"
+    },
+    "RGBA.SetRGBA64": {
+      "rust": "rust_stdlib::image::Rgba::set_rgba64"
+    },
+    "RGBA.Stride": {
+      "rust": "rust_stdlib::image::Rgba::stride"
+    },
+    "RGBA.SubImage": {
+      "rust": "rust_stdlib::image::Rgba::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "RGBA64": {
+      "rust": "rust_stdlib::image::Rgba64"
+    },
+    "RGBA64.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "RGBA64.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "RGBA64.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "RGBA64.Opaque": {
+      "rust": "rust_stdlib::image::Rgba64::opaque"
+    },
+    "RGBA64.Pix": {
+      "rust": "rust_stdlib::image::Rgba64::pix"
+    },
+    "RGBA64.PixOffset": {
+      "rust": "rust_stdlib::image::Rgba64::pix_offset"
+    },
+    "RGBA64.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "RGBA64.Rect": {
+      "rust": "rust_stdlib::image::Rgba64::rect"
+    },
+    "RGBA64.Set": {
+      "rust": "rust_stdlib::image::Rgba64::set"
+    },
+    "RGBA64.SetRGBA64": {
+      "rust": "rust_stdlib::image::Rgba64::set_rgba64"
+    },
+    "RGBA64.Stride": {
+      "rust": "rust_stdlib::image::Rgba64::stride"
+    },
+    "RGBA64.SubImage": {
+      "rust": "rust_stdlib::image::Rgba64::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "RGBA64Image": {
+      "rust": "rust_stdlib::image::RGBA64Image"
+    },
+    "RGBA64Image.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "Rect": {
+      "rust": "rust_stdlib::image::rect"
+    },
+    "Rectangle": {
+      "rust": "rust_stdlib::image::Rectangle"
+    },
+    "Rectangle.Add": {
+      "rust": "std::ops::Add::add"
+    },
+    "Rectangle.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "Rectangle.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "Rectangle.Canon": {
+      "rust": "rust_stdlib::image::Rectangle::canon"
+    },
+    "Rectangle.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "Rectangle.Dx": {
+      "rust": "rust_stdlib::image::Rectangle::dx"
+    },
+    "Rectangle.Dy": {
+      "rust": "rust_stdlib::image::Rectangle::dy"
+    },
+    "Rectangle.Empty": {
+      "rust": "rust_stdlib::image::Rectangle::is_empty"
+    },
+    "Rectangle.Eq": {
+      "rust": "rust_stdlib::image::Rectangle::equals"
+    },
+    "Rectangle.In": {
+      "rust": "rust_stdlib::image::Rectangle::is_in"
+    },
+    "Rectangle.Inset": {
+      "rust": "rust_stdlib::image::Rectangle::inset"
+    },
+    "Rectangle.Intersect": {
+      "rust": "rust_stdlib::image::Rectangle::intersect"
+    },
+    "Rectangle.Max": {
+      "rust": "rust_stdlib::image::Rectangle::max"
+    },
+    "Rectangle.Min": {
+      "rust": "rust_stdlib::image::Rectangle::min"
+    },
+    "Rectangle.Overlaps": {
+      "rust": "rust_stdlib::image::Rectangle::overlaps"
+    },
+    "Rectangle.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "Rectangle.Size": {
+      "rust": "rust_stdlib::image::Rectangle::size"
+    },
+    "Rectangle.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Rectangle.Sub": {
+      "rust": "std::ops::Sub::sub"
+    },
+    "Rectangle.Union": {
+      "rust": "rust_stdlib::image::Rectangle::union"
+    },
+    "RegisterFormat": {
+      "rust": "rust_stdlib::image::register_format"
+    },
+    "Transparent": {
+      "rust": "rust_stdlib::image::TRANSPARENT"
+    },
+    "Uniform": {
+      "rust": "rust_stdlib::image::Uniform"
+    },
+    "Uniform.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "Uniform.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "Uniform.C": {
+      "rust": "rust_stdlib::image::Uniform::c"
+    },
+    "Uniform.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model",
+      "note": "Model::Uniform(color): the Uniform itself is the model, converting every color to its own."
+    },
+    "Uniform.Convert": {
+      "rust": "rust_stdlib::image::Uniform::convert"
+    },
+    "Uniform.Opaque": {
+      "rust": "rust_stdlib::image::Image::opaque"
+    },
+    "Uniform.RGBA": {
+      "rust": "rust_stdlib::image::Uniform::rgba"
+    },
+    "Uniform.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "White": {
+      "rust": "rust_stdlib::image::WHITE"
+    },
+    "YCbCr": {
+      "rust": "rust_stdlib::image::Ycbcr"
+    },
+    "YCbCr.At": {
+      "rust": "rust_stdlib::image::Image::at"
+    },
+    "YCbCr.Bounds": {
+      "rust": "rust_stdlib::image::Image::bounds"
+    },
+    "YCbCr.COffset": {
+      "rust": "rust_stdlib::image::Ycbcr::c_offset"
+    },
+    "YCbCr.CStride": {
+      "rust": "rust_stdlib::image::Ycbcr::c_stride"
+    },
+    "YCbCr.Cb": {
+      "rust": "rust_stdlib::image::Ycbcr::cb"
+    },
+    "YCbCr.ColorModel": {
+      "rust": "rust_stdlib::image::Image::color_model"
+    },
+    "YCbCr.Cr": {
+      "rust": "rust_stdlib::image::Ycbcr::cr"
+    },
+    "YCbCr.Opaque": {
+      "rust": "rust_stdlib::image::Image::opaque"
+    },
+    "YCbCr.RGBA64At": {
+      "rust": "rust_stdlib::image::Image::rgba64_at"
+    },
+    "YCbCr.Rect": {
+      "rust": "rust_stdlib::image::Ycbcr::rect"
+    },
+    "YCbCr.SubImage": {
+      "rust": "rust_stdlib::image::Ycbcr::sub_image",
+      "note": "Returns the concrete type. The pixels are shared with the parent through Pix windows (offset into the same buffer, parent's stride), as Go's Pix[i:] does."
+    },
+    "YCbCr.SubsampleRatio": {
+      "rust": "rust_stdlib::image::Ycbcr::subsample_ratio"
+    },
+    "YCbCr.Y": {
+      "rust": "rust_stdlib::image::Ycbcr::y"
+    },
+    "YCbCr.YCbCrAt": {
+      "rust": "rust_stdlib::image::Ycbcr::ycbcr_at"
+    },
+    "YCbCr.YOffset": {
+      "rust": "rust_stdlib::image::Ycbcr::y_offset"
+    },
+    "YCbCr.YStride": {
+      "rust": "rust_stdlib::image::Ycbcr::y_stride"
+    },
+    "YCbCrSubsampleRatio": {
+      "rust": "rust_stdlib::image::YcbcrSubsampleRatio"
+    },
+    "YCbCrSubsampleRatio.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "YCbCrSubsampleRatio410": {
+      "rust": "rust_stdlib::image::YcbcrSubsampleRatio::Ratio410"
+    },
+    "YCbCrSubsampleRatio411": {
+      "rust": "rust_stdlib::image::YcbcrSubsampleRatio::Ratio411"
+    },
+    "YCbCrSubsampleRatio420": {
+      "rust": "rust_stdlib::image::YcbcrSubsampleRatio::Ratio420"
+    },
+    "YCbCrSubsampleRatio422": {
+      "rust": "rust_stdlib::image::YcbcrSubsampleRatio::Ratio422"
+    },
+    "YCbCrSubsampleRatio440": {
+      "rust": "rust_stdlib::image::YcbcrSubsampleRatio::Ratio440"
+    },
+    "YCbCrSubsampleRatio444": {
+      "rust": "rust_stdlib::image::YcbcrSubsampleRatio::Ratio444"
+    },
+    "ZP": {
+      "rust": "rust_stdlib::image::ZP"
+    },
+    "ZR": {
+      "rust": "rust_stdlib::image::ZR"
+    }
+  }
+}

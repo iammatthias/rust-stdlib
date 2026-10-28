@@ -1,0 +1,109 @@
+{
+  "package": "crypto/mldsa",
+  "notes": "rust-stdlib-crypto over the reviewed RustCrypto ml-dsa crate (0.1.1). Private keys are the 32-byte seeds; PrivateKey implements crypto::Signer. crypto.MLDSAMu is Hash::MlDsaMu.",
+  "symbols": {
+    "GenerateKey": {
+      "rust": "rust_stdlib_crypto::mldsa::generate_key"
+    },
+    "MLDSA44": {
+      "rust": "rust_stdlib_crypto::mldsa::mldsa44"
+    },
+    "MLDSA44PublicKeySize": {
+      "rust": "rust_stdlib_crypto::mldsa::MLDSA44_PUBLIC_KEY_SIZE"
+    },
+    "MLDSA44SignatureSize": {
+      "rust": "rust_stdlib_crypto::mldsa::MLDSA44_SIGNATURE_SIZE"
+    },
+    "MLDSA65": {
+      "rust": "rust_stdlib_crypto::mldsa::mldsa65"
+    },
+    "MLDSA65PublicKeySize": {
+      "rust": "rust_stdlib_crypto::mldsa::MLDSA65_PUBLIC_KEY_SIZE"
+    },
+    "MLDSA65SignatureSize": {
+      "rust": "rust_stdlib_crypto::mldsa::MLDSA65_SIGNATURE_SIZE"
+    },
+    "MLDSA87": {
+      "rust": "rust_stdlib_crypto::mldsa::mldsa87"
+    },
+    "MLDSA87PublicKeySize": {
+      "rust": "rust_stdlib_crypto::mldsa::MLDSA87_PUBLIC_KEY_SIZE"
+    },
+    "MLDSA87SignatureSize": {
+      "rust": "rust_stdlib_crypto::mldsa::MLDSA87_SIGNATURE_SIZE"
+    },
+    "NewPrivateKey": {
+      "rust": "rust_stdlib_crypto::mldsa::PrivateKey::from_seed"
+    },
+    "NewPublicKey": {
+      "rust": "rust_stdlib_crypto::mldsa::PublicKey::from_bytes"
+    },
+    "Options": {
+      "rust": "rust_stdlib_crypto::mldsa::Options"
+    },
+    "Options.Context": {
+      "rust": "rust_stdlib_crypto::mldsa::Options::context"
+    },
+    "Options.HashFunc": {
+      "rust": "rust_stdlib_crypto::SignerOpts::hash_func",
+      "note": "Options also carries the hash field: Some(Hash::MlDsaMu) selects external-mu signing, as passing crypto.MLDSAMu does in Go"
+    },
+    "Parameters": {
+      "rust": "rust_stdlib_crypto::mldsa::Parameters"
+    },
+    "Parameters.PublicKeySize": {
+      "rust": "rust_stdlib_crypto::mldsa::Parameters::public_key_size"
+    },
+    "Parameters.SignatureSize": {
+      "rust": "rust_stdlib_crypto::mldsa::Parameters::signature_size"
+    },
+    "Parameters.String": {
+      "rust": "std::string::ToString::to_string",
+      "note": "Display for Parameters"
+    },
+    "PrivateKey": {
+      "rust": "rust_stdlib_crypto::mldsa::PrivateKey"
+    },
+    "PrivateKey.Bytes": {
+      "rust": "rust_stdlib_crypto::mldsa::PrivateKey::bytes",
+      "note": "the 32-byte seed"
+    },
+    "PrivateKey.Equal": {
+      "rust": "rust_stdlib_crypto::mldsa::PrivateKey::equal",
+      "note": "takes &dyn Any in place of crypto.PrivateKey"
+    },
+    "PrivateKey.Public": {
+      "rust": "rust_stdlib_crypto::mldsa::PrivateKey::public"
+    },
+    "PrivateKey.PublicKey": {
+      "rust": "rust_stdlib_crypto::mldsa::PrivateKey::public_key"
+    },
+    "PrivateKey.Sign": {
+      "rust": "rust_stdlib_crypto::mldsa::PrivateKey::sign",
+      "note": "rand and opts are optional (Go passes nil); the reader is ignored like Go; Go ignores the reader argument, so there is no rng parameter."
+    },
+    "PrivateKey.SignDeterministic": {
+      "rust": "rust_stdlib_crypto::mldsa::PrivateKey::sign_deterministic"
+    },
+    "PrivateKeySize": {
+      "rust": "rust_stdlib_crypto::mldsa::PRIVATE_KEY_SIZE"
+    },
+    "PublicKey": {
+      "rust": "rust_stdlib_crypto::mldsa::PublicKey"
+    },
+    "PublicKey.Bytes": {
+      "rust": "rust_stdlib_crypto::mldsa::PublicKey::bytes"
+    },
+    "PublicKey.Equal": {
+      "rust": "rust_stdlib_crypto::mldsa::PublicKey::equal",
+      "note": "takes &dyn Any in place of crypto.PublicKey"
+    },
+    "PublicKey.Parameters": {
+      "rust": "rust_stdlib_crypto::mldsa::PublicKey::parameters"
+    },
+    "Verify": {
+      "rust": "rust_stdlib_crypto::mldsa::verify",
+      "note": "opts is optional (Go passes nil)"
+    }
+  }
+}

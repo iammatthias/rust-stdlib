@@ -1,0 +1,436 @@
+[
+ {
+  "name": "Valid",
+  "leaf": "googleLeaf",
+  "intermediates": [
+   "gtsIntermediate"
+  ],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1677615892,
+  "dns": "www.google.com",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "www.google.com",
+    "GTS CA 1C3",
+    "GTS Root R1"
+   ]
+  ]
+ },
+ {
+  "name": "Valid (fqdn)",
+  "leaf": "googleLeaf",
+  "intermediates": [
+   "gtsIntermediate"
+  ],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1677615892,
+  "dns": "www.google.com.",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "www.google.com",
+    "GTS CA 1C3",
+    "GTS Root R1"
+   ]
+  ]
+ },
+ {
+  "name": "MixedCase",
+  "leaf": "googleLeaf",
+  "intermediates": [
+   "gtsIntermediate"
+  ],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1677615892,
+  "dns": "WwW.GooGLE.coM",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "www.google.com",
+    "GTS CA 1C3",
+    "GTS Root R1"
+   ]
+  ]
+ },
+ {
+  "name": "HostnameMismatch",
+  "leaf": "googleLeaf",
+  "intermediates": [
+   "gtsIntermediate"
+  ],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1677615892,
+  "dns": "www.example.com",
+  "ekus": [],
+  "callback": "expectHostnameError",
+  "callback_arg": "certificate is valid for",
+  "chains": []
+ },
+ {
+  "name": "IPMissing",
+  "leaf": "googleLeaf",
+  "intermediates": [
+   "gtsIntermediate"
+  ],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1677615892,
+  "dns": "1.2.3.4",
+  "ekus": [],
+  "callback": "expectHostnameError",
+  "callback_arg": "doesn't contain any IP SANs",
+  "chains": []
+ },
+ {
+  "name": "Expired",
+  "leaf": "googleLeaf",
+  "intermediates": [
+   "gtsIntermediate"
+  ],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1,
+  "dns": "www.example.com",
+  "ekus": [],
+  "callback": "expectExpired",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "MissingIntermediate",
+  "leaf": "googleLeaf",
+  "intermediates": [],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1677615892,
+  "dns": "www.google.com",
+  "ekus": [],
+  "callback": "expectAuthorityUnknown",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "RootInIntermediates",
+  "leaf": "googleLeaf",
+  "intermediates": [
+   "gtsRoot",
+   "gtsIntermediate"
+  ],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1677615892,
+  "dns": "www.google.com",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "www.google.com",
+    "GTS CA 1C3",
+    "GTS Root R1"
+   ]
+  ]
+ },
+ {
+  "name": "InvalidHash",
+  "leaf": "googleLeafWithInvalidHash",
+  "intermediates": [
+   "gtsIntermediate"
+  ],
+  "roots": [
+   "gtsRoot"
+  ],
+  "time": 1677615892,
+  "dns": "www.google.com",
+  "ekus": [],
+  "callback": "expectHashError",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "EKULeaf",
+  "leaf": "smimeLeaf",
+  "intermediates": [
+   "smimeIntermediate"
+  ],
+  "roots": [
+   "smimeRoot"
+  ],
+  "time": 1594673418,
+  "dns": "",
+  "ekus": [],
+  "callback": "expectUsageError",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "EKULeafExplicit",
+  "leaf": "smimeLeaf",
+  "intermediates": [
+   "smimeIntermediate"
+  ],
+  "roots": [
+   "smimeRoot"
+  ],
+  "time": 1594673418,
+  "dns": "",
+  "ekus": [
+   "ServerAuth"
+  ],
+  "callback": "expectUsageError",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "EKULeafValid",
+  "leaf": "smimeLeaf",
+  "intermediates": [
+   "smimeIntermediate"
+  ],
+  "roots": [
+   "smimeRoot"
+  ],
+  "time": 1594673418,
+  "dns": "",
+  "ekus": [
+   "EmailProtection"
+  ],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "CORPORATIVO FICTICIO ACTIVO",
+    "EAEko Herri Administrazioen CA - CA AAPP Vascas (2)",
+    "IZENPE S.A."
+   ]
+  ]
+ },
+ {
+  "name": "MultipleConstraints",
+  "leaf": "nameConstraintsLeaf",
+  "intermediates": [
+   "nameConstraintsIntermediate1",
+   "nameConstraintsIntermediate2"
+  ],
+  "roots": [
+   "globalSignRoot"
+  ],
+  "time": 1524771953,
+  "dns": "udctest.ads.vt.edu",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "udctest.ads.vt.edu",
+    "Virginia Tech Global Qualified Server CA",
+    "Trusted Root CA SHA256 G2",
+    "GlobalSign"
+   ]
+  ]
+ },
+ {
+  "name": "SHA-384",
+  "leaf": "trustAsiaLeaf",
+  "intermediates": [
+   "trustAsiaSHA384Intermediate"
+  ],
+  "roots": [
+   "digicertRoot"
+  ],
+  "time": 1558051200,
+  "dns": "tm.cn",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "tm.cn",
+    "TrustAsia ECC OV TLS Pro CA",
+    "DigiCert Global Root CA"
+   ]
+  ]
+ },
+ {
+  "name": "LeafInRoots",
+  "leaf": "selfSigned",
+  "intermediates": [],
+  "roots": [
+   "selfSigned"
+  ],
+  "time": 1471624472,
+  "dns": "foo.example",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "Acme Co"
+   ]
+  ]
+ },
+ {
+  "name": "LeafInRootsInvalid",
+  "leaf": "selfSigned",
+  "intermediates": [],
+  "roots": [
+   "selfSigned"
+  ],
+  "time": 1471624472,
+  "dns": "notfoo.example",
+  "ekus": [],
+  "callback": "expectHostnameError",
+  "callback_arg": "certificate is valid for",
+  "chains": []
+ },
+ {
+  "name": "X509v1Intermediate",
+  "leaf": "x509v1TestLeaf",
+  "intermediates": [
+   "x509v1TestIntermediate"
+  ],
+  "roots": [
+   "x509v1TestRoot"
+  ],
+  "time": 1481753183,
+  "dns": "",
+  "ekus": [],
+  "callback": "expectNotAuthorizedError",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "IgnoreCNWithSANs",
+  "leaf": "ignoreCNWithSANLeaf",
+  "intermediates": [],
+  "roots": [
+   "ignoreCNWithSANRoot"
+  ],
+  "time": 1486684488,
+  "dns": "foo.example.com",
+  "ekus": [],
+  "callback": "expectHostnameError",
+  "callback_arg": "certificate is not valid for any names",
+  "chains": []
+ },
+ {
+  "name": "ExcludedNames",
+  "leaf": "excludedNamesLeaf",
+  "intermediates": [
+   "excludedNamesIntermediate"
+  ],
+  "roots": [
+   "excludedNamesRoot"
+  ],
+  "time": 1486684488,
+  "dns": "bender.local",
+  "ekus": [],
+  "callback": "expectNameConstraintsError",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "CriticalExtLeaf",
+  "leaf": "criticalExtLeafWithExt",
+  "intermediates": [
+   "criticalExtIntermediate"
+  ],
+  "roots": [
+   "criticalExtRoot"
+  ],
+  "time": 1486684488,
+  "dns": "",
+  "ekus": [],
+  "callback": "expectUnhandledCriticalExtension",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "CriticalExtIntermediate",
+  "leaf": "criticalExtLeaf",
+  "intermediates": [
+   "criticalExtIntermediateWithExt"
+  ],
+  "roots": [
+   "criticalExtRoot"
+  ],
+  "time": 1486684488,
+  "dns": "",
+  "ekus": [],
+  "callback": "expectUnhandledCriticalExtension",
+  "callback_arg": "",
+  "chains": []
+ },
+ {
+  "name": "ValidCN",
+  "leaf": "validCNWithoutSAN",
+  "intermediates": [],
+  "roots": [
+   "invalidCNRoot"
+  ],
+  "time": 1540000000,
+  "dns": "foo.example.com",
+  "ekus": [],
+  "callback": "expectHostnameError",
+  "callback_arg": "certificate relies on legacy Common Name field",
+  "chains": []
+ },
+ {
+  "name": "AKIDNoSKID",
+  "leaf": "leafWithAKID",
+  "intermediates": [],
+  "roots": [
+   "rootWithoutSKID"
+  ],
+  "time": 1550000000,
+  "dns": "example",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "Acme LLC",
+    "Acme Co"
+   ]
+  ]
+ },
+ {
+  "name": "",
+  "leaf": "leafMatchingAKIDMatchingIssuer",
+  "intermediates": [],
+  "roots": [
+   "rootMatchingSKIDMismatchingSubject",
+   "rootMismatchingSKIDMatchingSubject"
+  ],
+  "time": 1550000000,
+  "dns": "example",
+  "ekus": [],
+  "callback": "",
+  "callback_arg": "",
+  "chains": [
+   [
+    "Leaf",
+    "Root B"
+   ]
+  ]
+ }
+]

@@ -1,0 +1,32 @@
+{
+  "package": "mime/quotedprintable",
+  "notes": "quotedprintable: Buffered via std I/O, text/binary encoding and bounded incremental decoding",
+  "symbols": {
+    "NewReader": {
+      "rust": "rust_stdlib::quotedprintable::Reader::new"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::quotedprintable::Writer::new"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::quotedprintable::Reader"
+    },
+    "Reader.Read": {
+      "rust": "std::io::Read::read",
+      "note": "implemented by Reader"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::quotedprintable::Writer"
+    },
+    "Writer.Binary": {
+      "rust": "rust_stdlib::quotedprintable::Writer::binary"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::quotedprintable::Writer::close"
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write",
+      "note": "implemented by Writer"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "package": "maps",
+  "notes": "maps: std HashMap and BTreeMap methods; iteration order of HashMap is unspecified (Go: random), BTreeMap iterates in key order.",
+  "symbols": {
+    "All": {
+      "rust": "std::collections::HashMap::iter",
+      "note": "HashMap order is unspecified (Go: random); BTreeMap iterates in key order"
+    },
+    "Clone": {
+      "rust": "std::clone::Clone::clone"
+    },
+    "Collect": {
+      "rust": "std::iter::Iterator::collect"
+    },
+    "Copy": {
+      "rust": "std::iter::Extend::extend"
+    },
+    "DeleteFunc": {
+      "rust": "std::collections::HashMap::retain",
+      "note": "retain the negation"
+    },
+    "Equal": {
+      "rust": "std::cmp::PartialEq::eq"
+    },
+    "EqualFunc": {
+      "rust": "std::collections::HashMap::get",
+      "note": "same length, then every key present in the other map with eq(v1, v2)"
+    },
+    "Insert": {
+      "rust": "std::iter::Extend::extend"
+    },
+    "Keys": {
+      "rust": "std::collections::HashMap::keys",
+      "note": "HashMap order is unspecified (Go: random); BTreeMap iterates in key order"
+    },
+    "Values": {
+      "rust": "std::collections::HashMap::values",
+      "note": "HashMap order is unspecified (Go: random); BTreeMap iterates in key order"
+    }
+  }
+}

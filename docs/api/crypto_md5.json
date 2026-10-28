@@ -1,0 +1,18 @@
+{
+  "package": "crypto/md5",
+  "notes": "rust-stdlib-crypto over RustCrypto md-5. State methods (marshal_binary and friends) are inherent on Digest and emit Go's md5\\x01 format; Clone is std Clone and hash::Hash::clone_hash.",
+  "symbols": {
+    "BlockSize": {
+      "rust": "rust_stdlib_crypto::md5::BLOCK_SIZE"
+    },
+    "New": {
+      "rust": "rust_stdlib_crypto::md5::new"
+    },
+    "Size": {
+      "rust": "rust_stdlib_crypto::md5::SIZE"
+    },
+    "Sum": {
+      "rust": "rust_stdlib_crypto::md5::sum"
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "package": "net/http/httputil",
+  "symbols": {
+    "BufferPool": {
+      "rust": "rust_stdlib::net::http::httputil::BufferPool"
+    },
+    "BufferPool.Get": {
+      "rust": "rust_stdlib::net::http::httputil::BufferPool::get"
+    },
+    "BufferPool.Put": {
+      "rust": "rust_stdlib::net::http::httputil::BufferPool::put"
+    },
+    "ClientConn": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn"
+    },
+    "ClientConn.Close": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn::close"
+    },
+    "ClientConn.Do": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn::do_request"
+    },
+    "ClientConn.Hijack": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn::hijack"
+    },
+    "ClientConn.Pending": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn::pending"
+    },
+    "ClientConn.Read": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn::read"
+    },
+    "ClientConn.Write": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn::write"
+    },
+    "DumpRequest": {
+      "rust": "rust_stdlib::net::http::httputil::dump_request"
+    },
+    "DumpRequestOut": {
+      "rust": "rust_stdlib::net::http::httputil::dump_request_out"
+    },
+    "DumpResponse": {
+      "rust": "rust_stdlib::net::http::httputil::dump_response"
+    },
+    "ErrClosed": {
+      "rust": "rust_stdlib::net::http::httputil::ERR_CLOSED"
+    },
+    "ErrLineTooLong": {
+      "rust": "rust_stdlib::net::http::httputil::ERR_LINE_TOO_LONG"
+    },
+    "ErrPersistEOF": {
+      "rust": "rust_stdlib::net::http::httputil::ERR_PERSIST_EOF"
+    },
+    "ErrPipeline": {
+      "rust": "rust_stdlib::net::http::httputil::ERR_PIPELINE"
+    },
+    "NewChunkedReader": {
+      "rust": "rust_stdlib::net::http::httputil::ChunkedReader::new"
+    },
+    "NewChunkedWriter": {
+      "rust": "rust_stdlib::net::http::httputil::ChunkedWriter::new"
+    },
+    "NewClientConn": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn::new"
+    },
+    "NewProxyClientConn": {
+      "rust": "rust_stdlib::net::http::httputil::ClientConn::proxy"
+    },
+    "NewServerConn": {
+      "rust": "rust_stdlib::net::http::httputil::ServerConn::new"
+    },
+    "NewSingleHostReverseProxy": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::single_host"
+    },
+    "ProxyRequest": {
+      "rust": "rust_stdlib::net::http::httputil::ProxyRequest"
+    },
+    "ProxyRequest.In": {
+      "rust": "rust_stdlib::net::http::httputil::ProxyRequest::in_"
+    },
+    "ProxyRequest.Out": {
+      "rust": "rust_stdlib::net::http::httputil::ProxyRequest::out"
+    },
+    "ProxyRequest.SetURL": {
+      "rust": "rust_stdlib::net::http::httputil::ProxyRequest::set_url"
+    },
+    "ProxyRequest.SetXForwarded": {
+      "rust": "rust_stdlib::net::http::httputil::ProxyRequest::set_x_forwarded"
+    },
+    "ReverseProxy": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy"
+    },
+    "ReverseProxy.BufferPool": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::buffer_pool"
+    },
+    "ReverseProxy.Director": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::director",
+      "note": "A Director that wants no X-Forwarded-For sets the header present but empty (Go: nil)."
+    },
+    "ReverseProxy.ErrorHandler": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::error_handler"
+    },
+    "ReverseProxy.ErrorLog": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::error_log"
+    },
+    "ReverseProxy.FlushInterval": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::flush_interval"
+    },
+    "ReverseProxy.ModifyResponse": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::modify_response"
+    },
+    "ReverseProxy.Rewrite": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::rewrite"
+    },
+    "ReverseProxy.ServeHTTP": {
+      "rust": "rust_stdlib::net::http::handler::Handler::serve_http"
+    },
+    "ReverseProxy.Transport": {
+      "rust": "rust_stdlib::net::http::httputil::ReverseProxy::transport"
+    },
+    "ServerConn": {
+      "rust": "rust_stdlib::net::http::httputil::ServerConn"
+    },
+    "ServerConn.Close": {
+      "rust": "rust_stdlib::net::http::httputil::ServerConn::close"
+    },
+    "ServerConn.Hijack": {
+      "rust": "rust_stdlib::net::http::httputil::ServerConn::hijack"
+    },
+    "ServerConn.Pending": {
+      "rust": "rust_stdlib::net::http::httputil::ServerConn::pending"
+    },
+    "ServerConn.Read": {
+      "rust": "rust_stdlib::net::http::httputil::ServerConn::read"
+    },
+    "ServerConn.Write": {
+      "rust": "rust_stdlib::net::http::httputil::ServerConn::write"
+    }
+  },
+  "notes": "net::http::httputil: dumps, the chunked codec, ClientConn, ServerConn, ProxyRequest and ReverseProxy over net::http::Request and Response. See docs/HTTP.md."
+}

@@ -1,0 +1,104 @@
+{
+  "package": "compress/flate",
+  "notes": "compress::flate: Go-exact streaming inflate (byte-pull discipline, CorruptInputError offsets, preset dictionaries, Resetter) and a port of Go 1.27's compressor (the level 1-6 fast matchers, the level 7-9 lazy hash chains, Go's Huffman construction and block selection): output is byte-identical to Go's at levels -2..=9 for flate, zlib and gzip, including preset dictionaries and Flush schedules (checked by tools/flate_check.py; Go's own bytes are not covered by its compatibility promise, so a future Go may change them); I/O is std::io Read/BufRead/Write",
+  "symbols": {
+    "BestCompression": {
+      "rust": "rust_stdlib::compress::flate::BEST_COMPRESSION"
+    },
+    "BestSpeed": {
+      "rust": "rust_stdlib::compress::flate::BEST_SPEED"
+    },
+    "CorruptInputError": {
+      "rust": "rust_stdlib::compress::flate::CorruptInputError",
+      "note": "tuple struct over i64; carried as the payload of an io::Error of kind InvalidData"
+    },
+    "CorruptInputError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for rust_stdlib::compress::flate::CorruptInputError with Go's text"
+    },
+    "DefaultCompression": {
+      "rust": "rust_stdlib::compress::flate::DEFAULT_COMPRESSION"
+    },
+    "HuffmanOnly": {
+      "rust": "rust_stdlib::compress::flate::HUFFMAN_ONLY"
+    },
+    "InternalError": {
+      "rust": "rust_stdlib::compress::flate::InternalError"
+    },
+    "InternalError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for rust_stdlib::compress::flate::InternalError with Go's text"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::compress::flate::Decompressor::new",
+      "note": "returns Decompressor, Go's io.ReadCloser; unbuffered sources are wrapped in BufReader like Go's bufio fallback; Decompressor::from_buf_read consumes a BufRead exactly as far as needed"
+    },
+    "NewReaderDict": {
+      "rust": "rust_stdlib::compress::flate::Decompressor::with_dictionary"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::compress::flate::Writer::new",
+      "note": "levels -2..=9; an invalid level is an io::Error with Go's text"
+    },
+    "NewWriterDict": {
+      "rust": "rust_stdlib::compress::flate::Writer::with_dictionary"
+    },
+    "NoCompression": {
+      "rust": "rust_stdlib::compress::flate::NO_COMPRESSION"
+    },
+    "ReadError": {
+      "rust": "rust_stdlib::compress::flate::ReadError"
+    },
+    "ReadError.Err": {
+      "rust": "rust_stdlib::compress::flate::ReadError::err"
+    },
+    "ReadError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for rust_stdlib::compress::flate::ReadError with Go's text"
+    },
+    "ReadError.Offset": {
+      "rust": "rust_stdlib::compress::flate::ReadError::offset"
+    },
+    "Reader": {
+      "rust": "std::io::BufRead",
+      "note": "io.Reader plus io.ByteReader is BufRead: sources are consumed byte-exactly through fill_buf/consume"
+    },
+    "Resetter": {
+      "rust": "rust_stdlib::compress::flate::Resetter",
+      "note": "generic over the source type; implemented by flate::Decompressor and zlib::Reader"
+    },
+    "Resetter.Reset": {
+      "rust": "rust_stdlib::compress::flate::Resetter::reset"
+    },
+    "WriteError": {
+      "rust": "rust_stdlib::compress::flate::WriteError"
+    },
+    "WriteError.Err": {
+      "rust": "rust_stdlib::compress::flate::WriteError::err"
+    },
+    "WriteError.Error": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for rust_stdlib::compress::flate::WriteError with Go's text"
+    },
+    "WriteError.Offset": {
+      "rust": "rust_stdlib::compress::flate::WriteError::offset"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::compress::flate::Writer"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::compress::flate::Writer::close"
+    },
+    "Writer.Flush": {
+      "rust": "rust_stdlib::compress::flate::Writer::flush",
+      "note": "sync flush (Z_SYNC_FLUSH): an empty stored block follows the pending data"
+    },
+    "Writer.Reset": {
+      "rust": "rust_stdlib::compress::flate::Writer::reset"
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write",
+      "note": "impl Write for rust_stdlib::compress::flate::Writer"
+    }
+  }
+}

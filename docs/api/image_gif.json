@@ -1,0 +1,72 @@
+{
+  "package": "image/gif",
+  "notes": "image::gif: Decode/DecodeAll/DecodeConfig with Go's validation and leniencies plus explicit Limits; byte-identical Encode (Options: NumColors/Quantizer/Drawer) and EncodeAll; zero Config is None; failed encodes write nothing; Decode returns the first frame as Paletted rather than image.Image",
+  "symbols": {
+    "Decode": {
+      "rust": "rust_stdlib::image::gif::decode",
+      "deviation": "default-budget",
+      "note": "Returns the concrete Paletted first frame instead of image.Image (Rust shape: the dynamic type is what Go returns). Default Limits (64M pixels per frame, 256M pixels total, 65536 frames, 1 GiB input) reject larger inputs that Go accepts; they do not change results on Go's own testdata, and Limits can be raised or disabled."
+    },
+    "DecodeAll": {
+      "rust": "rust_stdlib::image::gif::decode_all",
+      "deviation": "default-budget",
+      "note": "Default Limits (64M pixels per frame, 256M pixels total, 65536 frames, 1 GiB input) reject larger inputs that Go accepts; they do not change results on Go's own testdata, and Limits can be raised or disabled."
+    },
+    "DecodeConfig": {
+      "rust": "rust_stdlib::image::gif::decode_config",
+      "deviation": "default-budget",
+      "note": "Default Limits (64M pixels per frame, 256M pixels total, 65536 frames, 1 GiB input) reject larger inputs that Go accepts; they do not change results on Go's own testdata, and Limits can be raised or disabled."
+    },
+    "DisposalBackground": {
+      "rust": "rust_stdlib::image::gif::DISPOSAL_BACKGROUND"
+    },
+    "DisposalNone": {
+      "rust": "rust_stdlib::image::gif::DISPOSAL_NONE"
+    },
+    "DisposalPrevious": {
+      "rust": "rust_stdlib::image::gif::DISPOSAL_PREVIOUS"
+    },
+    "Encode": {
+      "rust": "rust_stdlib::image::gif::encode",
+      "note": "the options argument is Option, Go's nil *Options"
+    },
+    "EncodeAll": {
+      "rust": "rust_stdlib::image::gif::encode_all"
+    },
+    "GIF": {
+      "rust": "rust_stdlib::image::gif::Gif"
+    },
+    "GIF.BackgroundIndex": {
+      "rust": "rust_stdlib::image::gif::Gif::background_index"
+    },
+    "GIF.Config": {
+      "rust": "rust_stdlib::image::gif::Gif::config",
+      "note": "Option<Config>: None is Go's zero Config"
+    },
+    "GIF.Delay": {
+      "rust": "rust_stdlib::image::gif::Gif::delay"
+    },
+    "GIF.Disposal": {
+      "rust": "rust_stdlib::image::gif::Gif::disposal",
+      "note": "Option<Vec<u8>>: None is Go's nil Disposal"
+    },
+    "GIF.Image": {
+      "rust": "rust_stdlib::image::gif::Gif::image"
+    },
+    "GIF.LoopCount": {
+      "rust": "rust_stdlib::image::gif::Gif::loop_count"
+    },
+    "Options": {
+      "rust": "rust_stdlib::image::gif::Options"
+    },
+    "Options.Drawer": {
+      "rust": "rust_stdlib::image::gif::Options::drawer"
+    },
+    "Options.NumColors": {
+      "rust": "rust_stdlib::image::gif::Options::num_colors"
+    },
+    "Options.Quantizer": {
+      "rust": "rust_stdlib::image::gif::Options::quantizer"
+    }
+  }
+}

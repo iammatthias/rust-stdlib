@@ -1,0 +1,185 @@
+{
+  "package": "crypto/hpke",
+  "notes": "rust-stdlib-crypto over the reviewed hpke crate (rozbb/rust-hpke 0.14.1, MIT OR Apache-2.0) with p256/p384/p521/x25519-dalek, HKDF and the AES-GCM and ChaCha20-Poly1305 AEADs. KEM, KDF, AEAD, PublicKey and PrivateKey are sealed traits over runtime-selected suites; Seal output is enc followed by the ciphertext, as in Go. The RFC 9180 test vectors of Go (rfc9180.json, 1000 encryptions and exports per suite) pass. The post-quantum KEMs and SHAKE KDFs are documented deviations.",
+  "symbols": {
+    "AEAD": {
+      "rust": "rust_stdlib_crypto::hpke::Aead"
+    },
+    "AEAD.ID": {
+      "rust": "rust_stdlib_crypto::hpke::Aead::id"
+    },
+    "AES128GCM": {
+      "rust": "rust_stdlib_crypto::hpke::aes128gcm"
+    },
+    "AES256GCM": {
+      "rust": "rust_stdlib_crypto::hpke::aes256gcm"
+    },
+    "ChaCha20Poly1305": {
+      "rust": "rust_stdlib_crypto::hpke::chacha20poly1305"
+    },
+    "DHKEM": {
+      "rust": "rust_stdlib_crypto::hpke::dhkem",
+      "deviation": "dependency-hpke-suites",
+      "note": "only the RFC 9180 pairings (P-256/HKDF-SHA256, P-384/HKDF-SHA384, P-521/HKDF-SHA512, X25519/HKDF-SHA256) run; other pairings return a KEM whose operations report an error"
+    },
+    "ExportOnly": {
+      "rust": "rust_stdlib_crypto::hpke::export_only"
+    },
+    "HKDFSHA256": {
+      "rust": "rust_stdlib_crypto::hpke::hkdf_sha256"
+    },
+    "HKDFSHA384": {
+      "rust": "rust_stdlib_crypto::hpke::hkdf_sha384"
+    },
+    "HKDFSHA512": {
+      "rust": "rust_stdlib_crypto::hpke::hkdf_sha512"
+    },
+    "KDF": {
+      "rust": "rust_stdlib_crypto::hpke::Kdf"
+    },
+    "KDF.ID": {
+      "rust": "rust_stdlib_crypto::hpke::Kdf::id"
+    },
+    "KEM": {
+      "rust": "rust_stdlib_crypto::hpke::Kem"
+    },
+    "KEM.DeriveKeyPair": {
+      "rust": "rust_stdlib_crypto::hpke::Kem::derive_key_pair"
+    },
+    "KEM.GenerateKey": {
+      "rust": "rust_stdlib_crypto::hpke::Kem::generate_key"
+    },
+    "KEM.ID": {
+      "rust": "rust_stdlib_crypto::hpke::Kem::id"
+    },
+    "KEM.NewPrivateKey": {
+      "rust": "rust_stdlib_crypto::hpke::Kem::private_key_from_bytes"
+    },
+    "KEM.NewPublicKey": {
+      "rust": "rust_stdlib_crypto::hpke::Kem::public_key_from_bytes"
+    },
+    "MLKEM1024": {
+      "rust": "rust_stdlib_crypto::hpke::mlkem1024",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "MLKEM1024P384": {
+      "rust": "rust_stdlib_crypto::hpke::mlkem1024p384",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "MLKEM768": {
+      "rust": "rust_stdlib_crypto::hpke::mlkem768",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "MLKEM768P256": {
+      "rust": "rust_stdlib_crypto::hpke::mlkem768p256",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "MLKEM768X25519": {
+      "rust": "rust_stdlib_crypto::hpke::mlkem768x25519",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "NewAEAD": {
+      "rust": "rust_stdlib_crypto::hpke::aead_from_id"
+    },
+    "NewDHKEMPrivateKey": {
+      "rust": "rust_stdlib_crypto::hpke::dhkem_private_key",
+      "deviation": "interface-assertion",
+      "note": "takes the concrete ecdh::PrivateKey: the crate needs the key bytes, which an arbitrary ecdh.KeyExchanger does not expose"
+    },
+    "NewDHKEMPublicKey": {
+      "rust": "rust_stdlib_crypto::hpke::dhkem_public_key"
+    },
+    "NewHybridPrivateKey": {
+      "rust": "rust_stdlib_crypto::hpke::hybrid_private_key",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "NewHybridPublicKey": {
+      "rust": "rust_stdlib_crypto::hpke::hybrid_public_key",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "NewKDF": {
+      "rust": "rust_stdlib_crypto::hpke::kdf_from_id"
+    },
+    "NewKEM": {
+      "rust": "rust_stdlib_crypto::hpke::kem_from_id"
+    },
+    "NewMLKEMPrivateKey": {
+      "rust": "rust_stdlib_crypto::hpke::mlkem_private_key",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "NewMLKEMPublicKey": {
+      "rust": "rust_stdlib_crypto::hpke::mlkem_public_key",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "NewRecipient": {
+      "rust": "rust_stdlib_crypto::hpke::Recipient::new"
+    },
+    "NewSender": {
+      "rust": "rust_stdlib_crypto::hpke::Sender::new"
+    },
+    "Open": {
+      "rust": "rust_stdlib_crypto::hpke::open"
+    },
+    "PrivateKey": {
+      "rust": "rust_stdlib_crypto::hpke::PrivateKey"
+    },
+    "PrivateKey.Bytes": {
+      "rust": "rust_stdlib_crypto::hpke::PrivateKey::bytes"
+    },
+    "PrivateKey.KEM": {
+      "rust": "rust_stdlib_crypto::hpke::PrivateKey::kem"
+    },
+    "PrivateKey.PublicKey": {
+      "rust": "rust_stdlib_crypto::hpke::PrivateKey::public_key"
+    },
+    "PublicKey": {
+      "rust": "rust_stdlib_crypto::hpke::PublicKey"
+    },
+    "PublicKey.Bytes": {
+      "rust": "rust_stdlib_crypto::hpke::PublicKey::bytes"
+    },
+    "PublicKey.KEM": {
+      "rust": "rust_stdlib_crypto::hpke::PublicKey::kem"
+    },
+    "Recipient": {
+      "rust": "rust_stdlib_crypto::hpke::Recipient"
+    },
+    "Recipient.Export": {
+      "rust": "rust_stdlib_crypto::hpke::Recipient::export"
+    },
+    "Recipient.Open": {
+      "rust": "rust_stdlib_crypto::hpke::Recipient::open"
+    },
+    "SHAKE128": {
+      "rust": "rust_stdlib_crypto::hpke::shake128",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "SHAKE256": {
+      "rust": "rust_stdlib_crypto::hpke::shake256",
+      "deviation": "dependency-no-pq-hpke",
+      "note": "the post-quantum and hybrid KEMs and the SHAKE KDFs of the HPKE post-quantum draft need the hpke crate's mlkem/shake features, which pull a second major version of sha3 (ADR 0003); the value exists and has the right ID but its operations return an error"
+    },
+    "Seal": {
+      "rust": "rust_stdlib_crypto::hpke::seal"
+    },
+    "Sender": {
+      "rust": "rust_stdlib_crypto::hpke::Sender"
+    },
+    "Sender.Export": {
+      "rust": "rust_stdlib_crypto::hpke::Sender::export"
+    },
+    "Sender.Seal": {
+      "rust": "rust_stdlib_crypto::hpke::Sender::seal"
+    }
+  }
+}

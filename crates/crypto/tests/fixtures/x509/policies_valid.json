@@ -1,0 +1,431 @@
+[
+ {
+  "chain": [
+   "leaf",
+   "intermediate",
+   "root"
+  ],
+  "policies": [],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID2"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID1",
+   "testOID2"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID1",
+   "testOID3"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate_require",
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate_require",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf_none",
+   "intermediate_require",
+   "root"
+  ],
+  "policies": [],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf_require",
+   "intermediate",
+   "root"
+  ],
+  "policies": [],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf_require",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf_require",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate_require1",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate_require2",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf_require1",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf_require1",
+   "intermediate_require1",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf_require",
+   "intermediate_require2",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate_require_no_policies",
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": false,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf_any",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf_any",
+   "intermediate",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate_any",
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf",
+   "intermediate_any",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf_any",
+   "intermediate_any",
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf_any",
+   "intermediate_any",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "root"
+  ],
+  "policies": [
+   "testOID1"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf_oid1",
+   "intermediate_mapped_oid3",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": true
+ },
+ {
+  "chain": [
+   "leaf_oid4",
+   "intermediate_mapped_oid3",
+   "root"
+  ],
+  "policies": [
+   "testOID4"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf_oid1",
+   "intermediate_mapped_oid3",
+   "root"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": true,
+  "inhibit_any_policy": false,
+  "valid": false
+ },
+ {
+  "chain": [
+   "leaf_oid1",
+   "intermediate_mapped_oid3",
+   "root_cross_inhibit_mapping",
+   "root2"
+  ],
+  "policies": [
+   "testOID3"
+  ],
+  "require_explicit_policy": true,
+  "inhibit_policy_mapping": false,
+  "inhibit_any_policy": false,
+  "valid": false
+ }
+]

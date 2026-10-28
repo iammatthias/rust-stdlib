@@ -1,0 +1,929 @@
+{
+  "scope": "Isolated development-only fuzz workspace; root crate has zero external dependencies",
+  "direct_external": {
+    "libfuzzer-sys": "0.4.13"
+  },
+  "packages": [
+    {
+      "name": "arbitrary",
+      "version": "1.5.0",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "3bc62ac97cc33321f50863d514c3bc38a453947a8f9e781137e47c7401020aed",
+      "dependencies": [
+        {
+          "name": "derive_arbitrary",
+          "requirement": "~1.5.0",
+          "kind": null,
+          "target": null,
+          "optional": true
+        },
+        {
+          "name": "exhaustigen",
+          "requirement": "^0.1.0",
+          "kind": "dev",
+          "target": null,
+          "optional": false
+        }
+      ],
+      "lock_dependencies": []
+    },
+    {
+      "name": "cc",
+      "version": "1.8.0",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "6651c9ed80effdc7db0ff72512157f901af5e3549e341e24b1dd4887d836d838",
+      "dependencies": [
+        {
+          "name": "find-msvc-tools",
+          "requirement": "^0.1.14",
+          "kind": null,
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "jobserver",
+          "requirement": "^0.1.32",
+          "kind": null,
+          "target": null,
+          "optional": true
+        },
+        {
+          "name": "shlex",
+          "requirement": "^2.0.1",
+          "kind": null,
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "tempfile",
+          "requirement": "^3.0.4",
+          "kind": "dev",
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.168",
+          "kind": null,
+          "target": "cfg(unix)",
+          "optional": true
+        }
+      ],
+      "lock_dependencies": [
+        "find-msvc-tools",
+        "jobserver",
+        "libc",
+        "shlex"
+      ]
+    },
+    {
+      "name": "cfg-if",
+      "version": "1.0.5",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "4e7648175b45a9a48536d676f68d918270699102aa8dab5496df06904c914600",
+      "dependencies": [
+        {
+          "name": "rustc-std-workspace-core",
+          "requirement": "^1.0.0",
+          "kind": null,
+          "target": null,
+          "optional": true
+        }
+      ],
+      "lock_dependencies": []
+    },
+    {
+      "name": "find-msvc-tools",
+      "version": "0.1.14",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "aedcfb3409746eddb02b9e19ebda1c3394f759a152e48ee875a0844d1b955484",
+      "dependencies": [],
+      "lock_dependencies": []
+    },
+    {
+      "name": "getrandom",
+      "version": "0.4.3",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "300e883d756b2e4ec94e02791f39b04b522276138852cfc41d9fb7e904106099",
+      "dependencies": [
+        {
+          "name": "cfg-if",
+          "requirement": "^1",
+          "kind": null,
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "rand_core",
+          "requirement": "^0.10.0",
+          "kind": null,
+          "target": null,
+          "optional": true
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.154",
+          "kind": null,
+          "target": "cfg(all(any(target_os = \"linux\", target_os = \"android\"), not(any(all(target_os = \"linux\", target_env = \"\"), getrandom_backend = \"custom\", getrandom_backend = \"linux_raw\", getrandom_backend = \"rdrand\", getrandom_backend = \"rndr\"))))",
+          "optional": false
+        },
+        {
+          "name": "wasm-bindgen",
+          "requirement": "^0.2.98",
+          "kind": null,
+          "target": "cfg(all(target_family = \"wasm\", any(target_os = \"unknown\", target_os = \"none\")))",
+          "optional": true
+        },
+        {
+          "name": "wasm-bindgen-test",
+          "requirement": "^0.3",
+          "kind": "dev",
+          "target": "cfg(all(target_family = \"wasm\", any(target_os = \"unknown\", target_os = \"none\")))",
+          "optional": false
+        },
+        {
+          "name": "js-sys",
+          "requirement": "^0.3.77",
+          "kind": null,
+          "target": "cfg(all(target_family = \"wasm\", any(target_os = \"unknown\", target_os = \"none\"), target_feature = \"atomics\"))",
+          "optional": true
+        },
+        {
+          "name": "r-efi",
+          "requirement": "^6",
+          "kind": null,
+          "target": "cfg(all(target_os = \"uefi\", getrandom_backend = \"efi_rng\"))",
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.154",
+          "kind": null,
+          "target": "cfg(any(target_os = \"dragonfly\", target_os = \"freebsd\", target_os = \"hurd\", target_os = \"illumos\", target_os = \"cygwin\", all(target_os = \"horizon\", target_arch = \"arm\")))",
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.154",
+          "kind": null,
+          "target": "cfg(any(target_os = \"haiku\", target_os = \"redox\", target_os = \"nto\", target_os = \"aix\"))",
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.154",
+          "kind": null,
+          "target": "cfg(any(target_os = \"ios\", target_os = \"visionos\", target_os = \"watchos\", target_os = \"tvos\"))",
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.154",
+          "kind": null,
+          "target": "cfg(any(target_os = \"macos\", target_os = \"openbsd\", target_os = \"vita\", target_os = \"emscripten\"))",
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.154",
+          "kind": null,
+          "target": "cfg(target_os = \"netbsd\")",
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.154",
+          "kind": null,
+          "target": "cfg(target_os = \"solaris\")",
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.154",
+          "kind": null,
+          "target": "cfg(target_os = \"vxworks\")",
+          "optional": false
+        }
+      ],
+      "lock_dependencies": [
+        "cfg-if",
+        "libc",
+        "r-efi"
+      ]
+    },
+    {
+      "name": "jobserver",
+      "version": "0.1.35",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "1c00acbd29eabad4a2392fa0e921c874934dbbf4194312ad20f04a0ed67a3cb3",
+      "dependencies": [
+        {
+          "name": "tempfile",
+          "requirement": "^3.10.1",
+          "kind": "dev",
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "libc",
+          "requirement": "^0.2.171",
+          "kind": null,
+          "target": "cfg(unix)",
+          "optional": false
+        },
+        {
+          "name": "nix",
+          "requirement": "^0.31.3",
+          "kind": "dev",
+          "target": "cfg(unix)",
+          "optional": false
+        },
+        {
+          "name": "getrandom",
+          "requirement": "^0.4",
+          "kind": null,
+          "target": "cfg(windows)",
+          "optional": false
+        }
+      ],
+      "lock_dependencies": [
+        "getrandom",
+        "libc"
+      ]
+    },
+    {
+      "name": "libc",
+      "version": "0.2.190",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "ce5d3ddc6d3fa000eb1536d85e147bfe31aacaba692ed6a876f95cb7c855be78",
+      "dependencies": [
+        {
+          "name": "rustc-std-workspace-core",
+          "requirement": "^1.0.1",
+          "kind": null,
+          "target": null,
+          "optional": true
+        }
+      ],
+      "lock_dependencies": []
+    },
+    {
+      "name": "libfuzzer-sys",
+      "version": "0.4.13",
+      "license": "(MIT OR Apache-2.0) AND NCSA",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "a9fd2f41a1cba099f79a0b6b6c35656cf7c03351a7bae8ff0f28f25270f929d2",
+      "dependencies": [
+        {
+          "name": "arbitrary",
+          "requirement": "^1",
+          "kind": null,
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "flate2",
+          "requirement": "^1.1",
+          "kind": "dev",
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "rand",
+          "requirement": "^0.10",
+          "kind": "dev",
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "cc",
+          "requirement": "^1.0.83",
+          "kind": "build",
+          "target": null,
+          "optional": false
+        }
+      ],
+      "lock_dependencies": [
+        "arbitrary",
+        "cc"
+      ]
+    },
+    {
+      "name": "r-efi",
+      "version": "6.0.0",
+      "license": "MIT OR Apache-2.0 OR LGPL-2.1-or-later",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf",
+      "dependencies": [
+        {
+          "name": "rustc-std-workspace-core",
+          "requirement": "^1.0.0",
+          "kind": null,
+          "target": null,
+          "optional": true
+        }
+      ],
+      "lock_dependencies": []
+    },
+    {
+      "name": "rust-stdlib",
+      "version": "0.1.0",
+      "license": "MIT",
+      "source": null,
+      "checksum": null,
+      "dependencies": [],
+      "lock_dependencies": []
+    },
+    {
+      "name": "rust-stdlib-fuzz",
+      "version": "0.0.0",
+      "license": null,
+      "source": null,
+      "checksum": null,
+      "dependencies": [
+        {
+          "name": "libfuzzer-sys",
+          "requirement": "=0.4.13",
+          "kind": null,
+          "target": null,
+          "optional": false
+        },
+        {
+          "name": "rust-stdlib",
+          "requirement": "*",
+          "kind": null,
+          "target": null,
+          "optional": false
+        }
+      ],
+      "lock_dependencies": [
+        "libfuzzer-sys",
+        "rust-stdlib"
+      ]
+    },
+    {
+      "name": "shlex",
+      "version": "2.0.1",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "f8fadd59c855ef2080decdef8ff161eb6661b86933c9d82e5ba29dc602a55aba",
+      "dependencies": [],
+      "lock_dependencies": []
+    }
+  ],
+  "resolved_graph": {
+    "nodes": [
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#arbitrary@1.5.0",
+        "dependencies": [],
+        "deps": [],
+        "features": []
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#cc@1.8.0",
+        "dependencies": [
+          "registry+https://github.com/rust-lang/crates.io-index#find-msvc-tools@0.1.14",
+          "registry+https://github.com/rust-lang/crates.io-index#jobserver@0.1.35",
+          "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.190",
+          "registry+https://github.com/rust-lang/crates.io-index#shlex@2.0.1"
+        ],
+        "deps": [
+          {
+            "name": "find_msvc_tools",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#find-msvc-tools@0.1.14",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "jobserver",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#jobserver@0.1.35",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "libc",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.190",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(unix)"
+              }
+            ]
+          },
+          {
+            "name": "shlex",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#shlex@2.0.1",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          }
+        ],
+        "features": [
+          "parallel"
+        ]
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#cfg-if@1.0.5",
+        "dependencies": [],
+        "deps": [],
+        "features": []
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#find-msvc-tools@0.1.14",
+        "dependencies": [],
+        "deps": [],
+        "features": []
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#getrandom@0.4.3",
+        "dependencies": [
+          "registry+https://github.com/rust-lang/crates.io-index#cfg-if@1.0.5",
+          "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.190",
+          "registry+https://github.com/rust-lang/crates.io-index#r-efi@6.0.0"
+        ],
+        "deps": [
+          {
+            "name": "cfg_if",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#cfg-if@1.0.5",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "libc",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.190",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(all(any(target_os = \"linux\", target_os = \"android\"), not(any(all(target_os = \"linux\", target_env = \"\"), getrandom_backend = \"custom\", getrandom_backend = \"linux_raw\", getrandom_backend = \"rdrand\", getrandom_backend = \"rndr\"))))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(any(target_os = \"dragonfly\", target_os = \"freebsd\", target_os = \"hurd\", target_os = \"illumos\", target_os = \"cygwin\", all(target_os = \"horizon\", target_arch = \"arm\")))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(any(target_os = \"haiku\", target_os = \"redox\", target_os = \"nto\", target_os = \"aix\"))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(any(target_os = \"ios\", target_os = \"visionos\", target_os = \"watchos\", target_os = \"tvos\"))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(any(target_os = \"macos\", target_os = \"openbsd\", target_os = \"vita\", target_os = \"emscripten\"))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(target_os = \"netbsd\")"
+              },
+              {
+                "kind": null,
+                "target": "cfg(target_os = \"solaris\")"
+              },
+              {
+                "kind": null,
+                "target": "cfg(target_os = \"vxworks\")"
+              }
+            ]
+          },
+          {
+            "name": "r_efi",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#r-efi@6.0.0",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(all(target_os = \"uefi\", getrandom_backend = \"efi_rng\"))"
+              }
+            ]
+          }
+        ],
+        "features": [
+          "std"
+        ]
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#jobserver@0.1.35",
+        "dependencies": [
+          "registry+https://github.com/rust-lang/crates.io-index#getrandom@0.4.3",
+          "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.190"
+        ],
+        "deps": [
+          {
+            "name": "getrandom",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#getrandom@0.4.3",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(windows)"
+              }
+            ]
+          },
+          {
+            "name": "libc",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.190",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(unix)"
+              }
+            ]
+          }
+        ],
+        "features": []
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#libc@0.2.190",
+        "dependencies": [],
+        "deps": [],
+        "features": [
+          "default",
+          "std"
+        ]
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#libfuzzer-sys@0.4.13",
+        "dependencies": [
+          "registry+https://github.com/rust-lang/crates.io-index#arbitrary@1.5.0",
+          "registry+https://github.com/rust-lang/crates.io-index#cc@1.8.0"
+        ],
+        "deps": [
+          {
+            "name": "arbitrary",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#arbitrary@1.5.0",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "cc",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#cc@1.8.0",
+            "dep_kinds": [
+              {
+                "kind": "build",
+                "target": null
+              }
+            ]
+          }
+        ],
+        "features": [
+          "default",
+          "link_libfuzzer"
+        ]
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#r-efi@6.0.0",
+        "dependencies": [],
+        "deps": [],
+        "features": []
+      },
+      {
+        "id": "path+file:///workspace/scratch/0816d87dd40e/work/rust-stdlib#0.1.0",
+        "dependencies": [],
+        "deps": [],
+        "features": [
+          "default",
+          "net"
+        ]
+      },
+      {
+        "id": "path+file:///workspace/scratch/0816d87dd40e/work/rust-stdlib/fuzz#rust-stdlib-fuzz@0.0.0",
+        "dependencies": [
+          "registry+https://github.com/rust-lang/crates.io-index#libfuzzer-sys@0.4.13",
+          "path+file:///workspace/scratch/0816d87dd40e/work/rust-stdlib#0.1.0"
+        ],
+        "deps": [
+          {
+            "name": "libfuzzer_sys",
+            "pkg": "registry+https://github.com/rust-lang/crates.io-index#libfuzzer-sys@0.4.13",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "rust_stdlib",
+            "pkg": "path+file:///workspace/scratch/0816d87dd40e/work/rust-stdlib#0.1.0",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          }
+        ],
+        "features": []
+      },
+      {
+        "id": "registry+https://github.com/rust-lang/crates.io-index#shlex@2.0.1",
+        "dependencies": [],
+        "deps": [],
+        "features": [
+          "default",
+          "std"
+        ]
+      }
+    ],
+    "root": "path+file:///workspace/scratch/0816d87dd40e/work/rust-stdlib/fuzz#rust-stdlib-fuzz@0.0.0"
+  },
+  "resolved_contract": {
+    "root": "rust-stdlib-fuzz@0.0.0",
+    "nodes": [
+      {
+        "package": "arbitrary@1.5.0",
+        "features": [],
+        "dependencies": [],
+        "deps": []
+      },
+      {
+        "package": "cc@1.8.0",
+        "features": [
+          "parallel"
+        ],
+        "dependencies": [
+          "find-msvc-tools@0.1.14",
+          "jobserver@0.1.35",
+          "libc@0.2.190",
+          "shlex@2.0.1"
+        ],
+        "deps": [
+          {
+            "name": "find_msvc_tools",
+            "package": "find-msvc-tools@0.1.14",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "jobserver",
+            "package": "jobserver@0.1.35",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "libc",
+            "package": "libc@0.2.190",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(unix)"
+              }
+            ]
+          },
+          {
+            "name": "shlex",
+            "package": "shlex@2.0.1",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "package": "cfg-if@1.0.5",
+        "features": [],
+        "dependencies": [],
+        "deps": []
+      },
+      {
+        "package": "find-msvc-tools@0.1.14",
+        "features": [],
+        "dependencies": [],
+        "deps": []
+      },
+      {
+        "package": "getrandom@0.4.3",
+        "features": [
+          "std"
+        ],
+        "dependencies": [
+          "cfg-if@1.0.5",
+          "libc@0.2.190",
+          "r-efi@6.0.0"
+        ],
+        "deps": [
+          {
+            "name": "cfg_if",
+            "package": "cfg-if@1.0.5",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "libc",
+            "package": "libc@0.2.190",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(all(any(target_os = \"linux\", target_os = \"android\"), not(any(all(target_os = \"linux\", target_env = \"\"), getrandom_backend = \"custom\", getrandom_backend = \"linux_raw\", getrandom_backend = \"rdrand\", getrandom_backend = \"rndr\"))))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(any(target_os = \"dragonfly\", target_os = \"freebsd\", target_os = \"hurd\", target_os = \"illumos\", target_os = \"cygwin\", all(target_os = \"horizon\", target_arch = \"arm\")))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(any(target_os = \"haiku\", target_os = \"redox\", target_os = \"nto\", target_os = \"aix\"))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(any(target_os = \"ios\", target_os = \"visionos\", target_os = \"watchos\", target_os = \"tvos\"))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(any(target_os = \"macos\", target_os = \"openbsd\", target_os = \"vita\", target_os = \"emscripten\"))"
+              },
+              {
+                "kind": null,
+                "target": "cfg(target_os = \"netbsd\")"
+              },
+              {
+                "kind": null,
+                "target": "cfg(target_os = \"solaris\")"
+              },
+              {
+                "kind": null,
+                "target": "cfg(target_os = \"vxworks\")"
+              }
+            ]
+          },
+          {
+            "name": "r_efi",
+            "package": "r-efi@6.0.0",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(all(target_os = \"uefi\", getrandom_backend = \"efi_rng\"))"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "package": "jobserver@0.1.35",
+        "features": [],
+        "dependencies": [
+          "getrandom@0.4.3",
+          "libc@0.2.190"
+        ],
+        "deps": [
+          {
+            "name": "getrandom",
+            "package": "getrandom@0.4.3",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(windows)"
+              }
+            ]
+          },
+          {
+            "name": "libc",
+            "package": "libc@0.2.190",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": "cfg(unix)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "package": "libc@0.2.190",
+        "features": [
+          "default",
+          "std"
+        ],
+        "dependencies": [],
+        "deps": []
+      },
+      {
+        "package": "libfuzzer-sys@0.4.13",
+        "features": [
+          "default",
+          "link_libfuzzer"
+        ],
+        "dependencies": [
+          "arbitrary@1.5.0",
+          "cc@1.8.0"
+        ],
+        "deps": [
+          {
+            "name": "arbitrary",
+            "package": "arbitrary@1.5.0",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "cc",
+            "package": "cc@1.8.0",
+            "dep_kinds": [
+              {
+                "kind": "build",
+                "target": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "package": "r-efi@6.0.0",
+        "features": [],
+        "dependencies": [],
+        "deps": []
+      },
+      {
+        "package": "rust-stdlib-fuzz@0.0.0",
+        "features": [],
+        "dependencies": [
+          "libfuzzer-sys@0.4.13",
+          "rust-stdlib@0.1.0"
+        ],
+        "deps": [
+          {
+            "name": "libfuzzer_sys",
+            "package": "libfuzzer-sys@0.4.13",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          },
+          {
+            "name": "rust_stdlib",
+            "package": "rust-stdlib@0.1.0",
+            "dep_kinds": [
+              {
+                "kind": null,
+                "target": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "package": "rust-stdlib@0.1.0",
+        "features": [
+          "default",
+          "net"
+        ],
+        "dependencies": [],
+        "deps": []
+      },
+      {
+        "package": "shlex@2.0.1",
+        "features": [
+          "default",
+          "std"
+        ],
+        "dependencies": [],
+        "deps": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,135 @@
+package url
+
+// Overlay test file, injected into Go's net/url by tools/gen_url_fixtures.py.
+// It serialises the tables of url_test.go as JSON so tests/url.rs can replay
+// them against the Rust port. Entries holding invalid UTF-8 are skipped.
+
+import (
+	"encoding/json"
+	"os"
+	"testing"
+	"unicode/utf8"
+)
+
+type dumpURL struct {
+	Scheme      string `json:"scheme"`
+	Opaque      string `json:"opaque"`
+	HasUser     bool   `json:"has_user"`
+	Username    string `json:"username"`
+	Password    string `json:"password"`
+	PasswordSet bool   `json:"password_set"`
+	Host        string `json:"host"`
+	Path        string `json:"path"`
+	RawPath     string `json:"raw_path"`
+	OmitHost    bool   `json:"omit_host"`
+	ForceQuery  bool   `json:"force_query"`
+	RawQuery    string `json:"raw_query"`
+	Fragment    string `json:"fragment"`
+	RawFragment string `json:"raw_fragment"`
+}
+
+func toDump(u *URL) dumpURL {
+	d := dumpURL{
+		Scheme: u.Scheme, Opaque: u.Opaque, Host: u.Host, Path: u.Path, RawPath: u.RawPath,
+		OmitHost: u.OmitHost, ForceQuery: u.ForceQuery, RawQuery: u.RawQuery,
+		Fragment: u.Fragment, RawFragment: u.RawFragment,
+	}
+	if u.User != nil {
+		d.HasUser = true
+		d.Username = u.User.Username()
+		d.Password, d.PasswordSet = u.User.Password()
+	}
+	return d
+}
+
+func allValid(ss ...string) bool {
+	for _, s := range ss {
+		if !utf8.ValidString(s) {
+			return false
+		}
+	}
+	return true
+}
+
+func TestDumpTables(t *testing.T) {
+	out := map[string]any{}
+
+	var parse []map[string]any
+	for _, tt := range urltests {
+		want := tt.roundtrip
+		if want == "" {
+			want = tt.in
+		}
+		u := toDump(tt.out)
+		if !allValid(tt.in, want, u.Path, u.Host, u.RawQuery, u.Fragment, u.Opaque, u.Username, u.Password) {
+			continue
+		}
+		parse = append(parse, map[string]any{"in": tt.in, "out": u, "string": tt.out.String(), "roundtrip": want})
+	}
+	out["parse"] = parse
+
+	var reqs []map[string]any
+	for _, tt := range parseRequestURLTests {
+		reqs = append(reqs, map[string]any{"url": tt.url, "valid": tt.expectedValid})
+	}
+	out["parse_request_uri"] = reqs
+
+	var strs []map[string]any
+	for _, tt := range stringURLTests {
+		u := tt.url
+		strs = append(strs, map[string]any{"url": toDump(&u), "want": tt.want})
+	}
+	out["string"] = strs
+
+	esc := func(tests []EscapeTest) []map[string]any {
+		var r []map[string]any
+		for _, tt := range tests {
+			if !allValid(tt.in, tt.out) {
+				continue
+			}
+			r = append(r, map[string]any{"in": tt.in, "out": tt.out, "err": tt.err != nil})
+		}
+		return r
+	}
+	out["unescape"] = esc(unescapeTests)
+	out["query_escape"] = esc(queryEscapeTests)
+	out["path_escape"] = esc(pathEscapeTests)
+
+	var enc []map[string]any
+	for _, tt := range encodeQueryTests {
+		enc = append(enc, map[string]any{"values": tt.m, "expected": tt.expected})
+	}
+	out["encode_query"] = enc
+
+	var rp []map[string]any
+	for _, tt := range resolvePathTests {
+		rp = append(rp, map[string]any{"base": tt.base, "ref": tt.ref, "expected": tt.expected})
+	}
+	out["resolve_path"] = rp
+
+	var rr []map[string]any
+	for _, tt := range resolveReferenceTests {
+		rr = append(rr, map[string]any{"base": tt.base, "rel": tt.rel, "expected": tt.expected})
+	}
+	out["resolve_reference"] = rr
+
+	var pq []map[string]any
+	for _, tt := range parseTests {
+		pq = append(pq, map[string]any{"query": tt.query, "out": tt.out, "ok": tt.ok})
+	}
+	out["parse_query"] = pq
+
+	var ru []map[string]any
+	for _, tt := range requritests {
+		ru = append(ru, map[string]any{"url": toDump(tt.url), "out": tt.out})
+	}
+	out["request_uri"] = ru
+
+	data, err := json.MarshalIndent(out, "", " ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(os.Getenv("URL_FIXTURE_OUT"), append(data, '\n'), 0o644); err != nil {
+		t.Fatal(err)
+	}
+}

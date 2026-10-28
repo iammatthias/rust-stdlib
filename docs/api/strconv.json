@@ -1,0 +1,140 @@
+{
+  "package": "strconv",
+  "notes": "strconv: Go's syntax and error rules over Rust std digit generation and parsing. Go's (value, error) returns map to Result; the NumError keeps the value Go returns with the error (int_value, uint_value, float_value, complex_value: Inf or max-magnitude on ErrRange). Itoa, FormatBool and the decimal cases of FormatInt/ParseFloat are to_string/str::parse in Rust; the Go-exact pieces (base prefixes and underscores, 'g'/'e' with precision -1, quoting) stay. Strings are bytes (AsRef<[u8]>); runes are i32/u32/char via the Rune trait; complex128 is strconv::Complex; an invalid FormatFloat/FormatInt base or bit size panics as in Go (a programming error, not input).",
+  "symbols": {
+    "AppendBool": {
+      "rust": "std::vec::Vec::extend_from_slice",
+      "note": "buf.extend_from_slice(b.to_string().as_bytes())"
+    },
+    "AppendFloat": {
+      "rust": "rust_stdlib::strconv::append_float"
+    },
+    "AppendInt": {
+      "rust": "rust_stdlib::strconv::append_int"
+    },
+    "AppendQuote": {
+      "rust": "rust_stdlib::strconv::append_quote"
+    },
+    "AppendQuoteRune": {
+      "rust": "rust_stdlib::strconv::append_quote_rune"
+    },
+    "AppendQuoteRuneToASCII": {
+      "rust": "rust_stdlib::strconv::append_quote_rune_to_ascii"
+    },
+    "AppendQuoteRuneToGraphic": {
+      "rust": "rust_stdlib::strconv::append_quote_rune_to_graphic"
+    },
+    "AppendQuoteToASCII": {
+      "rust": "rust_stdlib::strconv::append_quote_to_ascii"
+    },
+    "AppendQuoteToGraphic": {
+      "rust": "rust_stdlib::strconv::append_quote_to_graphic"
+    },
+    "AppendUint": {
+      "rust": "rust_stdlib::strconv::append_uint"
+    },
+    "Atoi": {
+      "rust": "rust_stdlib::strconv::atoi"
+    },
+    "CanBackquote": {
+      "rust": "rust_stdlib::strconv::can_backquote"
+    },
+    "ErrRange": {
+      "rust": "rust_stdlib::strconv::ERR_RANGE"
+    },
+    "ErrSyntax": {
+      "rust": "rust_stdlib::strconv::ERR_SYNTAX"
+    },
+    "FormatBool": {
+      "rust": "std::string::ToString::to_string",
+      "note": "bool::to_string"
+    },
+    "FormatComplex": {
+      "rust": "rust_stdlib::strconv::format_complex"
+    },
+    "FormatFloat": {
+      "rust": "rust_stdlib::strconv::format_float"
+    },
+    "FormatInt": {
+      "rust": "rust_stdlib::strconv::format_int"
+    },
+    "FormatUint": {
+      "rust": "rust_stdlib::strconv::format_uint"
+    },
+    "IntSize": {
+      "rust": "rust_stdlib::strconv::INT_SIZE"
+    },
+    "IsGraphic": {
+      "rust": "rust_stdlib::strconv::is_graphic"
+    },
+    "IsPrint": {
+      "rust": "rust_stdlib::strconv::is_print"
+    },
+    "Itoa": {
+      "rust": "std::string::ToString::to_string",
+      "note": "isize::to_string"
+    },
+    "NumError": {
+      "rust": "rust_stdlib::strconv::NumError"
+    },
+    "NumError.Err": {
+      "rust": "rust_stdlib::strconv::NumError::err"
+    },
+    "NumError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "NumError.Func": {
+      "rust": "rust_stdlib::strconv::NumError::func"
+    },
+    "NumError.Num": {
+      "rust": "rust_stdlib::strconv::NumError::num"
+    },
+    "NumError.Unwrap": {
+      "rust": "std::error::Error::source"
+    },
+    "ParseBool": {
+      "rust": "rust_stdlib::strconv::parse_bool"
+    },
+    "ParseComplex": {
+      "rust": "rust_stdlib::strconv::parse_complex"
+    },
+    "ParseFloat": {
+      "rust": "rust_stdlib::strconv::parse_float",
+      "note": "For decimal inputs with more than 800 significant digits and no decimal point within the first 800, Go's slow path returns a value that is far off; Rust returns the correctly rounded value.",
+      "deviation": "go-slow-path-bug"
+    },
+    "ParseInt": {
+      "rust": "rust_stdlib::strconv::parse_int"
+    },
+    "ParseUint": {
+      "rust": "rust_stdlib::strconv::parse_uint"
+    },
+    "Quote": {
+      "rust": "rust_stdlib::strconv::quote"
+    },
+    "QuoteRune": {
+      "rust": "rust_stdlib::strconv::quote_rune"
+    },
+    "QuoteRuneToASCII": {
+      "rust": "rust_stdlib::strconv::quote_rune_to_ascii"
+    },
+    "QuoteRuneToGraphic": {
+      "rust": "rust_stdlib::strconv::quote_rune_to_graphic"
+    },
+    "QuoteToASCII": {
+      "rust": "rust_stdlib::strconv::quote_to_ascii"
+    },
+    "QuoteToGraphic": {
+      "rust": "rust_stdlib::strconv::quote_to_graphic"
+    },
+    "QuotedPrefix": {
+      "rust": "rust_stdlib::strconv::quoted_prefix"
+    },
+    "Unquote": {
+      "rust": "rust_stdlib::strconv::unquote"
+    },
+    "UnquoteChar": {
+      "rust": "rust_stdlib::strconv::unquote_char"
+    }
+  }
+}

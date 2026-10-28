@@ -1,0 +1,138 @@
+{
+  "package": "os/exec",
+  "notes": "Cmd over std::process::Command (Unix only). StdinPipe, StdoutPipe and StderrPipe return a PipeEnd (a shared handle on the pipe's File) that Wait closes after the process exits, as in Go. Standard streams are Input/Output enums (a File is passed directly, a reader or writer goes through a pipe and a thread). LookPath uses Go's rules including ErrDot. Output/CombinedOutput return (data, result). Cmd.ExtraFiles and Cmd.Start are rust_stdlib_sys::os::exec::Cmd (fork/execve: ExtraFiles at descriptors 3 and up, \"exec format error\" for a file without a shebang, and a WaitDelay that closes the parent's pipe ends to interrupt copier threads, without CommandContext or Cancel), differentially tested against Go in tools/exec_check.py; the root crate's Cmd stays on std::process and still cannot honor ExtraFiles or SysProcAttr.",
+  "symbols": {
+    "Cmd": {
+      "rust": "rust_stdlib::os::exec::Cmd"
+    },
+    "Cmd.Args": {
+      "rust": "rust_stdlib::os::exec::Cmd::args"
+    },
+    "Cmd.Cancel": {
+      "rust": "rust_stdlib::os::exec::Cmd::cancel",
+      "note": "`Fn(&Process) -> io::Result<()>`: Go's closure captures the Cmd, a Rust closure takes the process."
+    },
+    "Cmd.CombinedOutput": {
+      "rust": "rust_stdlib::os::exec::Cmd::combined_output",
+      "note": "Returns `(output, result)` so the output is available on failure, as in Go."
+    },
+    "Cmd.Dir": {
+      "rust": "rust_stdlib::os::exec::Cmd::dir"
+    },
+    "Cmd.Env": {
+      "rust": "rust_stdlib::os::exec::Cmd::env",
+      "note": "`Option<Vec<String>>`: `None` is Go's nil."
+    },
+    "Cmd.Environ": {
+      "rust": "rust_stdlib::os::exec::Cmd::environ"
+    },
+    "Cmd.Err": {
+      "rust": "rust_stdlib::os::exec::Cmd::err"
+    },
+    "Cmd.ExtraFiles": {
+      "rust": "rust_stdlib_sys::os::exec::Cmd::extra_files"
+    },
+    "Cmd.Output": {
+      "rust": "rust_stdlib::os::exec::Cmd::output",
+      "note": "Returns `(output, result)`."
+    },
+    "Cmd.Path": {
+      "rust": "rust_stdlib::os::exec::Cmd::path"
+    },
+    "Cmd.Process": {
+      "rust": "rust_stdlib::os::exec::Cmd::process"
+    },
+    "Cmd.ProcessState": {
+      "rust": "rust_stdlib::os::exec::Cmd::process_state"
+    },
+    "Cmd.Run": {
+      "rust": "rust_stdlib::os::exec::Cmd::run"
+    },
+    "Cmd.Start": {
+      "rust": "rust_stdlib_sys::os::exec::Cmd::start",
+      "note": "execve is called directly, so a file without a shebang fails with \"exec format error\" as in Go."
+    },
+    "Cmd.Stderr": {
+      "rust": "rust_stdlib::os::exec::Cmd::stderr",
+      "note": "An `Output` (a `File`, or a shared writer)."
+    },
+    "Cmd.StderrPipe": {
+      "rust": "rust_stdlib::os::exec::Cmd::stderr_pipe"
+    },
+    "Cmd.Stdin": {
+      "rust": "rust_stdlib::os::exec::Cmd::stdin",
+      "note": "An `Input` (a `File`, or a reader)."
+    },
+    "Cmd.StdinPipe": {
+      "rust": "rust_stdlib::os::exec::Cmd::stdin_pipe"
+    },
+    "Cmd.Stdout": {
+      "rust": "rust_stdlib::os::exec::Cmd::stdout"
+    },
+    "Cmd.StdoutPipe": {
+      "rust": "rust_stdlib::os::exec::Cmd::stdout_pipe"
+    },
+    "Cmd.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Cmd.SysProcAttr": {
+      "deviation": "syscall-sysprocattr",
+      "note": "syscall.SysProcAttr is a platform-specific struct of the syscall package; use std::os::unix::process::CommandExt for uid, gid and process_group."
+    },
+    "Cmd.Wait": {
+      "rust": "rust_stdlib::os::exec::Cmd::wait"
+    },
+    "Cmd.WaitDelay": {
+      "rust": "rust_stdlib::os::exec::Cmd::wait_delay",
+      "deviation": "blocked-copier-abandoned",
+      "note": "The root Cmd has Go's full sequence (context done, Cancel, then after WaitDelay Kill, ErrWaitDelay; tools/exec_check.py), but safe std cannot interrupt a thread blocked reading or writing a pipe that a grandchild still holds, so Wait returns ErrWaitDelay and abandons that copier thread where Go closes the pipe and unblocks its goroutine. rust_stdlib_sys::os::exec::Cmd::wait_delay does interrupt such copiers by closing the parent's pipe ends, but that Cmd has no CommandContext or Cancel."
+    },
+    "Command": {
+      "rust": "rust_stdlib::os::exec::command"
+    },
+    "CommandContext": {
+      "rust": "rust_stdlib::os::exec::command_context",
+      "note": "Takes a `rust_stdlib::context::Context`."
+    },
+    "ErrDot": {
+      "rust": "rust_stdlib::os::exec::ERR_DOT"
+    },
+    "ErrNotFound": {
+      "rust": "rust_stdlib::os::exec::ERR_NOT_FOUND"
+    },
+    "ErrWaitDelay": {
+      "rust": "rust_stdlib::os::exec::ERR_WAIT_DELAY"
+    },
+    "Error": {
+      "rust": "rust_stdlib::os::exec::Error"
+    },
+    "Error.Err": {
+      "rust": "rust_stdlib::os::exec::Error::err"
+    },
+    "Error.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Error.Name": {
+      "rust": "rust_stdlib::os::exec::Error::name"
+    },
+    "Error.Unwrap": {
+      "rust": "rust_stdlib::os::exec::Error::unwrap"
+    },
+    "ExitError": {
+      "rust": "rust_stdlib::os::exec::ExitError"
+    },
+    "ExitError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "ExitError.ProcessState": {
+      "rust": "rust_stdlib::os::exec::ExitError::process_state"
+    },
+    "ExitError.Stderr": {
+      "rust": "rust_stdlib::os::exec::ExitError::stderr"
+    },
+    "LookPath": {
+      "rust": "rust_stdlib::os::exec::look_path",
+      "note": "`look_path_dot` returns Go's two values (the path found, plus ErrDot) for a result found relative to the current directory."
+    }
+  }
+}

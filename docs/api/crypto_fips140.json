@@ -1,0 +1,22 @@
+{
+  "package": "crypto/fips140",
+  "notes": "rust-stdlib-crypto: the reviewed RustCrypto crates are not a validated FIPS 140-3 module, so the mode cannot be enabled. Enabled and Enforced are always false, Version is Go's \"latest\", and WithoutEnforcement only runs its function.",
+  "symbols": {
+    "Enabled": {
+      "rust": "rust_stdlib_crypto::fips140::enabled",
+      "deviation": "no-fips-module",
+      "note": "always false, even when GODEBUG=fips140 is set: no validated module is available"
+    },
+    "Enforced": {
+      "rust": "rust_stdlib_crypto::fips140::enforced",
+      "deviation": "no-fips-module",
+      "note": "always false"
+    },
+    "Version": {
+      "rust": "rust_stdlib_crypto::fips140::version"
+    },
+    "WithoutEnforcement": {
+      "rust": "rust_stdlib_crypto::fips140::without_enforcement"
+    }
+  }
+}

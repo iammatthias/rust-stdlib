@@ -1,0 +1,3334 @@
+[
+ {
+  "expected_error": "",
+  "intermediates": null,
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "certificate generation process",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "single level of intermediate",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ],
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "two levels of intermediates",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "matching DNS constraint in root",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:example.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "matching DNS constraint in intermediate",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"example.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "leading period only matches subdomains",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:.example.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.example.com"
+   ]
+  },
+  "name": "leading period matches subdomains",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.bar.example.com"
+   ]
+  },
+  "name": "leading period matches multiple levels of subdomains",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:10.1.1.1"
+   ]
+  },
+  "name": "specifying a permitted list of names does not exclude other name types",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "specifying a permitted list of names does not exclude other name types",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "ip:10.0.0.0/8"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:example.com",
+      "dns:foo.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "intermediates can try to permit other names, which isn't forbidden if the leaf doesn't mention them",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"foo.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:foo.example.com",
+      "dns:foo.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.com"
+   ]
+  },
+  "name": "intermediates cannot add permitted names that the root doesn't grant them",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:.bar.example.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.bar.example.com"
+   ]
+  },
+  "name": "intermediates can further limit their scope if they wish",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"foo.notbar.example.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:.bar.example.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.notbar.example.com"
+   ]
+  },
+  "name": "intermediates can further limit their scope and that limitation is effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.com"
+   ]
+  },
+  "name": "roots can exclude subtrees and that doesn't affect other names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"foo.example.com\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.example.com"
+   ]
+  },
+  "name": "roots exclusions are effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": [
+      "dns:.example.com"
+     ],
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.com"
+   ]
+  },
+  "name": "intermediates can also exclude names and that doesn't affect other names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"foo.example.com\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": [
+      "dns:.example.com"
+     ],
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.example.com"
+   ]
+  },
+  "name": "intermediate exclusions are effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.com",
+    "ip:10.1.1.1"
+   ]
+  },
+  "name": "having an exclusion doesn't prohibit other types of names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:192.168.1.1"
+   ]
+  },
+  "name": "IP-based exclusions are permitted and don't affect unrelated IP addresses",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "ip:10.0.0.0/8"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"10.0.0.1\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:10.0.0.1"
+   ]
+  },
+  "name": "IP-based exclusions are effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "ip:10.0.0.0/8"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"11.0.0.1\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": [
+      "ip:11.0.0.0/8"
+     ],
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:11.0.0.1"
+   ]
+  },
+  "name": "intermediates can further constrain IP ranges",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "ip:0.0.0.0/1"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:.foo.com"
+     ]
+    },
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:.example.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.example.com"
+   ]
+  },
+  "name": "multiple intermediates with incompatible constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:.example.com"
+     ]
+    },
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:.foo.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:foo.example.com"
+   ]
+  },
+  "name": "multiple intermediates with incompatible constraints swapped",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "multiple roots with incompatible constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   },
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "multiple roots with incompatible constraints swapped",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com"
+    ]
+   },
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    },
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:foo.com"
+     ]
+    }
+   ],
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    },
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:foo.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:bar.com"
+   ]
+  },
+  "name": "chain building with multiple intermediates and roots",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com"
+    ]
+   },
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:example.com"
+    ]
+   },
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"bar.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    },
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:foo.com"
+     ]
+    }
+   ],
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:bar.com"
+     ]
+    },
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:foo.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:bar.com"
+   ]
+  },
+  "name": "chain building fails with no valid path",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com"
+    ]
+   },
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "unknown:"
+   ]
+  },
+  "name": "unknown name types are unconstrained",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "unknown:"
+   ]
+  },
+  "name": "unknown name types allowed in constrained chain",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com",
+     "dns:.foo.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "foo.com",
+   "ekus": null,
+   "sans": []
+  },
+  "name": "CN is ignored in constrained chain",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com",
+     "dns:.foo.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:2000:abcd:1234::"
+   ]
+  },
+  "name": "IPv6 permitted constraint",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "ip:2000:abcd::/32"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"2000:1234:abcd::\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:2000:1234:abcd::"
+   ]
+  },
+  "name": "IPv6 permitted constraint is effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "ip:2000:abcd::/32"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:2000:abcd::",
+    "dns:foo.com"
+   ]
+  },
+  "name": "IPv6 permitted constraint does not affect DNS",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "ip:2000:abcd::/32"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:2000:1234::"
+   ]
+  },
+  "name": "IPv6 excluded constraint",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "ip:2000:abcd::/32"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"2000:abcd::\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:2000:abcd::"
+   ]
+  },
+  "name": "IPv6 excluded constraint is effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "ip:2000:abcd::/32"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"10.0.0.1\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:10.0.0.1"
+   ]
+  },
+  "name": "IPv6 constraint does not permit IPv4",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "ip:2000:abcd::/32"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"2000:abcd::\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:2000:abcd::"
+   ]
+  },
+  "name": "IPv4 constraint does not permit IPv6",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "ip:10.0.0.0/8"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "unknown excluded constraint does not affect other names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "unknown:"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "unknown permitted constraint does not affect other names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "unknown:"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:foo@example.com"
+   ]
+  },
+  "name": "exact email constraint",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:foo@example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"bar@example.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:bar@example.com"
+   ]
+  },
+  "name": "exact email constraint is effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:foo@example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:\"\\f\\o\\o\"@example.com"
+   ]
+  },
+  "name": "email canonicalization",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:foo@example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:foo@example.com"
+   ]
+  },
+  "name": "email host constraint",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:foo@sub.example.com"
+   ]
+  },
+  "name": "email subdomain constraint",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"foo@example.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:foo@example.com"
+   ]
+  },
+  "name": "email subdomain constraint does not match parent",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:foo@sub.sub.example.com"
+   ]
+  },
+  "name": "email subdomain constraint matches deeper subdomains",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"Foo@example.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:Foo@example.com"
+   ]
+  },
+  "name": "email local part is case-sensitive",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:foo@example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:foo@example.com"
+   ]
+  },
+  "name": "email domain part is case-insensitive",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:foo@EXAMPLE.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "DNS domain is case-insensitive",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:EXAMPLE.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://example.com/bar",
+    "uri:http://example.com:8080/",
+    "uri:https://example.com/wibble#bar"
+   ]
+  },
+  "name": "URI constraint covers host",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "URI with IP",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://1.2.3.4/"
+   ]
+  },
+  "name": "URI with IP is rejected",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "URI with IP",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://1.2.3.4:43/"
+   ]
+  },
+  "name": "URI with IP and port is rejected",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "URI with IP",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://[2006:abcd::1]/"
+   ]
+  },
+  "name": "URI with IPv6 is rejected",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "URI with IP",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://[2006:abcd::1]:16/"
+   ]
+  },
+  "name": "URI with IPv6 and port is rejected",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"http://bar.com/\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://bar.com/"
+   ]
+  },
+  "name": "URI permitted constraint is effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"http://foo.com/\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://foo.com/"
+   ]
+  },
+  "name": "URI excluded constraint is effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "uri:foo.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://www.foo.com/"
+   ]
+  },
+  "name": "URI subdomain constraint",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:.foo.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "URI with empty host",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:urn:example"
+   ]
+  },
+  "name": "URI constraint not matched by URN",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "ip:1.2.3.4"
+   ]
+  },
+  "name": "IPv6 exclusion does not exclude all IPv4",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "ip:::0/0"
+    ],
+    "ekus": null,
+    "ok": [
+     "ip:1.2.3.0/24"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "serverAuth",
+    "other"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "empty EKU in CA means any is ok",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": [
+      "any"
+     ],
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "serverAuth",
+    "other"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "any EKU means any is ok",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "incompatible key usage",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": [
+      "email"
+     ],
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "serverAuth"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "intermediate with enumerated EKUs",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": [
+      "email"
+     ],
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "other"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "unknown EKU in leaf",
+  "requested_ekus": [
+   0
+  ],
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": [
+      "serverAuth",
+      "email"
+     ],
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "serverAuth"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "intermediate cannot add EKUs not in root if leaf uses them",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": [
+     "serverAuth"
+    ],
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "incompatible key usage",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": [
+      "serverAuth"
+     ],
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "serverAuth"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "EKUs in root are effective",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": [
+     "email"
+    ],
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "incompatible key usage",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": [
+      "netscapeSGC"
+     ],
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "serverAuth",
+    "clientAuth"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "netscapeSGC EKU does not permit server/client auth",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "incompatible key usage",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": [
+      "msSGC"
+     ],
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "serverAuth",
+    "clientAuth"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "msSGC EKU does not permit server/client auth",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "empty DNS permitted constraint allows anything",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"example.com\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "empty DNS excluded constraint rejects everything",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:foo@example.com"
+   ]
+  },
+  "name": "empty email permitted constraint allows anything",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"foo@example.com\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:foo@example.com"
+   ]
+  },
+  "name": "empty email excluded constraint rejects everything",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "email:"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:https://example.com/test"
+   ]
+  },
+  "name": "empty URI permitted constraint allows anything",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"https://example.com/test\" is excluded",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:https://example.com/test"
+   ]
+  },
+  "name": "empty URI excluded constraint rejects everything",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "uri:"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "incompatible key usage",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "serverAuth"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "serverAuth EKU does not permit clientAuth",
+  "requested_ekus": [
+   2
+  ],
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "incompatible key usage",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "msSGC"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "msSGC EKU does not permit serverAuth",
+  "requested_ekus": [
+   1
+  ],
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:this is invalid",
+    "email:this @ is invalid"
+   ]
+  },
+  "name": "invalid SANs are ignored with no constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "cannot parse dnsName",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:this is invalid"
+   ]
+  },
+  "name": "invalid DNS SAN detected with constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "uri:"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "cannot parse rfc822Name",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:this @ is invalid"
+   ]
+  },
+  "name": "invalid email SAN detected with constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "uri:"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "email"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "any requested EKU is sufficient",
+  "requested_ekus": [
+   2,
+   4
+  ],
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": [
+      "serverAuth"
+     ],
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": [
+    "email",
+    "serverAuth"
+   ],
+   "sans": [
+    "dns:example.com"
+   ]
+  },
+  "name": "unrequested EKUs not required to be nested",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": []
+  },
+  "name": "empty leaf is accepted in constrained chain",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com",
+     "dns:.foo.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "foo.bar",
+   "ekus": null,
+   "sans": []
+  },
+  "name": "no SANs and non-hostname CN is accepted in constrained chain",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com",
+     "dns:.foo.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "foo.bar",
+   "ekus": null,
+   "sans": [
+    "dns:foo.com"
+   ]
+  },
+  "name": "constraints don't apply to CN",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.com",
+     "dns:.foo.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "cannot parse dnsName \".example.com\"",
+  "intermediates": null,
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:.example.com"
+   ]
+  },
+  "name": "DNS SAN cannot use leading period form",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "URI with IP",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "uri:http://[2006:abcd::1%25.example.com]:16/"
+   ]
+  },
+  "name": "URI with IPv6 and zone is rejected",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "uri:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"test.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": [
+      "dns:example.com"
+     ]
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:test.com"
+   ]
+  },
+  "name": "intermediate can narrow permitted dns scope",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"test.com\" is excluded by constraint \"\"",
+  "intermediates": [
+   [
+    {
+     "bad": [
+      "dns:example.com"
+     ],
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:test.com"
+   ]
+  },
+  "name": "intermediate cannot narrow excluded dns scope",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"test.com\" is excluded by constraint \"\"",
+  "intermediates": [
+   [
+    {
+     "bad": [
+      "dns:"
+     ],
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:test.com"
+   ]
+  },
+  "name": "intermediate can narrow excluded dns scope",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"testexample.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:testexample.com"
+   ]
+  },
+  "name": "permitted dns constraint is not a prefix match",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.example.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.example.com"
+   ]
+  },
+  "name": "subdomain constraint does not allow wildcard",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:a.com",
+     "dns:foo.example.com",
+     "dns:z.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:testexample.com"
+   ]
+  },
+  "name": "excluded dns constraint is not a prefix match",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"a@example.com\" is excluded by constraint \"a@example.com\"",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:a@example.com"
+   ]
+  },
+  "name": "excluded email constraint, multiple email with matching local portion",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "email:a@example.com",
+     "email:a@test.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "email:a@ExAmple.com"
+   ]
+  },
+  "name": "email_case_check",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "email:a@example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": null,
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:"
+   ]
+  },
+  "name": "excluded constraint, empty DNS san",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.example.com\" is excluded by constraint \"foo.example.com\"",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.example.com"
+   ]
+  },
+  "name": "subdomain excluded constraints preclude outer wildcard names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:foo.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.com"
+   ]
+  },
+  "name": "subdomain excluded constraints do not preclude far outer wildcard names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:foo.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.foo.example.com\" is excluded by constraint \"foo.example.com\"",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.foo.example.com"
+   ]
+  },
+  "name": "subdomain excluded constraints preclude inner wildcard names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:foo.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.bar.foo.example.com\" is excluded by constraint \"foo.example.com\"",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.bar.foo.example.com"
+   ]
+  },
+  "name": "subdomain excluded constraints preclude far inner wildcard names",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:foo.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.example.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.example.com"
+   ]
+  },
+  "name": "outer wildcard names are not matched by subdomain permitted constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.com\" is not permitted",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.com"
+   ]
+  },
+  "name": "far outer wildcard names are not matched by subdomain permitted constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.foo.example.com"
+   ]
+  },
+  "name": "inner wildcard names are matched by subdomain permitted constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.bar.foo.example.com"
+   ]
+  },
+  "name": "far inner wildcard names are matched by subdomain permitted constraints",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.bar.example.com\" is not permitted by any constraint",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.bar.example.com"
+   ]
+  },
+  "name": "cross include should not match",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": null,
+    "ekus": null,
+    "ok": [
+     "dns:foo.example.com"
+    ]
+   }
+  ]
+ },
+ {
+  "expected_error": "",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.bar.example.com"
+   ]
+  },
+  "name": "cross exclude should not match",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:foo.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.EXAMPLE.COM\" is excluded by constraint \"sub.example.com\"",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.EXAMPLE.COM"
+   ]
+  },
+  "name": "subdomain exclusion blocks uppercase wildcard",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:sub.example.com"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ },
+ {
+  "expected_error": "\"*.example.com\" is excluded by constraint \"sub.example.com\"",
+  "intermediates": [
+   [
+    {
+     "bad": null,
+     "ekus": null,
+     "ok": null
+    }
+   ]
+  ],
+  "leaf": {
+   "cn": "",
+   "ekus": null,
+   "sans": [
+    "dns:*.example.com"
+   ]
+  },
+  "name": "uppercase subdomain exclusion blocks lowercase wildcard",
+  "requested_ekus": null,
+  "roots": [
+   {
+    "bad": [
+     "dns:SUB.EXAMPLE.COM"
+    ],
+    "ekus": null,
+    "ok": null
+   }
+  ]
+ }
+]

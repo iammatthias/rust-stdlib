@@ -1,0 +1,21 @@
+{
+  "package": "net/rpc/jsonrpc",
+  "notes": "net::rpc::jsonrpc is Go's JSON-RPC 1.0 codec pair: {\"method\",\"params\":[P],\"id\"} requests and {\"id\",\"result\",\"error\"} responses, one JSON value per line, ids kept as raw JSON (null when absent), Go's request-body, response-header and invalid-error handling, and the argument and reply JSON written by a private reflect-to-JSON bridge that follows encoding/json (field tags, omitempty/omitzero/string, embedded structs, sorted map keys, base64 []byte, HTML escaping, UnmarshalTypeError texts with the v1-on-v2 field paths). Custom MarshalJSON, UnmarshalJSON, MarshalText and UnmarshalText methods are called as encoding/json calls them: method sets and addressability decide which methods apply, a JSON method wins over a text method, MarshalJSON output is compacted with HTML escaping, UnmarshalJSON receives the exact input text, text is written as a JSON string, UnmarshalText receives the unquoted string, map keys are written and read through MarshalText and UnmarshalText when their types have them, and an error from any of these methods is reported with Go's text, the first error kept, a map key whose pointer alone has MarshalText fails with jsontext's member-name error (offset and JSON pointer of the response or request document), map keys are read through UnmarshalText only and the ,string option does not apply to fields read through a method. tools/rpc_check.py sends 120 raw request lines to Go and Rust servers and compares the response bytes, and runs live clients against both.",
+  "symbols": {
+    "Dial": {
+      "rust": "rust_stdlib::net::rpc::jsonrpc::dial"
+    },
+    "NewClient": {
+      "rust": "rust_stdlib::net::rpc::jsonrpc::client"
+    },
+    "NewClientCodec": {
+      "rust": "rust_stdlib::net::rpc::jsonrpc::JsonClientCodec::new"
+    },
+    "NewServerCodec": {
+      "rust": "rust_stdlib::net::rpc::jsonrpc::JsonServerCodec::new"
+    },
+    "ServeConn": {
+      "rust": "rust_stdlib::net::rpc::jsonrpc::serve_conn"
+    }
+  }
+}

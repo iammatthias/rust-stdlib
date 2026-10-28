@@ -1,0 +1,12 @@
+{
+  "package": "image/color/palette",
+  "notes": "image::color::palette: Plan9 and WebSafe tables generated from Go's package; checked entry-by-entry against Go by tools/palette_check.py",
+  "symbols": {
+    "Plan9": {
+      "rust": "rust_stdlib::image::color::palette::PLAN9"
+    },
+    "WebSafe": {
+      "rust": "rust_stdlib::image::color::palette::WEB_SAFE"
+    }
+  }
+}

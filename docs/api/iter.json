@@ -1,0 +1,20 @@
+{
+  "package": "iter",
+  "notes": "iter: any Iterator is a Seq (and an iterator of pairs is a Seq2); Pull is Iterator::fuse, and dropping the iterator is stop",
+  "symbols": {
+    "Pull": {
+      "rust": "std::iter::Iterator::fuse",
+      "note": "next after exhaustion keeps returning None; drop the iterator to stop"
+    },
+    "Pull2": {
+      "rust": "std::iter::Iterator::fuse"
+    },
+    "Seq": {
+      "rust": "std::iter::Iterator"
+    },
+    "Seq2": {
+      "rust": "std::iter::Iterator",
+      "note": "Item = (K, V)"
+    }
+  }
+}

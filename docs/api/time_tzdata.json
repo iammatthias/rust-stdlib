@@ -1,0 +1,6 @@
+{
+  "package": "time/tzdata",
+  "go_version": "go1.27",
+  "note": "time/tzdata exports no symbols; importing it registers the embedded zoneinfo archive with time.LoadLocation. The Rust equivalent is the off-by-default `tzdata` cargo feature, which makes rust_stdlib::time::load_location fall back to rust_stdlib::time::tzdata::ZONEINFO_ZIP.",
+  "symbols": {}
+}

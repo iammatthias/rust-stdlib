@@ -1,0 +1,195 @@
+{
+  "package": "archive/zip",
+  "notes": "archive::zip: Go-shaped Reader/ReadCloser/Writer/File/FileHeader with ZIP64 read and write, data descriptors, extended timestamps, preambles, raw copy, registered compressors, UTF-8 flag and CP437 names (non-UTF-8 names decode as CP437 Strings and keep their exact bytes in raw_name/raw_comment; the writer stores those bytes as Go does), and the fs.FS view (Reader implements io::fs::FS); Modified is an instant without Go's zone, CreateHeader copies its header and exposes the updated copy, the DEFLATE compressor streams each member through flate::Writer at level 5 and is byte-identical to Go's, ErrInsecurePath is opt-in (GODEBUG=zipinsecurepath=0 or Reader::with_options); Reader<R> is generic over any ReadAt, including borrows such as &File and &[u8], and Reader::new / with_options return Result<Reader<R>, OpenError<R>> whose InsecurePath variant carries the usable reader (OpenError::into_reader; converting to io::Error drops it)",
+  "symbols": {
+    "Compressor": {
+      "rust": "rust_stdlib::archive::zip::Compressor"
+    },
+    "Decompressor": {
+      "rust": "rust_stdlib::archive::zip::Decompressor",
+      "note": "Generic over the input lifetime: Box<dyn Read + 'a> in, Box<dyn ReadCloser + 'a> out, because a Reader may borrow its source."
+    },
+    "Deflate": {
+      "rust": "rust_stdlib::archive::zip::DEFLATE"
+    },
+    "ErrAlgorithm": {
+      "rust": "rust_stdlib::archive::zip::ERR_ALGORITHM"
+    },
+    "ErrChecksum": {
+      "rust": "rust_stdlib::archive::zip::ERR_CHECKSUM"
+    },
+    "ErrFormat": {
+      "rust": "rust_stdlib::archive::zip::ERR_FORMAT"
+    },
+    "ErrInsecurePath": {
+      "rust": "rust_stdlib::archive::zip::ERR_INSECURE_PATH"
+    },
+    "File": {
+      "rust": "rust_stdlib::archive::zip::File"
+    },
+    "File.DataOffset": {
+      "rust": "rust_stdlib::archive::zip::File::data_offset"
+    },
+    "File.FileHeader": {
+      "rust": "rust_stdlib::archive::zip::File::file_header"
+    },
+    "File.Open": {
+      "rust": "rust_stdlib::archive::zip::File::open"
+    },
+    "File.OpenRaw": {
+      "rust": "rust_stdlib::archive::zip::File::open_raw"
+    },
+    "FileHeader": {
+      "rust": "rust_stdlib::archive::zip::FileHeader"
+    },
+    "FileHeader.CRC32": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::crc32"
+    },
+    "FileHeader.Comment": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::comment"
+    },
+    "FileHeader.CompressedSize": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::compressed_size"
+    },
+    "FileHeader.CompressedSize64": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::compressed_size64"
+    },
+    "FileHeader.CreatorVersion": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::creator_version"
+    },
+    "FileHeader.ExternalAttrs": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::external_attrs"
+    },
+    "FileHeader.Extra": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::extra"
+    },
+    "FileHeader.FileInfo": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::file_info"
+    },
+    "FileHeader.Flags": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::flags"
+    },
+    "FileHeader.Method": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::method"
+    },
+    "FileHeader.ModTime": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::mod_time"
+    },
+    "FileHeader.Mode": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::mode"
+    },
+    "FileHeader.Modified": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::modified",
+      "deviation": "instant-no-zone",
+      "note": "Modified is an instant without Go's time zone."
+    },
+    "FileHeader.ModifiedDate": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::modified_date"
+    },
+    "FileHeader.ModifiedTime": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::modified_time"
+    },
+    "FileHeader.Name": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::name_bytes",
+      "note": "the exact bytes Go keeps (raw_name when the name is not UTF-8, else name); the String field holds the CP437 reading of such names, and the writer stores raw_name as given"
+    },
+    "FileHeader.NonUTF8": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::non_utf8"
+    },
+    "FileHeader.ReaderVersion": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::reader_version"
+    },
+    "FileHeader.SetModTime": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::set_mod_time"
+    },
+    "FileHeader.SetMode": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::set_mode"
+    },
+    "FileHeader.UncompressedSize": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::uncompressed_size"
+    },
+    "FileHeader.UncompressedSize64": {
+      "rust": "rust_stdlib::archive::zip::FileHeader::uncompressed_size64"
+    },
+    "FileInfoHeader": {
+      "rust": "rust_stdlib::archive::zip::file_info_header"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::archive::zip::Reader::new",
+      "note": "R is any ReadAt (Vec<u8>, &[u8], File, &File ...), not only 'static + Send + Sync. With zipinsecurepath=0 the error is OpenError::InsecurePath carrying the reader, as Go returns both."
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::archive::zip::Writer::new"
+    },
+    "OpenReader": {
+      "rust": "rust_stdlib::archive::zip::open_reader"
+    },
+    "ReadCloser": {
+      "rust": "rust_stdlib::archive::zip::ReadCloser"
+    },
+    "ReadCloser.Close": {
+      "rust": "rust_stdlib::archive::zip::ReadCloser::close"
+    },
+    "ReadCloser.Reader": {
+      "rust": "rust_stdlib::archive::zip::ReadCloser::reader"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::archive::zip::Reader"
+    },
+    "Reader.Comment": {
+      "rust": "rust_stdlib::archive::zip::Reader::comment"
+    },
+    "Reader.File": {
+      "rust": "rust_stdlib::archive::zip::Reader::file"
+    },
+    "Reader.Open": {
+      "rust": "rust_stdlib::archive::zip::Reader (impl FS)"
+    },
+    "Reader.RegisterDecompressor": {
+      "rust": "rust_stdlib::archive::zip::Reader::register_decompressor"
+    },
+    "RegisterCompressor": {
+      "rust": "rust_stdlib::archive::zip::register_compressor"
+    },
+    "RegisterDecompressor": {
+      "rust": "rust_stdlib::archive::zip::register_decompressor"
+    },
+    "Store": {
+      "rust": "rust_stdlib::archive::zip::STORE"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::archive::zip::Writer"
+    },
+    "Writer.AddFS": {
+      "rust": "rust_stdlib::archive::zip::Writer::add_fs"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::archive::zip::Writer::close"
+    },
+    "Writer.Copy": {
+      "rust": "rust_stdlib::archive::zip::Writer::copy"
+    },
+    "Writer.Create": {
+      "rust": "rust_stdlib::archive::zip::Writer::create"
+    },
+    "Writer.CreateHeader": {
+      "rust": "rust_stdlib::archive::zip::Writer::create_header",
+      "note": "takes the header by reference and works on a copy; the header Go updates in place (flags, versions, extra at creation, CRC and sizes when the member is finished, zip64 extra at Close) is FileWriter::header, FileWriter::finish and Writer::headers, checked against Go by tools/check_archive_api.py"
+    },
+    "Writer.CreateRaw": {
+      "rust": "rust_stdlib::archive::zip::Writer::create_raw"
+    },
+    "Writer.Flush": {
+      "rust": "rust_stdlib::archive::zip::Writer::flush"
+    },
+    "Writer.RegisterCompressor": {
+      "rust": "rust_stdlib::archive::zip::Writer::register_compressor"
+    },
+    "Writer.SetComment": {
+      "rust": "rust_stdlib::archive::zip::Writer::set_comment"
+    },
+    "Writer.SetOffset": {
+      "rust": "rust_stdlib::archive::zip::Writer::set_offset"
+    }
+  }
+}

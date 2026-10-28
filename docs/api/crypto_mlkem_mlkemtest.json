@@ -1,0 +1,12 @@
+{
+  "package": "crypto/mlkem/mlkemtest",
+  "notes": "rust-stdlib-crypto: derandomized ML-KEM encapsulation for known-answer tests, over the ml-kem crate.",
+  "symbols": {
+    "Encapsulate1024": {
+      "rust": "rust_stdlib_crypto::mlkem::mlkemtest::encapsulate1024"
+    },
+    "Encapsulate768": {
+      "rust": "rust_stdlib_crypto::mlkem::mlkemtest::encapsulate768"
+    }
+  }
+}

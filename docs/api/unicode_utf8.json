@@ -1,0 +1,63 @@
+{
+  "package": "unicode/utf8",
+  "notes": "Go's lossy decoding (every ill-formed byte is a width-1 U+FFFD) lives in `rust_stdlib::unicode::rune`, on i32 runes so invalid values can be passed; validity is `std::str::from_utf8`. The `*InString` forms are the same functions: a Go string is `&[u8]`.",
+  "symbols": {
+    "AppendRune": {
+      "rust": "rust_stdlib::unicode::rune::append_rune"
+    },
+    "DecodeLastRune": {
+      "rust": "rust_stdlib::unicode::rune::decode_last_rune"
+    },
+    "DecodeLastRuneInString": {
+      "rust": "rust_stdlib::unicode::rune::decode_last_rune"
+    },
+    "DecodeRune": {
+      "rust": "rust_stdlib::unicode::rune::decode_rune"
+    },
+    "DecodeRuneInString": {
+      "rust": "rust_stdlib::unicode::rune::decode_rune"
+    },
+    "EncodeRune": {
+      "rust": "rust_stdlib::unicode::rune::encode_rune"
+    },
+    "FullRune": {
+      "rust": "rust_stdlib::unicode::rune::full_rune"
+    },
+    "FullRuneInString": {
+      "rust": "rust_stdlib::unicode::rune::full_rune"
+    },
+    "MaxRune": {
+      "rust": "rust_stdlib::unicode::rune::MAX_RUNE"
+    },
+    "RuneCount": {
+      "rust": "rust_stdlib::unicode::rune::rune_count"
+    },
+    "RuneCountInString": {
+      "rust": "rust_stdlib::unicode::rune::rune_count"
+    },
+    "RuneError": {
+      "rust": "rust_stdlib::unicode::rune::RUNE_ERROR"
+    },
+    "RuneLen": {
+      "rust": "rust_stdlib::unicode::rune::rune_len"
+    },
+    "RuneSelf": {
+      "rust": "rust_stdlib::unicode::rune::RUNE_SELF"
+    },
+    "RuneStart": {
+      "rust": "rust_stdlib::unicode::rune::rune_start"
+    },
+    "UTFMax": {
+      "rust": "rust_stdlib::unicode::rune::UTF_MAX"
+    },
+    "Valid": {
+      "rust": "std::str::from_utf8"
+    },
+    "ValidRune": {
+      "rust": "rust_stdlib::unicode::rune::valid_rune"
+    },
+    "ValidString": {
+      "rust": "std::str::from_utf8"
+    }
+  }
+}

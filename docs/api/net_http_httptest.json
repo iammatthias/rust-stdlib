@@ -1,0 +1,104 @@
+{
+  "package": "net/http/httptest",
+  "notes": "net::http::httptest: the recorder implements http::ResponseWriter and the server wraps http::server::Server. Go's panics on misuse are errors. TLS servers come from rust_stdlib_tls::httptest.",
+  "symbols": {
+    "DefaultRemoteAddr": {
+      "rust": "rust_stdlib::net::http::httptest::DEFAULT_REMOTE_ADDR"
+    },
+    "NewRecorder": {
+      "rust": "rust_stdlib::net::http::httptest::ResponseRecorder::new"
+    },
+    "NewRequest": {
+      "rust": "rust_stdlib::net::http::httptest::request",
+      "note": "Returns an error where Go panics on invalid arguments."
+    },
+    "NewRequestWithContext": {
+      "rust": "rust_stdlib::net::http::httptest::request_with_context",
+      "note": "Returns an error where Go panics on invalid arguments."
+    },
+    "NewServer": {
+      "rust": "rust_stdlib::net::http::httptest::Server::new"
+    },
+    "NewTLSServer": {
+      "rust": "rust_stdlib_tls::httptest::tls_server"
+    },
+    "NewTestServer": {
+      "rust": "rust_stdlib::net::http::httptest::Server::for_test"
+    },
+    "NewUnstartedServer": {
+      "rust": "rust_stdlib::net::http::httptest::Server::unstarted"
+    },
+    "ResponseRecorder": {
+      "rust": "rust_stdlib::net::http::httptest::ResponseRecorder"
+    },
+    "ResponseRecorder.Body": {
+      "rust": "rust_stdlib::net::http::httptest::ResponseRecorder::body"
+    },
+    "ResponseRecorder.Code": {
+      "rust": "rust_stdlib::net::http::httptest::ResponseRecorder::code"
+    },
+    "ResponseRecorder.Flush": {
+      "rust": "rust_stdlib::net::http::handler::Flusher::flush"
+    },
+    "ResponseRecorder.Flushed": {
+      "rust": "rust_stdlib::net::http::httptest::ResponseRecorder::flushed"
+    },
+    "ResponseRecorder.Header": {
+      "rust": "rust_stdlib::net::http::handler::ResponseWriter::header"
+    },
+    "ResponseRecorder.HeaderMap": {
+      "rust": "rust_stdlib::net::http::httptest::ResponseRecorder::header_map"
+    },
+    "ResponseRecorder.Result": {
+      "rust": "rust_stdlib::net::http::httptest::ResponseRecorder::result"
+    },
+    "ResponseRecorder.Write": {
+      "rust": "std::io::Write::write"
+    },
+    "ResponseRecorder.WriteHeader": {
+      "rust": "rust_stdlib::net::http::handler::ResponseWriter::write_header",
+      "note": "Panics with Go's message (invalid WriteHeader code N) for a code outside 100..=999; ResponseRecorder::write_header_checked is the Result form."
+    },
+    "ResponseRecorder.WriteString": {
+      "rust": "rust_stdlib::net::http::httptest::ResponseRecorder::write_string_recorded"
+    },
+    "Server": {
+      "rust": "rust_stdlib::net::http::httptest::Server"
+    },
+    "Server.Certificate": {
+      "rust": "rust_stdlib::net::http::httptest::Server::certificate"
+    },
+    "Server.Client": {
+      "rust": "rust_stdlib::net::http::httptest::Server::client"
+    },
+    "Server.Close": {
+      "rust": "rust_stdlib::net::http::httptest::Server::close"
+    },
+    "Server.CloseClientConnections": {
+      "rust": "rust_stdlib::net::http::httptest::Server::close_client_connections"
+    },
+    "Server.Config": {
+      "rust": "rust_stdlib::net::http::httptest::Server::config"
+    },
+    "Server.EnableHTTP2": {
+      "rust": "rust_stdlib::net::http::httptest::Server::enable_http2"
+    },
+    "Server.Listener": {
+      "rust": "rust_stdlib::net::http::httptest::Server::listener"
+    },
+    "Server.Start": {
+      "rust": "rust_stdlib::net::http::httptest::Server::start",
+      "note": "start returns an error where Go panics when the server was already started."
+    },
+    "Server.StartTLS": {
+      "rust": "rust_stdlib_tls::httptest::start_tls",
+      "note": "start_tls returns an error where Go panics when the server was already started."
+    },
+    "Server.TLS": {
+      "rust": "rust_stdlib::net::http::httptest::Server::tls"
+    },
+    "Server.URL": {
+      "rust": "rust_stdlib::net::http::httptest::Server::url"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "package": "crypto/sha1",
+  "notes": "rust-stdlib-crypto over RustCrypto sha1. State methods are inherent on Digest and emit Go's sha\\x01 format.",
+  "symbols": {
+    "BlockSize": {
+      "rust": "rust_stdlib_crypto::sha1::BLOCK_SIZE"
+    },
+    "New": {
+      "rust": "rust_stdlib_crypto::sha1::new"
+    },
+    "Size": {
+      "rust": "rust_stdlib_crypto::sha1::SIZE"
+    },
+    "Sum": {
+      "rust": "rust_stdlib_crypto::sha1::sum"
+    }
+  }
+}

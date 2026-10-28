@@ -1,0 +1,361 @@
+{
+  "package": "encoding/json/jsontext",
+  "notes": "jsontext is a port of Go 1.27's package: the Decoder and Encoder state machines, read-buffer management, offsets, JSON Pointers, RFC 8785 canonicalization and error text are checked against Go by tools/jsontext_check.py. Rust shapes: Options is a set rather than an interface, a Token owns its text, an empty Value stands for nil and empty, accessors returning (T, error) return (T, Option<Error>), and every error value is a variant of jsontext::Error (Error::is compares sentinels).",
+  "symbols": {
+    "AllowDuplicateNames": {
+      "rust": "rust_stdlib::encoding::json::jsontext::allow_duplicate_names"
+    },
+    "AllowInvalidUTF8": {
+      "rust": "rust_stdlib::encoding::json::jsontext::allow_invalid_utf8"
+    },
+    "AppendFloat": {
+      "rust": "rust_stdlib::encoding::json::jsontext::append_float"
+    },
+    "AppendFormat": {
+      "rust": "rust_stdlib::encoding::json::jsontext::append_format",
+      "note": "src is a byte slice (a string is passed as its bytes) and dst is a Vec<u8>; on error src is appended unchanged, as in Go"
+    },
+    "AppendQuote": {
+      "rust": "rust_stdlib::encoding::json::jsontext::append_quote",
+      "note": "src is a byte slice and dst is a Vec<u8> that is extended, also on error, as Go returns the extended slice"
+    },
+    "AppendUnquote": {
+      "rust": "rust_stdlib::encoding::json::jsontext::append_unquote",
+      "note": "src is a byte slice and dst is a Vec<u8> that is extended, also on error"
+    },
+    "BeginArray": {
+      "rust": "rust_stdlib::encoding::json::jsontext::begin_array",
+      "note": "a function returning the Token, as a Rust static cannot hold one"
+    },
+    "BeginObject": {
+      "rust": "rust_stdlib::encoding::json::jsontext::begin_object",
+      "note": "a function returning the Token, as a Rust static cannot hold one"
+    },
+    "Bool": {
+      "rust": "rust_stdlib::encoding::json::jsontext::bool"
+    },
+    "CanonicalizeRawFloats": {
+      "rust": "rust_stdlib::encoding::json::jsontext::canonicalize_raw_floats"
+    },
+    "CanonicalizeRawInts": {
+      "rust": "rust_stdlib::encoding::json::jsontext::canonicalize_raw_ints"
+    },
+    "Decoder": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder"
+    },
+    "Decoder.InputOffset": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::input_offset"
+    },
+    "Decoder.Options": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::options",
+      "note": "returns a copy of the options in effect"
+    },
+    "Decoder.PeekKind": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::peek_kind"
+    },
+    "Decoder.ReadToken": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::read_token",
+      "deviation": "token-lifetime",
+      "note": "a Token owns its text, so it stays valid after later Decoder calls; Go panics when a voided Token is used"
+    },
+    "Decoder.ReadValue": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::read_value"
+    },
+    "Decoder.Reset": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::reset"
+    },
+    "Decoder.SkipValue": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::skip_value"
+    },
+    "Decoder.StackDepth": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::stack_depth"
+    },
+    "Decoder.StackIndex": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::stack_index"
+    },
+    "Decoder.StackPointer": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::stack_pointer"
+    },
+    "Decoder.UnreadBuffer": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::unread_buffer"
+    },
+    "Encoder": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder"
+    },
+    "Encoder.AvailableBuffer": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::available_buffer"
+    },
+    "Encoder.Options": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::options",
+      "note": "returns a copy of the options in effect"
+    },
+    "Encoder.OutputOffset": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::output_offset"
+    },
+    "Encoder.Reset": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::reset"
+    },
+    "Encoder.StackDepth": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::stack_depth"
+    },
+    "Encoder.StackIndex": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::stack_index"
+    },
+    "Encoder.StackPointer": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::stack_pointer"
+    },
+    "Encoder.WriteToken": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::write_token",
+      "deviation": "buffering-granularity",
+      "note": "output reaches the writer after each top-level value and when the buffer is three quarters full; the buffer size differs from Go's slice capacities, so a writer sees different chunks mid-value"
+    },
+    "Encoder.WriteValue": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::write_value",
+      "deviation": "buffering-granularity",
+      "note": "see Encoder.WriteToken"
+    },
+    "EndArray": {
+      "rust": "rust_stdlib::encoding::json::jsontext::end_array",
+      "note": "a function returning the Token, as a Rust static cannot hold one"
+    },
+    "EndObject": {
+      "rust": "rust_stdlib::encoding::json::jsontext::end_object",
+      "note": "a function returning the Token, as a Rust static cannot hold one"
+    },
+    "ErrDuplicateName": {
+      "rust": "rust_stdlib::encoding::json::jsontext::ERR_DUPLICATE_NAME",
+      "note": "an Error variant; compare with Error::is"
+    },
+    "ErrNonStringName": {
+      "rust": "rust_stdlib::encoding::json::jsontext::ERR_NON_STRING_NAME",
+      "note": "an Error variant; compare with Error::is"
+    },
+    "EscapeForHTML": {
+      "rust": "rust_stdlib::encoding::json::jsontext::escape_for_html"
+    },
+    "EscapeForJS": {
+      "rust": "rust_stdlib::encoding::json::jsontext::escape_for_js"
+    },
+    "False": {
+      "rust": "rust_stdlib::encoding::json::jsontext::false_",
+      "note": "a function returning the Token, as a Rust static cannot hold one"
+    },
+    "Float": {
+      "rust": "rust_stdlib::encoding::json::jsontext::float"
+    },
+    "Float32": {
+      "rust": "rust_stdlib::encoding::json::jsontext::float32"
+    },
+    "Int": {
+      "rust": "rust_stdlib::encoding::json::jsontext::int"
+    },
+    "Internal": {
+      "rust": "rust_stdlib::encoding::json::jsontext::INTERNAL",
+      "deviation": "internal-export",
+      "note": "Go's export hook for encoding/json/v2; the Rust v2 module reaches the coders directly"
+    },
+    "Kind": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Kind"
+    },
+    "Kind.String": {
+      "rust": "std::string::ToString::to_string"
+    },
+    "KindBeginArray": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_BEGIN_ARRAY"
+    },
+    "KindBeginObject": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_BEGIN_OBJECT"
+    },
+    "KindEndArray": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_END_ARRAY"
+    },
+    "KindEndObject": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_END_OBJECT"
+    },
+    "KindFalse": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_FALSE"
+    },
+    "KindInvalid": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_INVALID"
+    },
+    "KindNull": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_NULL"
+    },
+    "KindNumber": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_NUMBER"
+    },
+    "KindString": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_STRING"
+    },
+    "KindTrue": {
+      "rust": "rust_stdlib::encoding::json::jsontext::KIND_TRUE"
+    },
+    "Multiline": {
+      "rust": "rust_stdlib::encoding::json::jsontext::multiline"
+    },
+    "NewDecoder": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Decoder::new",
+      "note": "takes the options as a slice; from_buffer is NewDecoder(bytes.NewBuffer(b)), for which Go reads all the input at once"
+    },
+    "NewEncoder": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Encoder::new",
+      "note": "takes the options as a slice"
+    },
+    "Null": {
+      "rust": "rust_stdlib::encoding::json::jsontext::null",
+      "note": "a function returning the Token, as a Rust static cannot hold one"
+    },
+    "Options": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Options",
+      "note": "a set of settings (joined with Options::join) rather than an interface; shared with encoding/json/v2"
+    },
+    "Pointer": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Pointer",
+      "deviation": "go-string-invalid-utf8",
+      "note": "wraps a String; Go's Pointer string type can hold invalid UTF-8, which Rust cannot"
+    },
+    "Pointer.AppendToken": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Pointer::append_token"
+    },
+    "Pointer.Contains": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Pointer::contains"
+    },
+    "Pointer.IsValid": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Pointer::is_valid",
+      "deviation": "invalid-utf8-string",
+      "note": "a Rust String is always valid UTF-8, so Go's check for invalid UTF-8 cannot fail"
+    },
+    "Pointer.LastToken": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Pointer::last_token"
+    },
+    "Pointer.Parent": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Pointer::parent"
+    },
+    "Pointer.Tokens": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Pointer::tokens"
+    },
+    "PreserveRawStrings": {
+      "rust": "rust_stdlib::encoding::json::jsontext::preserve_raw_strings"
+    },
+    "ReorderRawObjects": {
+      "rust": "rust_stdlib::encoding::json::jsontext::reorder_raw_objects"
+    },
+    "SpaceAfterColon": {
+      "rust": "rust_stdlib::encoding::json::jsontext::space_after_colon"
+    },
+    "SpaceAfterComma": {
+      "rust": "rust_stdlib::encoding::json::jsontext::space_after_comma"
+    },
+    "String": {
+      "rust": "rust_stdlib::encoding::json::jsontext::string",
+      "note": "string_bytes is the variant for text that may not be valid UTF-8"
+    },
+    "SyntacticError": {
+      "rust": "rust_stdlib::encoding::json::jsontext::SyntacticError"
+    },
+    "SyntacticError.ByteOffset": {
+      "rust": "rust_stdlib::encoding::json::jsontext::SyntacticError::byte_offset"
+    },
+    "SyntacticError.Err": {
+      "rust": "rust_stdlib::encoding::json::jsontext::SyntacticError::err"
+    },
+    "SyntacticError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display text is Go's Error() string"
+    },
+    "SyntacticError.JSONPointer": {
+      "rust": "rust_stdlib::encoding::json::jsontext::SyntacticError::json_pointer"
+    },
+    "SyntacticError.Unwrap": {
+      "rust": "std::error::Error::source"
+    },
+    "Token": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Token",
+      "deviation": "token-lifetime",
+      "note": "a Token owns its text, so it stays valid after later Decoder calls; Go panics when a voided Token is used"
+    },
+    "Token.Bool": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Token::bool"
+    },
+    "Token.Clone": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Token::clone_token",
+      "note": "a Token already owns its text; this is Clone::clone"
+    },
+    "Token.Float": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Token::float",
+      "note": "returns (value, Option<Error>) like Go's (float64, error)"
+    },
+    "Token.Float32": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Token::float32",
+      "note": "returns (value, Option<Error>) like Go's (float32, error)"
+    },
+    "Token.Int": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Token::int",
+      "note": "returns (value, Option<Error>) like Go's (int64, error)"
+    },
+    "Token.Kind": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Token::kind"
+    },
+    "Token.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Token.Uint": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Token::uint",
+      "note": "returns (value, Option<Error>) like Go's (uint64, error)"
+    },
+    "True": {
+      "rust": "rust_stdlib::encoding::json::jsontext::true_",
+      "note": "a function returning the Token, as a Rust static cannot hold one"
+    },
+    "Uint": {
+      "rust": "rust_stdlib::encoding::json::jsontext::uint"
+    },
+    "Value": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value",
+      "note": "a Vec<u8>; an empty Value stands for both nil and empty"
+    },
+    "Value.Canonicalize": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value::canonicalize"
+    },
+    "Value.Clone": {
+      "rust": "std::clone::Clone::clone"
+    },
+    "Value.Compact": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value::compact"
+    },
+    "Value.Format": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value::format"
+    },
+    "Value.Indent": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value::indent"
+    },
+    "Value.IsValid": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value::is_valid"
+    },
+    "Value.Kind": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value::kind"
+    },
+    "Value.MarshalJSON": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value::marshal_json",
+      "deviation": "no-nil-empty",
+      "note": "an empty Value is Go's nil Value and gives null; Go returns a non-nil empty Value as it is"
+    },
+    "Value.String": {
+      "rust": "std::fmt::Display::fmt",
+      "deviation": "go-string-invalid-utf8",
+      "note": "an empty Value gives null as Go's nil Value does; the text of a Value with invalid UTF-8 has it replaced with U+FFFD"
+    },
+    "Value.UnmarshalJSON": {
+      "rust": "rust_stdlib::encoding::json::jsontext::Value::unmarshal_json",
+      "note": "no nil receiver to reject"
+    },
+    "WithIndent": {
+      "rust": "rust_stdlib::encoding::json::jsontext::with_indent",
+      "note": "panics on a non-whitespace indent, like Go"
+    },
+    "WithIndentPrefix": {
+      "rust": "rust_stdlib::encoding::json::jsontext::with_indent_prefix",
+      "note": "panics on a non-whitespace prefix, like Go"
+    }
+  }
+}

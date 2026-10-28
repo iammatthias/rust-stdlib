@@ -1,0 +1,32 @@
+{
+  "package": "crypto/subtle",
+  "notes": "rust-stdlib-crypto over the subtle crate. ConstantTimeCopy and XORBytes panic with Go's messages. WithDataIndependentTiming is a deviation: stable Rust has no safe way to set the CPU's data-independent timing mode, so the function only runs its argument.",
+  "symbols": {
+    "ConstantTimeByteEq": {
+      "rust": "rust_stdlib_crypto::subtle::constant_time_byte_eq"
+    },
+    "ConstantTimeCompare": {
+      "rust": "rust_stdlib_crypto::subtle::constant_time_compare"
+    },
+    "ConstantTimeCopy": {
+      "rust": "rust_stdlib_crypto::subtle::constant_time_copy"
+    },
+    "ConstantTimeEq": {
+      "rust": "rust_stdlib_crypto::subtle::constant_time_eq"
+    },
+    "ConstantTimeLessOrEq": {
+      "rust": "rust_stdlib_crypto::subtle::constant_time_less_or_eq"
+    },
+    "ConstantTimeSelect": {
+      "rust": "rust_stdlib_crypto::subtle::constant_time_select"
+    },
+    "WithDataIndependentTiming": {
+      "rust": "rust_stdlib_crypto::subtle::with_data_independent_timing",
+      "note": "Go sets the ARM64 DIT bit (and similar CPU modes) for the duration of f; that needs assembly or unsafe code, which this crate forbids, so the function only calls f.",
+      "deviation": "cpu-mode-unavailable"
+    },
+    "XORBytes": {
+      "rust": "rust_stdlib_crypto::subtle::xor_bytes"
+    }
+  }
+}

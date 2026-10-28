@@ -1,0 +1,2706 @@
+{
+ "encode_query": [
+  {
+   "expected": "",
+   "values": null
+  },
+  {
+   "expected": "",
+   "values": {}
+  },
+  {
+   "expected": "oe=utf8\u0026q=puppies",
+   "values": {
+    "oe": [
+     "utf8"
+    ],
+    "q": [
+     "puppies"
+    ]
+   }
+  },
+  {
+   "expected": "q=dogs\u0026q=%26\u0026q=7",
+   "values": {
+    "q": [
+     "dogs",
+     "\u0026",
+     "7"
+    ]
+   }
+  },
+  {
+   "expected": "a=a1\u0026a=a2\u0026a=a3\u0026b=b1\u0026b=b2\u0026b=b3\u0026c=c1\u0026c=c2\u0026c=c3",
+   "values": {
+    "a": [
+     "a1",
+     "a2",
+     "a3"
+    ],
+    "b": [
+     "b1",
+     "b2",
+     "b3"
+    ],
+    "c": [
+     "c1",
+     "c2",
+     "c3"
+    ]
+   }
+  },
+  {
+   "expected": "a=a\u0026b=b\u0026c=c\u0026d=d\u0026e=e\u0026f=f\u0026g=g\u0026h=h\u0026i=i",
+   "values": {
+    "a": [
+     "a"
+    ],
+    "b": [
+     "b"
+    ],
+    "c": [
+     "c"
+    ],
+    "d": [
+     "d"
+    ],
+    "e": [
+     "e"
+    ],
+    "f": [
+     "f"
+    ],
+    "g": [
+     "g"
+    ],
+    "h": [
+     "h"
+    ],
+    "i": [
+     "i"
+    ]
+   }
+  }
+ ],
+ "parse": [
+  {
+   "in": "http://www.google.com",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com",
+   "string": "http://www.google.com"
+  },
+  {
+   "in": "http://www.google.com/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/",
+   "string": "http://www.google.com/"
+  },
+  {
+   "in": "http://www.google.com/file%20one%26two",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/file one\u0026two",
+    "raw_path": "/file%20one%26two",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/file%20one%26two",
+   "string": "http://www.google.com/file%20one%26two"
+  },
+  {
+   "in": "http://www.google.com/#file%20one%26two",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "file one\u0026two",
+    "raw_fragment": "file%20one%26two"
+   },
+   "roundtrip": "http://www.google.com/#file%20one%26two",
+   "string": "http://www.google.com/#file%20one%26two"
+  },
+  {
+   "in": "ftp://webmaster@www.google.com/",
+   "out": {
+    "scheme": "ftp",
+    "opaque": "",
+    "has_user": true,
+    "username": "webmaster",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "ftp://webmaster@www.google.com/",
+   "string": "ftp://webmaster@www.google.com/"
+  },
+  {
+   "in": "ftp://john%20doe@www.google.com/",
+   "out": {
+    "scheme": "ftp",
+    "opaque": "",
+    "has_user": true,
+    "username": "john doe",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "ftp://john%20doe@www.google.com/",
+   "string": "ftp://john%20doe@www.google.com/"
+  },
+  {
+   "in": "http://www.google.com/?",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": true,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/?",
+   "string": "http://www.google.com/?"
+  },
+  {
+   "in": "http://www.google.com/?foo=bar?",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "foo=bar?",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/?foo=bar?",
+   "string": "http://www.google.com/?foo=bar?"
+  },
+  {
+   "in": "http://www.google.com/?q=go+language",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/?q=go+language",
+   "string": "http://www.google.com/?q=go+language"
+  },
+  {
+   "in": "http://www.google.com/?q=go%20language",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go%20language",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/?q=go%20language",
+   "string": "http://www.google.com/?q=go%20language"
+  },
+  {
+   "in": "http://www.google.com/a%20b?q=c+d",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/a b",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=c+d",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/a%20b?q=c+d",
+   "string": "http://www.google.com/a%20b?q=c+d"
+  },
+  {
+   "in": "http:www.google.com/?q=go+language",
+   "out": {
+    "scheme": "http",
+    "opaque": "www.google.com/",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http:www.google.com/?q=go+language",
+   "string": "http:www.google.com/?q=go+language"
+  },
+  {
+   "in": "http:%2f%2fwww.google.com/?q=go+language",
+   "out": {
+    "scheme": "http",
+    "opaque": "%2f%2fwww.google.com/",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http:%2f%2fwww.google.com/?q=go+language",
+   "string": "http:%2f%2fwww.google.com/?q=go+language"
+  },
+  {
+   "in": "mailto:/webmaster@golang.org",
+   "out": {
+    "scheme": "mailto",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "/webmaster@golang.org",
+    "raw_path": "",
+    "omit_host": true,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "mailto:/webmaster@golang.org",
+   "string": "mailto:/webmaster@golang.org"
+  },
+  {
+   "in": "mailto:webmaster@golang.org",
+   "out": {
+    "scheme": "mailto",
+    "opaque": "webmaster@golang.org",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "mailto:webmaster@golang.org",
+   "string": "mailto:webmaster@golang.org"
+  },
+  {
+   "in": "/foo?query=http://bad",
+   "out": {
+    "scheme": "",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "query=http://bad",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "/foo?query=http://bad",
+   "string": "/foo?query=http://bad"
+  },
+  {
+   "in": "//foo",
+   "out": {
+    "scheme": "",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "foo",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "//foo",
+   "string": "//foo"
+  },
+  {
+   "in": "//user@foo/path?a=b",
+   "out": {
+    "scheme": "",
+    "opaque": "",
+    "has_user": true,
+    "username": "user",
+    "password": "",
+    "password_set": false,
+    "host": "foo",
+    "path": "/path",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "a=b",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "//user@foo/path?a=b",
+   "string": "//user@foo/path?a=b"
+  },
+  {
+   "in": "///threeslashes",
+   "out": {
+    "scheme": "",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "///threeslashes",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "///threeslashes",
+   "string": "///threeslashes"
+  },
+  {
+   "in": "http://user:password@google.com",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": true,
+    "username": "user",
+    "password": "password",
+    "password_set": true,
+    "host": "google.com",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://user:password@google.com",
+   "string": "http://user:password@google.com"
+  },
+  {
+   "in": "http://j@ne:password@google.com",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": true,
+    "username": "j@ne",
+    "password": "password",
+    "password_set": true,
+    "host": "google.com",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://j%40ne:password@google.com",
+   "string": "http://j%40ne:password@google.com"
+  },
+  {
+   "in": "http://jane:p@ssword@google.com",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": true,
+    "username": "jane",
+    "password": "p@ssword",
+    "password_set": true,
+    "host": "google.com",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://jane:p%40ssword@google.com",
+   "string": "http://jane:p%40ssword@google.com"
+  },
+  {
+   "in": "http://j@ne:password@google.com/p@th?q=@go",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": true,
+    "username": "j@ne",
+    "password": "password",
+    "password_set": true,
+    "host": "google.com",
+    "path": "/p@th",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=@go",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://j%40ne:password@google.com/p@th?q=@go",
+   "string": "http://j%40ne:password@google.com/p@th?q=@go"
+  },
+  {
+   "in": "http://www.google.com/?q=go+language#foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "foo",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/?q=go+language#foo",
+   "string": "http://www.google.com/?q=go+language#foo"
+  },
+  {
+   "in": "http://www.google.com/?q=go+language#foo\u0026bar",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "foo\u0026bar",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://www.google.com/?q=go+language#foo\u0026bar",
+   "string": "http://www.google.com/?q=go+language#foo\u0026bar"
+  },
+  {
+   "in": "http://www.google.com/?q=go+language#foo%26bar",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "foo\u0026bar",
+    "raw_fragment": "foo%26bar"
+   },
+   "roundtrip": "http://www.google.com/?q=go+language#foo%26bar",
+   "string": "http://www.google.com/?q=go+language#foo%26bar"
+  },
+  {
+   "in": "file:///home/adg/rabbits",
+   "out": {
+    "scheme": "file",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "/home/adg/rabbits",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "file:///home/adg/rabbits",
+   "string": "file:///home/adg/rabbits"
+  },
+  {
+   "in": "file:///C:/FooBar/Baz.txt",
+   "out": {
+    "scheme": "file",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "/C:/FooBar/Baz.txt",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "file:///C:/FooBar/Baz.txt",
+   "string": "file:///C:/FooBar/Baz.txt"
+  },
+  {
+   "in": "MaIlTo:webmaster@golang.org",
+   "out": {
+    "scheme": "mailto",
+    "opaque": "webmaster@golang.org",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "mailto:webmaster@golang.org",
+   "string": "mailto:webmaster@golang.org"
+  },
+  {
+   "in": "a/b/c",
+   "out": {
+    "scheme": "",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "a/b/c",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "a/b/c",
+   "string": "a/b/c"
+  },
+  {
+   "in": "http://%3Fam:pa%3Fsword@google.com",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": true,
+    "username": "?am",
+    "password": "pa?sword",
+    "password_set": true,
+    "host": "google.com",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://%3Fam:pa%3Fsword@google.com",
+   "string": "http://%3Fam:pa%3Fsword@google.com"
+  },
+  {
+   "in": "http://192.168.0.1/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "192.168.0.1",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://192.168.0.1/",
+   "string": "http://192.168.0.1/"
+  },
+  {
+   "in": "http://192.168.0.1:8080/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "192.168.0.1:8080",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://192.168.0.1:8080/",
+   "string": "http://192.168.0.1:8080/"
+  },
+  {
+   "in": "http://[fe80::1]/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[fe80::1]",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://[fe80::1]/",
+   "string": "http://[fe80::1]/"
+  },
+  {
+   "in": "http://[fe80::1]:8080/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[fe80::1]:8080",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://[fe80::1]:8080/",
+   "string": "http://[fe80::1]:8080/"
+  },
+  {
+   "in": "https://[2001:db8::1]:8443/test/path",
+   "out": {
+    "scheme": "https",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[2001:db8::1]:8443",
+    "path": "/test/path",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "https://[2001:db8::1]:8443/test/path",
+   "string": "https://[2001:db8::1]:8443/test/path"
+  },
+  {
+   "in": "http://[fe80::1%25en0]/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[fe80::1%en0]",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://[fe80::1%25en0]/",
+   "string": "http://[fe80::1%25en0]/"
+  },
+  {
+   "in": "http://[fe80::1%25en0]:8080/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[fe80::1%en0]:8080",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://[fe80::1%25en0]:8080/",
+   "string": "http://[fe80::1%25en0]:8080/"
+  },
+  {
+   "in": "http://[fe80::1%25%65%6e%301-._~]/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[fe80::1%en01-._~]",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://[fe80::1%25en01-._~]/",
+   "string": "http://[fe80::1%25en01-._~]/"
+  },
+  {
+   "in": "http://[fe80::1%25%65%6e%301-._~]:8080/",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[fe80::1%en01-._~]:8080",
+    "path": "/",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://[fe80::1%25en01-._~]:8080/",
+   "string": "http://[fe80::1%25en01-._~]:8080/"
+  },
+  {
+   "in": "http://rest.rsc.io/foo%2fbar/baz%2Fquux?alt=media",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "rest.rsc.io",
+    "path": "/foo/bar/baz/quux",
+    "raw_path": "/foo%2fbar/baz%2Fquux",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "alt=media",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://rest.rsc.io/foo%2fbar/baz%2Fquux?alt=media",
+   "string": "http://rest.rsc.io/foo%2fbar/baz%2Fquux?alt=media"
+  },
+  {
+   "in": "mysql://a,b,c/bar",
+   "out": {
+    "scheme": "mysql",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "a,b,c",
+    "path": "/bar",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "mysql://a,b,c/bar",
+   "string": "mysql://a,b,c/bar"
+  },
+  {
+   "in": "scheme://!$\u0026'()*+,;=hello!:1/path",
+   "out": {
+    "scheme": "scheme",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "!$\u0026'()*+,;=hello!:1",
+    "path": "/path",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "scheme://!$\u0026'()*+,;=hello!:1/path",
+   "string": "scheme://!$\u0026'()*+,;=hello!:1/path"
+  },
+  {
+   "in": "http://host/!$\u0026'()*+,;=:@[hello]",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "host",
+    "path": "/!$\u0026'()*+,;=:@[hello]",
+    "raw_path": "/!$\u0026'()*+,;=:@[hello]",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://host/!$\u0026'()*+,;=:@[hello]",
+   "string": "http://host/!$\u0026'()*+,;=:@[hello]"
+  },
+  {
+   "in": "http://example.com/oid/[order_id]",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "/oid/[order_id]",
+    "raw_path": "/oid/[order_id]",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://example.com/oid/[order_id]",
+   "string": "http://example.com/oid/[order_id]"
+  },
+  {
+   "in": "http://192.168.0.2:8080/foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "192.168.0.2:8080",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://192.168.0.2:8080/foo",
+   "string": "http://192.168.0.2:8080/foo"
+  },
+  {
+   "in": "http://192.168.0.2:/foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "192.168.0.2:",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://192.168.0.2:/foo",
+   "string": "http://192.168.0.2:/foo"
+  },
+  {
+   "in": "http://[2b01:e34:ef40:7730:8e70:5aff:fefe:edac]:8080/foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[2b01:e34:ef40:7730:8e70:5aff:fefe:edac]:8080",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://[2b01:e34:ef40:7730:8e70:5aff:fefe:edac]:8080/foo",
+   "string": "http://[2b01:e34:ef40:7730:8e70:5aff:fefe:edac]:8080/foo"
+  },
+  {
+   "in": "http://[2b01:e34:ef40:7730:8e70:5aff:fefe:edac]:/foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[2b01:e34:ef40:7730:8e70:5aff:fefe:edac]:",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://[2b01:e34:ef40:7730:8e70:5aff:fefe:edac]:/foo",
+   "string": "http://[2b01:e34:ef40:7730:8e70:5aff:fefe:edac]:/foo"
+  },
+  {
+   "in": "http://hello.世界.com/foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "hello.世界.com",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://hello.%E4%B8%96%E7%95%8C.com/foo",
+   "string": "http://hello.%E4%B8%96%E7%95%8C.com/foo"
+  },
+  {
+   "in": "http://hello.%e4%b8%96%e7%95%8c.com/foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "hello.世界.com",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://hello.%E4%B8%96%E7%95%8C.com/foo",
+   "string": "http://hello.%E4%B8%96%E7%95%8C.com/foo"
+  },
+  {
+   "in": "http://hello.%E4%B8%96%E7%95%8C.com/foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "hello.世界.com",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://hello.%E4%B8%96%E7%95%8C.com/foo",
+   "string": "http://hello.%E4%B8%96%E7%95%8C.com/foo"
+  },
+  {
+   "in": "http://example.com//foo",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "//foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http://example.com//foo",
+   "string": "http://example.com//foo"
+  },
+  {
+   "in": "myscheme://authority\u003c\"hi\"\u003e/foo",
+   "out": {
+    "scheme": "myscheme",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "authority\u003c\"hi\"\u003e",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "myscheme://authority\u003c\"hi\"\u003e/foo",
+   "string": "myscheme://authority\u003c\"hi\"\u003e/foo"
+  },
+  {
+   "in": "tcp://[2020::2020:20:2020:2020%25Windows%20Loves%20Spaces]:2020",
+   "out": {
+    "scheme": "tcp",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "[2020::2020:20:2020:2020%Windows Loves Spaces]:2020",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "tcp://[2020::2020:20:2020:2020%25Windows%20Loves%20Spaces]:2020",
+   "string": "tcp://[2020::2020:20:2020:2020%25Windows%20Loves%20Spaces]:2020"
+  },
+  {
+   "in": "magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a\u0026dn",
+   "out": {
+    "scheme": "magnet",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a\u0026dn",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a\u0026dn",
+   "string": "magnet:?xt=urn:btih:c12fe1c06bba254a9dc9f519b335aa7c1367a88a\u0026dn"
+  },
+  {
+   "in": "mailto:?subject=hi",
+   "out": {
+    "scheme": "mailto",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "subject=hi",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "mailto:?subject=hi",
+   "string": "mailto:?subject=hi"
+  },
+  {
+   "in": "postgres://host1:1,host2:2,host3:3",
+   "out": {
+    "scheme": "postgres",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "host1:1,host2:2,host3:3",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "postgres://host1:1,host2:2,host3:3",
+   "string": "postgres://host1:1,host2:2,host3:3"
+  },
+  {
+   "in": "postgresql://host1:1,host2:2,host3:3",
+   "out": {
+    "scheme": "postgresql",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "host1:1,host2:2,host3:3",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "postgresql://host1:1,host2:2,host3:3",
+   "string": "postgresql://host1:1,host2:2,host3:3"
+  },
+  {
+   "in": "mongodb://user:password@host1:1,host2:2,host3:3",
+   "out": {
+    "scheme": "mongodb",
+    "opaque": "",
+    "has_user": true,
+    "username": "user",
+    "password": "password",
+    "password_set": true,
+    "host": "host1:1,host2:2,host3:3",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "mongodb://user:password@host1:1,host2:2,host3:3",
+   "string": "mongodb://user:password@host1:1,host2:2,host3:3"
+  },
+  {
+   "in": "mongodb+srv://user:password@host1:1,host2:2,host3:3",
+   "out": {
+    "scheme": "mongodb+srv",
+    "opaque": "",
+    "has_user": true,
+    "username": "user",
+    "password": "password",
+    "password_set": true,
+    "host": "host1:1,host2:2,host3:3",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "mongodb+srv://user:password@host1:1,host2:2,host3:3",
+   "string": "mongodb+srv://user:password@host1:1,host2:2,host3:3"
+  },
+  {
+   "in": "",
+   "out": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "//host/path",
+    "raw_path": "",
+    "omit_host": true,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "roundtrip": "http:%2F/host/path",
+   "string": "http:%2F/host/path"
+  }
+ ],
+ "parse_query": [
+  {
+   "ok": true,
+   "out": {
+    "a": [
+     "1"
+    ]
+   },
+   "query": "a=1"
+  },
+  {
+   "ok": true,
+   "out": {
+    "a": [
+     "1"
+    ],
+    "b": [
+     "2"
+    ]
+   },
+   "query": "a=1\u0026b=2"
+  },
+  {
+   "ok": true,
+   "out": {
+    "a": [
+     "1",
+     "2",
+     "banana"
+    ]
+   },
+   "query": "a=1\u0026a=2\u0026a=banana"
+  },
+  {
+   "ok": true,
+   "out": {
+    "ascii": [
+     "\u003ckey: 0x90\u003e"
+    ]
+   },
+   "query": "ascii=%3Ckey%3A+0x90%3E"
+  },
+  {
+   "ok": false,
+   "out": {},
+   "query": "a=1;b=2"
+  },
+  {
+   "ok": false,
+   "out": {},
+   "query": "a;b=1"
+  },
+  {
+   "ok": true,
+   "out": {
+    "a": [
+     ";"
+    ]
+   },
+   "query": "a=%3B"
+  },
+  {
+   "ok": true,
+   "out": {
+    "a;b": [
+     "1"
+    ]
+   },
+   "query": "a%3Bb=1"
+  },
+  {
+   "ok": false,
+   "out": {
+    "a": [
+     "1"
+    ]
+   },
+   "query": "a=1\u0026a=2;a=banana"
+  },
+  {
+   "ok": false,
+   "out": {
+    "c": [
+     "1"
+    ]
+   },
+   "query": "a;b\u0026c=1"
+  },
+  {
+   "ok": false,
+   "out": {
+    "a": [
+     "1"
+    ],
+    "c": [
+     "4"
+    ]
+   },
+   "query": "a=1\u0026b=2;a=3\u0026c=4"
+  },
+  {
+   "ok": false,
+   "out": {
+    "a": [
+     "1"
+    ]
+   },
+   "query": "a=1\u0026b=2;c=3"
+  },
+  {
+   "ok": false,
+   "out": {},
+   "query": ";"
+  },
+  {
+   "ok": false,
+   "out": {},
+   "query": "a=1;"
+  },
+  {
+   "ok": false,
+   "out": {
+    "a": [
+     "1"
+    ]
+   },
+   "query": "a=1\u0026;"
+  },
+  {
+   "ok": false,
+   "out": {
+    "b": [
+     "2"
+    ]
+   },
+   "query": ";a=1\u0026b=2"
+  },
+  {
+   "ok": false,
+   "out": {
+    "a": [
+     "1"
+    ]
+   },
+   "query": "a=1\u0026b=2;"
+  }
+ ],
+ "parse_request_uri": [
+  {
+   "url": "http://foo.com",
+   "valid": true
+  },
+  {
+   "url": "http://foo.com/",
+   "valid": true
+  },
+  {
+   "url": "http://foo.com/path",
+   "valid": true
+  },
+  {
+   "url": "/",
+   "valid": true
+  },
+  {
+   "url": "//not.a.user@not.a.host/just/a/path",
+   "valid": true
+  },
+  {
+   "url": "//not.a.user@%66%6f%6f.com/just/a/path/also",
+   "valid": true
+  },
+  {
+   "url": "*",
+   "valid": true
+  },
+  {
+   "url": "http://192.168.0.1/",
+   "valid": true
+  },
+  {
+   "url": "http://192.168.0.1:8080/",
+   "valid": true
+  },
+  {
+   "url": "http://[fe80::1]/",
+   "valid": true
+  },
+  {
+   "url": "http://[fe80::1]:8080/",
+   "valid": true
+  },
+  {
+   "url": "http://[fe80::1%25en0]/",
+   "valid": true
+  },
+  {
+   "url": "http://[fe80::1%25en0]:8080/",
+   "valid": true
+  },
+  {
+   "url": "http://[fe80::1%25%65%6e%301-._~]/",
+   "valid": true
+  },
+  {
+   "url": "http://[fe80::1%25%65%6e%301-._~]:8080/",
+   "valid": true
+  },
+  {
+   "url": "foo.html",
+   "valid": false
+  },
+  {
+   "url": "../dir/",
+   "valid": false
+  },
+  {
+   "url": " http://foo.com",
+   "valid": false
+  },
+  {
+   "url": "http://192.168.0.%31/",
+   "valid": false
+  },
+  {
+   "url": "http://192.168.0.%31:8080/",
+   "valid": false
+  },
+  {
+   "url": "http://[fe80::%31]/",
+   "valid": false
+  },
+  {
+   "url": "http://[fe80::%31]:8080/",
+   "valid": false
+  },
+  {
+   "url": "http://[fe80::%31%25en0]/",
+   "valid": false
+  },
+  {
+   "url": "http://[fe80::%31%25en0]:8080/",
+   "valid": false
+  },
+  {
+   "url": "http://[fe80::1%en0]/",
+   "valid": false
+  },
+  {
+   "url": "http://[fe80::1%en0]:8080/",
+   "valid": false
+  },
+  {
+   "url": "https://[1:2:3:4:5:6:7:8]",
+   "valid": true
+  },
+  {
+   "url": "https://[2001:db8::a:b:c:d]",
+   "valid": true
+  },
+  {
+   "url": "https://[fe80::1%25eth0]",
+   "valid": true
+  },
+  {
+   "url": "https://[fe80::abc:def%254]",
+   "valid": true
+  },
+  {
+   "url": "https://[2001:db8::1]/path",
+   "valid": true
+  },
+  {
+   "url": "https://[fe80::1%25eth0]/path?query=1",
+   "valid": true
+  },
+  {
+   "url": "https://[::ffff:192.0.2.1]",
+   "valid": true
+  },
+  {
+   "url": "https://[:1] ",
+   "valid": false
+  },
+  {
+   "url": "https://[1:2:3:4:5:6:7:8:9]",
+   "valid": false
+  },
+  {
+   "url": "https://[1::1::1]",
+   "valid": false
+  },
+  {
+   "url": "https://[1:2:3:]",
+   "valid": false
+  },
+  {
+   "url": "https://[ffff::127.0.0.4000]",
+   "valid": false
+  },
+  {
+   "url": "https://[0:0::test.com]:80",
+   "valid": false
+  },
+  {
+   "url": "https://[2001:db8::test.com]",
+   "valid": false
+  },
+  {
+   "url": "https://[test.com]",
+   "valid": false
+  },
+  {
+   "url": "https://1:2:3:4:5:6:7:8",
+   "valid": false
+  },
+  {
+   "url": "https://1:2:3:4:5:6:7:8:80",
+   "valid": false
+  },
+  {
+   "url": "https://example.com:80:",
+   "valid": false
+  }
+ ],
+ "path_escape": [
+  {
+   "err": false,
+   "in": "",
+   "out": ""
+  },
+  {
+   "err": false,
+   "in": "abc",
+   "out": "abc"
+  },
+  {
+   "err": false,
+   "in": "abc+def",
+   "out": "abc+def"
+  },
+  {
+   "err": false,
+   "in": "a/b",
+   "out": "a%2Fb"
+  },
+  {
+   "err": false,
+   "in": "one two",
+   "out": "one%20two"
+  },
+  {
+   "err": false,
+   "in": "10%",
+   "out": "10%25"
+  },
+  {
+   "err": false,
+   "in": " ?\u0026=#+%!\u003c\u003e#\"{}|\\^[]`☺\t:/@$'()*,;",
+   "out": "%20%3F\u0026=%23+%25%21%3C%3E%23%22%7B%7D%7C%5C%5E%5B%5D%60%E2%98%BA%09:%2F@$%27%28%29%2A%2C%3B"
+  }
+ ],
+ "query_escape": [
+  {
+   "err": false,
+   "in": "",
+   "out": ""
+  },
+  {
+   "err": false,
+   "in": "abc",
+   "out": "abc"
+  },
+  {
+   "err": false,
+   "in": "one two",
+   "out": "one+two"
+  },
+  {
+   "err": false,
+   "in": "10%",
+   "out": "10%25"
+  },
+  {
+   "err": false,
+   "in": " ?\u0026=#+%!\u003c\u003e#\"{}|\\^[]`☺\t:/@$'()*,;",
+   "out": "+%3F%26%3D%23%2B%25%21%3C%3E%23%22%7B%7D%7C%5C%5E%5B%5D%60%E2%98%BA%09%3A%2F%40%24%27%28%29%2A%2C%3B"
+  }
+ ],
+ "request_uri": [
+  {
+   "out": "/",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "/a%20b",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "/a b",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "/%2F/%2F/",
+   "url": {
+    "scheme": "http",
+    "opaque": "/%2F/%2F/",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "http://other.example.com/%2F/%2F/",
+   "url": {
+    "scheme": "http",
+    "opaque": "//other.example.com/%2F/%2F/",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "/%2F/%2F/",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "/////",
+    "raw_path": "/%2F/%2F/",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "/////",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "/////",
+    "raw_path": "/WRONG/",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "/a%20b?q=go+language",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "/a b",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "/a%20b?q=go+language",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "/a b",
+    "raw_path": "/a b",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "/a%3Fb?q=go+language",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "/a?b",
+    "raw_path": "/a?b",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "opaque",
+   "url": {
+    "scheme": "myschema",
+    "opaque": "opaque",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "opaque?q=go+language",
+   "url": {
+    "scheme": "myschema",
+    "opaque": "opaque",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "q=go+language",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "//foo",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "//foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  },
+  {
+   "out": "/foo?",
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "example.com",
+    "path": "/foo",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": true,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   }
+  }
+ ],
+ "resolve_path": [
+  {
+   "base": "a/b",
+   "expected": "/a/",
+   "ref": "."
+  },
+  {
+   "base": "a/b",
+   "expected": "/a/c",
+   "ref": "c"
+  },
+  {
+   "base": "a/b",
+   "expected": "/",
+   "ref": ".."
+  },
+  {
+   "base": "a/",
+   "expected": "/",
+   "ref": ".."
+  },
+  {
+   "base": "a/",
+   "expected": "/",
+   "ref": "../.."
+  },
+  {
+   "base": "a/b/c",
+   "expected": "/a/",
+   "ref": ".."
+  },
+  {
+   "base": "a/b/c",
+   "expected": "/a/d",
+   "ref": "../d"
+  },
+  {
+   "base": "a/b/c",
+   "expected": "/a/d",
+   "ref": ".././d"
+  },
+  {
+   "base": "a/b",
+   "expected": "/",
+   "ref": "./.."
+  },
+  {
+   "base": "a/./b",
+   "expected": "/a/",
+   "ref": "."
+  },
+  {
+   "base": "a/../",
+   "expected": "/",
+   "ref": "."
+  },
+  {
+   "base": "a/.././b",
+   "expected": "/c",
+   "ref": "c"
+  }
+ ],
+ "resolve_reference": [
+  {
+   "base": "http://foo.com?a=b",
+   "expected": "https://bar.com/",
+   "rel": "https://bar.com/"
+  },
+  {
+   "base": "http://foo.com/",
+   "expected": "https://bar.com/?a=b",
+   "rel": "https://bar.com/?a=b"
+  },
+  {
+   "base": "http://foo.com/",
+   "expected": "https://bar.com/?",
+   "rel": "https://bar.com/?"
+  },
+  {
+   "base": "http://foo.com/bar",
+   "expected": "mailto:foo@example.com",
+   "rel": "mailto:foo@example.com"
+  },
+  {
+   "base": "http://foo.com/bar",
+   "expected": "http://foo.com/baz",
+   "rel": "/baz"
+  },
+  {
+   "base": "http://foo.com/bar?a=b#f",
+   "expected": "http://foo.com/baz",
+   "rel": "/baz"
+  },
+  {
+   "base": "http://foo.com/bar?a=b",
+   "expected": "http://foo.com/baz?",
+   "rel": "/baz?"
+  },
+  {
+   "base": "http://foo.com/bar?a=b",
+   "expected": "http://foo.com/baz?c=d",
+   "rel": "/baz?c=d"
+  },
+  {
+   "base": "http://foo.com/bar",
+   "expected": "http://foo.com//baz",
+   "rel": "http://foo.com//baz"
+  },
+  {
+   "base": "http://foo.com/bar",
+   "expected": "http://foo.com///baz/quux",
+   "rel": "http://foo.com///baz/quux"
+  },
+  {
+   "base": "https://foo.com/bar?a=b",
+   "expected": "https://bar.com/quux",
+   "rel": "//bar.com/quux"
+  },
+  {
+   "base": "http://foo.com",
+   "expected": "http://foo.com/",
+   "rel": "."
+  },
+  {
+   "base": "http://foo.com/bar",
+   "expected": "http://foo.com/",
+   "rel": "."
+  },
+  {
+   "base": "http://foo.com/bar/",
+   "expected": "http://foo.com/bar/",
+   "rel": "."
+  },
+  {
+   "base": "http://foo.com",
+   "expected": "http://foo.com/bar",
+   "rel": "bar"
+  },
+  {
+   "base": "http://foo.com/",
+   "expected": "http://foo.com/bar",
+   "rel": "bar"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux",
+   "rel": "quux"
+  },
+  {
+   "base": "http://foo.com/bar/baz/",
+   "expected": "http://foo.com/bar/baz/quux",
+   "rel": "quux"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/quux",
+   "rel": "../quux"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/quux",
+   "rel": "../../../../../quux"
+  },
+  {
+   "base": "http://foo.com/bar",
+   "expected": "http://foo.com/",
+   "rel": ".."
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/",
+   "rel": "./.."
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux/tail",
+   "rel": "quux/dotdot/../tail"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux/tail",
+   "rel": "quux/./dotdot/../tail"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux/tail",
+   "rel": "quux/./dotdot/.././tail"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux/tail",
+   "rel": "quux/./dotdot/./../tail"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux/tail",
+   "rel": "quux/./dotdot/dotdot/././../../tail"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux/tail",
+   "rel": "quux/./dotdot/dotdot/./.././../tail"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux/tail",
+   "rel": "quux/./dotdot/dotdot/dotdot/./../../.././././tail"
+  },
+  {
+   "base": "http://foo.com/bar/baz",
+   "expected": "http://foo.com/bar/quux/dot/",
+   "rel": "quux/./dotdot/../dotdot/../dot/./tail/.."
+  },
+  {
+   "base": "http://foo.com/dot/./dotdot/../foo/bar",
+   "expected": "http://foo.com/dot/baz",
+   "rel": "../baz"
+  },
+  {
+   "base": "http://foo.com/bar",
+   "expected": "http://foo.com/...",
+   "rel": "..."
+  },
+  {
+   "base": "http://foo.com/bar",
+   "expected": "http://foo.com/#frag",
+   "rel": ".#frag"
+  },
+  {
+   "base": "http://example.org/",
+   "expected": "http://example.org/#!$\u0026%27()*+,;=",
+   "rel": "#!$\u0026%27()*+,;="
+  },
+  {
+   "base": "http://foo.com/foo%2fbar/",
+   "expected": "http://foo.com/baz",
+   "rel": "../baz"
+  },
+  {
+   "base": "http://foo.com/1/2%2f/3%2f4/5",
+   "expected": "http://foo.com/1/a/b/c",
+   "rel": "../../a/b/c"
+  },
+  {
+   "base": "http://foo.com/1/2/3",
+   "expected": "http://foo.com/1/2/b/..%2fc",
+   "rel": "./a%2f../../b/..%2fc"
+  },
+  {
+   "base": "http://foo.com/1/2%2f/3%2f4/5",
+   "expected": "http://foo.com/1/2%2f/3%2f4/a%2f../c",
+   "rel": "./a%2f../b/../c"
+  },
+  {
+   "base": "http://foo.com/foo%20bar/",
+   "expected": "http://foo.com/baz",
+   "rel": "../baz"
+  },
+  {
+   "base": "http://foo.com/foo",
+   "expected": "http://foo.com/bar%2fbaz",
+   "rel": "../bar%2fbaz"
+  },
+  {
+   "base": "http://foo.com/foo%2dbar/",
+   "expected": "http://foo.com/foo%2dbar/baz-quux",
+   "rel": "./baz-quux"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "g:h",
+   "rel": "g:h"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g",
+   "rel": "g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g",
+   "rel": "./g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g/",
+   "rel": "g/"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/g",
+   "rel": "/g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://g",
+   "rel": "//g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/d;p?y",
+   "rel": "?y"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g?y",
+   "rel": "g?y"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/d;p?q#s",
+   "rel": "#s"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g#s",
+   "rel": "g#s"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g?y#s",
+   "rel": "g?y#s"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/;x",
+   "rel": ";x"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g;x",
+   "rel": "g;x"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g;x?y#s",
+   "rel": "g;x?y#s"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/d;p?q",
+   "rel": ""
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/",
+   "rel": "."
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/",
+   "rel": "./"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/",
+   "rel": ".."
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/",
+   "rel": "../"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/g",
+   "rel": "../g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/",
+   "rel": "../.."
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/",
+   "rel": "../../"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/g",
+   "rel": "../../g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/g",
+   "rel": "../../../g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/g",
+   "rel": "../../../../g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/g",
+   "rel": "/./g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/g",
+   "rel": "/../g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g.",
+   "rel": "g."
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/.g",
+   "rel": ".g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g..",
+   "rel": "g.."
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/..g",
+   "rel": "..g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/g",
+   "rel": "./../g"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g/",
+   "rel": "./g/."
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g/h",
+   "rel": "g/./h"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/h",
+   "rel": "g/../h"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g;x=1/y",
+   "rel": "g;x=1/./y"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/y",
+   "rel": "g;x=1/../y"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g?y/./x",
+   "rel": "g?y/./x"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g?y/../x",
+   "rel": "g?y/../x"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g#s/./x",
+   "rel": "g#s/./x"
+  },
+  {
+   "base": "http://a/b/c/d;p?q",
+   "expected": "http://a/b/c/g#s/../x",
+   "rel": "g#s/../x"
+  },
+  {
+   "base": "https://a/b/c/d;p?q",
+   "expected": "https://g?q",
+   "rel": "//g?q"
+  },
+  {
+   "base": "https://a/b/c/d;p?q",
+   "expected": "https://g#s",
+   "rel": "//g#s"
+  },
+  {
+   "base": "https://a/b/c/d;p?q",
+   "expected": "https://g/d/e/f?y#s",
+   "rel": "//g/d/e/f?y#s"
+  },
+  {
+   "base": "https://a/b/c/d;p#s",
+   "expected": "https://a/b/c/d;p?y",
+   "rel": "?y"
+  },
+  {
+   "base": "https://a/b/c/d;p?q#s",
+   "expected": "https://a/b/c/d;p?y",
+   "rel": "?y"
+  },
+  {
+   "base": "https://a/b/c/d;p?q#s",
+   "expected": "https://a/b/c/d;p?",
+   "rel": "?"
+  },
+  {
+   "base": "https://foo.com/bar?a=b",
+   "expected": "http:opaque",
+   "rel": "http:opaque"
+  },
+  {
+   "base": "http:opaque?x=y#zzz",
+   "expected": "https:/foo?a=b#frag",
+   "rel": "https:/foo?a=b#frag"
+  },
+  {
+   "base": "http:opaque?x=y#zzz",
+   "expected": "https:foo:bar",
+   "rel": "https:foo:bar"
+  },
+  {
+   "base": "http:opaque?x=y#zzz",
+   "expected": "https:bar/baz?a=b#frag",
+   "rel": "https:bar/baz?a=b#frag"
+  },
+  {
+   "base": "http:opaque?x=y#zzz",
+   "expected": "https://user@host:1234?a=b#frag",
+   "rel": "https://user@host:1234?a=b#frag"
+  },
+  {
+   "base": "http:opaque?x=y#zzz",
+   "expected": "http:opaque?a=b#frag",
+   "rel": "?a=b#frag"
+  }
+ ],
+ "string": [
+  {
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "search",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "want": "http://www.google.com/search"
+  },
+  {
+   "url": {
+    "scheme": "",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "this:that",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "want": "./this:that"
+  },
+  {
+   "url": {
+    "scheme": "",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "",
+    "path": "here/this:that",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "want": "here/this:that"
+  },
+  {
+   "url": {
+    "scheme": "http",
+    "opaque": "",
+    "has_user": false,
+    "username": "",
+    "password": "",
+    "password_set": false,
+    "host": "www.google.com",
+    "path": "this:that",
+    "raw_path": "",
+    "omit_host": false,
+    "force_query": false,
+    "raw_query": "",
+    "fragment": "",
+    "raw_fragment": ""
+   },
+   "want": "http://www.google.com/this:that"
+  }
+ ],
+ "unescape": [
+  {
+   "err": false,
+   "in": "",
+   "out": ""
+  },
+  {
+   "err": false,
+   "in": "abc",
+   "out": "abc"
+  },
+  {
+   "err": false,
+   "in": "1%41",
+   "out": "1A"
+  },
+  {
+   "err": false,
+   "in": "1%41%42%43",
+   "out": "1ABC"
+  },
+  {
+   "err": false,
+   "in": "%4a",
+   "out": "J"
+  },
+  {
+   "err": false,
+   "in": "%6F",
+   "out": "o"
+  },
+  {
+   "err": true,
+   "in": "%",
+   "out": ""
+  },
+  {
+   "err": true,
+   "in": "%a",
+   "out": ""
+  },
+  {
+   "err": true,
+   "in": "%1",
+   "out": ""
+  },
+  {
+   "err": true,
+   "in": "123%45%6",
+   "out": ""
+  },
+  {
+   "err": true,
+   "in": "%zzzzz",
+   "out": ""
+  },
+  {
+   "err": false,
+   "in": "a+b",
+   "out": "a b"
+  },
+  {
+   "err": false,
+   "in": "a%20b",
+   "out": "a b"
+  }
+ ]
+}

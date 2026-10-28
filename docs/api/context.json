@@ -1,0 +1,80 @@
+{
+  "package": "context",
+  "notes": "context: Go's cancellation tree on std threads/condvars (event driven, one lazy timer thread). Context is a concrete handle; constructors are methods (Context::background, ctx.with_cancel()) (custom Context implementations are not supported); deadlines are Instants; Done is a handle with wait/wait_timeout/receiver; keys are typed Key<T>. AfterFunc firing order among siblings is unspecified (as in Go). Rust adds Context::check as a convenience.",
+  "symbols": {
+    "AfterFunc": {
+      "rust": "rust_stdlib::context::Context::after_func",
+      "deviation": "thread-not-goroutine",
+      "note": "Each f runs in its own std thread; the returned StopFunc has Go's bool result."
+    },
+    "Background": {
+      "rust": "rust_stdlib::context::Context::background"
+    },
+    "CancelCauseFunc": {
+      "rust": "rust_stdlib::context::CancelCauseFunc",
+      "note": "Arc<dyn Fn(Option<CauseError>)>."
+    },
+    "CancelFunc": {
+      "rust": "rust_stdlib::context::CancelFunc",
+      "note": "Arc<dyn Fn()>; call as cancel()."
+    },
+    "Canceled": {
+      "rust": "rust_stdlib::context::Error::Canceled",
+      "note": "Error::Canceled; timeout()/temporary() report false (Go's error has no such methods)."
+    },
+    "Cause": {
+      "rust": "rust_stdlib::context::Context::cause"
+    },
+    "Context": {
+      "rust": "rust_stdlib::context::Context",
+      "note": "A concrete clonable handle, not an interface: a user-defined Context implementation cannot be passed where Go accepts one, and parents are always this crate's own contexts. Supporting it needs a trait for custom contexts plus a watcher thread per child (Go's propagateCancel goroutine).",
+      "deviation": "closed-interface"
+    },
+    "Context.Deadline": {
+      "rust": "rust_stdlib::context::Context::deadline",
+      "note": "std::time::Instant instead of time.Time."
+    },
+    "Context.Done": {
+      "rust": "rust_stdlib::context::Context::done",
+      "note": "Returns a Done handle (wait, wait_timeout, is_done, receiver) instead of a channel; its mpsc receiver reports Disconnected once done."
+    },
+    "Context.Err": {
+      "rust": "rust_stdlib::context::Context::err"
+    },
+    "Context.Value": {
+      "rust": "rust_stdlib::context::Context::value",
+      "note": "Typed Key<T> (unique, named or type-identified) instead of an untyped any key; returns Option<Arc<T>>."
+    },
+    "DeadlineExceeded": {
+      "rust": "rust_stdlib::context::Error::DeadlineExceeded",
+      "note": "Error::DeadlineExceeded with timeout() and temporary() both true, as Go's deadlineExceededError."
+    },
+    "TODO": {
+      "rust": "rust_stdlib::context::Context::todo"
+    },
+    "WithCancel": {
+      "rust": "rust_stdlib::context::Context::with_cancel"
+    },
+    "WithCancelCause": {
+      "rust": "rust_stdlib::context::Context::with_cancel_cause"
+    },
+    "WithDeadline": {
+      "rust": "rust_stdlib::context::Context::with_deadline"
+    },
+    "WithDeadlineCause": {
+      "rust": "rust_stdlib::context::Context::with_deadline_cause"
+    },
+    "WithTimeout": {
+      "rust": "rust_stdlib::context::Context::with_timeout"
+    },
+    "WithTimeoutCause": {
+      "rust": "rust_stdlib::context::Context::with_timeout_cause"
+    },
+    "WithValue": {
+      "rust": "rust_stdlib::context::Context::with_value"
+    },
+    "WithoutCancel": {
+      "rust": "rust_stdlib::context::Context::without_cancel"
+    }
+  }
+}

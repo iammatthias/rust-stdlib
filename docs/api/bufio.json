@@ -1,0 +1,212 @@
+{
+  "package": "bufio",
+  "notes": "Go's buffer algorithms are reimplemented (std::io::BufReader cannot Peek, UnreadRune, ReadSlice or Discard with Go's rules): when a Read bypasses the buffer, ErrBufferFull, ReadLine's isPrefix and '\\r' handling, UnreadByte/UnreadRune validity, ScanLines/ScanRunes/ScanWords, ErrTooLong growth and ErrFinalToken are Go's. Reader implements std::io::Read and BufRead (read_until keeps Go's read-ahead, so ReadBytes and ReadString are BufRead::read_until; Go strings are bytes, convert with String::from_utf8), Writer std::io::Write, so they drop into std code. Errors are the variants of rust_stdlib::bufio::Error (Error::is is errors.Is) inside io::Error; io.EOF is rust_stdlib::io::eof. Where Go returns data or a count with an error the error carries it: SliceError::data for ReadSlice, io::ReadError::read for Discard, io::CopyError::written for Write/WriteString; after a failed Peek Reader::buffer holds the available bytes. Scanner is an Iterator over tokens (Item = io::Result<Vec<u8>>): Scan/Bytes/Text is next, Err is the first Err item, Split and Buffer are builders, and a SplitFunc returns Result<Split> (Skip, Token, Last for ErrFinalToken); a negative advance cannot be expressed so a split function reports ErrNegativeAdvance itself, and Go's panics (empty tokens without progress, Split or Buffer after Scan) are error items. Counts are usize, so ErrNegativeCount is never returned by this API and ErrBadReadCount cannot occur because Rust's Read cannot report an impossible count. A Read returning Ok(0) into a non-empty buffer is EOF, so ErrNoProgress arises only from 100 consecutive Interrupted errors. Differences from Go that do not change results on conforming readers/writers: NewReader(Size)/NewWriter(Size) always allocate a new buffer instead of returning an already buffered argument; WriteTo/ReadFrom/WriteString do not use the underlying WriterTo/ReaderFrom/StringWriter fast paths; a write that accepts zero bytes of non-empty data is io.ErrShortWrite rather than a retry; Scanner::buffer takes a Vec and uses its capacity; SplitFunc tokens are copied into the scanner. Tested against Go by tools/io_check.py.",
+  "symbols": {
+    "ErrAdvanceTooFar": {
+      "rust": "rust_stdlib::bufio::Error::AdvanceTooFar"
+    },
+    "ErrBadReadCount": {
+      "rust": "rust_stdlib::bufio::Error::BadReadCount"
+    },
+    "ErrBufferFull": {
+      "rust": "rust_stdlib::bufio::Error::BufferFull"
+    },
+    "ErrFinalToken": {
+      "rust": "rust_stdlib::bufio::Error::FinalToken"
+    },
+    "ErrInvalidUnreadByte": {
+      "rust": "rust_stdlib::bufio::Error::InvalidUnreadByte"
+    },
+    "ErrInvalidUnreadRune": {
+      "rust": "rust_stdlib::bufio::Error::InvalidUnreadRune"
+    },
+    "ErrNegativeAdvance": {
+      "rust": "rust_stdlib::bufio::Error::NegativeAdvance"
+    },
+    "ErrNegativeCount": {
+      "rust": "rust_stdlib::bufio::Error::NegativeCount"
+    },
+    "ErrTooLong": {
+      "rust": "rust_stdlib::bufio::Error::TooLong"
+    },
+    "MaxScanTokenSize": {
+      "rust": "rust_stdlib::bufio::MAX_SCAN_TOKEN_SIZE"
+    },
+    "NewReadWriter": {
+      "rust": "rust_stdlib::bufio::ReadWriter::new"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::bufio::Reader::new",
+      "note": "A Reader that wraps another bufio.Reader is not returned as is; it gets its own buffer, where Go returns the same reader when the size fits.",
+      "deviation": "wrapper-identity"
+    },
+    "NewReaderSize": {
+      "rust": "rust_stdlib::bufio::Reader::with_size",
+      "note": "A Reader that wraps another bufio.Reader is not returned as is; it gets its own buffer, where Go returns the same reader when the size fits.",
+      "deviation": "wrapper-identity"
+    },
+    "NewScanner": {
+      "rust": "rust_stdlib::bufio::Scanner::new"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::bufio::Writer::new",
+      "note": "A Writer that wraps another bufio.Writer is not returned as is; it gets its own buffer, where Go returns the same writer when the size fits.",
+      "deviation": "wrapper-identity"
+    },
+    "NewWriterSize": {
+      "rust": "rust_stdlib::bufio::Writer::with_size",
+      "note": "A Writer that wraps another bufio.Writer is not returned as is; it gets its own buffer, where Go returns the same writer when the size fits.",
+      "deviation": "wrapper-identity"
+    },
+    "ReadWriter": {
+      "rust": "rust_stdlib::bufio::ReadWriter"
+    },
+    "ReadWriter.Reader": {
+      "rust": "rust_stdlib::bufio::ReadWriter::reader"
+    },
+    "ReadWriter.Writer": {
+      "rust": "rust_stdlib::bufio::ReadWriter::writer"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::bufio::Reader"
+    },
+    "Reader.Buffered": {
+      "rust": "rust_stdlib::bufio::Reader::buffered"
+    },
+    "Reader.Discard": {
+      "rust": "rust_stdlib::bufio::Reader::discard"
+    },
+    "Reader.Peek": {
+      "rust": "rust_stdlib::bufio::Reader::peek",
+      "deviation": "io-read-contract",
+      "note": "Ok(0) into a non-empty buffer is EOF in Rust, so Go's ErrNoProgress (100 reads of (0, nil)) arises only from 100 consecutive Interrupted errors."
+    },
+    "Reader.Read": {
+      "rust": "std::io::Read::read",
+      "deviation": "io-read-contract",
+      "note": "Ok(0) into a non-empty buffer is EOF in Rust, so Go's ErrNoProgress (100 reads of (0, nil)) arises only from 100 consecutive Interrupted errors."
+    },
+    "Reader.ReadByte": {
+      "rust": "rust_stdlib::bufio::Reader::read_byte"
+    },
+    "Reader.ReadBytes": {
+      "rust": "std::io::BufRead::read_until",
+      "deviation": "io-read-contract",
+      "note": "Reader overrides read_until with Go's read-ahead; EOF before the delimiter is Ok with data not ending in it, where Go returns io.EOF."
+    },
+    "Reader.ReadLine": {
+      "rust": "rust_stdlib::bufio::Reader::read_line_bytes"
+    },
+    "Reader.ReadRune": {
+      "rust": "rust_stdlib::bufio::Reader::read_rune"
+    },
+    "Reader.ReadSlice": {
+      "rust": "rust_stdlib::bufio::Reader::read_slice"
+    },
+    "Reader.ReadString": {
+      "rust": "std::io::BufRead::read_until",
+      "note": "Go strings are bytes: read_until, then String::from_utf8 when UTF-8 is required."
+    },
+    "Reader.Reset": {
+      "rust": "rust_stdlib::bufio::Reader::reset"
+    },
+    "Reader.Size": {
+      "rust": "rust_stdlib::bufio::Reader::size"
+    },
+    "Reader.UnreadByte": {
+      "rust": "rust_stdlib::bufio::Reader::unread_byte"
+    },
+    "Reader.UnreadRune": {
+      "rust": "rust_stdlib::bufio::Reader::unread_rune"
+    },
+    "Reader.WriteTo": {
+      "rust": "rust_stdlib::bufio::Reader::write_to",
+      "deviation": "interface-assertion",
+      "note": "Does not use the underlying WriterTo/ReaderFrom/StringWriter fast paths that Go dispatches to, so a writer or reader with its own implementation is not consulted."
+    },
+    "ScanBytes": {
+      "rust": "rust_stdlib::bufio::scan_bytes"
+    },
+    "ScanLines": {
+      "rust": "rust_stdlib::bufio::scan_lines"
+    },
+    "ScanRunes": {
+      "rust": "rust_stdlib::bufio::scan_runes"
+    },
+    "ScanWords": {
+      "rust": "rust_stdlib::bufio::scan_words"
+    },
+    "Scanner": {
+      "rust": "rust_stdlib::bufio::Scanner"
+    },
+    "Scanner.Buffer": {
+      "rust": "rust_stdlib::bufio::Scanner::buffer"
+    },
+    "Scanner.Bytes": {
+      "rust": "std::iter::Iterator::next",
+      "note": "Items are the tokens as Vec<u8>."
+    },
+    "Scanner.Err": {
+      "rust": "std::iter::Iterator::next",
+      "note": "The iterator yields the first non-EOF error as an Err item, then ends."
+    },
+    "Scanner.Scan": {
+      "rust": "std::iter::Iterator::next"
+    },
+    "Scanner.Split": {
+      "rust": "rust_stdlib::bufio::Scanner::split"
+    },
+    "Scanner.Text": {
+      "rust": "std::iter::Iterator::next",
+      "note": "Items are the tokens as Vec<u8>; Go strings are bytes, convert with String::from_utf8."
+    },
+    "SplitFunc": {
+      "rust": "rust_stdlib::bufio::SplitFunc"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::bufio::Writer"
+    },
+    "Writer.Available": {
+      "rust": "rust_stdlib::bufio::Writer::available"
+    },
+    "Writer.AvailableBuffer": {
+      "rust": "rust_stdlib::bufio::Writer::available_buffer",
+      "note": "Returns an empty Vec with spare capacity that is copied on Write; Go aliases the writer's own spare space.",
+      "deviation": "slice-capacity-view"
+    },
+    "Writer.Buffered": {
+      "rust": "rust_stdlib::bufio::Writer::buffered"
+    },
+    "Writer.Flush": {
+      "rust": "rust_stdlib::bufio::Writer::flush"
+    },
+    "Writer.ReadFrom": {
+      "rust": "rust_stdlib::bufio::Writer::read_from",
+      "deviation": "interface-assertion",
+      "note": "Does not use the underlying WriterTo/ReaderFrom/StringWriter fast paths that Go dispatches to, so a writer or reader with its own implementation is not consulted."
+    },
+    "Writer.Reset": {
+      "rust": "rust_stdlib::bufio::Writer::reset"
+    },
+    "Writer.Size": {
+      "rust": "rust_stdlib::bufio::Writer::size"
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write",
+      "deviation": "zero-write-error",
+      "note": "A write that accepts zero bytes of non-empty data is io.ErrShortWrite; Go calls the writer again (and so loops on a writer that never makes progress)."
+    },
+    "Writer.WriteByte": {
+      "rust": "std::io::Write::write_all",
+      "note": "write_all(&[b])."
+    },
+    "Writer.WriteRune": {
+      "rust": "rust_stdlib::bufio::Writer::write_char"
+    },
+    "Writer.WriteString": {
+      "rust": "rust_stdlib::bufio::Writer::write_string",
+      "deviation": "interface-assertion",
+      "note": "Does not use the underlying WriterTo/ReaderFrom/StringWriter fast paths that Go dispatches to, so a writer or reader with its own implementation is not consulted."
+    }
+  }
+}

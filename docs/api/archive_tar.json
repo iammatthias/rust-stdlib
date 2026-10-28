@@ -1,0 +1,195 @@
+{
+  "package": "archive/tar",
+  "notes": "archive::tar: Go-shaped Reader/Writer/Header over std::io with USTAR, PAX and GNU formats, long names, PAX time precision, sparse reading (old GNU, PAX 0.0/0.1/1.0) and format selection identical to Go (archives written by Go and Rust are byte-identical); Reader::next_raw returns byte-string headers like Go (Reader::next is the String form), times are SystemTime, ErrInsecurePath is opt-in (GODEBUG=tarinsecurepath=0 or Reader::set_reject_insecure_paths) and carries the header; sparse writing (Writer::write_sparse_header) is an extension because Go's is disabled; set_name_lookup is an extension that lets FileInfoHeader resolve names through rust_stdlib_sys::os::user",
+  "symbols": {
+    "ErrFieldTooLong": {
+      "rust": "rust_stdlib::archive::tar::ERR_FIELD_TOO_LONG"
+    },
+    "ErrHeader": {
+      "rust": "rust_stdlib::archive::tar::ERR_HEADER"
+    },
+    "ErrInsecurePath": {
+      "rust": "rust_stdlib::archive::tar::ERR_INSECURE_PATH"
+    },
+    "ErrWriteAfterClose": {
+      "rust": "rust_stdlib::archive::tar::ERR_WRITE_AFTER_CLOSE"
+    },
+    "ErrWriteTooLong": {
+      "rust": "rust_stdlib::archive::tar::ERR_WRITE_TOO_LONG"
+    },
+    "FileInfoHeader": {
+      "rust": "rust_stdlib::archive::tar::file_info_header",
+      "note": "Uname and Gname come from a crate-private /etc/passwd and /etc/group parser plus the current user through $USER, because the root crate has no FFI (ADR 0004); Go asks the C library (always on macOS, on Linux when built with cgo), so any NSS or Open Directory id resolves. tar::set_name_lookup installs other lookups; installing rust_stdlib_sys::os::user::lookup_id and lookup_group_id gives Go's result. Real files are checked against Go by tools/check_archive_api.py.",
+      "deviation": "no-ffi-in-root"
+    },
+    "FileInfoNames": {
+      "rust": "rust_stdlib::archive::tar::FileInfoNames"
+    },
+    "FileInfoNames.Gname": {
+      "rust": "rust_stdlib::archive::tar::FileInfoNames::gname"
+    },
+    "FileInfoNames.Uname": {
+      "rust": "rust_stdlib::archive::tar::FileInfoNames::uname"
+    },
+    "Format": {
+      "rust": "rust_stdlib::archive::tar::Format"
+    },
+    "Format.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "FormatGNU": {
+      "rust": "rust_stdlib::archive::tar::FORMAT_GNU"
+    },
+    "FormatPAX": {
+      "rust": "rust_stdlib::archive::tar::FORMAT_PAX"
+    },
+    "FormatUSTAR": {
+      "rust": "rust_stdlib::archive::tar::FORMAT_USTAR"
+    },
+    "FormatUnknown": {
+      "rust": "rust_stdlib::archive::tar::FORMAT_UNKNOWN"
+    },
+    "Header": {
+      "rust": "rust_stdlib::archive::tar::Header"
+    },
+    "Header.AccessTime": {
+      "rust": "rust_stdlib::archive::tar::Header::access_time",
+      "deviation": "instant-no-zone",
+      "note": "Times are SystemTime, an instant without Go's time zone."
+    },
+    "Header.ChangeTime": {
+      "rust": "rust_stdlib::archive::tar::Header::change_time",
+      "deviation": "instant-no-zone",
+      "note": "Times are SystemTime, an instant without Go's time zone."
+    },
+    "Header.Devmajor": {
+      "rust": "rust_stdlib::archive::tar::Header::devmajor"
+    },
+    "Header.Devminor": {
+      "rust": "rust_stdlib::archive::tar::Header::devminor"
+    },
+    "Header.FileInfo": {
+      "rust": "rust_stdlib::archive::tar::Header::file_info"
+    },
+    "Header.Format": {
+      "rust": "rust_stdlib::archive::tar::Header::format"
+    },
+    "Header.Gid": {
+      "rust": "rust_stdlib::archive::tar::Header::gid"
+    },
+    "Header.Gname": {
+      "rust": "rust_stdlib::archive::tar::Header::gname"
+    },
+    "Header.Linkname": {
+      "rust": "rust_stdlib::archive::tar::Header::linkname"
+    },
+    "Header.ModTime": {
+      "rust": "rust_stdlib::archive::tar::Header::mod_time",
+      "deviation": "instant-no-zone",
+      "note": "Times are SystemTime, an instant without Go's time zone."
+    },
+    "Header.Mode": {
+      "rust": "rust_stdlib::archive::tar::Header::mode"
+    },
+    "Header.Name": {
+      "rust": "rust_stdlib::archive::tar::Header::name"
+    },
+    "Header.PAXRecords": {
+      "rust": "rust_stdlib::archive::tar::Header::pax_records"
+    },
+    "Header.Size": {
+      "rust": "rust_stdlib::archive::tar::Header::size"
+    },
+    "Header.Typeflag": {
+      "rust": "rust_stdlib::archive::tar::Header::typeflag"
+    },
+    "Header.Uid": {
+      "rust": "rust_stdlib::archive::tar::Header::uid"
+    },
+    "Header.Uname": {
+      "rust": "rust_stdlib::archive::tar::Header::uname"
+    },
+    "Header.Xattrs": {
+      "rust": "rust_stdlib::archive::tar::Header::xattrs"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::archive::tar::Reader::new"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::archive::tar::Writer::new"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::archive::tar::Reader"
+    },
+    "Reader.Next": {
+      "rust": "rust_stdlib::archive::tar::Reader::next_raw",
+      "note": "returns a RawHeader whose names and PAX records are bytes, as Go's strings are; Reader::next is the String form and reports ErrHeader for a non-UTF-8 name"
+    },
+    "Reader.Read": {
+      "rust": "std::io::Read::read",
+      "note": "Reader<R> implements std::io::Read; sparse holes read as zeros"
+    },
+    "TypeBlock": {
+      "rust": "rust_stdlib::archive::tar::TYPE_BLOCK"
+    },
+    "TypeChar": {
+      "rust": "rust_stdlib::archive::tar::TYPE_CHAR"
+    },
+    "TypeCont": {
+      "rust": "rust_stdlib::archive::tar::TYPE_CONT"
+    },
+    "TypeDir": {
+      "rust": "rust_stdlib::archive::tar::TYPE_DIR"
+    },
+    "TypeFifo": {
+      "rust": "rust_stdlib::archive::tar::TYPE_FIFO"
+    },
+    "TypeGNULongLink": {
+      "rust": "rust_stdlib::archive::tar::TYPE_GNU_LONG_LINK"
+    },
+    "TypeGNULongName": {
+      "rust": "rust_stdlib::archive::tar::TYPE_GNU_LONG_NAME"
+    },
+    "TypeGNUSparse": {
+      "rust": "rust_stdlib::archive::tar::TYPE_GNU_SPARSE"
+    },
+    "TypeLink": {
+      "rust": "rust_stdlib::archive::tar::TYPE_LINK"
+    },
+    "TypeReg": {
+      "rust": "rust_stdlib::archive::tar::TYPE_REG"
+    },
+    "TypeRegA": {
+      "rust": "rust_stdlib::archive::tar::TYPE_REG_A"
+    },
+    "TypeSymlink": {
+      "rust": "rust_stdlib::archive::tar::TYPE_SYMLINK"
+    },
+    "TypeXGlobalHeader": {
+      "rust": "rust_stdlib::archive::tar::TYPE_X_GLOBAL_HEADER"
+    },
+    "TypeXHeader": {
+      "rust": "rust_stdlib::archive::tar::TYPE_X_HEADER"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::archive::tar::Writer"
+    },
+    "Writer.AddFS": {
+      "rust": "rust_stdlib::archive::tar::Writer::add_fs"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::archive::tar::Writer::close"
+    },
+    "Writer.Flush": {
+      "rust": "std::io::Write::flush",
+      "note": "Writer<W> implements std::io::Write; flush is Go's Flush (pads the entry, errors if bytes are owed) and does not flush the destination"
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write",
+      "note": "Writer<W> implements std::io::Write; writing past the declared size accepts the permitted prefix then fails with ERR_WRITE_TOO_LONG"
+    },
+    "Writer.WriteHeader": {
+      "rust": "rust_stdlib::archive::tar::Writer::write_header"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "package": "expvar",
+  "notes": "rust_stdlib::expvar: Var (a trait whose Display output is valid JSON), Int and Float (atomic; Float.Add is a compare-exchange loop on the bits), String, Map (sorted keys; Map::add and add_float recognize Int and Float through Var::as_int and Var::as_float, the Rust form of Go's type assertion), Func, publish/get/iter and the published constructors over a process-wide registry. JSON rendering follows expvar's own quoting (appendJSONQuote), the expanded layout of the handler, and encoding/json (json::marshal) for Func. tests/expvar.rs ports expvar_test.go (the handler and quoting tables included); tools/expvar_check.py runs 400 seeded scripts (7,395 operation records) against Go, comparing every rendered value and duplicate-name panic exactly.",
+  "symbols": {
+    "Do": {"rust": "rust_stdlib::expvar::iter", "deviation": "deadlock-in-do", "note": "Calls f for each published variable in name order over a snapshot of the registry. Go holds the registry lock while f runs, so publishing a new variable from f blocks forever there; here it returns (see Map.Do)."},
+    "Float": {"rust": "rust_stdlib::expvar::Float"},
+    "Float.Add": {"rust": "rust_stdlib::expvar::Float::add"},
+    "Float.Set": {"rust": "rust_stdlib::expvar::Float::set"},
+    "Float.String": {"rust": "std::string::ToString::to_string", "note": "The Display rendering: Go's strconv 'g' format with the shortest exact digits."},
+    "Float.Value": {"rust": "rust_stdlib::expvar::Float::value"},
+    "Func": {
+      "rust": "rust_stdlib::expvar::Func",
+      "deviation": "untyped-interface",
+      "note": "Go's Func returns any and json.Marshal renders it, including reflection on arbitrary Go values. The Rust Func returns a json::Value, which cannot hold NaN or Inf: Go renders those as an empty string because json.Marshal fails, and the port cannot reproduce that case."
+    },
+    "Func.String": {"rust": "std::string::ToString::to_string", "note": "json::marshal (Go's HTML-escaping encoder) of the value; an encoding failure is the empty string."},
+    "Func.Value": {
+      "rust": "rust_stdlib::expvar::Func::value",
+      "deviation": "untyped-interface",
+      "note": "Returns a json::Value instead of any; see Func."
+    },
+    "Get": {
+      "rust": "rust_stdlib::expvar::get",
+      "deviation": "runtime-memstats",
+      "note": "Returns None for a missing name, as Go's nil. The registry starts with cmdline (as Go's init does, on first use), but not memstats, which in Go reports runtime.MemStats; the port cannot express that runtime snapshot."
+    },
+    "Handler": {
+      "rust": "rust_stdlib::expvar::handler",
+      "deviation": "default-serve-mux",
+      "note": "Returns a route for rust_stdlib::net::http::Router (available with the net feature) that writes the variables as Go's /debug/vars does, with the expanded layout and the JSON content type. Go's init also registers it on http.DefaultServeMux; the port has no default mux, so callers register it with Router::route."
+    },
+    "Int": {"rust": "rust_stdlib::expvar::Int"},
+    "Int.Add": {"rust": "rust_stdlib::expvar::Int::add"},
+    "Int.Set": {"rust": "rust_stdlib::expvar::Int::set"},
+    "Int.String": {"rust": "std::string::ToString::to_string"},
+    "Int.Value": {"rust": "rust_stdlib::expvar::Int::value"},
+    "KeyValue": {"rust": "rust_stdlib::expvar::KeyValue", "note": "Value is never absent in the port: a nil Var cannot be stored (see Map.Set)."},
+    "KeyValue.Key": {"rust": "rust_stdlib::expvar::KeyValue::key"},
+    "KeyValue.Value": {"rust": "rust_stdlib::expvar::KeyValue::value"},
+    "Map": {"rust": "rust_stdlib::expvar::Map"},
+    "Map.Add": {"rust": "rust_stdlib::expvar::Map::add", "note": "Adds to the Int under the key, creating one if the key is absent; a value of another type is left unchanged, as in Go."},
+    "Map.AddFloat": {"rust": "rust_stdlib::expvar::Map::add_float", "note": "Adds to the Float under the key, creating one if the key is absent; a value of another type is left unchanged."},
+    "Map.Delete": {"rust": "rust_stdlib::expvar::Map::delete"},
+    "Map.Do": {
+      "rust": "rust_stdlib::expvar::Map::iter",
+      "deviation": "deadlock-in-do",
+      "note": "Go holds the map's key lock while f runs, so adding or deleting a key from f blocks forever. The port calls f over a snapshot of the entries, so such calls return; updates to existing entries behave as in Go."
+    },
+    "Map.Get": {"rust": "rust_stdlib::expvar::Map::get", "note": "Returns None for an absent key (Go's nil Var)."},
+    "Map.Init": {"rust": "rust_stdlib::expvar::Map::init", "note": "Removes all keys and returns the map."},
+    "Map.Set": {
+      "rust": "rust_stdlib::expvar::Map::set",
+      "note": "Go accepts a nil Var, which renders as null; the port needs a Var value."
+    },
+    "Map.String": {"rust": "std::string::ToString::to_string", "note": "Non-expanded JSON, as Go's Map.String; the handler uses the expanded form."},
+    "NewFloat": {"rust": "rust_stdlib::expvar::Float::published"},
+    "NewInt": {"rust": "rust_stdlib::expvar::Int::published"},
+    "NewMap": {"rust": "rust_stdlib::expvar::Map::published"},
+    "NewString": {"rust": "rust_stdlib::expvar::String::published"},
+    "Publish": {"rust": "rust_stdlib::expvar::publish", "note": "Panics with Go's log.Panicln message (\"Reuse of exported var name: NAME\" with its newline) for a duplicate name. Go also writes that message through the log package."},
+    "String": {"rust": "rust_stdlib::expvar::String", "note": "A string variable; the Rust type is named String as in Go, so std::string::String is written in full inside the module."},
+    "String.Set": {"rust": "rust_stdlib::expvar::String::set"},
+    "String.String": {"rust": "std::string::ToString::to_string", "note": "The quoted JSON string (expvar's own escaping: <, >, &, U+2028 and U+2029 become \\u escapes)."},
+    "String.Value": {"rust": "rust_stdlib::expvar::String::value"},
+    "Var": {"rust": "rust_stdlib::expvar::Var", "note": "Send + Sync, so variables can be shared between threads; as_int and as_float are the Rust form of Go's type assertions."},
+    "Var.String": {"rust": "std::fmt::Display::fmt"}
+  }
+}

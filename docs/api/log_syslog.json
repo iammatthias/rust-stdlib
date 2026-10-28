@@ -1,0 +1,135 @@
+{
+  "package": "log/syslog",
+  "notes": "log/syslog: Go's syslog client over std::net (UDP, TCP) and std::os::unix::net (unixgram, unix) with Go's message format. Deviations forced by Rust std: the host name is read from /proc/sys/kernel/hostname, /etc/hostname, the hostname command or HOSTNAME (no gethostname); timestamps follow Go: the RFC 3339 stamp carries the local offset and the local stamp uses Local time (TZ as in Go).",
+  "symbols": {
+    "Dial": {
+      "rust": "rust_stdlib::log::syslog::dial"
+    },
+    "LOG_ALERT": {
+      "rust": "rust_stdlib::log::syslog::LOG_ALERT"
+    },
+    "LOG_AUTH": {
+      "rust": "rust_stdlib::log::syslog::LOG_AUTH"
+    },
+    "LOG_AUTHPRIV": {
+      "rust": "rust_stdlib::log::syslog::LOG_AUTHPRIV"
+    },
+    "LOG_CRIT": {
+      "rust": "rust_stdlib::log::syslog::LOG_CRIT"
+    },
+    "LOG_CRON": {
+      "rust": "rust_stdlib::log::syslog::LOG_CRON"
+    },
+    "LOG_DAEMON": {
+      "rust": "rust_stdlib::log::syslog::LOG_DAEMON"
+    },
+    "LOG_DEBUG": {
+      "rust": "rust_stdlib::log::syslog::LOG_DEBUG"
+    },
+    "LOG_EMERG": {
+      "rust": "rust_stdlib::log::syslog::LOG_EMERG"
+    },
+    "LOG_ERR": {
+      "rust": "rust_stdlib::log::syslog::LOG_ERR"
+    },
+    "LOG_FTP": {
+      "rust": "rust_stdlib::log::syslog::LOG_FTP"
+    },
+    "LOG_INFO": {
+      "rust": "rust_stdlib::log::syslog::LOG_INFO"
+    },
+    "LOG_KERN": {
+      "rust": "rust_stdlib::log::syslog::LOG_KERN"
+    },
+    "LOG_LOCAL0": {
+      "rust": "rust_stdlib::log::syslog::LOG_LOCAL0"
+    },
+    "LOG_LOCAL1": {
+      "rust": "rust_stdlib::log::syslog::LOG_LOCAL1"
+    },
+    "LOG_LOCAL2": {
+      "rust": "rust_stdlib::log::syslog::LOG_LOCAL2"
+    },
+    "LOG_LOCAL3": {
+      "rust": "rust_stdlib::log::syslog::LOG_LOCAL3"
+    },
+    "LOG_LOCAL4": {
+      "rust": "rust_stdlib::log::syslog::LOG_LOCAL4"
+    },
+    "LOG_LOCAL5": {
+      "rust": "rust_stdlib::log::syslog::LOG_LOCAL5"
+    },
+    "LOG_LOCAL6": {
+      "rust": "rust_stdlib::log::syslog::LOG_LOCAL6"
+    },
+    "LOG_LOCAL7": {
+      "rust": "rust_stdlib::log::syslog::LOG_LOCAL7"
+    },
+    "LOG_LPR": {
+      "rust": "rust_stdlib::log::syslog::LOG_LPR"
+    },
+    "LOG_MAIL": {
+      "rust": "rust_stdlib::log::syslog::LOG_MAIL"
+    },
+    "LOG_NEWS": {
+      "rust": "rust_stdlib::log::syslog::LOG_NEWS"
+    },
+    "LOG_NOTICE": {
+      "rust": "rust_stdlib::log::syslog::LOG_NOTICE"
+    },
+    "LOG_SYSLOG": {
+      "rust": "rust_stdlib::log::syslog::LOG_SYSLOG"
+    },
+    "LOG_USER": {
+      "rust": "rust_stdlib::log::syslog::LOG_USER"
+    },
+    "LOG_UUCP": {
+      "rust": "rust_stdlib::log::syslog::LOG_UUCP"
+    },
+    "LOG_WARNING": {
+      "rust": "rust_stdlib::log::syslog::LOG_WARNING"
+    },
+    "New": {
+      "rust": "rust_stdlib::log::syslog::new"
+    },
+    "NewLogger": {
+      "rust": "rust_stdlib::log::syslog::logger"
+    },
+    "Priority": {
+      "rust": "rust_stdlib::log::syslog::Priority"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::log::syslog::Writer"
+    },
+    "Writer.Alert": {
+      "rust": "rust_stdlib::log::syslog::Writer::alert"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::log::syslog::Writer::close"
+    },
+    "Writer.Crit": {
+      "rust": "rust_stdlib::log::syslog::Writer::crit"
+    },
+    "Writer.Debug": {
+      "rust": "rust_stdlib::log::syslog::Writer::debug"
+    },
+    "Writer.Emerg": {
+      "rust": "rust_stdlib::log::syslog::Writer::emerg"
+    },
+    "Writer.Err": {
+      "rust": "rust_stdlib::log::syslog::Writer::err"
+    },
+    "Writer.Info": {
+      "rust": "rust_stdlib::log::syslog::Writer::info"
+    },
+    "Writer.Notice": {
+      "rust": "rust_stdlib::log::syslog::Writer::notice"
+    },
+    "Writer.Warning": {
+      "rust": "rust_stdlib::log::syslog::Writer::warning"
+    },
+    "Writer.Write": {
+      "rust": "rust_stdlib::log::syslog::Writer::write"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "package": "net/http/cgi",
+  "notes": "net::http::cgi: the host Handler (environment construction, header parsing, internal redirects, error responses) and the child-side Request, RequestFromMap and Serve, verified against Go with scripted CGI programs and environments",
+  "symbols": {
+    "Handler": {
+      "rust": "rust_stdlib::net::http::cgi::Handler",
+      "note": "a struct with public fields; implements http::Handler"
+    },
+    "Handler.Args": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::args"
+    },
+    "Handler.Dir": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::dir"
+    },
+    "Handler.Env": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::env"
+    },
+    "Handler.InheritEnv": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::inherit_env"
+    },
+    "Handler.Logger": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::logger",
+      "note": "Option<Arc<log::Logger>>; None logs with log::printf"
+    },
+    "Handler.Path": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::path"
+    },
+    "Handler.PathLocationHandler": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::path_location_handler",
+      "note": "Option<Arc<dyn Handler>>"
+    },
+    "Handler.Root": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::root"
+    },
+    "Handler.Stderr": {
+      "rust": "rust_stdlib::net::http::cgi::Handler::stderr",
+      "note": "Option<Arc<Mutex<dyn Write + Send>>>; None is the parent's standard error"
+    },
+    "Handler.ServeHTTP": {
+      "rust": "rust_stdlib::net::http::Handler::serve_http",
+      "note": "std::process would search PATH for a Path with no directory part, so the child is executed as ./Path; its argv[0] is Path itself (CommandExt::arg0), as in Go, verified with a real binary reporting its argv[0]"
+    },
+    "Request": {
+      "rust": "rust_stdlib::net::http::cgi::request"
+    },
+    "RequestFromMap": {
+      "rust": "rust_stdlib::net::http::cgi::request_from_map"
+    },
+    "Serve": {
+      "rust": "rust_stdlib::net::http::cgi::serve",
+      "note": "takes Option<&dyn Handler>; None is Go's nil, the default ServeMux. serve_with writes the response to a given writer instead of standard output"
+    }
+  }
+}

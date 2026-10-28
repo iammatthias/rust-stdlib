@@ -1,0 +1,156 @@
+{
+  "package": "math/bits",
+  "notes": "math/bits: std integer methods. Len is BITS - leading_zeros; RotateLeft is rotate_left with the count masked to the width (a negative count rotates right); Add and Sub chain two overflowing_add/overflowing_sub; Mul, Div and Rem widen to u128 (Div panics when y <= hi, Rem when y == 0). Counts are u32 where Go returns int; uint is usize.",
+  "symbols": {
+    "Add": {
+      "rust": "usize::overflowing_add"
+    },
+    "Add32": {
+      "rust": "u32::overflowing_add"
+    },
+    "Add64": {
+      "rust": "u64::overflowing_add"
+    },
+    "Div": {
+      "rust": "std::ops::Div::div"
+    },
+    "Div32": {
+      "rust": "std::ops::Div::div"
+    },
+    "Div64": {
+      "rust": "std::ops::Div::div"
+    },
+    "LeadingZeros": {
+      "rust": "usize::leading_zeros"
+    },
+    "LeadingZeros16": {
+      "rust": "u16::leading_zeros"
+    },
+    "LeadingZeros32": {
+      "rust": "u32::leading_zeros"
+    },
+    "LeadingZeros64": {
+      "rust": "u64::leading_zeros"
+    },
+    "LeadingZeros8": {
+      "rust": "u8::leading_zeros"
+    },
+    "Len": {
+      "rust": "usize::leading_zeros"
+    },
+    "Len16": {
+      "rust": "u16::leading_zeros"
+    },
+    "Len32": {
+      "rust": "u32::leading_zeros"
+    },
+    "Len64": {
+      "rust": "u64::leading_zeros"
+    },
+    "Len8": {
+      "rust": "u8::leading_zeros"
+    },
+    "Mul": {
+      "rust": "std::ops::Mul::mul"
+    },
+    "Mul32": {
+      "rust": "std::ops::Mul::mul"
+    },
+    "Mul64": {
+      "rust": "std::ops::Mul::mul"
+    },
+    "OnesCount": {
+      "rust": "usize::count_ones"
+    },
+    "OnesCount16": {
+      "rust": "u16::count_ones"
+    },
+    "OnesCount32": {
+      "rust": "u32::count_ones"
+    },
+    "OnesCount64": {
+      "rust": "u64::count_ones"
+    },
+    "OnesCount8": {
+      "rust": "u8::count_ones"
+    },
+    "Rem": {
+      "rust": "std::ops::Rem::rem"
+    },
+    "Rem32": {
+      "rust": "std::ops::Rem::rem"
+    },
+    "Rem64": {
+      "rust": "std::ops::Rem::rem"
+    },
+    "Reverse": {
+      "rust": "usize::reverse_bits"
+    },
+    "Reverse16": {
+      "rust": "u16::reverse_bits"
+    },
+    "Reverse32": {
+      "rust": "u32::reverse_bits"
+    },
+    "Reverse64": {
+      "rust": "u64::reverse_bits"
+    },
+    "Reverse8": {
+      "rust": "u8::reverse_bits"
+    },
+    "ReverseBytes": {
+      "rust": "usize::swap_bytes"
+    },
+    "ReverseBytes16": {
+      "rust": "u16::swap_bytes"
+    },
+    "ReverseBytes32": {
+      "rust": "u32::swap_bytes"
+    },
+    "ReverseBytes64": {
+      "rust": "u64::swap_bytes"
+    },
+    "RotateLeft": {
+      "rust": "usize::rotate_left"
+    },
+    "RotateLeft16": {
+      "rust": "u16::rotate_left"
+    },
+    "RotateLeft32": {
+      "rust": "u32::rotate_left"
+    },
+    "RotateLeft64": {
+      "rust": "u64::rotate_left"
+    },
+    "RotateLeft8": {
+      "rust": "u8::rotate_left"
+    },
+    "Sub": {
+      "rust": "usize::overflowing_sub"
+    },
+    "Sub32": {
+      "rust": "u32::overflowing_sub"
+    },
+    "Sub64": {
+      "rust": "u64::overflowing_sub"
+    },
+    "TrailingZeros": {
+      "rust": "usize::trailing_zeros"
+    },
+    "TrailingZeros16": {
+      "rust": "u16::trailing_zeros"
+    },
+    "TrailingZeros32": {
+      "rust": "u32::trailing_zeros"
+    },
+    "TrailingZeros64": {
+      "rust": "u64::trailing_zeros"
+    },
+    "TrailingZeros8": {
+      "rust": "u8::trailing_zeros"
+    },
+    "UintSize": {
+      "rust": "usize::BITS"
+    }
+  }
+}

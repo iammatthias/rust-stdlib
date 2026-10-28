@@ -1,0 +1,14 @@
+truncated empty	-	-	-	io.ErrUnexpectedEOF
+truncated dict	-	78bb	00	io.ErrUnexpectedEOF
+truncated checksum	-	78bb00010001ca48cdc9c9d75128cf2fca4901040000ffff	00	io.ErrUnexpectedEOF
+empty	-	789c030000000001	-	nil
+goodbye	676f6f646279652c20776f726c64	789c4bcfcf4f49aa4cd55128cf2fca49010028a5055e	-	nil
+bad header (CINFO)	-	8898030000000001	-	ErrHeader
+bad header (FCHECK)	-	789f030000000001	-	ErrHeader
+bad checksum	-	789c0300000000ff	-	ErrChecksum
+not enough data	-	789c03000000	-	io.ErrUnexpectedEOF
+excess data is silently ignored	-	789c030000000001789cff	-	nil
+dictionary	48656c6c6f2c20576f726c64210a	78bb1c320427f300b175201c452e0024120474	48656c6c6f20576f726c640a	nil
+wrong dictionary	-	78bb1c320427f300b175201c452e0024120474	48656c6c	ErrDictionary
+truncated zlib stream amid raw-block	68656c6c6f	789c000c00f3ff68656c6c6f	-	io.ErrUnexpectedEOF
+truncated zlib stream amid fixed-block	4865	789cf248cd	-	io.ErrUnexpectedEOF

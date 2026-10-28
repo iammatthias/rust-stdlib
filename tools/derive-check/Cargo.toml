@@ -1,0 +1,14 @@
+[package]
+name = "rust-stdlib-derive-check"
+version = "0.1.0"
+edition = "2021"
+publish = false
+default-run = "rust-stdlib-derive-check"
+[features]
+# The HTTP transports of net/rpc (ServeHTTP, DialHTTP) need rust-stdlib's `net`.
+default = ["rust-stdlib/net"]
+[dependencies]
+rust-stdlib = { path = "../..", default-features = false }
+rust-stdlib-derive = { path = "../../crates/derive" }
+[lints.rust]
+unsafe_code = "forbid"

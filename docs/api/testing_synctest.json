@@ -1,0 +1,21 @@
+{
+  "package": "testing/synctest",
+  "notes": "Fake-clock bubble over threads (see the fake-runtime deviation). Traces of sleeps, waits, goroutines and channels are compared with Go's synctest by tools/testing_check.py.",
+  "symbols": {
+    "Sleep": {
+      "rust": "rust_stdlib::testing::synctest::sleep",
+      "deviation": "fake-runtime",
+      "note": "A bubble is an explicit mechanism, not runtime support: threads started with synctest::spawn join it, the bubble has its own fake clock (synctest::now) advanced only when every thread is asleep in time_sleep/sleep, waiting in wait, or receiving from an empty synctest::Chan. crate::time and crate::context timers, std channels and Condvar keep real time and are not durably blocking, which Go's runtime would make automatic."
+    },
+    "Test": {
+      "rust": "rust_stdlib::testing::synctest::test",
+      "deviation": "fake-runtime",
+      "note": "A bubble is an explicit mechanism, not runtime support: threads started with synctest::spawn join it, the bubble has its own fake clock (synctest::now) advanced only when every thread is asleep in time_sleep/sleep, waiting in wait, or receiving from an empty synctest::Chan. crate::time and crate::context timers, std channels and Condvar keep real time and are not durably blocking, which Go's runtime would make automatic. Cleanup functions run inside the bubble; T.run, T.parallel and T.deadline panic; a deadlock fails the test."
+    },
+    "Wait": {
+      "rust": "rust_stdlib::testing::synctest::wait",
+      "deviation": "fake-runtime",
+      "note": "A bubble is an explicit mechanism, not runtime support: threads started with synctest::spawn join it, the bubble has its own fake clock (synctest::now) advanced only when every thread is asleep in time_sleep/sleep, waiting in wait, or receiving from an empty synctest::Chan. crate::time and crate::context timers, std channels and Condvar keep real time and are not durably blocking, which Go's runtime would make automatic."
+    }
+  }
+}

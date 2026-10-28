@@ -1,0 +1,122 @@
+{
+  "package": "text/template",
+  "notes": "text/template: Template is a handle (clone = copy of Go's *Template; Clone is clone_template, New is associated). Execution runs over the typed Value model in text::template::value instead of reflect; data comes from the ToValue trait and functions from Value::func_of or the func0..func4/variadic builders. Funcs and Option panic on bad input like Go; strings are UTF-8; variadic arguments reach callables flattened; ParseFS takes any io::fs::FS (DirFS, MapFS, embed::FS) with fs.Glob semantics.",
+  "symbols": {
+    "ExecError": {
+      "rust": "rust_stdlib::text::template::ExecError"
+    },
+    "ExecError.Err": {
+      "rust": "rust_stdlib::text::template::ExecError::err"
+    },
+    "ExecError.Error": {
+      "rust": "rust_stdlib::text::template::ExecError::error"
+    },
+    "ExecError.Name": {
+      "rust": "rust_stdlib::text::template::ExecError::name"
+    },
+    "ExecError.Unwrap": {
+      "rust": "rust_stdlib::text::template::ExecError::unwrap"
+    },
+    "FuncMap": {
+      "rust": "rust_stdlib::text::template::FuncMap"
+    },
+    "HTMLEscape": {
+      "rust": "rust_stdlib::text::template::html_escape"
+    },
+    "HTMLEscapeString": {
+      "rust": "rust_stdlib::text::template::html_escape_string"
+    },
+    "HTMLEscaper": {
+      "rust": "rust_stdlib::text::template::html_escaper"
+    },
+    "IsTrue": {
+      "rust": "rust_stdlib::text::template::is_true"
+    },
+    "JSEscape": {
+      "rust": "rust_stdlib::text::template::js_escape"
+    },
+    "JSEscapeString": {
+      "rust": "rust_stdlib::text::template::js_escape_string"
+    },
+    "JSEscaper": {
+      "rust": "rust_stdlib::text::template::js_escaper"
+    },
+    "Must": {
+      "rust": "rust_stdlib::text::template::must"
+    },
+    "New": {
+      "rust": "rust_stdlib::text::template::new"
+    },
+    "ParseFS": {
+      "rust": "rust_stdlib::text::template::parse_fs"
+    },
+    "ParseFiles": {
+      "rust": "rust_stdlib::text::template::parse_files"
+    },
+    "ParseGlob": {
+      "rust": "rust_stdlib::text::template::parse_glob"
+    },
+    "Template": {
+      "rust": "rust_stdlib::text::template::Template"
+    },
+    "Template.AddParseTree": {
+      "rust": "rust_stdlib::text::template::Template::add_parse_tree"
+    },
+    "Template.Clone": {
+      "rust": "rust_stdlib::text::template::Template::clone_template"
+    },
+    "Template.DefinedTemplates": {
+      "rust": "rust_stdlib::text::template::Template::defined_templates"
+    },
+    "Template.Delims": {
+      "rust": "rust_stdlib::text::template::Template::delims"
+    },
+    "Template.Execute": {
+      "rust": "rust_stdlib::text::template::Template::execute",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Template text and data are Rust strings, so non-UTF-8 bytes cannot be expressed."
+    },
+    "Template.ExecuteTemplate": {
+      "rust": "rust_stdlib::text::template::Template::execute_template"
+    },
+    "Template.Funcs": {
+      "rust": "rust_stdlib::text::template::Template::funcs"
+    },
+    "Template.Lookup": {
+      "rust": "rust_stdlib::text::template::Template::lookup"
+    },
+    "Template.Name": {
+      "rust": "rust_stdlib::text::template::Template::name"
+    },
+    "Template.New": {
+      "rust": "rust_stdlib::text::template::Template::associated"
+    },
+    "Template.Option": {
+      "rust": "rust_stdlib::text::template::Template::option"
+    },
+    "Template.Parse": {
+      "rust": "rust_stdlib::text::template::Template::parse",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Template text and data are Rust strings, so non-UTF-8 bytes cannot be expressed."
+    },
+    "Template.ParseFS": {
+      "rust": "rust_stdlib::text::template::Template::parse_fs"
+    },
+    "Template.ParseFiles": {
+      "rust": "rust_stdlib::text::template::Template::parse_files"
+    },
+    "Template.ParseGlob": {
+      "rust": "rust_stdlib::text::template::Template::parse_glob"
+    },
+    "Template.Templates": {
+      "rust": "rust_stdlib::text::template::Template::templates"
+    },
+    "Template.Tree": {
+      "rust": "rust_stdlib::text::template::Template::tree",
+      "note": "the embedded *parse.Tree field; a method returning the shared tree"
+    },
+    "URLQueryEscaper": {
+      "rust": "rust_stdlib::text::template::url_query_escaper"
+    }
+  }
+}

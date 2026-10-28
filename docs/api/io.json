@@ -1,0 +1,285 @@
+{
+  "package": "io",
+  "notes": "Reader/Writer/Seeker are std::io::Read/Write/Seek and the composite interfaces are trait bounds. Go's io.EOF is Ok(0) from Read (std convention) and an io::Error carrying rust_stdlib::io::Error::Eof elsewhere (rust_stdlib::io::eof, is_eof); the other error variables are the variants of rust_stdlib::io::Error (Error::is is errors.Is). Go's (n, err) results are Result values whose error carries the count: CopyError::written for Copy/CopyBuffer/CopyN and ReadError::read for ReadFull/ReadAtLeast/ReadAt. Copy/CopyBuffer/CopyN (kept for Go's partial count and ErrShortWrite) do not dispatch to WriterTo/ReaderFrom nor shrink the buffer for a LimitedReader; CopyBuffer with an empty buffer is an error where Go panics; a negative Go count for CopyN is zero. ReaderAt/WriterAt keep Go's contract (the buffer is filled unless an error, io.EOF included, says why not) with u64 offsets like std's FileExt; an offset above i64::MAX is Go's negative offset. MultiWriter does not flatten or forward optional interfaces; a Read that returns Ok(0) for a non-empty buffer is EOF (so ErrNoProgress is produced only by repeated Interrupted); dropping a pipe half does not close it, as in Go. Pipe halves are cloneable handles; PipeWriter::write_shared reports the bytes consumed before an error and PipeReader::read_raw is Read with Go's exact result, including Ok(0) for a zero-length write. Tested against Go by tools/io_check.py.",
+  "symbols": {
+    "ByteReader": {
+      "rust": "std::io::Read::bytes",
+      "note": "`Read::bytes` yields one byte at a time; bufio::Reader::read_byte is the buffered, unreadable form."
+    },
+    "ByteReader.ReadByte": {
+      "rust": "std::io::Read::bytes"
+    },
+    "ByteScanner": {
+      "rust": "rust_stdlib::bufio::Reader::unread_byte",
+      "note": "std has no unread; bufio::Reader and text::Reader/Buffer provide read_byte/unread_byte."
+    },
+    "ByteScanner.UnreadByte": {
+      "rust": "rust_stdlib::bufio::Reader::unread_byte"
+    },
+    "ByteWriter": {
+      "rust": "std::io::Write::write_all",
+      "note": "`write_all(&[b])`."
+    },
+    "ByteWriter.WriteByte": {
+      "rust": "std::io::Write::write_all"
+    },
+    "Closer": {
+      "rust": "std::ops::Drop",
+      "note": "Rust closes on drop; types with an explicit, fallible close have an inherent `close` (os::File, PipeReader, PipeWriter)."
+    },
+    "Closer.Close": {
+      "rust": "std::ops::Drop::drop"
+    },
+    "Copy": {
+      "rust": "rust_stdlib::io::copy",
+      "deviation": "interface-assertion",
+      "note": "Does not dispatch to WriterTo/ReaderFrom nor shrink the buffer for a LimitedReader, as Go does."
+    },
+    "CopyBuffer": {
+      "rust": "rust_stdlib::io::copy_buffer",
+      "deviation": "interface-assertion",
+      "note": "Does not dispatch to WriterTo/ReaderFrom; an empty buffer is an error where Go panics."
+    },
+    "CopyN": {
+      "rust": "rust_stdlib::io::copy_n",
+      "deviation": "interface-assertion",
+      "note": "Does not dispatch to WriterTo/ReaderFrom, as Go's Copy underneath does; a negative Go count is zero."
+    },
+    "Discard": {
+      "rust": "std::io::sink",
+      "note": "std::io::Sink discards writes; Go's Discard also has ReadFrom/WriteString fast paths, which only affect performance."
+    },
+    "EOF": {
+      "rust": "rust_stdlib::io::Error::Eof"
+    },
+    "ErrClosedPipe": {
+      "rust": "rust_stdlib::io::Error::ClosedPipe"
+    },
+    "ErrNoProgress": {
+      "rust": "rust_stdlib::io::Error::NoProgress"
+    },
+    "ErrShortBuffer": {
+      "rust": "rust_stdlib::io::Error::ShortBuffer"
+    },
+    "ErrShortWrite": {
+      "rust": "rust_stdlib::io::Error::ShortWrite"
+    },
+    "ErrUnexpectedEOF": {
+      "rust": "rust_stdlib::io::Error::UnexpectedEof"
+    },
+    "LimitReader": {
+      "rust": "std::io::Read::take",
+      "note": "Take stops with EOF after n bytes; a negative Go n is take(0)."
+    },
+    "LimitedReader": {
+      "rust": "std::io::Take"
+    },
+    "LimitedReader.N": {
+      "rust": "std::io::Take::limit"
+    },
+    "LimitedReader.R": {
+      "rust": "std::io::Take::get_ref"
+    },
+    "LimitedReader.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "MultiReader": {
+      "rust": "std::io::Read::chain",
+      "note": "Chain two readers at a time; fold for more. Behaviour matches Go's MultiReader for conforming readers."
+    },
+    "MultiWriter": {
+      "rust": "rust_stdlib::io::MultiWriter::new",
+      "deviation": "interface-assertion",
+      "note": "Does not flatten nested MultiWriters or forward optional interfaces such as StringWriter."
+    },
+    "NewOffsetWriter": {
+      "rust": "rust_stdlib::io::OffsetWriter::new"
+    },
+    "NewSectionReader": {
+      "rust": "rust_stdlib::io::SectionReader::new"
+    },
+    "NopCloser": {
+      "rust": "std::io::Read",
+      "note": "A reader needs no Close in Rust: use it as is."
+    },
+    "OffsetWriter": {
+      "rust": "rust_stdlib::io::OffsetWriter"
+    },
+    "OffsetWriter.Seek": {
+      "rust": "std::io::Seek::seek",
+      "note": "Seeking from the end is an error, as in Go."
+    },
+    "OffsetWriter.Write": {
+      "rust": "std::io::Write::write"
+    },
+    "OffsetWriter.WriteAt": {
+      "rust": "rust_stdlib::io::WriteAt::write_at"
+    },
+    "Pipe": {
+      "rust": "rust_stdlib::io::pipe"
+    },
+    "PipeReader": {
+      "rust": "rust_stdlib::io::PipeReader"
+    },
+    "PipeReader.Close": {
+      "rust": "rust_stdlib::io::PipeReader::close"
+    },
+    "PipeReader.CloseWithError": {
+      "rust": "rust_stdlib::io::PipeReader::close_with_error"
+    },
+    "PipeReader.Read": {
+      "rust": "rust_stdlib::io::PipeReader::read_raw",
+      "note": "read_raw is Go's exact Read, including Ok(0) when a read consumes a zero-length write; the std::io::Read impl skips such writes because Ok(0) means EOF to std."
+    },
+    "PipeWriter": {
+      "rust": "rust_stdlib::io::PipeWriter"
+    },
+    "PipeWriter.Close": {
+      "rust": "rust_stdlib::io::PipeWriter::close"
+    },
+    "PipeWriter.CloseWithError": {
+      "rust": "rust_stdlib::io::PipeWriter::close_with_error"
+    },
+    "PipeWriter.Write": {
+      "rust": "rust_stdlib::io::PipeWriter::write_shared",
+      "note": "write_shared writes through a shared handle and reports the bytes consumed before an error; the std::io::Write impl is the same without the count."
+    },
+    "ReadAll": {
+      "rust": "std::io::Read::read_to_end"
+    },
+    "ReadAtLeast": {
+      "rust": "rust_stdlib::io::read_at_least"
+    },
+    "ReadCloser": {
+      "rust": "std::io::Read",
+      "note": "No named trait: use the bound `Read` and an explicit close or drop."
+    },
+    "ReadFull": {
+      "rust": "rust_stdlib::io::read_full"
+    },
+    "ReadSeekCloser": {
+      "rust": "std::io::Seek",
+      "note": "No named trait: use the bound `Read + Seek`; close by drop."
+    },
+    "ReadSeeker": {
+      "rust": "std::io::Seek",
+      "note": "No named trait: use the bound `Read + Seek`."
+    },
+    "ReadWriteCloser": {
+      "rust": "std::io::Write",
+      "note": "No named trait: use the bound `Read + Write` and an explicit close or drop."
+    },
+    "ReadWriteSeeker": {
+      "rust": "std::io::Seek",
+      "note": "No named trait: use the bound `Read + Write + Seek`."
+    },
+    "ReadWriter": {
+      "rust": "std::io::Write",
+      "note": "No named trait: use the bound `Read + Write`."
+    },
+    "Reader": {
+      "rust": "std::io::Read"
+    },
+    "Reader.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "ReaderAt": {
+      "rust": "rust_stdlib::io::ReadAt"
+    },
+    "ReaderAt.ReadAt": {
+      "rust": "rust_stdlib::io::ReadAt::read_at"
+    },
+    "ReaderFrom": {
+      "rust": "std::io::copy",
+      "note": "`copy(&mut dst, &mut src)`; types with a faster path have an inherent read_from (os::File, bufio::Writer, text::Buffer)."
+    },
+    "ReaderFrom.ReadFrom": {
+      "rust": "std::io::copy"
+    },
+    "RuneReader": {
+      "rust": "rust_stdlib::io::RuneReader"
+    },
+    "RuneReader.ReadRune": {
+      "rust": "rust_stdlib::io::RuneReader::read_rune"
+    },
+    "RuneScanner": {
+      "rust": "rust_stdlib::io::RuneScanner"
+    },
+    "RuneScanner.UnreadRune": {
+      "rust": "rust_stdlib::io::RuneScanner::unread_rune"
+    },
+    "SectionReader": {
+      "rust": "rust_stdlib::io::SectionReader"
+    },
+    "SectionReader.Outer": {
+      "rust": "rust_stdlib::io::SectionReader::outer"
+    },
+    "SectionReader.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "SectionReader.ReadAt": {
+      "rust": "rust_stdlib::io::ReadAt::read_at"
+    },
+    "SectionReader.Seek": {
+      "rust": "std::io::Seek::seek"
+    },
+    "SectionReader.Size": {
+      "rust": "rust_stdlib::io::SectionReader::size"
+    },
+    "SeekCurrent": {
+      "rust": "std::io::SeekFrom::Current"
+    },
+    "SeekEnd": {
+      "rust": "std::io::SeekFrom::End"
+    },
+    "SeekStart": {
+      "rust": "std::io::SeekFrom::Start"
+    },
+    "Seeker": {
+      "rust": "std::io::Seek"
+    },
+    "Seeker.Seek": {
+      "rust": "std::io::Seek::seek"
+    },
+    "StringWriter": {
+      "rust": "std::io::Write::write_all",
+      "note": "`write_all(s.as_bytes())`."
+    },
+    "StringWriter.WriteString": {
+      "rust": "std::io::Write::write_all"
+    },
+    "TeeReader": {
+      "rust": "rust_stdlib::io::TeeReader::new"
+    },
+    "WriteCloser": {
+      "rust": "std::io::Write",
+      "note": "No named trait: use the bound `Write` and an explicit close or drop."
+    },
+    "WriteSeeker": {
+      "rust": "std::io::Seek",
+      "note": "No named trait: use the bound `Write + Seek`."
+    },
+    "WriteString": {
+      "rust": "std::io::Write::write_all"
+    },
+    "Writer": {
+      "rust": "std::io::Write"
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write"
+    },
+    "WriterAt": {
+      "rust": "rust_stdlib::io::WriteAt"
+    },
+    "WriterAt.WriteAt": {
+      "rust": "rust_stdlib::io::WriteAt::write_at"
+    },
+    "WriterTo": {
+      "rust": "std::io::copy",
+      "note": "`copy(&mut src, &mut dst)`; types with a faster path have an inherent write_to (os::File, bufio::Reader, text::Reader)."
+    },
+    "WriterTo.WriteTo": {
+      "rust": "std::io::copy"
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "package": "encoding/csv",
+  "notes": "encoding::csv: Go's Reader and Writer ported from Go's line-based readRecord and Write, with Go's quoting, CRLF, comment, TrimLeadingSpace, LazyQuotes, FieldsPerRecord and ParseError messages; differential-checked by tools/encoding_conformance.py (Read event sequences with positions and offsets, and WriteAll output). Deviations forced by Rust: Comma and Comment are chars, and Comment None is Go's zero rune; Read returns Result<Option<Vec<String>>, Error>, with None at end of input; Reader::read_raw is Go's Read: byte fields, with the partial record returned alongside parse, field-count and I/O errors (checked with injected read failures and invalid UTF-8); Reader::read is the Result-shaped String form; TrailingComma has no effect, as in Go; FieldPos panics out of range as Go does; Writer.Flush and WriteAll return io::Result and Writer.Error returns the sticky error as an Option. Limits are Rust-only opt-in input budgets, unlimited by default",
+  "symbols": {
+    "ErrBareQuote": {
+      "rust": "rust_stdlib::encoding::csv::ERR_BARE_QUOTE"
+    },
+    "ErrFieldCount": {
+      "rust": "rust_stdlib::encoding::csv::ERR_FIELD_COUNT"
+    },
+    "ErrQuote": {
+      "rust": "rust_stdlib::encoding::csv::ERR_QUOTE"
+    },
+    "ErrTrailingComma": {
+      "rust": "rust_stdlib::encoding::csv::ERR_TRAILING_COMMA",
+      "note": "Go's reader does not return it; kept for the same source-level surface"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::encoding::csv::Reader::new"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::encoding::csv::Writer::new"
+    },
+    "ParseError": {
+      "rust": "rust_stdlib::encoding::csv::ParseError"
+    },
+    "ParseError.Column": {
+      "rust": "rust_stdlib::encoding::csv::ParseError::column"
+    },
+    "ParseError.Err": {
+      "rust": "rust_stdlib::encoding::csv::ParseError::err",
+      "note": "a SentinelError, which Display-prints the same message as Go's sentinel errors"
+    },
+    "ParseError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "note": "the Display impl gives Go's record and parse error messages"
+    },
+    "ParseError.Line": {
+      "rust": "rust_stdlib::encoding::csv::ParseError::line"
+    },
+    "ParseError.StartLine": {
+      "rust": "rust_stdlib::encoding::csv::ParseError::start_line"
+    },
+    "ParseError.Unwrap": {
+      "rust": "std::error::Error::source",
+      "note": "returns the sentinel error as the source"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::encoding::csv::Reader"
+    },
+    "Reader.Comma": {
+      "rust": "rust_stdlib::encoding::csv::Reader::comma",
+      "note": "a char rather than a rune; the delimiter rules are Go's"
+    },
+    "Reader.Comment": {
+      "rust": "rust_stdlib::encoding::csv::Reader::comment",
+      "note": "Option<char>; None is Go's zero rune"
+    },
+    "Reader.FieldPos": {
+      "rust": "rust_stdlib::encoding::csv::Reader::field_pos",
+      "note": "panics on an out-of-range index, as Go does"
+    },
+    "Reader.FieldsPerRecord": {
+      "rust": "rust_stdlib::encoding::csv::Reader::fields_per_record",
+      "note": "isize, with Go's zero and negative meanings"
+    },
+    "Reader.InputOffset": {
+      "rust": "rust_stdlib::encoding::csv::Reader::input_offset",
+      "note": "returns u64"
+    },
+    "Reader.LazyQuotes": {
+      "rust": "rust_stdlib::encoding::csv::Reader::lazy_quotes"
+    },
+    "Reader.Read": {
+      "rust": "rust_stdlib::encoding::csv::Reader::read_raw",
+      "note": "returns (Vec<Vec<u8>>, Option<Error>) as Go returns (record, err): fields are bytes and parse, field-count and I/O errors come with the record; Error::Eof is io.EOF. Reader::read is the Result-shaped String form"
+    },
+    "Reader.ReadAll": {
+      "rust": "rust_stdlib::encoding::csv::Reader::read_all_raw", "note": "byte fields as Go; Reader::read_all is the String form"
+    },
+    "Reader.ReuseRecord": {"rust": "rust_stdlib::encoding::csv::Reader::read_raw_into", "note": "Go only permits Read to share the previous record's storage; read_raw_into reuses the caller's record and field allocations, and the reuse_record flag itself has no further effect"},
+    "Reader.TrailingComma": {
+      "rust": "rust_stdlib::encoding::csv::Reader::trailing_comma",
+      "note": "deprecated in Go and unused by it; it has no effect here either"
+    },
+    "Reader.TrimLeadingSpace": {
+      "rust": "rust_stdlib::encoding::csv::Reader::trim_leading_space"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::encoding::csv::Writer"
+    },
+    "Writer.Comma": {
+      "rust": "rust_stdlib::encoding::csv::Writer::comma",
+      "note": "a char rather than a rune"
+    },
+    "Writer.Error": {
+      "rust": "rust_stdlib::encoding::csv::Writer::error",
+      "note": "returns Option<&io::Error>, the sticky error from a failed write or flush"
+    },
+    "Writer.Flush": {
+      "rust": "rust_stdlib::encoding::csv::Writer::flush",
+      "note": "returns io::Result<()>; Go discards the error and reports it through Error"
+    },
+    "Writer.UseCRLF": {
+      "rust": "rust_stdlib::encoding::csv::Writer::use_crlf"
+    },
+    "Writer.Write": {
+      "rust": "rust_stdlib::encoding::csv::Writer::write",
+      "note": "returns io::Result<()>; an invalid delimiter is InvalidInput"
+    },
+    "Writer.WriteAll": {
+      "rust": "rust_stdlib::encoding::csv::Writer::write_all",
+      "note": "returns io::Result<()>"
+    }
+  }
+}

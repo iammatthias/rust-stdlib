@@ -1,0 +1,12 @@
+{
+  "package": "testing/slogtest",
+  "notes": "The same 17 cases and checks as Go. Results are json::Value objects (Go's map[string]any); parse the handler's JSON with rust_stdlib::encoding::json. The explanations carry the Rust source position of the case. Verdicts for a JSON handler broken by ReplaceAttr transforms are compared with Go by tools/testing_check.py.",
+  "symbols": {
+    "Run": {
+      "rust": "rust_stdlib::testing::slogtest::run"
+    },
+    "TestHandler": {
+      "rust": "rust_stdlib::testing::slogtest::test_handler"
+    }
+  }
+}

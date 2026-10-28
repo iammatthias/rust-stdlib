@@ -1,0 +1,278 @@
+{
+  "package": "net/netip",
+  "notes": "Addr is std::net::IpAddr plus an optional zone and delegates zone-free predicates and accessors to std (is_loopback, is_multicast, is_unspecified, to_canonical for Unmap and the canonical forms, Ipv4Addr::is_link_local/is_private/is_broadcast, to_ipv4_mapped for Is4In6, octets, to_bits for Next/Prev); IPv6 link-local unicast, unique-local (private), interface/link-local multicast stay ours because std's versions are unstable, and the Go-only parts (zones, Prefix, text forms) are ours. net::netip is Go's netip: Addr/AddrPort/Prefix value types with Go's exact ParseAddr/ParsePrefix/ParseAddrPort grammar and error texts, zones, IPv4-mapped forms and text/binary codecs, convertible to and from std::net. The zero Addr is Addr::default(). Zones are Rust strings, so non-UTF-8 zone bytes in UnmarshalBinary become U+FFFD; Marshal*/Append* return Result like Go's (T, error); Prefix::bits returns isize (-1 when invalid); As4 panics like Go (and so does Result::unwrap, which MustParse* maps to).",
+  "symbols": {
+    "Addr": {
+      "rust": "rust_stdlib::net::netip::Addr"
+    },
+    "Addr.AppendBinary": {
+      "rust": "rust_stdlib::net::netip::Addr::append_binary"
+    },
+    "Addr.AppendText": {
+      "rust": "rust_stdlib::net::netip::Addr::append_text"
+    },
+    "Addr.AppendTo": {
+      "rust": "rust_stdlib::net::netip::Addr::append_to"
+    },
+    "Addr.As16": {
+      "rust": "rust_stdlib::net::netip::Addr::as16"
+    },
+    "Addr.As4": {
+      "rust": "rust_stdlib::net::netip::Addr::as4"
+    },
+    "Addr.AsSlice": {
+      "rust": "rust_stdlib::net::netip::Addr::as_slice"
+    },
+    "Addr.BitLen": {
+      "rust": "rust_stdlib::net::netip::Addr::bit_len"
+    },
+    "Addr.Compare": {
+      "rust": "std::cmp::Ord::cmp",
+      "note": "Ord for Addr"
+    },
+    "Addr.Is4": {
+      "rust": "rust_stdlib::net::netip::Addr::is4"
+    },
+    "Addr.Is4In6": {
+      "rust": "rust_stdlib::net::netip::Addr::is4in6"
+    },
+    "Addr.Is6": {
+      "rust": "rust_stdlib::net::netip::Addr::is6"
+    },
+    "Addr.IsGlobalUnicast": {
+      "rust": "rust_stdlib::net::netip::Addr::is_global_unicast"
+    },
+    "Addr.IsInterfaceLocalMulticast": {
+      "rust": "rust_stdlib::net::netip::Addr::is_interface_local_multicast"
+    },
+    "Addr.IsLinkLocalMulticast": {
+      "rust": "rust_stdlib::net::netip::Addr::is_link_local_multicast"
+    },
+    "Addr.IsLinkLocalUnicast": {
+      "rust": "rust_stdlib::net::netip::Addr::is_link_local_unicast"
+    },
+    "Addr.IsLoopback": {
+      "rust": "rust_stdlib::net::netip::Addr::is_loopback"
+    },
+    "Addr.IsMulticast": {
+      "rust": "rust_stdlib::net::netip::Addr::is_multicast"
+    },
+    "Addr.IsPrivate": {
+      "rust": "rust_stdlib::net::netip::Addr::is_private"
+    },
+    "Addr.IsUnspecified": {
+      "rust": "rust_stdlib::net::netip::Addr::is_unspecified"
+    },
+    "Addr.IsValid": {
+      "rust": "rust_stdlib::net::netip::Addr::is_valid"
+    },
+    "Addr.Less": {
+      "rust": "std::cmp::PartialOrd::lt",
+      "note": "PartialOrd for Addr"
+    },
+    "Addr.MarshalBinary": {
+      "rust": "rust_stdlib::net::netip::Addr::marshal_binary"
+    },
+    "Addr.MarshalText": {
+      "rust": "rust_stdlib::net::netip::Addr::marshal_text"
+    },
+    "Addr.Next": {
+      "rust": "rust_stdlib::net::netip::Addr::next"
+    },
+    "Addr.Prefix": {
+      "rust": "rust_stdlib::net::netip::Addr::prefix"
+    },
+    "Addr.Prev": {
+      "rust": "rust_stdlib::net::netip::Addr::prev"
+    },
+    "Addr.String": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for Addr"
+    },
+    "Addr.StringExpanded": {
+      "rust": "rust_stdlib::net::netip::Addr::string_expanded"
+    },
+    "Addr.Unmap": {
+      "rust": "rust_stdlib::net::netip::Addr::unmap"
+    },
+    "Addr.UnmarshalBinary": {
+      "rust": "rust_stdlib::net::netip::Addr::unmarshal_binary",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Zones are Rust strings, so non-UTF-8 zone bytes become U+FFFD where Go keeps them."
+    },
+    "Addr.UnmarshalText": {
+      "rust": "rust_stdlib::net::netip::Addr::unmarshal_text",
+      "deviation": "go-string-invalid-utf8",
+      "note": "The text is read as a Rust string, so non-UTF-8 input is lossy (U+FFFD) in the parse error text where Go quotes the raw bytes."
+    },
+    "Addr.WithZone": {
+      "rust": "rust_stdlib::net::netip::Addr::with_zone"
+    },
+    "Addr.Zone": {
+      "rust": "rust_stdlib::net::netip::Addr::zone"
+    },
+    "AddrFrom16": {
+      "rust": "std::convert::From::from",
+      "note": "Addr: From<[u8; 16]>"
+    },
+    "AddrFrom4": {
+      "rust": "std::convert::From::from",
+      "note": "Addr: From<[u8; 4]>"
+    },
+    "AddrFromSlice": {
+      "rust": "std::convert::TryFrom::try_from",
+      "note": "Addr: TryFrom<&[u8]>"
+    },
+    "AddrPort": {
+      "rust": "rust_stdlib::net::netip::AddrPort"
+    },
+    "AddrPort.Addr": {
+      "rust": "rust_stdlib::net::netip::AddrPort::addr"
+    },
+    "AddrPort.AppendBinary": {
+      "rust": "rust_stdlib::net::netip::AddrPort::append_binary"
+    },
+    "AddrPort.AppendText": {
+      "rust": "rust_stdlib::net::netip::AddrPort::append_text"
+    },
+    "AddrPort.AppendTo": {
+      "rust": "rust_stdlib::net::netip::AddrPort::append_to"
+    },
+    "AddrPort.Compare": {
+      "rust": "std::cmp::Ord::cmp",
+      "note": "Ord for AddrPort"
+    },
+    "AddrPort.IsValid": {
+      "rust": "rust_stdlib::net::netip::AddrPort::is_valid"
+    },
+    "AddrPort.MarshalBinary": {
+      "rust": "rust_stdlib::net::netip::AddrPort::marshal_binary"
+    },
+    "AddrPort.MarshalText": {
+      "rust": "rust_stdlib::net::netip::AddrPort::marshal_text"
+    },
+    "AddrPort.Port": {
+      "rust": "rust_stdlib::net::netip::AddrPort::port"
+    },
+    "AddrPort.String": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for AddrPort"
+    },
+    "AddrPort.UnmarshalBinary": {
+      "rust": "rust_stdlib::net::netip::AddrPort::unmarshal_binary",
+      "deviation": "go-string-invalid-utf8",
+      "note": "Zones are Rust strings, so non-UTF-8 zone bytes become U+FFFD where Go keeps them."
+    },
+    "AddrPort.UnmarshalText": {
+      "rust": "rust_stdlib::net::netip::AddrPort::unmarshal_text",
+      "deviation": "go-string-invalid-utf8",
+      "note": "The text is read as a Rust string, so non-UTF-8 input is lossy (U+FFFD) in the parse error text where Go quotes the raw bytes."
+    },
+    "AddrPortFrom": {
+      "rust": "rust_stdlib::net::netip::AddrPort::new"
+    },
+    "IPv4Unspecified": {
+      "rust": "std::net::Ipv4Addr::UNSPECIFIED",
+      "note": "Addr::from(Ipv4Addr::UNSPECIFIED)"
+    },
+    "IPv6LinkLocalAllNodes": {
+      "rust": "rust_stdlib::net::netip::IPV6_LINK_LOCAL_ALL_NODES",
+      "note": "Ipv6Addr constant; Addr::from converts"
+    },
+    "IPv6LinkLocalAllRouters": {
+      "rust": "rust_stdlib::net::netip::IPV6_LINK_LOCAL_ALL_ROUTERS",
+      "note": "Ipv6Addr constant; Addr::from converts"
+    },
+    "IPv6Loopback": {
+      "rust": "std::net::Ipv6Addr::LOCALHOST",
+      "note": "Addr::from(Ipv6Addr::LOCALHOST)"
+    },
+    "IPv6Unspecified": {
+      "rust": "std::net::Ipv6Addr::UNSPECIFIED",
+      "note": "Addr::from(Ipv6Addr::UNSPECIFIED)"
+    },
+    "MustParseAddr": {
+      "rust": "std::result::Result::unwrap",
+      "note": "\"..\".parse::<Addr>().unwrap()"
+    },
+    "MustParseAddrPort": {
+      "rust": "std::result::Result::unwrap",
+      "note": "\"..\".parse::<AddrPort>().unwrap()"
+    },
+    "MustParsePrefix": {
+      "rust": "std::result::Result::unwrap",
+      "note": "\"..\".parse::<Prefix>().unwrap()"
+    },
+    "ParseAddr": {
+      "rust": "std::str::FromStr::from_str",
+      "note": "Addr: FromStr"
+    },
+    "ParseAddrPort": {
+      "rust": "std::str::FromStr::from_str",
+      "note": "AddrPort: FromStr"
+    },
+    "ParsePrefix": {
+      "rust": "std::str::FromStr::from_str",
+      "note": "Prefix: FromStr"
+    },
+    "Prefix": {
+      "rust": "rust_stdlib::net::netip::Prefix"
+    },
+    "Prefix.Addr": {
+      "rust": "rust_stdlib::net::netip::Prefix::addr"
+    },
+    "Prefix.AppendBinary": {
+      "rust": "rust_stdlib::net::netip::Prefix::append_binary"
+    },
+    "Prefix.AppendText": {
+      "rust": "rust_stdlib::net::netip::Prefix::append_text"
+    },
+    "Prefix.AppendTo": {
+      "rust": "rust_stdlib::net::netip::Prefix::append_to"
+    },
+    "Prefix.Bits": {
+      "rust": "rust_stdlib::net::netip::Prefix::bits"
+    },
+    "Prefix.Compare": {
+      "rust": "std::cmp::Ord::cmp",
+      "note": "Ord for Prefix"
+    },
+    "Prefix.Contains": {
+      "rust": "rust_stdlib::net::netip::Prefix::contains"
+    },
+    "Prefix.IsSingleIP": {
+      "rust": "rust_stdlib::net::netip::Prefix::is_single_ip"
+    },
+    "Prefix.IsValid": {
+      "rust": "rust_stdlib::net::netip::Prefix::is_valid"
+    },
+    "Prefix.MarshalBinary": {
+      "rust": "rust_stdlib::net::netip::Prefix::marshal_binary"
+    },
+    "Prefix.MarshalText": {
+      "rust": "rust_stdlib::net::netip::Prefix::marshal_text"
+    },
+    "Prefix.Masked": {
+      "rust": "rust_stdlib::net::netip::Prefix::masked"
+    },
+    "Prefix.Overlaps": {
+      "rust": "rust_stdlib::net::netip::Prefix::overlaps"
+    },
+    "Prefix.String": {
+      "rust": "std::fmt::Display::fmt",
+      "note": "impl Display for Prefix"
+    },
+    "Prefix.UnmarshalBinary": {
+      "rust": "rust_stdlib::net::netip::Prefix::unmarshal_binary",
+      "note": "The address is decoded with a lossy zone, but Prefix::new drops the zone as Go's PrefixFrom does, so the result is Go's."
+    },
+    "Prefix.UnmarshalText": {
+      "rust": "rust_stdlib::net::netip::Prefix::unmarshal_text",
+      "deviation": "go-string-invalid-utf8",
+      "note": "The text is read as a Rust string, so non-UTF-8 input is lossy (U+FFFD) in the parse error text where Go quotes the raw bytes."
+    },
+    "PrefixFrom": {
+      "rust": "rust_stdlib::net::netip::Prefix::new"
+    }
+  }
+}

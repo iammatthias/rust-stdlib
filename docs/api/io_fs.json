@@ -1,0 +1,252 @@
+{
+  "package": "io/fs",
+  "notes": "Interfaces are traits (rust_stdlib::io::fs); File extends std::io::Read. Go finds optional interfaces with type assertions, which Rust trait objects cannot do, so FS has as_glob_fs/as_read_dir_fs/as_read_file_fs/as_stat_fs/as_sub_fs/as_read_link_fs hooks that an implementation overrides; Glob, ReadDir, ReadFile, Stat, Sub, Lstat and ReadLink consult them exactly where Go asserts. Errors are io::Error: a PathError is the payload (fs::path_error recovers it, its kind is the inner error's) and the sentinel variables are variants of fs::Error (Error::is is errors.Is; ERR_NOT_EXIST etc. also match by io::ErrorKind so std::fs errors qualify). Names are &str, so ValidPath's UTF-8 check is implied; WalkDirFunc is a closure trait over (path, Option<&dyn DirEntry>, Option<io::Error>) -> io::Result<()>; ReadDir returns ReadDirError, which carries the entries read before a failure (Go returns both). First-party implementations: DirFS (os.DirFS over std::fs, with ReadLinkFS), MapFS (testing/fstest.MapFS, resolving symlinks in Open, Lstat and ReadLink) and embed::FS. Tested against Go with fstest.MapFS by tools/io_check.py.",
+  "symbols": {
+    "DirEntry": {
+      "rust": "rust_stdlib::io::fs::DirEntry"
+    },
+    "DirEntry.Info": {
+      "rust": "rust_stdlib::io::fs::DirEntry::info"
+    },
+    "DirEntry.IsDir": {
+      "rust": "rust_stdlib::io::fs::DirEntry::is_dir"
+    },
+    "DirEntry.Name": {
+      "rust": "rust_stdlib::io::fs::DirEntry::name"
+    },
+    "DirEntry.Type": {
+      "rust": "rust_stdlib::io::fs::DirEntry::file_type"
+    },
+    "ErrClosed": {
+      "rust": "rust_stdlib::io::fs::ERR_CLOSED"
+    },
+    "ErrExist": {
+      "rust": "rust_stdlib::io::fs::ERR_EXIST"
+    },
+    "ErrInvalid": {
+      "rust": "rust_stdlib::io::fs::ERR_INVALID"
+    },
+    "ErrNotExist": {
+      "rust": "rust_stdlib::io::fs::ERR_NOT_EXIST"
+    },
+    "ErrPermission": {
+      "rust": "rust_stdlib::io::fs::ERR_PERMISSION"
+    },
+    "FS": {
+      "rust": "rust_stdlib::io::fs::FS"
+    },
+    "FS.Open": {
+      "rust": "rust_stdlib::io::fs::FS::open"
+    },
+    "File": {
+      "rust": "rust_stdlib::io::fs::File"
+    },
+    "File.Close": {
+      "rust": "rust_stdlib::io::fs::File::close"
+    },
+    "File.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "File.Stat": {
+      "rust": "rust_stdlib::io::fs::File::stat"
+    },
+    "FileInfo": {
+      "rust": "rust_stdlib::io::fs::FileInfo"
+    },
+    "FileInfo.IsDir": {
+      "rust": "rust_stdlib::io::fs::FileInfo::is_dir"
+    },
+    "FileInfo.ModTime": {
+      "rust": "rust_stdlib::io::fs::FileInfo::mod_time"
+    },
+    "FileInfo.Mode": {
+      "rust": "rust_stdlib::io::fs::FileInfo::mode"
+    },
+    "FileInfo.Name": {
+      "rust": "rust_stdlib::io::fs::FileInfo::name"
+    },
+    "FileInfo.Size": {
+      "rust": "rust_stdlib::io::fs::FileInfo::size"
+    },
+    "FileInfo.Sys": {
+      "rust": "rust_stdlib::io::fs::FileInfo::sys"
+    },
+    "FileInfoToDirEntry": {
+      "rust": "rust_stdlib::io::fs::file_info_to_dir_entry"
+    },
+    "FileMode": {
+      "rust": "rust_stdlib::io::fs::FileMode"
+    },
+    "FileMode.IsDir": {
+      "rust": "rust_stdlib::io::fs::FileMode::is_dir"
+    },
+    "FileMode.IsRegular": {
+      "rust": "rust_stdlib::io::fs::FileMode::is_regular"
+    },
+    "FileMode.Perm": {
+      "rust": "rust_stdlib::io::fs::FileMode::perm"
+    },
+    "FileMode.String": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "FileMode.Type": {
+      "rust": "rust_stdlib::io::fs::FileMode::file_type"
+    },
+    "FormatDirEntry": {
+      "rust": "rust_stdlib::io::fs::format_dir_entry"
+    },
+    "FormatFileInfo": {
+      "rust": "rust_stdlib::io::fs::format_file_info"
+    },
+    "Glob": {
+      "rust": "rust_stdlib::io::fs::glob"
+    },
+    "GlobFS": {
+      "rust": "rust_stdlib::io::fs::GlobFS"
+    },
+    "GlobFS.Glob": {
+      "rust": "rust_stdlib::io::fs::GlobFS::glob"
+    },
+    "Lstat": {
+      "rust": "rust_stdlib::io::fs::lstat"
+    },
+    "ModeAppend": {
+      "rust": "rust_stdlib::io::fs::MODE_APPEND"
+    },
+    "ModeCharDevice": {
+      "rust": "rust_stdlib::io::fs::MODE_CHAR_DEVICE"
+    },
+    "ModeDevice": {
+      "rust": "rust_stdlib::io::fs::MODE_DEVICE"
+    },
+    "ModeDir": {
+      "rust": "rust_stdlib::io::fs::MODE_DIR"
+    },
+    "ModeExclusive": {
+      "rust": "rust_stdlib::io::fs::MODE_EXCLUSIVE"
+    },
+    "ModeIrregular": {
+      "rust": "rust_stdlib::io::fs::MODE_IRREGULAR"
+    },
+    "ModeNamedPipe": {
+      "rust": "rust_stdlib::io::fs::MODE_NAMED_PIPE"
+    },
+    "ModePerm": {
+      "rust": "rust_stdlib::io::fs::MODE_PERM"
+    },
+    "ModeSetgid": {
+      "rust": "rust_stdlib::io::fs::MODE_SETGID"
+    },
+    "ModeSetuid": {
+      "rust": "rust_stdlib::io::fs::MODE_SETUID"
+    },
+    "ModeSocket": {
+      "rust": "rust_stdlib::io::fs::MODE_SOCKET"
+    },
+    "ModeSticky": {
+      "rust": "rust_stdlib::io::fs::MODE_STICKY"
+    },
+    "ModeSymlink": {
+      "rust": "rust_stdlib::io::fs::MODE_SYMLINK"
+    },
+    "ModeTemporary": {
+      "rust": "rust_stdlib::io::fs::MODE_TEMPORARY"
+    },
+    "ModeType": {
+      "rust": "rust_stdlib::io::fs::MODE_TYPE"
+    },
+    "PathError": {
+      "rust": "rust_stdlib::io::fs::PathError"
+    },
+    "PathError.Err": {
+      "rust": "rust_stdlib::io::fs::PathError::err"
+    },
+    "PathError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "PathError.Op": {
+      "rust": "rust_stdlib::io::fs::PathError::op"
+    },
+    "PathError.Path": {
+      "rust": "rust_stdlib::io::fs::PathError::path"
+    },
+    "PathError.Timeout": {
+      "rust": "rust_stdlib::io::fs::PathError::timeout"
+    },
+    "PathError.Unwrap": {
+      "rust": "rust_stdlib::io::fs::PathError::unwrap"
+    },
+    "ReadDir": {
+      "rust": "rust_stdlib::io::fs::read_dir",
+      "note": "Returns Result<Vec<Box<dyn DirEntry>>, ReadDirError>; when reading fails part-way ReadDirError::list holds the entries read so far, sorted, as Go returns both."
+    },
+    "ReadDirFS": {
+      "rust": "rust_stdlib::io::fs::ReadDirFS"
+    },
+    "ReadDirFS.ReadDir": {
+      "rust": "rust_stdlib::io::fs::ReadDirFS::read_dir",
+      "note": "Returns Result<Vec<Box<dyn DirEntry>>, ReadDirError>; a failure carries the entries read so far."
+    },
+    "ReadDirFile": {
+      "rust": "rust_stdlib::io::fs::ReadDirFile"
+    },
+    "ReadDirFile.ReadDir": {
+      "rust": "rust_stdlib::io::fs::ReadDirFile::read_dir",
+      "note": "Returns Result<Vec<Box<dyn DirEntry>>, ReadDirError>; a failure carries the entries read so far."
+    },
+    "ReadFile": {
+      "rust": "rust_stdlib::io::fs::read_file"
+    },
+    "ReadFileFS": {
+      "rust": "rust_stdlib::io::fs::ReadFileFS"
+    },
+    "ReadFileFS.ReadFile": {
+      "rust": "rust_stdlib::io::fs::ReadFileFS::read_file"
+    },
+    "ReadLink": {
+      "rust": "rust_stdlib::io::fs::read_link"
+    },
+    "ReadLinkFS": {
+      "rust": "rust_stdlib::io::fs::ReadLinkFS"
+    },
+    "ReadLinkFS.Lstat": {
+      "rust": "rust_stdlib::io::fs::ReadLinkFS::lstat"
+    },
+    "ReadLinkFS.ReadLink": {
+      "rust": "rust_stdlib::io::fs::ReadLinkFS::read_link"
+    },
+    "SkipAll": {
+      "rust": "rust_stdlib::io::fs::SKIP_ALL"
+    },
+    "SkipDir": {
+      "rust": "rust_stdlib::io::fs::SKIP_DIR"
+    },
+    "Stat": {
+      "rust": "rust_stdlib::io::fs::stat"
+    },
+    "StatFS": {
+      "rust": "rust_stdlib::io::fs::StatFS"
+    },
+    "StatFS.Stat": {
+      "rust": "rust_stdlib::io::fs::StatFS::stat"
+    },
+    "Sub": {
+      "rust": "rust_stdlib::io::fs::sub"
+    },
+    "SubFS": {
+      "rust": "rust_stdlib::io::fs::SubFS"
+    },
+    "SubFS.Sub": {
+      "rust": "rust_stdlib::io::fs::SubFS::sub"
+    },
+    "ValidPath": {
+      "rust": "rust_stdlib::io::fs::valid_path"
+    },
+    "WalkDir": {
+      "rust": "rust_stdlib::io::fs::walk_dir"
+    },
+    "WalkDirFunc": {
+      "rust": "rust_stdlib::io::fs::WalkDirFunc"
+    }
+  }
+}

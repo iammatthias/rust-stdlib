@@ -1,0 +1,176 @@
+{
+  "package": "encoding/json/v2",
+  "notes": "v2 is a typed port of Go 1.27's package on top of jsontext. Go finds conversions with reflect; here a type implements MarshalTo or UnmarshalFrom (the standard types do, and rust_stdlib_derive::{MarshalTo, UnmarshalFrom} derive them for structs from the #[json(...)] attributes: Go struct tags plus omitempty, omitzero, string, case_ignore, case_strict, inline, unknown (Go's embed option on a map or Value) and format). Error text, byte offsets, JSON Pointers, partial results after errors, merging into existing values and every option are checked against Go by tools/jsonv2_check.py. Rust shapes: an empty Vec or map is both Go's nil and empty (omitzero, FormatNil*AsNull), Go's any is v2::Any, []byte is json::Bytes, pointers are Option, the format tag option is rejected as in Go unless experimental_support_format_tag is set, and time.Time/time.Duration formats and the v1 compatibility options are not supported.",
+  "symbols": {
+    "DefaultOptionsV2": {
+      "rust": "rust_stdlib::encoding::json::v2::default_options_v2"
+    },
+    "Deterministic": {
+      "rust": "rust_stdlib::encoding::json::v2::deterministic"
+    },
+    "ErrUnknownName": {
+      "rust": "rust_stdlib::encoding::json::v2::ERR_UNKNOWN_NAME",
+      "note": "an Error variant; compare with Error::is"
+    },
+    "FormatNilMapAsNull": {
+      "rust": "rust_stdlib::encoding::json::v2::format_nil_map_as_null",
+      "deviation": "no-nil-empty",
+      "note": "Rust has no nil map: an empty map stands for both nil and empty, so the option writes every empty map as null"
+    },
+    "FormatNilSliceAsNull": {
+      "rust": "rust_stdlib::encoding::json::v2::format_nil_slice_as_null",
+      "deviation": "no-nil-empty",
+      "note": "Rust has no nil slice: an empty Vec stands for both nil and empty, so the option writes every empty Vec as null (the arrays of a decoded Any are never nil)"
+    },
+    "GetOption": {
+      "rust": "rust_stdlib::encoding::json::v2::get_option",
+      "note": "the setter is passed as a typed function pointer (for example `deterministic as fn(bool) -> Options`) selecting the OptionSetter impl"
+    },
+    "JoinMarshalers": {
+      "rust": "rust_stdlib::encoding::json::v2::join_marshalers"
+    },
+    "JoinOptions": {
+      "rust": "rust_stdlib::encoding::json::v2::join_options"
+    },
+    "JoinUnmarshalers": {
+      "rust": "rust_stdlib::encoding::json::v2::join_unmarshalers"
+    },
+    "Marshal": {
+      "rust": "rust_stdlib::encoding::json::v2::marshal",
+      "deviation": "reflection",
+      "note": "the value is any type implementing MarshalTo (derive it with rust_stdlib_derive::MarshalTo); only the error is returned when marshaling fails, not the partial output; time.Time and time.Duration formats and the v1 compatibility options (a json.Options of the v1 package) are not supported"
+    },
+    "MarshalEncode": {
+      "rust": "rust_stdlib::encoding::json::v2::marshal_encode",
+      "deviation": "reflection",
+      "note": "the value is any type implementing MarshalTo; options are a slice"
+    },
+    "MarshalFunc": {
+      "rust": "rust_stdlib::encoding::json::v2::marshal_func",
+      "deviation": "reflection",
+      "note": "T is the exact type of the values the function applies to; Go also accepts interface and pointer types, which dispatch on assignability"
+    },
+    "MarshalToFunc": {
+      "rust": "rust_stdlib::encoding::json::v2::marshal_to_func",
+      "deviation": "reflection",
+      "note": "T is the exact type of the values the function applies to; Go also accepts interface and pointer types"
+    },
+    "MarshalWrite": {
+      "rust": "rust_stdlib::encoding::json::v2::marshal_write",
+      "deviation": "reflection",
+      "note": "the value is any type implementing MarshalTo; time.Time and time.Duration formats are not supported"
+    },
+    "Marshaler": {
+      "rust": "rust_stdlib::encoding::json::v2::Marshaler",
+      "note": "a type returns it from MarshalTo::as_marshaler"
+    },
+    "Marshaler.MarshalJSON": {
+      "rust": "rust_stdlib::encoding::json::v2::Marshaler::marshal_json"
+    },
+    "MarshalerTo": {
+      "rust": "rust_stdlib::encoding::json::v2::MarshalerTo",
+      "note": "a type returns it from MarshalTo::as_marshaler_to"
+    },
+    "MarshalerTo.MarshalJSONTo": {
+      "rust": "rust_stdlib::encoding::json::v2::MarshalerTo::marshal_json_to"
+    },
+    "Marshalers": {
+      "rust": "rust_stdlib::encoding::json::v2::Marshalers"
+    },
+    "MatchCaseInsensitiveNames": {
+      "rust": "rust_stdlib::encoding::json::v2::match_case_insensitive_names"
+    },
+    "OmitZeroStructFields": {
+      "rust": "rust_stdlib::encoding::json::v2::omit_zero_struct_fields"
+    },
+    "Options": {
+      "rust": "rust_stdlib::encoding::json::v2::Options",
+      "note": "the same set-of-settings type as jsontext::Options"
+    },
+    "RejectUnknownMembers": {
+      "rust": "rust_stdlib::encoding::json::v2::reject_unknown_members"
+    },
+    "SemanticError": {
+      "rust": "rust_stdlib::encoding::json::v2::SemanticError"
+    },
+    "SemanticError.ByteOffset": {
+      "rust": "rust_stdlib::encoding::json::v2::SemanticError::byte_offset"
+    },
+    "SemanticError.Err": {
+      "rust": "rust_stdlib::encoding::json::v2::SemanticError::err"
+    },
+    "SemanticError.Error": {
+      "rust": "std::string::ToString::to_string",
+      "deviation": "go-string-invalid-utf8",
+      "note": "the Display text is Go's Error() string, with \"cannot\" always chosen over \"unable to\"; a JSON value with invalid UTF-8 shows U+FFFD for each bad byte"
+    },
+    "SemanticError.GoType": {
+      "rust": "rust_stdlib::encoding::json::v2::SemanticError::type_info",
+      "deviation": "reflection",
+      "note": "a TypeInfo describing the Go type (its reflect.Type.String() text and kind) rather than a reflect.Type"
+    },
+    "SemanticError.JSONKind": {
+      "rust": "rust_stdlib::encoding::json::v2::SemanticError::json_kind"
+    },
+    "SemanticError.JSONPointer": {
+      "rust": "rust_stdlib::encoding::json::v2::SemanticError::json_pointer"
+    },
+    "SemanticError.JSONValue": {
+      "rust": "rust_stdlib::encoding::json::v2::SemanticError::json_value"
+    },
+    "SemanticError.Unwrap": {
+      "rust": "std::error::Error::source"
+    },
+    "StringifyNumbers": {
+      "rust": "rust_stdlib::encoding::json::v2::stringify_numbers"
+    },
+    "Unmarshal": {
+      "rust": "rust_stdlib::encoding::json::v2::unmarshal",
+      "deviation": "reflection",
+      "note": "the destination is a &mut T for a type implementing UnmarshalFrom (derive it with rust_stdlib_derive::UnmarshalFrom), updated in place like Go's pointer target; a nil pointer argument cannot occur; the v1 compatibility options and time formats are not supported"
+    },
+    "UnmarshalDecode": {
+      "rust": "rust_stdlib::encoding::json::v2::unmarshal_decode",
+      "deviation": "reflection",
+      "note": "the destination is a &mut T for a type implementing UnmarshalFrom; options are a slice"
+    },
+    "UnmarshalFromFunc": {
+      "rust": "rust_stdlib::encoding::json::v2::unmarshal_from_func",
+      "deviation": "reflection",
+      "note": "T is the exact type of the values the function fills in, passed as &mut T; Go's parameter is a pointer or interface type"
+    },
+    "UnmarshalFunc": {
+      "rust": "rust_stdlib::encoding::json::v2::unmarshal_func",
+      "deviation": "reflection",
+      "note": "T is the exact type of the values the function fills in, passed as &mut T; Go's parameter is a pointer or interface type"
+    },
+    "UnmarshalRead": {
+      "rust": "rust_stdlib::encoding::json::v2::unmarshal_read",
+      "deviation": "reflection",
+      "note": "the destination is a &mut T for a type implementing UnmarshalFrom"
+    },
+    "Unmarshaler": {
+      "rust": "rust_stdlib::encoding::json::v2::Unmarshaler",
+      "note": "a type returns it from UnmarshalFrom::as_unmarshaler"
+    },
+    "Unmarshaler.UnmarshalJSON": {
+      "rust": "rust_stdlib::encoding::json::v2::Unmarshaler::unmarshal_json"
+    },
+    "UnmarshalerFrom": {
+      "rust": "rust_stdlib::encoding::json::v2::UnmarshalerFrom",
+      "note": "a type returns it from UnmarshalFrom::as_unmarshaler_from"
+    },
+    "UnmarshalerFrom.UnmarshalJSONFrom": {
+      "rust": "rust_stdlib::encoding::json::v2::UnmarshalerFrom::unmarshal_json_from"
+    },
+    "Unmarshalers": {
+      "rust": "rust_stdlib::encoding::json::v2::Unmarshalers"
+    },
+    "WithMarshalers": {
+      "rust": "rust_stdlib::encoding::json::v2::with_marshalers"
+    },
+    "WithUnmarshalers": {
+      "rust": "rust_stdlib::encoding::json::v2::with_unmarshalers"
+    }
+  }
+}

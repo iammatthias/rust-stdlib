@@ -1,0 +1,49 @@
+{
+  "package": "compress/lzw",
+  "notes": "compress::lzw: Reader/Writer with Go's Close, Reset and latched errors over LSB/MSB widths 2..8; new_reader has no output budget (Reader::new takes an opt-in bound); constructors and Reset are infallible and report a bad litWidth on the first Read/Write/Close, as Go does, checked by tools/lzw_check.py; TIFF variant unsupported",
+  "symbols": {
+    "LSB": {
+      "rust": "rust_stdlib::compress::lzw::Order::Lsb"
+    },
+    "MSB": {
+      "rust": "rust_stdlib::compress::lzw::Order::Msb"
+    },
+    "NewReader": {
+      "rust": "rust_stdlib::compress::lzw::Reader::new",
+      "note": "infallible and unbounded as in Go; Reader::with_max_output sets an opt-in output bound; a bad litWidth is reported by the first Read"
+    },
+    "NewWriter": {
+      "rust": "rust_stdlib::compress::lzw::Writer::new",
+      "note": "infallible as in Go: an invalid litWidth is reported by the first Write or Close"
+    },
+    "Order": {
+      "rust": "rust_stdlib::compress::lzw::Order"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::compress::lzw::Reader"
+    },
+    "Reader.Close": {
+      "rust": "rust_stdlib::compress::lzw::Reader::close"
+    },
+    "Reader.Read": {
+      "rust": "std::io::Read::read"
+    },
+    "Reader.Reset": {
+      "rust": "rust_stdlib::compress::lzw::Reader::reset",
+      "note": "infallible as in Go: an invalid litWidth is reported by the first Read"
+    },
+    "Writer": {
+      "rust": "rust_stdlib::compress::lzw::Writer"
+    },
+    "Writer.Close": {
+      "rust": "rust_stdlib::compress::lzw::Writer::close"
+    },
+    "Writer.Reset": {
+      "rust": "rust_stdlib::compress::lzw::Writer::reset",
+      "note": "infallible as in Go: an invalid litWidth is reported by the first Write or Close"
+    },
+    "Writer.Write": {
+      "rust": "std::io::Write::write"
+    }
+  }
+}

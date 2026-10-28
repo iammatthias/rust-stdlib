@@ -1,0 +1,531 @@
+{
+  "package": "database/sql",
+  "notes": "database/sql: Go's pool, Tx, Stmt, Rows and Scan conversions ported from sql.go and convert.go on std::sync; any becomes driver::Arg (arguments) and &mut dyn Scanner (destinations); optional driver interfaces are as_* accessors; RawBytes copies; Go strings with invalid UTF-8 scan into String lossily; uuid.UUID is a Scanner destination, cursor-valued columns are not supported (closed-interface); Rows/Conn/Stmt release on drop and a dropped Tx rolls back; tests run against the fakedb port in examples/common/fakedb.rs",
+  "symbols": {
+    "ColumnType": {
+      "rust": "rust_stdlib::database::sql::ColumnType"
+    },
+    "ColumnType.DatabaseTypeName": {
+      "rust": "rust_stdlib::database::sql::ColumnType::database_type_name"
+    },
+    "ColumnType.DecimalSize": {
+      "rust": "rust_stdlib::database::sql::ColumnType::decimal_size"
+    },
+    "ColumnType.Length": {
+      "rust": "rust_stdlib::database::sql::ColumnType::length"
+    },
+    "ColumnType.Name": {
+      "rust": "rust_stdlib::database::sql::ColumnType::name"
+    },
+    "ColumnType.Nullable": {
+      "rust": "rust_stdlib::database::sql::ColumnType::nullable"
+    },
+    "ColumnType.ScanType": {
+      "rust": "rust_stdlib::database::sql::ColumnType::scan_type",
+      "note": "returns a driver::ScanType naming the Go type (reflect.Type is not expressible)"
+    },
+    "Conn": {
+      "rust": "rust_stdlib::database::sql::Conn"
+    },
+    "Conn.BeginTx": {
+      "rust": "rust_stdlib::database::sql::Conn::begin_tx"
+    },
+    "Conn.Close": {
+      "rust": "rust_stdlib::database::sql::Conn::close"
+    },
+    "Conn.ExecContext": {
+      "rust": "rust_stdlib::database::sql::Conn::exec_context"
+    },
+    "Conn.PingContext": {
+      "rust": "rust_stdlib::database::sql::Conn::ping_context"
+    },
+    "Conn.PrepareContext": {
+      "rust": "rust_stdlib::database::sql::Conn::prepare_context"
+    },
+    "Conn.QueryContext": {
+      "rust": "rust_stdlib::database::sql::Conn::query_context"
+    },
+    "Conn.QueryRowContext": {
+      "rust": "rust_stdlib::database::sql::Conn::query_row_context"
+    },
+    "Conn.Raw": {
+      "rust": "rust_stdlib::database::sql::Conn::raw",
+      "note": "the closure receives &mut dyn driver::Conn; recover the concrete type with Conn::as_any"
+    },
+    "ConvertAssign": {
+      "rust": "rust_stdlib::database::sql::convert_assign",
+      "deviation": "closed-interface+type-name-text",
+      "note": "dest is &mut dyn Scanner and src a driver::Value; UUID is a destination as in Go, and a Value::Decimal source composes into any driver::Compose destination. A driver.Rows cursor source (into *Rows) cannot be expressed because driver::Value is a closed enum. Go formats a decimal source with the application type's %v and names it by %T; Rust holds only the decomposed parts, so it uses driver::Decimal's General Decimal Arithmetic text and the name driver.Decimal. A driver::Compose destination that rejects a source is named by std::any::type_name (a Rust path), where Go prints *pkg.Type."
+    },
+    "DB": {
+      "rust": "rust_stdlib::database::sql::DB"
+    },
+    "DB.Begin": {
+      "rust": "rust_stdlib::database::sql::DB::begin"
+    },
+    "DB.BeginTx": {
+      "rust": "rust_stdlib::database::sql::DB::begin_tx",
+      "note": "ctx is a context::Context; opts is Option<TxOptions> (nil pointer)"
+    },
+    "DB.Close": {
+      "rust": "rust_stdlib::database::sql::DB::close",
+      "note": "idempotent like Go; a dropped DB handle is not closed (clones share the pool)"
+    },
+    "DB.Conn": {
+      "rust": "rust_stdlib::database::sql::DB::conn"
+    },
+    "DB.Driver": {
+      "rust": "rust_stdlib::database::sql::DB::driver"
+    },
+    "DB.Exec": {
+      "rust": "rust_stdlib::database::sql::DB::exec",
+      "note": "args are &[driver::Arg], Go's ...any"
+    },
+    "DB.ExecContext": {
+      "rust": "rust_stdlib::database::sql::DB::exec_context"
+    },
+    "DB.Ping": {
+      "rust": "rust_stdlib::database::sql::DB::ping"
+    },
+    "DB.PingContext": {
+      "rust": "rust_stdlib::database::sql::DB::ping_context"
+    },
+    "DB.Prepare": {
+      "rust": "rust_stdlib::database::sql::DB::prepare"
+    },
+    "DB.PrepareContext": {
+      "rust": "rust_stdlib::database::sql::DB::prepare_context"
+    },
+    "DB.Query": {
+      "rust": "rust_stdlib::database::sql::DB::query"
+    },
+    "DB.QueryContext": {
+      "rust": "rust_stdlib::database::sql::DB::query_context"
+    },
+    "DB.QueryRow": {
+      "rust": "rust_stdlib::database::sql::DB::query_row"
+    },
+    "DB.QueryRowContext": {
+      "rust": "rust_stdlib::database::sql::DB::query_row_context"
+    },
+    "DB.SetConnMaxIdleTime": {
+      "rust": "rust_stdlib::database::sql::DB::set_conn_max_idle_time",
+      "deviation": "thread-not-goroutine",
+      "note": "takes time::Duration; a cleaner thread closes idle connections like connectionCleaner"
+    },
+    "DB.SetConnMaxLifetime": {
+      "rust": "rust_stdlib::database::sql::DB::set_conn_max_lifetime",
+      "deviation": "thread-not-goroutine",
+      "note": "takes time::Duration; a cleaner thread closes old connections like connectionCleaner"
+    },
+    "DB.SetMaxIdleConns": {
+      "rust": "rust_stdlib::database::sql::DB::set_max_idle_conns"
+    },
+    "DB.SetMaxOpenConns": {
+      "rust": "rust_stdlib::database::sql::DB::set_max_open_conns"
+    },
+    "DB.Stats": {
+      "rust": "rust_stdlib::database::sql::DB::stats"
+    },
+    "DBStats": {
+      "rust": "rust_stdlib::database::sql::DBStats"
+    },
+    "DBStats.Idle": {
+      "rust": "rust_stdlib::database::sql::DBStats::idle"
+    },
+    "DBStats.InUse": {
+      "rust": "rust_stdlib::database::sql::DBStats::in_use"
+    },
+    "DBStats.MaxIdleClosed": {
+      "rust": "rust_stdlib::database::sql::DBStats::max_idle_closed"
+    },
+    "DBStats.MaxIdleTimeClosed": {
+      "rust": "rust_stdlib::database::sql::DBStats::max_idle_time_closed"
+    },
+    "DBStats.MaxLifetimeClosed": {
+      "rust": "rust_stdlib::database::sql::DBStats::max_lifetime_closed"
+    },
+    "DBStats.MaxOpenConnections": {
+      "rust": "rust_stdlib::database::sql::DBStats::max_open_connections"
+    },
+    "DBStats.OpenConnections": {
+      "rust": "rust_stdlib::database::sql::DBStats::open_connections"
+    },
+    "DBStats.WaitCount": {
+      "rust": "rust_stdlib::database::sql::DBStats::wait_count"
+    },
+    "DBStats.WaitDuration": {
+      "rust": "rust_stdlib::database::sql::DBStats::wait_duration",
+      "note": "time::Duration"
+    },
+    "Drivers": {
+      "rust": "rust_stdlib::database::sql::drivers"
+    },
+    "ErrConnDone": {
+      "rust": "rust_stdlib::database::sql::ERR_CONN_DONE"
+    },
+    "ErrNoRows": {
+      "rust": "rust_stdlib::database::sql::ERR_NO_ROWS"
+    },
+    "ErrTxDone": {
+      "rust": "rust_stdlib::database::sql::ERR_TX_DONE"
+    },
+    "IsolationLevel": {
+      "rust": "rust_stdlib::database::sql::IsolationLevel"
+    },
+    "IsolationLevel.String": {
+      "rust": "rust_stdlib::database::sql::IsolationLevel (impl Display)"
+    },
+    "LevelDefault": {
+      "rust": "rust_stdlib::database::sql::LEVEL_DEFAULT"
+    },
+    "LevelLinearizable": {
+      "rust": "rust_stdlib::database::sql::LEVEL_LINEARIZABLE"
+    },
+    "LevelReadCommitted": {
+      "rust": "rust_stdlib::database::sql::LEVEL_READ_COMMITTED"
+    },
+    "LevelReadUncommitted": {
+      "rust": "rust_stdlib::database::sql::LEVEL_READ_UNCOMMITTED"
+    },
+    "LevelRepeatableRead": {
+      "rust": "rust_stdlib::database::sql::LEVEL_REPEATABLE_READ"
+    },
+    "LevelSerializable": {
+      "rust": "rust_stdlib::database::sql::LEVEL_SERIALIZABLE"
+    },
+    "LevelSnapshot": {
+      "rust": "rust_stdlib::database::sql::LEVEL_SNAPSHOT"
+    },
+    "LevelWriteCommitted": {
+      "rust": "rust_stdlib::database::sql::LEVEL_WRITE_COMMITTED"
+    },
+    "Named": {
+      "rust": "rust_stdlib::database::sql::named",
+      "note": "the value is anything convertible into driver::Arg"
+    },
+    "NamedArg": {
+      "rust": "rust_stdlib::database::sql::NamedArg"
+    },
+    "NamedArg.Name": {
+      "rust": "rust_stdlib::database::sql::NamedArg::name"
+    },
+    "NamedArg.Value": {
+      "rust": "rust_stdlib::database::sql::NamedArg::value",
+      "note": "driver::Arg, Go's any"
+    },
+    "Null": {
+      "rust": "rust_stdlib::database::sql::Null",
+      "note": "Null<T> needs T: Scanner + Default; Valuer needs T: Clone + Into<Arg>"
+    },
+    "Null.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "Null implements Scanner"
+    },
+    "Null.V": {
+      "rust": "rust_stdlib::database::sql::Null::v"
+    },
+    "Null.Valid": {
+      "rust": "rust_stdlib::database::sql::Null::valid"
+    },
+    "Null.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "Null implements driver::Valuer"
+    },
+    "NullBool": {
+      "rust": "rust_stdlib::database::sql::NullBool"
+    },
+    "NullBool.Bool": {
+      "rust": "rust_stdlib::database::sql::NullBool::bool",
+      "note": "field named bool"
+    },
+    "NullBool.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "NullBool implements Scanner"
+    },
+    "NullBool.Valid": {
+      "rust": "rust_stdlib::database::sql::NullBool::valid"
+    },
+    "NullBool.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "NullBool implements driver::Valuer"
+    },
+    "NullByte": {
+      "rust": "rust_stdlib::database::sql::NullByte"
+    },
+    "NullByte.Byte": {
+      "rust": "rust_stdlib::database::sql::NullByte::byte"
+    },
+    "NullByte.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "NullByte implements Scanner"
+    },
+    "NullByte.Valid": {
+      "rust": "rust_stdlib::database::sql::NullByte::valid"
+    },
+    "NullByte.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "NullByte implements driver::Valuer"
+    },
+    "NullFloat64": {
+      "rust": "rust_stdlib::database::sql::NullFloat64"
+    },
+    "NullFloat64.Float64": {
+      "rust": "rust_stdlib::database::sql::NullFloat64::float64"
+    },
+    "NullFloat64.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "NullFloat64 implements Scanner"
+    },
+    "NullFloat64.Valid": {
+      "rust": "rust_stdlib::database::sql::NullFloat64::valid"
+    },
+    "NullFloat64.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "NullFloat64 implements driver::Valuer"
+    },
+    "NullInt16": {
+      "rust": "rust_stdlib::database::sql::NullInt16"
+    },
+    "NullInt16.Int16": {
+      "rust": "rust_stdlib::database::sql::NullInt16::int16"
+    },
+    "NullInt16.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "NullInt16 implements Scanner"
+    },
+    "NullInt16.Valid": {
+      "rust": "rust_stdlib::database::sql::NullInt16::valid"
+    },
+    "NullInt16.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "NullInt16 implements driver::Valuer"
+    },
+    "NullInt32": {
+      "rust": "rust_stdlib::database::sql::NullInt32"
+    },
+    "NullInt32.Int32": {
+      "rust": "rust_stdlib::database::sql::NullInt32::int32"
+    },
+    "NullInt32.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "NullInt32 implements Scanner"
+    },
+    "NullInt32.Valid": {
+      "rust": "rust_stdlib::database::sql::NullInt32::valid"
+    },
+    "NullInt32.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "NullInt32 implements driver::Valuer"
+    },
+    "NullInt64": {
+      "rust": "rust_stdlib::database::sql::NullInt64"
+    },
+    "NullInt64.Int64": {
+      "rust": "rust_stdlib::database::sql::NullInt64::int64"
+    },
+    "NullInt64.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "NullInt64 implements Scanner"
+    },
+    "NullInt64.Valid": {
+      "rust": "rust_stdlib::database::sql::NullInt64::valid"
+    },
+    "NullInt64.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "NullInt64 implements driver::Valuer"
+    },
+    "NullString": {
+      "rust": "rust_stdlib::database::sql::NullString"
+    },
+    "NullString.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "NullString implements Scanner"
+    },
+    "NullString.String": {
+      "rust": "rust_stdlib::database::sql::NullString::string"
+    },
+    "NullString.Valid": {
+      "rust": "rust_stdlib::database::sql::NullString::valid"
+    },
+    "NullString.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "NullString implements driver::Valuer"
+    },
+    "NullTime": {
+      "rust": "rust_stdlib::database::sql::NullTime"
+    },
+    "NullTime.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan",
+      "note": "NullTime implements Scanner"
+    },
+    "NullTime.Time": {
+      "rust": "rust_stdlib::database::sql::NullTime::time",
+      "note": "time::Time"
+    },
+    "NullTime.Valid": {
+      "rust": "rust_stdlib::database::sql::NullTime::valid"
+    },
+    "NullTime.Value": {
+      "rust": "rust_stdlib::database::sql::driver::Valuer::value",
+      "note": "NullTime implements driver::Valuer"
+    },
+    "Open": {
+      "rust": "rust_stdlib::database::sql::DB::open",
+      "note": "drivers are Arc<dyn Driver>; DSN errors are sql::Error"
+    },
+    "OpenDB": {
+      "rust": "rust_stdlib::database::sql::DB::from_connector"
+    },
+    "Out": {
+      "rust": "rust_stdlib::database::sql::Out",
+      "note": "dest is a shared Arc<Mutex<dyn Scanner + Send>> so the caller can read what the driver stored"
+    },
+    "Out.Dest": {
+      "rust": "rust_stdlib::database::sql::Out::dest"
+    },
+    "Out.In": {
+      "rust": "rust_stdlib::database::sql::Out::in_",
+      "note": "field in_ (in is a Rust keyword)"
+    },
+    "RawBytes": {
+      "rust": "rust_stdlib::database::sql::RawBytes",
+      "deviation": "copied-bytes",
+      "note": "a copy of the bytes: Go aliases driver memory valid until the next Next"
+    },
+    "Register": {
+      "rust": "rust_stdlib::database::sql::register",
+      "note": "panics on a duplicate name like Go"
+    },
+    "Result": {
+      "rust": "rust_stdlib::database::sql::Result",
+      "note": "Send + Sync trait; DB::exec returns Box<dyn Result>"
+    },
+    "Result.LastInsertId": {
+      "rust": "rust_stdlib::database::sql::Result::last_insert_id"
+    },
+    "Result.RowsAffected": {
+      "rust": "rust_stdlib::database::sql::Result::rows_affected"
+    },
+    "Row": {
+      "rust": "rust_stdlib::database::sql::Row"
+    },
+    "Row.Err": {
+      "rust": "rust_stdlib::database::sql::Row::err",
+      "note": "returns Result<(), Error> instead of a nil-able error"
+    },
+    "Row.Scan": {
+      "rust": "rust_stdlib::database::sql::Row::scan",
+      "deviation": "go-string-invalid-utf8",
+      "note": "dest is &mut [&mut dyn Scanner]; RawBytes destinations are rejected like Go Bytes scanned into a String are converted lossily (U+FFFD for invalid UTF-8) where Go keeps them."
+    },
+    "Rows": {
+      "rust": "rust_stdlib::database::sql::Rows"
+    },
+    "Rows.Close": {
+      "rust": "rust_stdlib::database::sql::Rows::close"
+    },
+    "Rows.ColumnTypes": {
+      "rust": "rust_stdlib::database::sql::Rows::column_types"
+    },
+    "Rows.Columns": {
+      "rust": "rust_stdlib::database::sql::Rows::columns"
+    },
+    "Rows.Err": {
+      "rust": "rust_stdlib::database::sql::Rows::next_row",
+      "note": "next_row returns Err where Go's Next returns false and Err is non-nil; there is no separate Err call"
+    },
+    "Rows.Next": {
+      "rust": "rust_stdlib::database::sql::Rows::next_row",
+      "note": "Rows::next_row returns Result<Option<CurrentRow>>: Some is Next true, Ok(None) is Next false with nil Err, Err is Next false with that Err"
+    },
+    "Rows.NextResultSet": {
+      "rust": "rust_stdlib::database::sql::Rows::next_result_set"
+    },
+    "Rows.Scan": {
+      "rust": "rust_stdlib::database::sql::CurrentRow::scan",
+      "deviation": "go-string-invalid-utf8",
+      "note": "scanned on the CurrentRow that Rows::next_row yields; dest is &mut [&mut dyn Scanner] Bytes scanned into a String are converted lossily (U+FFFD for invalid UTF-8) where Go keeps them."
+    },
+    "Scanner": {
+      "rust": "rust_stdlib::database::sql::Scanner",
+      "note": "src is &driver::Value; implemented for String, Vec<u8>, RawBytes, bool, ints, floats, Time, Value, Option<T> and the Null types"
+    },
+    "Scanner.Scan": {
+      "rust": "rust_stdlib::database::sql::Scanner::scan"
+    },
+    "Stmt": {
+      "rust": "rust_stdlib::database::sql::Stmt"
+    },
+    "Stmt.Close": {
+      "rust": "rust_stdlib::database::sql::Stmt::close"
+    },
+    "Stmt.Exec": {
+      "rust": "rust_stdlib::database::sql::Stmt::exec"
+    },
+    "Stmt.ExecContext": {
+      "rust": "rust_stdlib::database::sql::Stmt::exec_context"
+    },
+    "Stmt.Query": {
+      "rust": "rust_stdlib::database::sql::Stmt::query"
+    },
+    "Stmt.QueryContext": {
+      "rust": "rust_stdlib::database::sql::Stmt::query_context"
+    },
+    "Stmt.QueryRow": {
+      "rust": "rust_stdlib::database::sql::Stmt::query_row"
+    },
+    "Stmt.QueryRowContext": {
+      "rust": "rust_stdlib::database::sql::Stmt::query_row_context"
+    },
+    "Tx": {
+      "rust": "rust_stdlib::database::sql::Tx"
+    },
+    "Tx.Commit": {
+      "rust": "rust_stdlib::database::sql::Tx::commit"
+    },
+    "Tx.Exec": {
+      "rust": "rust_stdlib::database::sql::Tx::exec"
+    },
+    "Tx.ExecContext": {
+      "rust": "rust_stdlib::database::sql::Tx::exec_context"
+    },
+    "Tx.Prepare": {
+      "rust": "rust_stdlib::database::sql::Tx::prepare"
+    },
+    "Tx.PrepareContext": {
+      "rust": "rust_stdlib::database::sql::Tx::prepare_context"
+    },
+    "Tx.Query": {
+      "rust": "rust_stdlib::database::sql::Tx::query"
+    },
+    "Tx.QueryContext": {
+      "rust": "rust_stdlib::database::sql::Tx::query_context"
+    },
+    "Tx.QueryRow": {
+      "rust": "rust_stdlib::database::sql::Tx::query_row"
+    },
+    "Tx.QueryRowContext": {
+      "rust": "rust_stdlib::database::sql::Tx::query_row_context"
+    },
+    "Tx.Rollback": {
+      "rust": "rust_stdlib::database::sql::Tx::rollback"
+    },
+    "Tx.Stmt": {
+      "rust": "rust_stdlib::database::sql::Tx::stmt",
+      "note": "a statement from another database or a failed grab yields a Stmt whose operations return the error"
+    },
+    "Tx.StmtContext": {
+      "rust": "rust_stdlib::database::sql::Tx::stmt_context"
+    },
+    "TxOptions": {
+      "rust": "rust_stdlib::database::sql::TxOptions"
+    },
+    "TxOptions.Isolation": {
+      "rust": "rust_stdlib::database::sql::TxOptions::isolation"
+    },
+    "TxOptions.ReadOnly": {
+      "rust": "rust_stdlib::database::sql::TxOptions::read_only"
+    }
+  }
+}

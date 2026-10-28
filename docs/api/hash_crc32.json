@@ -1,0 +1,42 @@
+{
+  "package": "hash/crc32",
+  "notes": "hash::crc32 (compress::crc32 retained): IEEE/Castagnoli/Koopman/custom polynomials, incremental digests and Go binary state",
+  "symbols": {
+    "Castagnoli": {
+      "rust": "rust_stdlib::hash::crc32::CASTAGNOLI"
+    },
+    "Checksum": {
+      "rust": "rust_stdlib::hash::crc32::checksum"
+    },
+    "ChecksumIEEE": {
+      "rust": "rust_stdlib::hash::crc32::checksum_ieee"
+    },
+    "IEEE": {
+      "rust": "rust_stdlib::hash::crc32::IEEE"
+    },
+    "IEEETable": {
+      "rust": "rust_stdlib::hash::crc32::Table::ieee"
+    },
+    "Koopman": {
+      "rust": "rust_stdlib::hash::crc32::KOOPMAN"
+    },
+    "MakeTable": {
+      "rust": "rust_stdlib::hash::crc32::Table::new"
+    },
+    "New": {
+      "rust": "rust_stdlib::hash::crc32::Crc32::new"
+    },
+    "NewIEEE": {
+      "rust": "rust_stdlib::hash::crc32::Crc32::ieee"
+    },
+    "Size": {
+      "rust": "rust_stdlib::hash::crc32::SIZE"
+    },
+    "Table": {
+      "rust": "rust_stdlib::hash::crc32::Table"
+    },
+    "Update": {
+      "rust": "rust_stdlib::hash::crc32::update"
+    }
+  }
+}

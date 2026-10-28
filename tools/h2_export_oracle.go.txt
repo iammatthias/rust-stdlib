@@ -1,0 +1,15 @@
+package http2
+
+// Oracle-only exports added by tools/h2_check.py to the scratch copy.
+
+func ParseRFC9218(s string, canUseDefault bool) (urgency, incremental uint8, ok bool) {
+	p, ok := parseRFC9218Priority(s, canUseDefault)
+	return p.urgency, p.incremental, ok
+}
+
+func (mh *MetaHeadersFrame) RFC9218(aware bool) (urgency, incremental uint8, awareAfter, intermediary bool) {
+	p, a, i := mh.rfc9218Priority(aware)
+	return p.urgency, p.incremental, a, i
+}
+
+type Header map[string][]string

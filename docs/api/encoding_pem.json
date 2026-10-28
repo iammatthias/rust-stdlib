@@ -1,0 +1,26 @@
+{
+  "package": "encoding/pem",
+  "notes": "encoding::pem: Textual blocks, sorted headers, first-valid-block/remainder decoding and opt-in budgets; Block metadata is UTF-8, RawBlock/decode_raw carries Go's arbitrary bytes, differential-checked by tools/pem_check.py",
+  "symbols": {
+    "Block": {
+      "rust": "rust_stdlib::encoding::pem::Block"
+    },
+    "Block.Bytes": {
+      "rust": "rust_stdlib::encoding::pem::Block::bytes"
+    },
+    "Block.Headers": {
+      "rust": "rust_stdlib::encoding::pem::Block::headers"
+    },
+    "Block.Type": {
+      "rust": "rust_stdlib::encoding::pem::Block::type_"
+    },
+    "Decode": {"rust": "rust_stdlib::encoding::pem::decode_raw", "note": "RawBlock holds the type and headers as bytes, which is what Go's strings hold; decode is the String form and skips a block whose type or headers are not UTF-8. Neither applies resource limits, as Go; Limits is opt-in via decode_with_limits"},
+    "Encode": {
+      "rust": "rust_stdlib::encoding::pem::encode_to_writer"
+    },
+    "EncodeToMemory": {
+      "rust": "rust_stdlib::encoding::pem::encode",
+      "note": "Returns Err(EncodeError) where Go returns nil for invalid headers"
+    }
+  }
+}

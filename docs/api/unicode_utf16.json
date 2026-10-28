@@ -1,0 +1,27 @@
+{
+  "package": "unicode/utf16",
+  "notes": "std covers UTF-16: `char::encode_utf16`, `char::decode_utf16` (unpaired surrogates become U+FFFD) and `char::len_utf16`; tools/unicode_check.py compares them against Go. Only the surrogate-pair helpers on i32 runes are in `rust_stdlib::unicode::rune`.",
+  "symbols": {
+    "AppendRune": {
+      "rust": "std::primitive::char::encode_utf16"
+    },
+    "Decode": {
+      "rust": "std::char::decode_utf16"
+    },
+    "DecodeRune": {
+      "rust": "rust_stdlib::unicode::rune::decode_surrogate_pair"
+    },
+    "Encode": {
+      "rust": "std::primitive::char::encode_utf16"
+    },
+    "EncodeRune": {
+      "rust": "rust_stdlib::unicode::rune::encode_surrogate_pair"
+    },
+    "IsSurrogate": {
+      "rust": "rust_stdlib::unicode::rune::is_surrogate"
+    },
+    "RuneLen": {
+      "rust": "std::primitive::char::len_utf16"
+    }
+  }
+}

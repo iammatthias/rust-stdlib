@@ -1,0 +1,45 @@
+{
+  "package": "image/jpeg",
+  "notes": "image::jpeg: a port of Go's decoder and encoder. Decode reads baseline, extended and progressive JPEGs (restart markers, all standard and Go 1.27 flex sampling ratios, grayscale, YCbCr, RGB, Adobe CMYK/YCCK) with Go's IDCT, leniencies and error texts, and returns Box<dyn Image> holding Gray, Ycbcr, Rgba or Cmyk; Encode is byte-identical to Go for every input image type; FormatError/UnsupportedError are payloads of io::Error; registered with image::decode as \"jpeg\". Go panics on a few malformed inputs (a Huffman table that indexes outside its values, a block outside its plane); the Rust decoder returns a FormatError instead",
+  "symbols": {
+    "Decode": {
+      "rust": "rust_stdlib::image::jpeg::decode",
+      "deviation": "go-panics",
+      "note": "Go panics on a malformed Huffman table or an out-of-plane block; Rust returns a FormatError. The optional Limits budget (unlimited by default) is rust_stdlib::image::jpeg::decode_with_limits"
+    },
+    "DecodeConfig": {
+      "rust": "rust_stdlib::image::jpeg::decode_config"
+    },
+    "DefaultQuality": {
+      "rust": "rust_stdlib::image::jpeg::DEFAULT_QUALITY"
+    },
+    "Encode": {
+      "rust": "rust_stdlib::image::jpeg::encode",
+      "note": "the options argument is Option<&Options>, Go's nil *Options; the output is buffered through Go's 4096-byte bufio.Writer chunking"
+    },
+    "FormatError": {
+      "rust": "rust_stdlib::image::jpeg::FormatError",
+      "note": "a tuple struct; the decoder returns it as the payload of an io::Error of kind InvalidData"
+    },
+    "FormatError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    },
+    "Options": {
+      "rust": "rust_stdlib::image::jpeg::Options"
+    },
+    "Options.Quality": {
+      "rust": "rust_stdlib::image::jpeg::Options::quality"
+    },
+    "Reader": {
+      "rust": "rust_stdlib::image::jpeg::Reader",
+      "note": "io.ByteReader plus io.Reader is std::io::BufRead; the deprecated interface is unused by the package"
+    },
+    "UnsupportedError": {
+      "rust": "rust_stdlib::image::jpeg::UnsupportedError",
+      "note": "a tuple struct; returned as the payload of an io::Error of kind Unsupported"
+    },
+    "UnsupportedError.Error": {
+      "rust": "std::fmt::Display::fmt"
+    }
+  }
+}

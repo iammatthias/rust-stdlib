@@ -1,0 +1,40 @@
+{
+  "package": "testing/iotest",
+  "notes": "Readers and writers as std::io wrappers; ErrTimeout is the unit type ErrTimeout (ERR_TIMEOUT, is_err_timeout) converting to an io::Error of kind TimedOut. The loggers write through rust_stdlib::log::printf. Behaviour is compared with Go by tools/testing_check.py (wrapper scripts and TestReader verdicts over deliberately broken readers).",
+  "symbols": {
+    "DataErrReader": {
+      "rust": "rust_stdlib::testing::iotest::data_err_reader",
+      "deviation": "read-n-err",
+      "note": "Go returns the final data together with the error in one call. Rust's Read returns a count or an error, so the reader keeps Go's one-read look-ahead and delivers the error from the next call; the sequence of underlying reads is Go's."
+    },
+    "ErrReader": {
+      "rust": "rust_stdlib::testing::iotest::err_reader"
+    },
+    "ErrTimeout": {
+      "rust": "rust_stdlib::testing::iotest::ERR_TIMEOUT"
+    },
+    "HalfReader": {
+      "rust": "rust_stdlib::testing::iotest::half_reader"
+    },
+    "NewReadLogger": {
+      "rust": "rust_stdlib::testing::iotest::ReadLogger::new"
+    },
+    "NewWriteLogger": {
+      "rust": "rust_stdlib::testing::iotest::WriteLogger::new"
+    },
+    "OneByteReader": {
+      "rust": "rust_stdlib::testing::iotest::one_byte_reader"
+    },
+    "TestReader": {
+      "rust": "rust_stdlib::testing::iotest::test_reader",
+      "deviation": "interface-assertion",
+      "note": "Go discovers io.Seeker and io.ReaderAt by type assertion; here the reader implements the TestableReader trait (as_seek, as_read_at), which std readers, bytes/strings readers, SectionReader, Cursor and fs files already do. Checks and messages are Go's."
+    },
+    "TimeoutReader": {
+      "rust": "rust_stdlib::testing::iotest::timeout_reader"
+    },
+    "TruncateWriter": {
+      "rust": "rust_stdlib::testing::iotest::truncate_writer"
+    }
+  }
+}
